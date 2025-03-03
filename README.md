@@ -64,3 +64,5 @@ Not all of the code in Moonleap Maker was written by the Moonleap developers. Th
 - **Draw Text With Effects** – by https://noxdev.net
 
 A huge thanks to these developers for their contributions to the GameMaker community!
+
+[![Download Moonleap Maker](https://img.shields.io/badge/Download-Moonleap%20Maker%20Beta-brightgreen?style=for-the-badge&logo=github)](https://github.com/guselect/Moonleap-Maker/releases/latest)
