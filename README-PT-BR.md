@@ -53,7 +53,7 @@ git checkout -b minha-nova-funcionalidade
 🖥️ Programação adicional: Rowan Future  
 🎵 Música & SFX: Dani Serranú  
 
-💬 **Entre no nosso Discord!** (Insira o link aqui)
+💬 **Entre no nosso Discord!** (https://discord.gg/Ns7hWnZ7YU)
 
 📦 **Bibliotecas e Contribuições de Terceiros**
 Nem todo o código do Moonleap Maker foi escrito pelos desenvolvedores do Moonleap. As seguintes bibliotecas e ferramentas de terceiros foram utilizadas neste projeto:
