@@ -81,11 +81,11 @@ if style_selected=4{
 
 with (oSolidDay)
 {
-	draw_sprite_part(sday,0,8,8,16,16,x,y)
+	draw_sprite(sday,0,x,y) //I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
 }
 with (oSolidNight)
 {
-	draw_sprite_part(snight,0,8,8,16,16,x,y)
+	draw_sprite(snight,0,x,y)
 }
 
 with (oBlack)
