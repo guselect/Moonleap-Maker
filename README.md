@@ -25,6 +25,8 @@ This repository contains the Moonleap source code. The game was originally creat
 4️⃣ If you want to create levels, you can start using the editor right away!  
 5️⃣ To play community-created levels, join our Discord and check the #moonleap_maker channel to download shared .level files.  
 
+[![Download Moonleap Maker](https://img.shields.io/badge/Download-Moonleap%20Maker%20Beta-brightgreen?style=for-the-badge&logo=github)](https://github.com/guselect/Moonleap-Maker/releases/latest)
+
 🔗 **Want to play the full Moonleap game?** Find it on Steam!
 
 🛠️ **For Developers**
@@ -64,5 +66,3 @@ Not all of the code in Moonleap Maker was written by the Moonleap developers. Th
 - **Draw Text With Effects** – by https://noxdev.net
 
 A huge thanks to these developers for their contributions to the GameMaker community!
-
-[![Download Moonleap Maker](https://img.shields.io/badge/Download-Moonleap%20Maker%20Beta-brightgreen?style=for-the-badge&logo=github)](https://github.com/guselect/Moonleap-Maker/releases/latest)
