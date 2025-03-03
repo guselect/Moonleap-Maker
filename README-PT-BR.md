@@ -24,7 +24,9 @@ Este repositório contém o código-fonte do Moonleap. O jogo foi originalmente 
 2️⃣ Extraia os arquivos zip baixados.  
 3️⃣ Execute Moonleap Maker.exe.  
 4️⃣ Se quiser criar fases, comece a usar o editor imediatamente!  
-5️⃣ Para jogar fases criadas pela comunidade, entre no nosso Discord e confira o canal #moonleap_maker para baixar arquivos .level compartilhados.  
+5️⃣ Para jogar fases criadas pela comunidade, entre no nosso Discord e confira o canal #moonleap_maker para baixar arquivos .level compartilhados. 
+
+[![Download Moonleap Maker](https://img.shields.io/badge/Download-Moonleap%20Maker%20Beta-green?style=for-the-badge&logo=github)](https://github.com/guselect/Moonleap-Maker/releases/latest)
 
 🔗 **Quer jogar o jogo completo Moonleap?** Encontre-o no Steam!
 
@@ -53,7 +55,7 @@ git checkout -b minha-nova-funcionalidade
 🖥️ Programação adicional: Rowan Future  
 🎵 Música & SFX: Dani Serranú  
 
-💬 **Entre no nosso Discord!** (Insira o link aqui)
+💬 **Entre no nosso Discord!** (https://discord.gg/Ns7hWnZ7YU)
 
 📦 **Bibliotecas e Contribuições de Terceiros**
 Nem todo o código do Moonleap Maker foi escrito pelos desenvolvedores do Moonleap. As seguintes bibliotecas e ferramentas de terceiros foram utilizadas neste projeto:
