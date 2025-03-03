@@ -49,10 +49,10 @@ git checkout -b my-new-feature
 
 🎭 **Moonleap Maker Credits**
 🎮 Created by: Gustavo Barros  
-🖥️ Additional Programming: Rowan Future  
+🖥️ Additional Programming: [Rowan Future](https://rowan.games)
 🎵 Music & SFX: Dani Serranú  
 
-💬 **Join our Discord!** (Insert actual link here)
+💬 **Join our Discord!** (https://discord.gg/Ns7hWnZ7YU)
 
 📦 **Third-Party Libraries & Contributions**
 Not all of the code in Moonleap Maker was written by the Moonleap developers. The following third-party libraries and tools were used in this project:
