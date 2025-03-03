@@ -2,7 +2,10 @@
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
   "name": "oPlayerNeutral",
-  "spriteId": null,
+  "spriteId": {
+    "name": "sPlayerNeutralUI",
+    "path": "sprites/sPlayerNeutralUI/sPlayerNeutralUI.yy",
+  },
   "solid": false,
   "visible": true,
   "managed": true,
