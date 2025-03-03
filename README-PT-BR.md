@@ -11,7 +11,7 @@ O criador de fases oficial de Moonleap.
 O Moonleap Maker apresenta uma interface simples e prática para criação de fases, permitindo que você jogue suas criações diretamente no editor. Você pode exportar fases no formato .level e compartilhá-las com a comunidade. Além disso, como o código do jogo é aberto, qualquer pessoa pode explorá-lo e modificá-lo como desejar.
 
 ⚠️ **Aviso**
-O Moonleap Maker é lançado sob uma **[licença personalizada](LICENSE-PT-BR.md)**. Certifique-se de **ler a licença atentamente** antes de abrir ou usar este repositório. Ao acessar este projeto, você concorda com os termos descritos no documento de licença.
+O Moonleap Maker é lançado sob uma **[licença personalizada](LICENSE-PT-BR.md)**. Embora o código-fonte esteja disponível gratuitamente para uso, modificação e contribuição, todos os recursos visuais e de áudio (sprites, efeitos sonoros, músicas, etc.) estão ESTRITAMENTE proibidos de serem usados fora deste projeto! Certifique-se de **ler a licença atentamente** antes de abrir ou usar este repositório. Ao acessar este projeto, você concorda com os termos descritos no documento de licença.
 
 🚀 O Moonleap Maker está em beta! Bugs podem ocorrer e algumas mecânicas ainda precisam de refinamento. Se encontrar algum problema, relate-o na aba Issues ou explore o código para ajudar!
 
