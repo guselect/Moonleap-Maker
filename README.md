@@ -10,7 +10,7 @@ The official level creator for Moonleap.
 
 Moonleap Maker features a simple and practical interface for creating levels, allowing you to play your creations directly in the editor. You can export levels in .level format and share them with the community. Additionally, since the game's code is open, anyone can explore and modify it as they wish.
 
-⚠️ Moonleap Maker is released under a **[custom license](LICENSE.md)**. Please make sure to **read the license carefully** before opening or using this repository. By accessing this project, you agree to the terms outlined in the license document.
+⚠️ Moonleap Maker is released under a **[custom license](LICENSE.md)**. While the source code is freely available for use, modification, and contribution, all visual and audio assets (sprites, sound effects, music, etc.) are strictly NOT free to use outside of this project! Please make sure to **read the license carefully** before opening or using this repository. By accessing this project, you agree to the terms outlined in the license document.
 
 🚀 This software is in beta! Bugs may occur, and some mechanics still need refinement. If you encounter any issues, report them in the Issues tab or explore the code to help out!
 
