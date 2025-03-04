@@ -195,7 +195,7 @@ if star=inistar
 		
 		winwait-=1
 
-	if winwait<0 //and room!=Room16 
+	if winwait<0 and room!=RoomMaker0
 	{
 		if !instance_exists(oTransition)
 		{
