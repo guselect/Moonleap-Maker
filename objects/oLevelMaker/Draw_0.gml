@@ -50,7 +50,7 @@ draw_set_font(fntSmall)
 
 draw_sprite(sPauseMaker,0,0,0)
 
-if cursor != LEVEL_CURSOR_TYPE.ERASER and is_inside_level
+if cursor != LEVEL_CURSOR_TYPE.ERASER and is_level_cursor_inside_level
 {
 	if sprite_exists(sprite_index) {
 		draw_sprite_ext(sprite_index,0,x+xplus,y+yplus,image_xscale,image_yscale,image_angle,c_white,0.5);

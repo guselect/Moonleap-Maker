@@ -21,7 +21,8 @@ xplus=0
 tile_size = 8;
 room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
-object_grid = [];
+object_grid = []; // Grid where the objects inserted by player are.
+place_grid_obj = -1;
 
 nice_black = make_color_rgb(0,0,72)
 nice_white = make_color_rgb(170,255,255)
@@ -30,7 +31,7 @@ nice_blue = $FFFFAA55
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
 default_origin_type = SPRITE_POSITIONING_TYPE.TOP_LEFT;
 
-is_inside_level=false
+is_level_cursor_inside_level = false;
 time = 0; //used for release the buttons
 style_selected = LEVEL_STYLE.GRASS;
 hover_text = "";
