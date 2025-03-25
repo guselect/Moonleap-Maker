@@ -35,6 +35,25 @@ function LMObject(_name, _object, _size_x, _size_y, _origin_type = SPRITE_POSITI
 	size_x = _size_x;
 	size_y = _size_y;
 	origin_type = _origin_type;
+	tags = [];
+	
+	add_tag = function() {
+		var i = 0;
+		
+		repeat(argument_count) {
+			var _tag = argument[i]
+			
+			if typeof(_tag) != "string" then throw ("A tag must be a string.");
+			array_push(tags, _tag);
+			i++;
+		}
+		
+		return self;
+	}
+	
+	has_tag = function(_tag) {
+		return array_find_index(tags, _tag) == -1 ? false : true;
+	}
 	
 	/// @desc Gets the x and y position of the object's sprite origin depending of its origin type.
 	/// @returns {Array<real>} Array of x and y position of the sprite origin respectively.
@@ -77,4 +96,6 @@ function LMObject(_name, _object, _size_x, _size_y, _origin_type = SPRITE_POSITI
 		
 		return [_tiled_width, _tiled_height, _offset[0], _offset[1]];
 	}
+	
+	return self;
 }
