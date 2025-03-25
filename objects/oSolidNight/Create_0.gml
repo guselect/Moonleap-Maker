@@ -3,19 +3,29 @@
 night=oCamera.night
 ani=0
 
-if oLevelMaker.style_selected=0{
-	var sday=		sGrassGre; var snight=	sGrassOre
+var sday = undefined, snight = undefined;
+
+switch(oLevelMaker.style_selected) {
+	case LEVEL_STYLE.GRASS:
+		sday = sGrassGre; snight = sGrassOre;
+		break;
+	case LEVEL_STYLE.CLOUDS:	
+		sday = sCloudDay; snight = sCloudNight;
+		break;
+	case LEVEL_STYLE.FLOWERS:	
+		sday = sFlowerDay; snight = sFlowerNight;
+		break;
+	case LEVEL_STYLE.SPACE:	
+		sday = sSpaceGre; snight = sSpacePurple;
+		break;
+	case LEVEL_STYLE.DUNGEON:
+		sday = sDunDay; snight = sDunNight;
+		break;
 }
-if oLevelMaker.style_selected=1{
-	var sday=		sCloudDay; var snight=	sCloudNight
+if night=true {
+	sprite_index = snight;
+	image_index = 0;
+} else {
+	sprite_index = sday;
+	image_index = 2;
 }
-if oLevelMaker.style_selected=2{
-	var sday=		sFlowerDay; var snight	=sFlowerNight
-}
-if oLevelMaker.style_selected=3{
-	var sday=		sSpaceGre; var snight=	sSpacePurple
-}
-if oLevelMaker.style_selected=4{
-	var sday=		sDunDay; var snight=	sDunNight
-}
-if night=true {sprite_index=snight image_index=0} else {sprite_index=sday image_index=2}

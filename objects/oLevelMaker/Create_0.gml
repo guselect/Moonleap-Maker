@@ -17,16 +17,17 @@ based on that they update their colors
 
 yplus=0
 xplus=0
+
 nice_black=make_color_rgb(0,0,72)
 nice_white=make_color_rgb(170,255,255)
 nice_blue=$FFFFAA55
 
+cursor = LEVEL_CURSOR_TYPE.NOTHING;
 
-
-cursor = LEVEL_CURSOR_TYPE.NOTHING; // 0= nothing 1=cursor 2=finger 3=eraser
 is_inside_level=false
-time=0 //used for release the buttons
-style_selected=0
+time = 0; //used for release the buttons
+style_selected = LEVEL_STYLE.GRASS;
+hover_text = "";
 
 instance_create_layer(x,y,layer,oPause);
 oCamera.fancyeffects=false
@@ -495,11 +496,11 @@ function start_level(){
 	
 	switch (style_selected)
 	{
-	case 0: instance_create_layer(0,0,"Instances",o_grass_song)	break;
-	case 1: instance_create_layer(0,0,"Instances",o_cloud_song)	break;
-	case 2: instance_create_layer(0,0,"Instances",o_flower_song)	break;
-	case 3: instance_create_layer(0,0,"Instances",o_space_song)	break;
-	case 4: instance_create_layer(0,0,"Instances",o_dungeon_song)	break;
+		case LEVEL_STYLE.GRASS:		instance_create_layer(0, 0,"Instances", o_grass_song);		break;
+		case LEVEL_STYLE.CLOUDS:	instance_create_layer(0, 0,"Instances", o_cloud_song);		break;
+		case LEVEL_STYLE.FLOWERS:	instance_create_layer(0, 0,"Instances", o_flower_song);		break;
+		case LEVEL_STYLE.SPACE:		instance_create_layer(0, 0,"Instances", o_space_song);		break;
+		case LEVEL_STYLE.DUNGEON:	instance_create_layer(0, 0,"Instances", o_dungeon_song);	break;
 	}
 	
 	for(var _x = 0; _x < room_tile_width; _x++){

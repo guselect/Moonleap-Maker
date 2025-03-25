@@ -47,11 +47,11 @@ if is_mouse_hover {
 		case 8: //get style text
 			switch (oLevelMaker.style_selected)
 			{
-				case 0: stext=LANG.maker_grassstyle break;
-				case 1: stext=LANG.maker_cloudstyle break;
-				case 2: stext=LANG.maker_flowerstyle break;
-				case 3: stext=LANG.maker_spacestyle break;
-				case 4: stext=LANG.maker_dungeonstyle break;
+				case LEVEL_STYLE.GRASS:		stext = LANG.maker_grassstyle;		break;
+				case LEVEL_STYLE.CLOUDS:	stext = LANG.maker_cloudstyle;		break;
+				case LEVEL_STYLE.FLOWERS:	stext = LANG.maker_flowerstyle;		break;
+				case LEVEL_STYLE.SPACE:		stext = LANG.maker_spacestyle;		break;
+				case LEVEL_STYLE.DUNGEON:	stext = LANG.maker_dungeonstyle;	break;
 			}
 			oLevelMaker.hover_text= LANG.maker_change_level_style +":\n"+ stext;
 			break;
@@ -166,7 +166,7 @@ if image_index == 8 and is_mouse_left_pressing {
 	
 	with(oLevelMaker) {
 		style_selected += 1
-		if style_selected >= 5 then style_selected = 0
+		if style_selected >= LEVEL_STYLE.LENGTH then style_selected = 0
 		scr_update_style()
 	}
 }

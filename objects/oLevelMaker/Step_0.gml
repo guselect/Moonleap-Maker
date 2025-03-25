@@ -1,30 +1,22 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-//if instance_exists(oMakerWarn) {exit;}
 yplus=smooth_approach(yplus,0,0.25)
 xplus=smooth_approach(xplus,0,0.25)
+
 //if the level editor is not in use dont run any more code
-
-if(!instance_exists(oPause)){
-	
-	exit;
-}
-
+if(!instance_exists(oPause)) then exit;
 
 // this code is to prevent random misfiring clicks after you press the button to play the level again
-
 if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 	just_entered_level_editor = false;
 	exit;
 }
 
+//----------------------------------------
 // ACTUAL EDITOR CODE FROM HERE...
 //----------------------------------------
 
 // Change the current object in the 2darray
 
-hover_text=""
+hover_text = "";
 curobj=obj[currentx,currenty]
 
 //only gets input if not paused

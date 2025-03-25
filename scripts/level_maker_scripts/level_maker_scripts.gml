@@ -122,22 +122,25 @@ function load_level(_level_name){
 }
 
 function scr_update_style(){
-	instance_destroy(oGrassDay); instance_destroy(oCloudDay) 
-	instance_destroy(oFlowerDay); instance_destroy(oSpaceDay);
+	instance_destroy(oGrassDay);
+	instance_destroy(oCloudDay) 
+	instance_destroy(oFlowerDay);
+	instance_destroy(oSpaceDay);
 	instance_destroy(oDunDay)
 	
-	if style_selected=0	{instance_create_layer(-64,-64,layer,oGrassDay)}
-	if style_selected=1	{instance_create_layer(-64,-64,layer,oCloudDay)}
-	if style_selected=2	{instance_create_layer(-64,-64,layer,oFlowerDay)}
-	if style_selected=3	{instance_create_layer(-64,-64,layer,oSpaceDay)}
-	if style_selected=4	{instance_create_layer(-64,-64,layer,oDunDay)}
-	
-	for (var yy = maxy; yy>=0; yy-=1) 
-{
-	for (var xx = maxx; xx>=0; xx-=1) 
-	{
-	   with(obj[xx,yy]  ) {palette_index= oLevelMaker.style_selected}
+	switch(style_selected) {
+		case LEVEL_STYLE.GRASS:		instance_create_layer(-64,-64,layer,oGrassDay);		break;
+		case LEVEL_STYLE.CLOUDS:	instance_create_layer(-64,-64,layer,oCloudDay);		break;
+		case LEVEL_STYLE.FLOWERS:	instance_create_layer(-64,-64,layer,oFlowerDay);	break;
+		case LEVEL_STYLE.SPACE:		instance_create_layer(-64,-64,layer,oSpaceDay);		break;
+		case LEVEL_STYLE.DUNGEON:	instance_create_layer(-64,-64,layer,oDunDay);		break;
 	}
-}
 	
+	for (var yy = maxy; yy>=0; yy-=1) {
+		for (var xx = maxx; xx>=0; xx-=1) {
+			with(obj[xx,yy]) {
+				palette_index = oLevelMaker.style_selected;
+			}
+		}
+	}
 }

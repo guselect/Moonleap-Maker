@@ -63,23 +63,25 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER and is_inside_level
 //draw_sprite(sLevelsb,0,top_left_x,top_left_y);
 
 //STYLE STUFF, PLACEHOLDER
+var sday = undefined, snight = undefined;
 
-if style_selected=0{
-	var sday=		sGrassGre; var snight=	sGrassOre
+switch(style_selected) {
+	case LEVEL_STYLE.GRASS:
+		sday = sGrassGre; snight = sGrassOre;
+		break;
+	case LEVEL_STYLE.CLOUDS:	
+		sday = sCloudDay; snight = sCloudNight;
+		break;
+	case LEVEL_STYLE.FLOWERS:	
+		sday = sFlowerDay; snight = sFlowerNight;
+		break;
+	case LEVEL_STYLE.SPACE:	
+		sday = sSpaceGre; snight = sSpacePurple;
+		break;
+	case LEVEL_STYLE.DUNGEON:
+		sday = sDunDay; snight = sDunNight;
+		break;
 }
-if style_selected=1{
-	var sday=		sCloudDay; var snight=	sCloudNight
-}
-if style_selected=2{
-	var sday=		sFlowerDay; var snight	=sFlowerNight
-}
-if style_selected=3{
-	var sday=		sSpaceGre; var snight=	sSpacePurple
-}
-if style_selected=4{
-	var sday=		sDunDay; var snight=	sDunNight
-}
-
 
 with (oSolidDay)
 {
