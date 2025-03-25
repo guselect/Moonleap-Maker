@@ -17,15 +17,26 @@ if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 // Change the current object in the 2darray
 
 hover_text = "";
-curobj=obj[currentx,currenty]
+curobj = obj[currentx,currenty]
 
 //only gets input if not paused
 scr_inputget();
-//}
 
+var ui_object_nav_x = key_right_pressed - key_left_pressed;
 
-if key_left_pressed
-{	
+if ui_object_nav_x != 0 {
+	xplus = 2 * sign(ui_object_nav_x);
+	currenty += sign(ui_object_nav_x);
+	
+	while currenty < 0 or currenty > maxy or obj[currentx,currenty] == oUndefined or is_undefined(obj[currentx,currenty]){
+		currenty += sign(ui_object_nav_x);
+		if currenty < 0 then currenty = maxy;
+		else if currenty > maxy then currenty = 0;
+	}
+	audio_play_sfx(snd_bump,false,-5,13)
+}
+
+/*if key_left_pressed {	
 	xplus=2
 	//currentx=0
 	currenty-=1
@@ -50,7 +61,7 @@ if key_right_pressed
 		}
 	}
 	audio_play_sfx(snd_bump,false,-5,13)
-}
+}*/
 
 //control current object
 

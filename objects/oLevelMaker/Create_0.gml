@@ -7,7 +7,7 @@
 
 - Some objects just didnt pause when oPause exists, thats a bug
 - oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
-- the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
+- the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that (DTL: i'm doing it)
 - Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
 based on that they update their colors
 - oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
@@ -18,22 +18,41 @@ based on that they update their colors
 yplus=0
 xplus=0
 
-nice_black=make_color_rgb(0,0,72)
-nice_white=make_color_rgb(170,255,255)
-nice_blue=$FFFFAA55
+tile_size = 8;
+room_tile_width =  room_width div tile_size;
+room_tile_height = (room_height div tile_size) + tile_size;
+object_grid = [];
+
+nice_black = make_color_rgb(0,0,72)
+nice_white = make_color_rgb(170,255,255)
+nice_blue = $FFFFAA55
 
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
+default_origin_type = SPRITE_POSITIONING_TYPE.TOP_LEFT;
 
 is_inside_level=false
 time = 0; //used for release the buttons
 style_selected = LEVEL_STYLE.GRASS;
 hover_text = "";
 
+object_to_size = ds_map_create();
+
+//current_object = undefined;
+//current_object_type = 0;
+//current_object_item = 0;
+curobj = 0;
+currentx = 0;
+currenty = 0;
+
 instance_create_layer(x,y,layer,oPause);
 oCamera.fancyeffects=false
 mx=0
 
-enum LEVEL_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED }
+selectmaxx=3
+maxx = 4 // Last type index.
+maxy = 15 // Last object index per type.
+
+enum LEVEL_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED, LENGTH }
 
 obj[LEVEL_TYPE.NEUTRAL,	 00] =	new LMObject("Player (Leap)",		oPlayer,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("player");
 obj[LEVEL_TYPE.NEUTRAL,	 01] =	new LMObject("Solid block",			oSolid,			16, 16).add_tag("grid_16");
@@ -151,13 +170,6 @@ function get_x_y_from_object_index(_object_index){
 	}
 }
 
-currentx=0
-currenty=0
-
-selectmaxx=3
-maxx=4
-maxy=15
-
 // Create Groups
 group_player=array_create(0,0)
 array_push(group_player,oPlayer,oPlayerDir,oPlayerNeutral)
@@ -242,12 +254,6 @@ var _object_sizes = [
 	[oBlack, 16, 16				],
 ];
 
-object_to_size = ds_map_create();
-
-tile_size = 8;
-
-default_origin_type = SPRITE_POSITIONING_TYPE.TOP_LEFT;
-
 function object_sprite_get_offset_typed(_object_index, _object_width, _object_height, _origin_type){
 	
 	//var _origin_type = default_origin_type;
@@ -330,11 +336,6 @@ for(var _i = 0; _i < array_length(_object_sizes); _i++){
 }
 
 scr_inputcreate()
-
-room_tile_width =  room_width div tile_size;
-room_tile_height = (room_height div tile_size) + tile_size;
-
-object_grid = [];
 
 for(var _x = 0; _x < room_tile_width; _x++){
 	for(var _y = 0; _y < room_tile_height; _y++){
@@ -578,8 +579,6 @@ function delete_all_objects_from_level(){
 }
 
 function end_level_and_return_to_editor(){
-	
-
 	//destroy the "song"
 	instance_destroy(o_grass_song)	
 	instance_destroy(o_cloud_song)	
@@ -589,12 +588,10 @@ function end_level_and_return_to_editor(){
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
-	
 	instance_create_layer(x,y,layer,oPause);
 	
 	just_entered_level_editor = true;
 }
-
 
 //CAMERA CODE
 
