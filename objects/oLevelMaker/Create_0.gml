@@ -23,10 +23,8 @@ nice_blue=$FFFFAA55
 
 
 
-
-
-cursor=0// 0= nothing 1=cursor 2=finger 3=eraser
-insidelevel=false
+cursor = LEVEL_CURSOR_TYPE.NOTHING; // 0= nothing 1=cursor 2=finger 3=eraser
+is_inside_level=false
 time=0 //used for release the buttons
 style_selected=0
 
@@ -34,8 +32,92 @@ instance_create_layer(x,y,layer,oPause);
 oCamera.fancyeffects=false
 mx=0
 
-//x = type
-//y = object
+enum LEVEL_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED }
+
+obj[LEVEL_TYPE.NEUTRAL,	 00] =	new LMObject("Player (Leap)",		oPlayer,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM);
+obj[LEVEL_TYPE.NEUTRAL,	 01] =	new LMObject("Solid block",			oSolid,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 02] =	new LMObject("Platform",			oPlatGhost,		16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 03] =	new LMObject("Spike",				oPermaSpike,	16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 04] =	new LMObject("Star",				oStar,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 05] =	new LMObject("Ladder (Neutral)",	oLadderNeutral, 16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 06] =	new LMObject("Snail (Neutral)",		oSnailGray,		16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 07] =	new LMObject("Ladybug (Neutral)",	oLadyGray,		16, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.NEUTRAL,	 08] =	new LMObject("Bat",					oBat,			16, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.NEUTRAL,	 09] =	new LMObject("Mushroom (Neutral)",	oMushGray,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM);
+obj[LEVEL_TYPE.NEUTRAL,	 10] =	new LMObject("Key",					oKey,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 11] =	new LMObject("Door",				oKeyDoor,		16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 12] =	new LMObject("Gray Orb",			oGrayOrb,		16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 13] =	new LMObject("Bird",				oBird,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 14] =	new LMObject("Black Background",	oBlack,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 15] =	undefined;
+
+obj[LEVEL_TYPE.DAY,		 00] =	new LMObject("Player (Leap)",		oPlayerDir,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM);
+obj[LEVEL_TYPE.DAY,		 01] =	new LMObject("Solid (Day)",			oSolidDay,		16, 16);
+obj[LEVEL_TYPE.DAY,		 02] =	new LMObject("Broken Stone",		oBrokenStone,	16, 16);
+obj[LEVEL_TYPE.DAY,		 03] =	undefined;
+obj[LEVEL_TYPE.DAY,		 04] =	new LMObject("Red Star",			oStarColor,		16, 16);
+obj[LEVEL_TYPE.DAY,		 05] =	new LMObject("Ladder (Day)",		oLadderDay,		16, 16);
+obj[LEVEL_TYPE.DAY,		 06] =	new LMObject("Snail",				oSnail,			16, 16);
+obj[LEVEL_TYPE.DAY,		 07] =	new LMObject("Ladybug",				oLady,			16, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.DAY,		 08] =	new LMObject("Three Bats",			oBatGiant,		48, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.DAY,		 09] =	new LMObject("Mushroom",			oMush,			16, 16, SPRITE_POSITIONING_TYPE.BOTTOM);
+obj[LEVEL_TYPE.DAY,		 10] =	new LMObject("Key (Tall)",			oKeyTall,		32, 16);
+obj[LEVEL_TYPE.DAY,		 11] =	new LMObject("Door (Tall)",			oKeyDoorTall,	32, 16);
+obj[LEVEL_TYPE.DAY,		 12] =	undefined;
+obj[LEVEL_TYPE.DAY,		 13] =	undefined;
+obj[LEVEL_TYPE.DAY,		 14] =	undefined;
+obj[LEVEL_TYPE.DAY,		 15] =	undefined;
+
+obj[LEVEL_TYPE.NIGHT,	 00] =	new LMObject("Player (Neutral)",	oPlayerNeutral,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM);
+obj[LEVEL_TYPE.NIGHT,	 01] =	new LMObject("Solid (Night)",		oSolidNight,		16, 16);
+obj[LEVEL_TYPE.NIGHT,	 02] =	new LMObject("Big Broken Stone",	oBrokenStoneBig,	32, 32);
+obj[LEVEL_TYPE.NIGHT,	 03] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 04] =	new LMObject("Running Star",		oStarRunning,		16, 16);
+obj[LEVEL_TYPE.NIGHT,	 05] =	new LMObject("Ladder (Night)",		oLadderNight,		16, 16);
+obj[LEVEL_TYPE.NIGHT,	 06] =	new LMObject("Snail (Night)",		oSnailNight,		16, 16);
+obj[LEVEL_TYPE.NIGHT,	 07] =	new LMObject("Three Ladybugs",		oLadyGiant,			48, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.NIGHT,	 08] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 09] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 10] =	new LMObject("Key (Wide)",			oKeyWide,			32, 16);
+obj[LEVEL_TYPE.NIGHT,	 11] =	new LMObject("Door (Wide)",			oKeyDoorWide,		32, 16);
+obj[LEVEL_TYPE.NIGHT,	 12] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 13] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 14] =	undefined;
+obj[LEVEL_TYPE.NIGHT,	 15] =	undefined;
+
+obj[LEVEL_TYPE.OTHER,	 00] =	undefined
+obj[LEVEL_TYPE.OTHER,	 01] =	new LMObject("Solid (Big)",			oBigSolid,			32, 32);
+obj[LEVEL_TYPE.OTHER,	 02] =	new LMObject("Solid Ramp",			oSolidRamp,			32, 32);
+obj[LEVEL_TYPE.OTHER,	 03] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 04] =	new LMObject("Red Running Star",	oStarRunningColor,	16, 16);
+obj[LEVEL_TYPE.OTHER,	 05] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 06] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 07] =	new LMObject("Four Ladybugs",		oLadyGiant4,		48, 16, SPRITE_POSITIONING_TYPE.CENTER);
+obj[LEVEL_TYPE.OTHER,	 08] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 09] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 10] =	new LMObject("Key (Tall & Wide)",	oKeyTallWide,		32, 32);
+obj[LEVEL_TYPE.OTHER,	 11] =	new LMObject("Door (Tall & Wide)",	oKeyDoorTallWide,	32, 32);
+obj[LEVEL_TYPE.OTHER,	 12] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 13] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 14] =	undefined;
+obj[LEVEL_TYPE.OTHER,	 15] =	undefined;
+
+obj[LEVEL_TYPE.UNUSED,	 00] =	undefined
+obj[LEVEL_TYPE.UNUSED,	 01] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 02] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 03] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 04] =	new LMObject("Flying Star",			oStarFly,			16, 16);
+obj[LEVEL_TYPE.UNUSED,	 05] =	new LMObject("Platform (Left)",		oPlatGhostL,		16, 16);
+obj[LEVEL_TYPE.UNUSED,	 06] =	new LMObject("Platform (Right)",	oPlatGhostR,		16, 16);
+obj[LEVEL_TYPE.UNUSED,	 07] =	new LMObject("Platform (Down)",		oPlatGhostInv,		16, 16);
+obj[LEVEL_TYPE.UNUSED,	 08] =	new LMObject("Neutral Flag",		oNeutralFlag,		16, 16);
+obj[LEVEL_TYPE.UNUSED,	 09] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 10] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 11] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 12] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 13] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 14] =	undefined;
+obj[LEVEL_TYPE.UNUSED,	 15] =	undefined;
 
 //x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
 obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
@@ -55,6 +137,8 @@ obj[0,12]=oGrayOrb		obj[1,12]=oMagicOrb			obj[2,12]=oUndefined		obj[3,12]=oUndef
 obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefined			obj[4,13]=oUndefined
 obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
 obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
+
+
 
 function get_x_y_from_object_index(_object_index){
 	for (var yy = maxy; yy>=0; yy-=1) {
@@ -99,12 +183,12 @@ function is_player_object(_object_index){
 	return is_in_array(group_player,_object_index);
 }
 
-enum SPRITE_POSITIONING_TYPE {
+/*enum SPRITE_POSITIONING_TYPE {
 	CENTER,
 	BOTTOM,
 	TOP_LEFT,
 	OFFSET5,
-}
+}*/
 
 var _object_sizes = [
 	[oPlayer, 16, 16			, SPRITE_POSITIONING_TYPE.BOTTOM],

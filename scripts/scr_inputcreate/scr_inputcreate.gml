@@ -20,4 +20,3 @@ function scr_inputcreate()
 	key_down_notpressed=0
 	
 }
-

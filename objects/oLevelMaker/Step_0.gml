@@ -91,7 +91,7 @@ else {image_angle=0}
 //calculate object stuff
 
 
-insidelevel= (global.level_maker_mouse_x>0 and global.level_maker_mouse_x<320 and global.level_maker_mouse_y>0 and global.level_maker_mouse_y<320) //inside the level area
+is_inside_level= (global.level_maker_mouse_x>0 and global.level_maker_mouse_x<320 and global.level_maker_mouse_y>0 and global.level_maker_mouse_y<320) //inside the level area
 
 var _tile_scale = is_16_object(curobj) ? 2 : 1;
 
@@ -143,14 +143,16 @@ place_grid_obj = get_grid_object_hovering(global.level_maker_mouse_x,global.leve
 
 /// MOUSE ACTIONS
 
-if cursor!=3 {if place_grid_obj!=-1 {cursor=2/*finger*/} else {cursor=1}}
+if cursor != LEVEL_CURSOR_TYPE.ERASER {
+	cursor = place_grid_obj != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
+}
 
-if insidelevel
+if is_inside_level
 {
 
 	if mouse_check_button_pressed(mb_left) 
 	{
-		if cursor=2 //finger
+		if cursor == LEVEL_CURSOR_TYPE.FINGER
 		{
 			//currentx=placex
 			//currenty=placey
@@ -169,7 +171,7 @@ if insidelevel
 	//Create Instance
 	if mouse_check_button_released(mb_left) 
 	{
-		if cursor=1
+		if cursor == LEVEL_CURSOR_TYPE.CURSOR
 		{
 			if(!check_for_objects_in_grid_position(_curobj_mouse_tile_x, _curobj_mouse_tile_y, curobj)) and curobj!=oUndefined{
 			
@@ -199,7 +201,7 @@ if insidelevel
 	}
 
 	//Destroy Objects
-	if mouse_check_button(mb_right) or (mouse_check_button(mb_left) and cursor=3){
+	if mouse_check_button(mb_right) or (mouse_check_button(mb_left) and cursor == LEVEL_CURSOR_TYPE.ERASER){
 		if(is_array(place_grid_obj)) { 
 			remove_object_from_grid(place_grid_obj);
 			
