@@ -4,15 +4,15 @@ drawtarget=0
 
 if !instance_exists(oPause) {exit}
 
-
-
-obj=oLevelMaker.obj[oLevelMaker.selected_object_type,index]
+obj = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
 
 var active = obj != oUndefined;
+var obj_sprite = is_undefined(obj) ? oUndefined : obj.index;
 
 visible = active;
 
-sprite_index=object_get_sprite(obj)
+// Draw button
+sprite_index = object_get_sprite(obj_sprite);
 
 xx=round(xstart-8)
 yy=round(ystart-8)
@@ -58,5 +58,7 @@ if sprite_index=sBird {y=yy+16}
 if sprite_index=sTestDay or sprite_index=sTestNight {y=yy x=xx scale=1}
 
 
-if obj=oLevelMaker.obj[oLevelMaker.selected_object_type,oLevelMaker.selected_object_position] {drawtarget=-2}
+if obj == oLevelMaker.obj[oLevelMaker.selected_object_type,oLevelMaker.selected_object_position] {
+	drawtarget=-2
+}
 drawplus=smooth_approach(drawplus,drawtarget,0.25)

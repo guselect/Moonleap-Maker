@@ -138,7 +138,11 @@ function scr_update_style(){
 	
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
-			with(obj[xx,yy]) {
+			var object = obj[xx,yy];
+			
+			if is_undefined(object) then continue;
+
+			with(object.index) {
 				palette_index = oLevelMaker.selected_style;
 			}
 		}

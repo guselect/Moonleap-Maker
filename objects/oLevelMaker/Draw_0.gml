@@ -5,30 +5,26 @@ if(instance_exists(oPause)) {
 			//draw_sprite(spr_ghostfish_3,0,_x*8,_y*8);
 			var _xx = _x * 8;
 			var _yy = _y * 8;
-		
 			var _val = objects_grid[_x,_y];
 		
-			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				var _obj_ind = _val[2];
-			
+			if(is_array(_val) and _val[0] == _x and _val[1] == _y){
+				var _obj = _val[2];
 				var _obj_angle = _val[6];
 			
-				var _sprite = object_get_sprite(_obj_ind);
+				var _sprite = object_get_sprite(_obj.index);
 			
 				var _object_width = 1;
 				var _object_height = 1;
 				var _sprite_offset_x = sprite_get_xoffset(_sprite);
 				var _sprite_offset_y = sprite_get_yoffset(_sprite);
 
-				var _size = object_to_size[? _obj_ind];
+				var _size = _obj.get_size(tile_size);
 			
-				if(_size != undefined){
-					_sprite_offset_x = _size[2];
-					_sprite_offset_y = _size[3];
+				_sprite_offset_x = _size[2];
+				_sprite_offset_y = _size[3];
 				
-					_object_width = _size[0];
-					_object_height = _size[1];			
-				}
+				_object_width = _size[0];
+				_object_height = _size[1];
 			
 				var _new_offset = rotate_object_offset(_object_width,_object_height,_sprite_offset_x,_sprite_offset_y,_obj_angle);
 
@@ -51,7 +47,7 @@ draw_sprite(sPauseMaker,0,0,0)
 // Draw item preview on cursor
 if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
 	if sprite_exists(sprite_index) {
-		draw_sprite_ext(sprite_index,0,x+item_preview_offset_x,y+item_preview_offset_y,image_xscale,image_yscale,image_angle,c_white,0.5);
+		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, 0.5);
 	} else {
 		draw_text_shadow(x + 4, y, "?", text_shadow_x, text_shadow_y, color.nice_black);
 	}

@@ -1,1 +1,0 @@
-ds_map_destroy(object_to_size);

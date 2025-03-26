@@ -11,10 +11,8 @@ if !instance_exists(oPause)
 draw_set_halign(fa_center)
 
 // GET SELECTED OBJECT NAME
-// var oname = is_undefined(obj[currentx,currenty]) ? "" : object_get_name(obj[currentx,currenty].index);
-var object_name = object_get_name(obj[selected_object_type,selected_object_position]);
-
-if object_name == "oUndefined" then object_name = "";
+var object = obj[selected_object_type,selected_object_position]
+var object_name = is_undefined(object) ? "" : object_get_name(object.index);
 
 if global.level_maker_mouse_x >- 16 and global.level_maker_mouse_x < room_width + 16 {
 	var object_name_x = (160 + global.level_maker_mouse_x * 3) / 4;

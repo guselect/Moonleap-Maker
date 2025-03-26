@@ -1,5 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
 if cursor != LEVEL_CURSOR_TYPE.ERASER then cursor = LEVEL_CURSOR_TYPE.CURSOR
 
 //CAMERA CODE

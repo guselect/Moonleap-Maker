@@ -1,4 +1,3 @@
-
 /* NOTES:
 
 - This repository is based on Moonleap version 2.3.2, but with the SleepScreens removed and some levels missing, specifically Rooms 0 to 49.
@@ -18,12 +17,11 @@ based on that they update their colors
 // Input variables
 scr_inputcreate()
 
-// Tiling-related
+// Grid-related
 tile_size = 8;
 room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
 objects_grid = []; // Grid where the objects inserted by player are.
-object_grid_hovering = -1; // Object where cursor is above at.
 
 for(var _x = 0; _x < room_tile_width; _x++){
 	for(var _y = 0; _y < room_tile_height; _y++){
@@ -54,14 +52,15 @@ color = {
 // Objects-related
 enum OBJECT_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED, LENGTH }
 
-object_to_size = ds_map_create();
 selected_object = 0;
 selected_object_type = 0;
 selected_object_position = 0;
 default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
 object_types_length = OBJECT_TYPE.LENGTH - 1;
 object_positions_length = 16;
+object_grid_hovering = -1; // Object where cursor is above at.
 
+// Objects List
 obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
 obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16");
 obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
@@ -74,13 +73,13 @@ obj[OBJECT_TYPE.NEUTRAL, 08] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTE
 obj[OBJECT_TYPE.NEUTRAL, 09] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 10] =	new LMObject(oKey,				16, 16);
 obj[OBJECT_TYPE.NEUTRAL, 11] =	new LMObject(oKeyDoor,			16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16).add_tag("is_orb");
 obj[OBJECT_TYPE.NEUTRAL, 13] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
 obj[OBJECT_TYPE.NEUTRAL, 14] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
 obj[OBJECT_TYPE.NEUTRAL, 15] =	undefined;
 
 obj[OBJECT_TYPE.DAY, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
 obj[OBJECT_TYPE.DAY, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16");
 obj[OBJECT_TYPE.DAY, 03] =	undefined;						
 obj[OBJECT_TYPE.DAY, 04] =	new LMObject(oStarColor,		16, 16);
@@ -91,13 +90,13 @@ obj[OBJECT_TYPE.DAY, 08] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTE
 obj[OBJECT_TYPE.DAY, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
 obj[OBJECT_TYPE.DAY, 10] =	new LMObject(oKeyTall,			32, 16);
 obj[OBJECT_TYPE.DAY, 11] =	new LMObject(oKeyDoorTall,		32, 16);
-obj[OBJECT_TYPE.DAY, 12] =	undefined;
+obj[OBJECT_TYPE.DAY, 12] =	new LMObject(oMagicOrb,			16, 16).add_tag("is_orb");
 obj[OBJECT_TYPE.DAY, 13] =	undefined;
 obj[OBJECT_TYPE.DAY, 14] =	undefined;
 obj[OBJECT_TYPE.DAY, 15] =	undefined;
 
 obj[OBJECT_TYPE.NIGHT, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
 obj[OBJECT_TYPE.NIGHT, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16");
 obj[OBJECT_TYPE.NIGHT, 03] =	undefined;
 obj[OBJECT_TYPE.NIGHT, 04] =	new LMObject(oStarRunning,		16, 16);
@@ -115,7 +114,7 @@ obj[OBJECT_TYPE.NIGHT, 15] =	undefined;
 
 obj[OBJECT_TYPE.OTHER, 00] =	undefined
 obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16");
-obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 32).add_tag("can_flip");
+obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
 obj[OBJECT_TYPE.OTHER, 03] =	undefined;
 obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);
 obj[OBJECT_TYPE.OTHER, 05] =	undefined;
@@ -147,60 +146,50 @@ obj[OBJECT_TYPE.UNUSED, 13] =	undefined;
 obj[OBJECT_TYPE.UNUSED, 14] =	undefined;
 obj[OBJECT_TYPE.UNUSED, 15] =	undefined;
 
-//x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
-obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
-obj[0,1]=oSolid			obj[1,1]=oSolidDay			obj[2,1]=oSolidNight		obj[3,1]=oBigSolid				obj[4,1]=oUndefined
-obj[0,2]=oPlatGhost		obj[1,2]=oBrokenStone		obj[2,2]=oBrokenStoneBig	obj[3,2]=oSolidRamp/**/			obj[4,2]=oUndefined
-obj[0,3]=oPermaSpike	obj[1,3]=oUndefined			obj[2,3]=oUndefined			obj[3,3]=oUndefined/**/			obj[4,3]=oUndefined
-obj[0,4]=oStar			obj[1,4]=oStarColor			obj[2,4]=oStarRunning		obj[3,4]=oStarRunningColor		obj[4,4]=oStarFly
-obj[0,5]=oLadderNeutral obj[1,5]=oLadderDay			obj[2,5]=oLadderNight		obj[3,5]=oUndefined/**/			obj[4,5]=oPlatGhostL
-obj[0,6]=oSnailGray		obj[1,6]=oSnail				obj[2,6]=oSnailNight		obj[3,6]=oUndefined/**/			obj[4,6]=oPlatGhostR
-obj[0,7]=oLadyGray		obj[1,7]=oLady				obj[2,7]=oLadyGiant			obj[3,7]=oLadyGiant4			obj[4,7]=oPlatGhostInv
-obj[0,8]=oBat			obj[1,8]=oBatGiant			obj[2,8]=oUndefined			obj[3,8]=oUndefined/*baixo*/	obj[4,8]=oNeutralFlag
-obj[0,9]=oMushGray		obj[1,9]=oMush				obj[2,9]=oMushGray			obj[3,9]=oUndefined				obj[4,9]=oUndefined
-//obj[0,10]=oUndefined	obj[1,10]=oUndefined		obj[2,10]=oUndefined		obj[3,10]=oUndefined			obj[4,10]=oUndefined
-obj[0,10]=oKey			obj[1,10]=oKeyTall			obj[2,10]=oKeyWide			obj[3,10]=oKeyTallWide			obj[4,10]=oUndefined //make different spr to differentiate the keys
-obj[0,11]=oKeyDoor		obj[1,11]=oKeyDoorTall		obj[2,11]=oKeyDoorWide		obj[3,11]=oKeyDoorTallWide		obj[4,11]=oUndefined
-obj[0,12]=oGrayOrb		obj[1,12]=oMagicOrb			obj[2,12]=oUndefined		obj[3,12]=oUndefined			obj[4,12]=oUndefined
-obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefined			obj[4,13]=oUndefined
-obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
-obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
+////x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
+//obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
+//obj[0,1]=oSolid			obj[1,1]=oSolidDay			obj[2,1]=oSolidNight		obj[3,1]=oBigSolid				obj[4,1]=oUndefined
+//obj[0,2]=oPlatGhost		obj[1,2]=oBrokenStone		obj[2,2]=oBrokenStoneBig	obj[3,2]=oSolidRamp/**/			obj[4,2]=oUndefined
+//obj[0,3]=oPermaSpike	obj[1,3]=oUndefined			obj[2,3]=oUndefined			obj[3,3]=oUndefined/**/			obj[4,3]=oUndefined
+//obj[0,4]=oStar			obj[1,4]=oStarColor			obj[2,4]=oStarRunning		obj[3,4]=oStarRunningColor		obj[4,4]=oStarFly
+//obj[0,5]=oLadderNeutral obj[1,5]=oLadderDay			obj[2,5]=oLadderNight		obj[3,5]=oUndefined/**/			obj[4,5]=oPlatGhostL
+//obj[0,6]=oSnailGray		obj[1,6]=oSnail				obj[2,6]=oSnailNight		obj[3,6]=oUndefined/**/			obj[4,6]=oPlatGhostR
+//obj[0,7]=oLadyGray		obj[1,7]=oLady				obj[2,7]=oLadyGiant			obj[3,7]=oLadyGiant4			obj[4,7]=oPlatGhostInv
+//obj[0,8]=oBat			obj[1,8]=oBatGiant			obj[2,8]=oUndefined			obj[3,8]=oUndefined/*baixo*/	obj[4,8]=oNeutralFlag
+//obj[0,9]=oMushGray		obj[1,9]=oMush				obj[2,9]=oMushGray			obj[3,9]=oUndefined				obj[4,9]=oUndefined
+////obj[0,10]=oUndefined	obj[1,10]=oUndefined		obj[2,10]=oUndefined		obj[3,10]=oUndefined			obj[4,10]=oUndefined
+//obj[0,10]=oKey			obj[1,10]=oKeyTall			obj[2,10]=oKeyWide			obj[3,10]=oKeyTallWide			obj[4,10]=oUndefined //make different spr to differentiate the keys
+//obj[0,11]=oKeyDoor		obj[1,11]=oKeyDoorTall		obj[2,11]=oKeyDoorWide		obj[3,11]=oKeyDoorTallWide		obj[4,11]=oUndefined
+//obj[0,12]=oGrayOrb		obj[1,12]=oMagicOrb			obj[2,12]=oUndefined		obj[3,12]=oUndefined			obj[4,12]=oUndefined
+//obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefined			obj[4,13]=oUndefined
+//obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
+//obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
 
-function get_x_y_from_object_index(_object_index){
-	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
-		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
-			if(obj[xx,yy] == _object_index){
-				return [xx,yy];
-			}
-		}
-	}
-}
+//// Create Groups
+//group_player=array_create(0,0)
+//array_push(group_player,oPlayer,oPlayerDir,oPlayerNeutral)
 
-// Create Groups
-group_player=array_create(0,0)
-array_push(group_player,oPlayer,oPlayerDir,oPlayerNeutral)
+//group_canspin=array_create(0,0)
+//array_push(group_canspin,oMush,oMushGray,oStar,oLady,oLadyDay,oLadyGray,oBat,oPlatGhost)
 
-group_canspin=array_create(0,0)
-array_push(group_canspin,oMush,oMushGray,oStar,oLady,oLadyDay,oLadyGray,oBat,oPlatGhost)
+//group_canmirror=array_create(0,0)
+//array_push(group_canmirror,oSnailNight,oSnailGray,oSnail,oBat,oSolidRamp,oLady,oLadyDay,oLadyGray,oLadyGiant,oLadyGiant4,oBird)
 
-group_canmirror=array_create(0,0)
-array_push(group_canmirror,oSnailNight,oSnailGray,oSnail,oBat,oSolidRamp,oLady,oLadyDay,oLadyGray,oLadyGiant,oLadyGiant4,oBird)
+//group_16grid=array_create(0,0)
+//array_push(group_16grid,oSolid, oBrokenStone,oBigSolid,oBrokenStoneBig,oBat,oBlack,oSolidDay,oSolidNight, oBatVer)
 
-group_16grid=array_create(0,0)
-array_push(group_16grid,oSolid, oBrokenStone,oBigSolid,oBrokenStoneBig,oBat,oBlack,oSolidDay,oSolidNight, oBatVer)
-
-function is_16_object(_object_index){
-	return is_in_array(group_16grid,_object_index);
-}
-function is_mirror_object(_object_index){
-	return is_in_array(group_canmirror,_object_index);
-}
-function is_spin_object(_object_index){
-	return is_in_array(group_canspin,_object_index);
-}
-function is_player_object(_object_index){
-	return is_in_array(group_player,_object_index);
-}
+//function is_16_object(_object_index){
+//	return is_in_array(group_16grid,_object_index);
+//}
+//function is_mirror_object(_object_index){
+//	return is_in_array(group_canmirror,_object_index);
+//}
+//function is_spin_object(_object_index){
+//	return is_in_array(group_canspin,_object_index);
+//}
+//function is_player_object(_object_index){
+//	return is_in_array(group_player,_object_index);
+//}
 
 /*enum SPRITE_ORIGIN {
 	CENTER,
@@ -209,99 +198,112 @@ function is_player_object(_object_index){
 	OFFSET5,
 }*/
 
-var _object_sizes = [
-	[oPlayer, 16, 16			, SPRITE_ORIGIN.BOTTOM],
-	[oPlayerDir, 16, 16			, SPRITE_ORIGIN.BOTTOM],
-	[oPlayerNeutral, 16, 16		, SPRITE_ORIGIN.BOTTOM],
-	[oSolid, 16, 16				],
-	[oSolidDay, 16, 16			, SPRITE_ORIGIN.OFFSET5 ],
-	[oSolidNight, 16, 16		, SPRITE_ORIGIN.OFFSET5 ],
-	[oBigSolid, 32, 32			],
-	[oPlatGhost, 16, 16			],
-	[oPlatGhostInv, 16, 16			],
-	[oPlatGhostL, 16, 16			],
-	[oPlatGhostR, 16, 16			],
-	[oBrokenStone, 16, 16		],
-	[oBrokenStoneBig, 32, 32	],
-	[oSolidRamp, 32, 16			,SPRITE_ORIGIN.CENTER ],
-	[oPermaSpike, 16, 16		],
-	[oStar, 16, 16				],
-	[oStarColor, 16, 16			],
-	[oStarRunning, 16, 16		],
-	[oStarRunningColor, 16, 16	],
-	[oStarFly, 16, 16			],
-	[oLadderNeutral, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
-	[oLadderDay, 16, 16			, SPRITE_ORIGIN.TOP_LEFT],
-	[oLadderNight, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
-	[oSnailGray, 16, 16			, SPRITE_ORIGIN.BOTTOM],
-	[oSnail, 16, 16				, SPRITE_ORIGIN.BOTTOM],
-	[oSnailNight, 16, 16		, SPRITE_ORIGIN.BOTTOM],
-	[oLadyGray, 16, 16			, SPRITE_ORIGIN.CENTER],
-	[oLadyDay, 16, 16			, SPRITE_ORIGIN.CENTER],
-	[oLady, 16, 16				, SPRITE_ORIGIN.CENTER],
-	[oLadyGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
-	[oBatVer, 32, 16			, SPRITE_ORIGIN.CENTER],
-	[oBat, 16, 16				, SPRITE_ORIGIN.CENTER],
-	[oBatGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
-	[oBatSuperGiant, 64, 16		, SPRITE_ORIGIN.CENTER],
-	[oMushGray, 16, 16			],
-	[oMush, 16, 16				],
-	[oKey, 16, 16				],
-	[oKeyTall, 16, 32			],
-	[oKeyWide, 32, 16			],
-	[oKeyTallWide, 32, 32		],
-	[oKeyDoor, 16, 16			],
-	[oKeyDoorTall, 16, 32		],
-	[oKeyDoorWide, 32, 16		],
-	[oKeyDoorTallWide, 32, 32	],
-	[oGrayOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
-	[oMagicOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
-	[oBird, 16, 16				, SPRITE_ORIGIN.BOTTOM],
-	[oBlack, 16, 16				],
-];
+//var _object_sizes = [
+//	[oPlayer, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+//	[oPlayerDir, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+//	[oPlayerNeutral, 16, 16		, SPRITE_ORIGIN.BOTTOM],
+//	[oSolid, 16, 16				],
+//	[oSolidDay, 16, 16			, SPRITE_ORIGIN.OFFSET5 ],
+//	[oSolidNight, 16, 16		, SPRITE_ORIGIN.OFFSET5 ],
+//	[oBigSolid, 32, 32			],
+//	[oPlatGhost, 16, 16			],
+//	[oPlatGhostInv, 16, 16			],
+//	[oPlatGhostL, 16, 16			],
+//	[oPlatGhostR, 16, 16			],
+//	[oBrokenStone, 16, 16		],
+//	[oBrokenStoneBig, 32, 32	],
+//	[oSolidRamp, 32, 16			,SPRITE_ORIGIN.CENTER ],
+//	[oPermaSpike, 16, 16		],
+//	[oStar, 16, 16				],
+//	[oStarColor, 16, 16			],
+//	[oStarRunning, 16, 16		],
+//	[oStarRunningColor, 16, 16	],
+//	[oStarFly, 16, 16			],
+//	[oLadderNeutral, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
+//	[oLadderDay, 16, 16			, SPRITE_ORIGIN.TOP_LEFT],
+//	[oLadderNight, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
+//	[oSnailGray, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+//	[oSnail, 16, 16				, SPRITE_ORIGIN.BOTTOM],
+//	[oSnailNight, 16, 16		, SPRITE_ORIGIN.BOTTOM],
+//	[oLadyGray, 16, 16			, SPRITE_ORIGIN.CENTER],
+//	[oLadyDay, 16, 16			, SPRITE_ORIGIN.CENTER],
+//	[oLady, 16, 16				, SPRITE_ORIGIN.CENTER],
+//	[oLadyGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
+//	[oBatVer, 32, 16			, SPRITE_ORIGIN.CENTER],
+//	[oBat, 16, 16				, SPRITE_ORIGIN.CENTER],
+//	[oBatGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
+//	[oBatSuperGiant, 64, 16		, SPRITE_ORIGIN.CENTER],
+//	[oMushGray, 16, 16			],
+//	[oMush, 16, 16				],
+//	[oKey, 16, 16				],
+//	[oKeyTall, 16, 32			],
+//	[oKeyWide, 32, 16			],
+//	[oKeyTallWide, 32, 32		],
+//	[oKeyDoor, 16, 16			],
+//	[oKeyDoorTall, 16, 32		],
+//	[oKeyDoorWide, 32, 16		],
+//	[oKeyDoorTallWide, 32, 32	],
+//	[oGrayOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+//	[oMagicOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+//	[oBird, 16, 16				, SPRITE_ORIGIN.BOTTOM],
+//	[oBlack, 16, 16				],
+//];
 
-object_sprite_get_offset_typed = function(_object_index, _object_width, _object_height, _origin_type){
+//object_sprite_get_offset_typed = function(_object_index, _object_width, _object_height, _origin_type){
 	
-	//var _origin_type = default_sprite_origin;
-	//var _object_width = 1;
-	//var _object_height = 1;
+//	//var _origin_type = default_sprite_origin;
+//	//var _object_width = 1;
+//	//var _object_height = 1;
 	
-	var _sprite = object_get_sprite(_object_index);
+//	var _sprite = object_get_sprite(_object_index);
 
-	//var _size = object_to_size[? _object_index];
+//	//var _size = object_to_size[? _object_index];
 	
-	//if(_size != undefined){
-	//	_object_width = _size[0];
-	//	_object_height = _size[1];
-	//	_origin_type = _size[2];
-	//}
+//	//if(_size != undefined){
+//	//	_object_width = _size[0];
+//	//	_object_height = _size[1];
+//	//	_origin_type = _size[2];
+//	//}
 	
-	var _offx = sprite_get_xoffset(_sprite);
-	var _offy = sprite_get_yoffset(_sprite);
-	var _w = sprite_get_width(_sprite);
-	var _h = sprite_get_height(_sprite);
+//	var _offx = sprite_get_xoffset(_sprite);
+//	var _offy = sprite_get_yoffset(_sprite);
+//	var _w = sprite_get_width(_sprite);
+//	var _h = sprite_get_height(_sprite);
 	
-	switch(_origin_type){
-		case SPRITE_ORIGIN.OFFSET5: //guselect
-			return [
-				_offx-8,
-				_offy-8
-			];
-		case SPRITE_ORIGIN.TOP_LEFT:
-			return [
-				_offx,
-				_offy
-			];
-		case SPRITE_ORIGIN.BOTTOM:
-			return [
-				_offx-_w div 2+_object_width*tile_size div 2,
-				_offy-_h+_object_height*tile_size,
-			];
-		case SPRITE_ORIGIN.CENTER:
-			return [
-				_offx-_w div 2+_object_width*tile_size div 2,
-				_offy-_h div 2+_object_height*tile_size div 2
-			];
+//	switch(_origin_type){
+//		case SPRITE_ORIGIN.OFFSET5: //guselect
+//			return [
+//				_offx-8,
+//				_offy-8
+//			];
+//		case SPRITE_ORIGIN.TOP_LEFT:
+//			return [
+//				_offx,
+//				_offy
+//			];
+//		case SPRITE_ORIGIN.BOTTOM:
+//			return [
+//				_offx-_w div 2+_object_width*tile_size div 2,
+//				_offy-_h+_object_height*tile_size,
+//			];
+//		case SPRITE_ORIGIN.CENTER:
+//			return [
+//				_offx-_w div 2+_object_width*tile_size div 2,
+//				_offy-_h div 2+_object_height*tile_size div 2
+//			];
+//	}
+//}
+
+get_x_y_from_object_index = function(_object) {
+	for (var yy = object_positions_length - 1; yy >= 0; yy--) {
+		for (var xx = object_types_length - 1; xx >= 0; xx--) {
+			var object_from_list = obj[xx,yy];
+			
+			if is_undefined(object_from_list) then continue;
+			if (object_from_list.index == _object.index) {
+				return [xx, yy];
+			}
+		}
 	}
 }
 
@@ -325,21 +327,21 @@ rotate_object_offset = function(_object_width, _object_height, _sprite_offset_x,
 	return [_sprite_offset_x,_sprite_offset_y];
 }
 
-for(var _i = 0; _i < array_length(_object_sizes); _i++){
-	var _v = _object_sizes[_i];
+//for(var _i = 0; _i < array_length(_object_sizes); _i++){
+//	var _v = _object_sizes[_i];
 	
-	var _origin_type = default_sprite_origin;
-	if(array_length(_v) > 3){
-		_origin_type = _v[3];
-	}
+//	var _origin_type = default_sprite_origin;
+//	if(array_length(_v) > 3){
+//		_origin_type = _v[3];
+//	}
 	
-	var _w = _v[1] div tile_size;
-	var _h = _v[2] div tile_size;
+//	var _w = _v[1] div tile_size;
+//	var _h = _v[2] div tile_size;
 	
-	var _offset = object_sprite_get_offset_typed(_v[0],_w,_h,_origin_type);
+//	var _offset = object_sprite_get_offset_typed(_v[0],_w,_h,_origin_type);
 	
-	object_to_size[? _v[0]] = [_w,_h, _offset[0], _offset[1]];
-}
+//	object_to_size[? _v[0]] = [_w,_h, _offset[0], _offset[1]];
+//}
 
 get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	for(var _x = 0; _x < room_tile_width; _x++){
@@ -359,8 +361,37 @@ get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	return -1;
 }
 
-remove_object_from_grid = function(_object_data){
+place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscale = 1, _angle = 0){
+	var _object_width = 1;
+	var _object_height = 1;
+
+	var _tiled_size = _object.get_size(tile_size);
+
+	_object_width = _tiled_size[0];
+	_object_height = _tiled_size[1];	
 	
+	var _object_data = [
+		_top_left_x,
+		_top_left_y,
+		_object,
+		_object_width,
+		_object_height,
+		_xscale,
+		_angle
+	];
+	
+	//make sure the object stays inside the grid
+	_top_left_x = clamp(_top_left_x, 0, room_tile_width - _object_width);
+	_top_left_y = clamp(_top_left_y, 0, room_tile_height - _object_height);
+	
+	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
+		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++) {
+			objects_grid[_x,_y] = _object_data;
+		}	
+	}
+}
+
+remove_object_from_grid = function(_object_data){
 	var _top_left_x = _object_data[0];
 	var _top_left_y = _object_data[1];
 	
@@ -374,17 +405,14 @@ remove_object_from_grid = function(_object_data){
 	}
 }
 
-check_for_objects_in_grid_position = function(_top_left_x,_top_left_y,_object_index){
+check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object){
 	
 	var _object_width = 1;
 	var _object_height = 1;
+	var _size = _object.get_size(tile_size);
 
-	var _size = object_to_size[? _object_index];
-
-	if(_size != undefined){
-		_object_width = _size[0];
-		_object_height = _size[1];
-	}
+	_object_width = _size[0];
+	_object_height = _size[1];
 	
 	//make sure the object stays inside the grid
 	_top_left_x = clamp(_top_left_x,0, room_tile_width - _object_width);
@@ -404,8 +432,9 @@ remove_all_player_objects_from_grid = function() {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
+			
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				if(_val[2] == oPlayer || _val[2] == oPlayerDir || _val[2] == oPlayerNeutral){
+				if (_val[2].has_tag("is_player")){
 					remove_object_from_grid(_val);
 				}
 			}
@@ -418,7 +447,7 @@ remove_orb_from_grid = function() {
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				if(_val[2] == oMagicOrb || _val[2] == oGrayOrb){
+				if(_val[2].index == oMagicOrb || _val[2].index == oGrayOrb) {
 					remove_object_from_grid(_val);
 				}
 			}
@@ -426,61 +455,12 @@ remove_orb_from_grid = function() {
 	}
 }
 
-//TOP LEFT X AND Y ARE IN GRID INCREMENTS OF tile_size
-
-place_object_in_object_grid = function(_top_left_x, _top_left_y, _object_index, _xscale = 1, _angle = 0){
-	
-	var _object_width = 1;
-	var _object_height = 1;
-
-	var _size = object_to_size[? _object_index];
-
-	if(_size != undefined){
-		_object_width = _size[0];
-		_object_height = _size[1];
-	}
-	
-	var _object_data = [
-		_top_left_x,
-		_top_left_y,
-		_object_index,
-		_object_width,
-		_object_height,
-		_xscale,
-		_angle
-	];
-	
-	//make sure the object stays inside the grid
-	_top_left_x = clamp(_top_left_x,0, room_tile_width - _object_width);
-	_top_left_y = clamp(_top_left_y,0, room_tile_height - _object_height);
-	
-	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
-		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			objects_grid[_x,_y] = _object_data;
-		}	
-	}
-}
-
-//----------------------
-//default level:
-
-//floor
-place_object_in_object_grid(8*2, 7*2, oSolid);
-place_object_in_object_grid(8*2+2, 7*2, oSolid);
-place_object_in_object_grid(8*2+4, 7*2, oSolid);
-place_object_in_object_grid(8*2+6, 7*2, oSolid);
-
-place_object_in_object_grid(8*2, 6*2, oPlayer);
-
-place_object_in_object_grid(8*2+6, 6*2, oStar);
-
-//
-
 object_of_type_exists_in_editor = function(_object_index) {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
-			if(is_array(_val) && _val[2] == _object_index)
+			
+			if(is_array(_val) and _val[2].index == _object_index)
 				return true;
 		}
 	}
@@ -501,30 +481,28 @@ start_level = function() {
 		case LEVEL_STYLE.DUNGEON:	instance_create_layer(0, 0,"Instances", o_dungeon_song);	break;
 	}
 	
-	for(var _x = 0; _x < room_tile_width; _x++){
-		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = objects_grid[_x,_y];
-			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				var _obj_ind = _val[2];
-				
+	// Instantiate all objects on the level
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			var _val = objects_grid[_x, _y];
+			
+			if(is_array(_val) and _val[0] == _x and _val[1] == _y) {
+				var _obj = _val[2];
 				var _angle = _val[6];
 				
-				var _sprite = object_get_sprite(_obj_ind);
+				var _sprite = object_get_sprite(_obj.index);
 				
 				var _object_width = 1;
 				var _object_height = 1;
 				var _sprite_offset_x = sprite_get_xoffset(_sprite);
 				var _sprite_offset_y = sprite_get_yoffset(_sprite);
 
-				var _size = object_to_size[? _obj_ind];
+				var _size = _obj.get_size(tile_size);
 
-				if(_size != undefined){
-					_sprite_offset_x = _size[2];
-					_sprite_offset_y = _size[3];
-				
-					_object_width = _size[0];
-					_object_height = _size[1];			
-				}
+				_object_width = _size[0];
+				_object_height = _size[1];
+				_sprite_offset_x = _size[2];
+				_sprite_offset_y = _size[3];
 			
 				var _new_offset = rotate_object_offset(_object_width,_object_height,_sprite_offset_x,_sprite_offset_y,_angle);
 				
@@ -536,7 +514,7 @@ start_level = function() {
 				
 				var _xscale = _val[5];
 				
-				instance_create_layer(_in_world_x, _in_world_y, "Instances", _obj_ind, { image_xscale: _xscale, image_angle: _angle });
+				instance_create_layer(_in_world_x, _in_world_y, "Instances", _obj.index, { image_xscale: _xscale, image_angle: _angle });
 			}
 		}
 	}
@@ -561,18 +539,12 @@ start_level = function() {
 	//show_message(oPlayer.inistar)
 }
 
-delete_all_objects_from_grid = function() {
-	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
-		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
-			remove_object_from_grid(obj[xx,yy]);
-		}
-	}
-}
-
 delete_all_objects_from_level = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
-			instance_destroy(obj[xx,yy]);
+			var object = obj[xx,yy];
+			if is_undefined(obj[xx,yy]) then continue;
+			instance_destroy(object.index);
 		}
 	}
 }
@@ -604,3 +576,18 @@ global.level_maker_mouse_y = mouse_y;
 just_entered_level_editor = false;
 
 instance_create_layer(x,y,layer,oPause);
+
+//----------------------
+// DEFAULT LEVEL
+
+// floor
+place_object_in_object_grid(8*2, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
+place_object_in_object_grid(8*2+2, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
+place_object_in_object_grid(8*2+4, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
+place_object_in_object_grid(8*2+6, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
+
+// player
+place_object_in_object_grid(8*2, 6*2, obj[OBJECT_TYPE.NEUTRAL, 00]);
+
+// star
+place_object_in_object_grid(8*2+6, 6*2, obj[OBJECT_TYPE.NEUTRAL, 04]);
