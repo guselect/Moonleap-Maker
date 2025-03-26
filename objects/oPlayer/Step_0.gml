@@ -1,3 +1,6 @@
+//show_debug_message("oPlayer.star:" + string(star));
+//show_debug_message("oPlayer.inistar:" + string(inistar));
+inistar = instance_number(oStar);
 
 var ghost= (PlayerIdle=	sGhost)
 if on_ground_var=false and on_ground()=true 
@@ -175,23 +178,16 @@ if key_jump_pressed=true and !place_meeting(x,y,oLadderParent) and !key_down and
 // Jump state check 
 if (!on_ground_var) {
     state = JUMP; 
-	}
-
-
-
+}
 #endregion
 
 image_xscale=move
 
-if star=inistar
-{
+if inistar <= 0 {
 	with (oPermaSpike) {solidvar=instance_create_layer(x,y,layer,oSolid) solidvar.x=x  solidvar.image_xscale=image_xscale solidvar.image_yscale=image_yscale solidvar.visible=false}
 	//if winwait=60 {instance_create_layer(x,y,layer,oSuperStar)}
-	state=WIN
-	
-
-		
-		winwait-=1
+	state = WIN
+	winwait -= 1
 
 	if winwait<0 and room!=RoomMaker0
 	{

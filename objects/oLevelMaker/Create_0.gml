@@ -377,8 +377,6 @@ start_level = function() {
 		scr_update_style()
 	}
 	//game_save("level.savetemp")
-		
-	//oPlayer.inistar=instance_number(oStar)
 	
 	with (oBrokenStone)
 	{
@@ -388,8 +386,7 @@ start_level = function() {
 		brokendown = instance_place(x,y+1,oBrokenStone)
 	}
 	
-	oPlayer.inistar = instance_number(oStar) - 1; //IDK why, just works
-	//show_message(oPlayer.inistar)
+	//oPlayer.inistar = instance_number(oStar) - 1; // IDK why, just works
 }
 
 delete_all_objects_from_level = function() {

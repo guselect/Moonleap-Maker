@@ -6,7 +6,6 @@ var xx=x+random_range(-shake,shake)
 var yy=y
 
 
-
 if trueblack=true {pal_swap_set(sPlayerPal,night+2,0)} else if oCamera.current_skin!=5 {pal_swap_set(sPlayerPal,night,0)} 
 
 if neutral=true {pal_swap_set(sPlayerPal,5,0)}

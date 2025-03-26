@@ -91,11 +91,14 @@ star=0
 roomw=room_width
 roomh=room_height
 
-if !instance_exists(oStar)
-{var s=instance_create_layer(roomw,roomh,layer,oStar)
-	s.visible=false}
+//if !instance_exists(oStar)
+//{
+//	show_debug_message("Criei uma estrela na room, te vira.");
+//	var s=instance_create_layer(roomw,roomh,layer,oStar)
+//	s.visible=false
+//}
 	
-inistar=instance_number(oStar)
+inistar=0//instance_number(oStar)
 
 idletime=0
 

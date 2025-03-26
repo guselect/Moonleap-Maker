@@ -1,3 +1,6 @@
+//show_debug_message("oStar instances:" + string(instance_number(oStar)));
+//show_debug_message("oPlayer instances:" + string(instance_number(oPlayer)));
+
 item_preview_offset_y = smooth_approach(item_preview_offset_y,0,0.25)
 item_preview_offset_x = smooth_approach(item_preview_offset_x,0,0.25)
 
