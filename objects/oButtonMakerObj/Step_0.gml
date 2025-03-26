@@ -6,7 +6,7 @@ if !instance_exists(oPause) {exit}
 
 
 
-obj=oLevelMaker.obj[oLevelMaker.currentx,index]
+obj=oLevelMaker.obj[oLevelMaker.selected_object_type,index]
 
 var active = obj != oUndefined;
 
@@ -42,7 +42,7 @@ if active
 if mouse_check_button(mb_left) and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32)
 {
 	if mouse_check_button_pressed(mb_left){audio_play_sfx(sndUiChange,false,-18.3,1);}
-	oLevelMaker.currenty = index;
+	oLevelMaker.selected_object_position = index;
 	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
 	
 }
@@ -58,5 +58,5 @@ if sprite_index=sBird {y=yy+16}
 if sprite_index=sTestDay or sprite_index=sTestNight {y=yy x=xx scale=1}
 
 
-if obj=oLevelMaker.obj[oLevelMaker.currentx,oLevelMaker.currenty] {drawtarget=-2}
+if obj=oLevelMaker.obj[oLevelMaker.selected_object_type,oLevelMaker.selected_object_position] {drawtarget=-2}
 drawplus=smooth_approach(drawplus,drawtarget,0.25)

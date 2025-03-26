@@ -6,7 +6,7 @@ if(instance_exists(oPause)) {
 			var _xx = _x * 8;
 			var _yy = _y * 8;
 		
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 		
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
 				var _obj_ind = _val[2];
@@ -49,18 +49,18 @@ draw_set_font(fntSmall)
 draw_sprite(sPauseMaker,0,0,0)
 
 // Draw item preview on cursor
-if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level {
+if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
 	if sprite_exists(sprite_index) {
-		draw_sprite_ext(sprite_index,0,x+xplus,y+yplus,image_xscale,image_yscale,image_angle,c_white,0.5);
+		draw_sprite_ext(sprite_index,0,x+item_preview_offset_x,y+item_preview_offset_y,image_xscale,image_yscale,image_angle,c_white,0.5);
 	} else {
-		draw_text(x + 4, y, "?");
+		draw_text_shadow(x + 4, y, "?", text_shadow_x, text_shadow_y, color.nice_black);
 	}
 }
 
 // Sprite placeholders for oSolid day and night
 var sday = undefined, snight = undefined;
 
-switch(style_selected) {
+switch(selected_style) {
 	case LEVEL_STYLE.GRASS:
 		sday = sGrassGre; snight = sGrassOre;
 		break;

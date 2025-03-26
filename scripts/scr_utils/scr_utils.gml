@@ -16,3 +16,11 @@ function on_desktop() {
 	return ((os_type == os_windows) or (os_type == os_linux) or (os_type == os_macosx));
 }
 
+function draw_text_shadow(_x, _y, _text, _shadow_offset_x, _shadow_offset_y, _shadow_color) {
+	var prev_color = draw_get_color();
+	
+	draw_set_color(_shadow_color);
+	draw_text(_x + _shadow_offset_x, _y + _shadow_offset_y, _text);
+	draw_set_color(prev_color);
+	draw_text(_x, _y, _text);
+}

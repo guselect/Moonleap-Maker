@@ -19,7 +19,7 @@ function save_level(_level_name) {
 		for(var _x = 0; _x < room_tile_width; _x++){
 			for(var _y = 0; _y < room_tile_height; _y++){
 				
-				var _val = object_grid[_x, _y];
+				var _val = objects_grid[_x, _y];
 				
 				var _data_copy = [];
 				
@@ -85,18 +85,18 @@ function load_level(_level_name){
 	
 		if(_loaded_data.version == SAVE_SYSTEM_VERSION){
 			
-			object_grid =  _loaded_data.level_data;
+			objects_grid =  _loaded_data.level_data;
 	
 			for(var _x = 0; _x < room_tile_width; _x++){
 				for(var _y = 0; _y < room_tile_height; _y++){
 				
-					var _save_object = object_grid[@ _x,_y];
+					var _save_object = objects_grid[@ _x,_y];
 				
 					//replace object names with indexes
 					if(is_array(_save_object)){
 						var _object_index = asset_get_index(_save_object[2]);
 					
-						object_grid[@ _x,_y][@ 2] = _object_index;
+						objects_grid[@ _x,_y][@ 2] = _object_index;
 					}
 				}
 			}
@@ -128,7 +128,7 @@ function scr_update_style(){
 	instance_destroy(oSpaceDay);
 	instance_destroy(oDunDay)
 	
-	switch(style_selected) {
+	switch(selected_style) {
 		case LEVEL_STYLE.GRASS:		instance_create_layer(-64,-64,layer,oGrassDay);		break;
 		case LEVEL_STYLE.CLOUDS:	instance_create_layer(-64,-64,layer,oCloudDay);		break;
 		case LEVEL_STYLE.FLOWERS:	instance_create_layer(-64,-64,layer,oFlowerDay);	break;
@@ -136,10 +136,10 @@ function scr_update_style(){
 		case LEVEL_STYLE.DUNGEON:	instance_create_layer(-64,-64,layer,oDunDay);		break;
 	}
 	
-	for (var yy = maxy; yy>=0; yy-=1) {
-		for (var xx = maxx; xx>=0; xx-=1) {
+	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			with(obj[xx,yy]) {
-				palette_index = oLevelMaker.style_selected;
+				palette_index = oLevelMaker.selected_style;
 			}
 		}
 	}

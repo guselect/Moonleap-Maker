@@ -1,5 +1,5 @@
-yplus=smooth_approach(yplus,0,0.25)
-xplus=smooth_approach(xplus,0,0.25)
+item_preview_offset_y=smooth_approach(item_preview_offset_y,0,0.25)
+item_preview_offset_x=smooth_approach(item_preview_offset_x,0,0.25)
 
 //if the level editor is not in use dont run any more code
 if !instance_exists(oPause) then exit;
@@ -17,7 +17,7 @@ if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 // Change the current object in the 2darray
 
 hover_text = "";
-curobj = obj[currentx,currenty]
+selected_object = obj[selected_object_type,selected_object_position]
 
 // Only gets input if not paused
 scr_inputget();
@@ -28,37 +28,37 @@ scr_inputget();
 var ui_object_nav_x = key_right_pressed - key_left_pressed;
 
 if ui_object_nav_x != 0 {
-	xplus = 2 * sign(ui_object_nav_x);
-	currenty += sign(ui_object_nav_x);
+	item_preview_offset_x = 2 * sign(ui_object_nav_x);
+	selected_object_position += sign(ui_object_nav_x);
 	
-	while currenty < 0 or currenty > maxy or obj[currentx,currenty] == oUndefined or is_undefined(obj[currentx,currenty]){
-		currenty += sign(ui_object_nav_x);
+	while selected_object_position < 0 or selected_object_position > object_positions_length - 1 or obj[selected_object_type,selected_object_position] == oUndefined or is_undefined(obj[selected_object_type,selected_object_position]){
+		selected_object_position += sign(ui_object_nav_x);
 		
-		if currenty < 0 then 
-			currenty = maxy;
-		else if currenty > maxy then 
-			currenty = 0;
+		if selected_object_position < 0 then 
+			selected_object_position = object_positions_length - 1;
+		else if selected_object_position > object_positions_length - 1 then 
+			selected_object_position = 0;
 	}
 	audio_play_sfx(snd_bump, false, -5, 13);
 }
 
 // Update the selected object
-curobj = obj[currentx,currenty];
+selected_object = obj[selected_object_type,selected_object_position];
 
-// sprite_index = object_get_sprite(curobj.object)
-sprite_index = object_get_sprite(curobj)
+// sprite_index = object_get_sprite(selected_object.object)
+sprite_index = object_get_sprite(selected_object)
 
 // ------------------------------------
 // Object rotation and scaling
 // ------------------------------------
 
-//if curobj.has_tag("can_flip") {
+//if selected_object.has_tag("can_flip") {
 //	if keyboard_check_pressed(ord("X")) then image_xscale *= -1;
 //} else {
 //	image_xscale = 1;
 //}
 
-if is_mirror_object(curobj) {
+if is_mirror_object(selected_object) {
 	if keyboard_check_pressed(ord("X")) then image_xscale *= -1;
 } else {
 	image_xscale = 1;
@@ -73,8 +73,8 @@ if is_mirror_object(curobj) {
 //	image_xscale = 1;
 //}
 
-if is_spin_object(curobj) {
-	if keyboard_check_pressed(ord("Z")) and is_in_array(group_canspin,curobj) {
+if is_spin_object(selected_object) {
+	if keyboard_check_pressed(ord("Z")) and is_in_array(group_canspin,selected_object) {
 		image_angle += 90 
 		if image_angle >= 360 then image_angle = 0
 	}
@@ -92,21 +92,21 @@ is_cursor_inside_level =
 	and global.level_maker_mouse_y < 320;
 
 // var tile_scale = curobj.has_tag("grid_16");
-var _tile_scale = is_16_object(curobj) ? 2 : 1;
+var _tile_scale = is_16_object(selected_object) ? 2 : 1;
 
 // var _curobj_sprite = object_get_sprite(curobj.object);
-var _curobj_sprite = object_get_sprite(curobj);
+var _curobj_sprite = object_get_sprite(selected_object);
 
 var _object_width = 1;
 var _object_height = 1;
 var _sprite_offset_x = sprite_get_xoffset(_curobj_sprite);
 var _sprite_offset_y = sprite_get_yoffset(_curobj_sprite);
 
-var _sprite_offset_x_original = _sprite_offset_x;
-var _sprite_offset_y_original = _sprite_offset_y;
+//var _sprite_offset_x_original = _sprite_offset_x;
+//var _sprite_offset_y_original = _sprite_offset_y;
 
 //var _size = not is_undefined(curobj) ? curobj.get_size(tile_size) : curobj;
-var _size = object_to_size[? curobj];
+var _size = object_to_size[? selected_object];
 
 if(_size != undefined){
 	_object_width = _size[0];
@@ -115,8 +115,8 @@ if(_size != undefined){
 	_sprite_offset_y = _size[3];
 }
 
-var _curobj_mouse_tile_x = round((global.level_maker_mouse_x - _object_width*tile_size div 2) / (_tile_scale*tile_size)) * _tile_scale;
-var _curobj_mouse_tile_y = round((global.level_maker_mouse_y - _object_height*tile_size div 2) / (_tile_scale*tile_size)) * _tile_scale;
+var _curobj_mouse_tile_x = round((global.level_maker_mouse_x - _object_width * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
+var _curobj_mouse_tile_y = round((global.level_maker_mouse_y - _object_height * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
 
 _curobj_mouse_tile_x = clamp(_curobj_mouse_tile_x,0, room_tile_width - _object_width);
 _curobj_mouse_tile_y = clamp(_curobj_mouse_tile_y,0, room_tile_height - _object_height);
@@ -135,16 +135,16 @@ y = _curobj_mouse_tile_y * tile_size + _sprite_offset_y;
 //top_left_y = _curobj_mouse_tile_y;
 
 // Release the button
-time += 1;
-if time > 6 {
-	time = 0; 
-	with(oButtonMaker) {
-		y = ystart
-	}
-}
+//time += 1;
+//if time > 6 {
+//	time = 0; 
+//	with(oButtonMaker) {
+//		y = ystart
+//	}
+//}
 
 // Check the object that is behind the cursor
-place_grid_obj = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
+object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
 
 // ------------------------------------
 // MOUSE ACTIONS
@@ -153,40 +153,40 @@ place_grid_obj = get_grid_object_hovering(global.level_maker_mouse_x, global.lev
 // If not an eraser, switch between other two cursors.
 // Finger if there's an object on the mouse. Cursor otherwise.
 if cursor != LEVEL_CURSOR_TYPE.ERASER {
-	cursor = place_grid_obj != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
+	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
 
 if is_cursor_inside_level {
 	if mouse_check_button_pressed(mb_left) 
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
-		and is_array(place_grid_obj) 
+		and is_array(object_grid_hovering) 
 	{
-		var _obj_pos = get_x_y_from_object_index(place_grid_obj[2]);
+		var _obj_pos = get_x_y_from_object_index(object_grid_hovering[2]);
 				
-		currentx = _obj_pos[0];
-		currenty = _obj_pos[1];
-				
-		remove_object_from_grid(place_grid_obj);
+		selected_object_type = _obj_pos[0];
+		selected_object_position = _obj_pos[1];
+		
+		remove_object_from_grid(object_grid_hovering);
 	}
 
 	//Create Instance
 	if mouse_check_button_released(mb_left)
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
-		and not check_for_objects_in_grid_position(_curobj_mouse_tile_x, _curobj_mouse_tile_y, curobj)
-		and (curobj != oUndefined or not is_undefined(curobj))
+		and not check_for_objects_in_grid_position(_curobj_mouse_tile_x, _curobj_mouse_tile_y, selected_object)
+		and (selected_object != oUndefined or not is_undefined(selected_object))
 	{
 		// if curobj.has_tag("player") {
-		if is_player_object(curobj) {
+		if is_player_object(selected_object) {
 			remove_all_player_objects_from_grid();
 		}
 		
 		// if curobj.object == oMagicOrb or curobj.object == oGrayOrb
-		if curobj == oMagicOrb or curobj == oGrayOrb {
+		if selected_object == oMagicOrb or selected_object == oGrayOrb {
 			remove_orb_from_grid();
 		}
 		
 		//instance_create_layer(x,y,"Instances",curobj,{image_xscale: oLevelMaker.image_xscale, image_angle: oLevelMaker.image_angle})
-		place_object_in_object_grid(_curobj_mouse_tile_x, _curobj_mouse_tile_y, curobj, oLevelMaker.image_xscale, oLevelMaker.image_angle);
+		place_object_in_object_grid(_curobj_mouse_tile_x, _curobj_mouse_tile_y, selected_object, oLevelMaker.image_xscale, oLevelMaker.image_angle);
 		
 		if instance_exists(oSolidDay) then oSolidDay.update = true;
 		if instance_exists(oSolidNight) then oSolidNight.update = true;
@@ -204,9 +204,9 @@ if is_cursor_inside_level {
 	if (mouse_check_button(mb_right) 
 			or (mouse_check_button(mb_left) 
 			and cursor == LEVEL_CURSOR_TYPE.ERASER))
-		and is_array(place_grid_obj) 
+		and is_array(object_grid_hovering) 
 	{
-		remove_object_from_grid(place_grid_obj);
+		remove_object_from_grid(object_grid_hovering);
 		
 		audio_play_sfx(snd_brokestone,false,-5,15);
 		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);

@@ -7,7 +7,7 @@
 
 - Some objects just didnt pause when oPause exists, thats a bug
 - oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
-- the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that (DTL: i'm doing it)
+- the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that (DTLion says: i'm doing it)
 - Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
 based on that they update their colors
 - oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
@@ -15,131 +15,137 @@ based on that they update their colors
 
 */
 
-// Item preview offsets
-yplus = 0;
-xplus = 0;
+// Input variables
+scr_inputcreate()
 
+// Tiling-related
 tile_size = 8;
 room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
-object_grid = []; // Grid where the objects inserted by player are.
-place_grid_obj = -1; // Object where cursor is above at.
+objects_grid = []; // Grid where the objects inserted by player are.
+object_grid_hovering = -1; // Object where cursor is above at.
 
-nice_black = make_color_rgb(0,0,72)
-nice_white = make_color_rgb(170,255,255)
-nice_blue = $FFFFAA55
+for(var _x = 0; _x < room_tile_width; _x++){
+	for(var _y = 0; _y < room_tile_height; _y++){
+		objects_grid[_x,_y] = -1;
+	}	
+}
 
+// Cursor-related
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
-default_origin_type = SPRITE_POSITIONING_TYPE.TOP_LEFT;
-
 is_cursor_inside_level = false;
-time = 0; //used for release the buttons
-style_selected = LEVEL_STYLE.GRASS;
+item_preview_offset_x = 0;
+item_preview_offset_y = 0;
+
+// Level-related
+selected_style = LEVEL_STYLE.GRASS;
+//time = 0; //used to release the buttons
+
+// UI-related
 hover_text = "";
+text_shadow_x = 2;
+text_shadow_y = 1;
+color = {
+	nice_black: make_color_rgb(0,0,72),
+	nice_white: make_color_rgb(170,255,255),
+	nice_blue: $FFFFAA55,
+};
+
+// Objects-related
+enum OBJECT_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED, LENGTH }
 
 object_to_size = ds_map_create();
+selected_object = 0;
+selected_object_type = 0;
+selected_object_position = 0;
+default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
+object_types_length = OBJECT_TYPE.LENGTH - 1;
+object_positions_length = 16;
 
-//current_object = undefined;
-//current_object_type = 0;
-//current_object_index = 0;
-curobj = 0;
-currentx = 0;
-currenty = 0;
+obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
+obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
+obj[OBJECT_TYPE.NEUTRAL, 05] =	new LMObject(oLadderNeutral,	16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 06] =	new LMObject(oSnailGray,		16, 16).add_tag("can_flip");
+obj[OBJECT_TYPE.NEUTRAL, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[OBJECT_TYPE.NEUTRAL, 08] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip", "grid_16");
+obj[OBJECT_TYPE.NEUTRAL, 09] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
+obj[OBJECT_TYPE.NEUTRAL, 10] =	new LMObject(oKey,				16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 11] =	new LMObject(oKeyDoor,			16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 13] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[OBJECT_TYPE.NEUTRAL, 14] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.NEUTRAL, 15] =	undefined;
 
-instance_create_layer(x,y,layer,oPause);
-oCamera.fancyeffects=false
-mx=0
+obj[OBJECT_TYPE.DAY, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.DAY, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.DAY, 03] =	undefined;						
+obj[OBJECT_TYPE.DAY, 04] =	new LMObject(oStarColor,		16, 16);
+obj[OBJECT_TYPE.DAY, 05] =	new LMObject(oLadderDay,		16, 16);
+obj[OBJECT_TYPE.DAY, 06] =	new LMObject(oSnail,			16, 16).add_tag("can_flip");
+obj[OBJECT_TYPE.DAY, 07] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[OBJECT_TYPE.DAY, 08] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER);
+obj[OBJECT_TYPE.DAY, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
+obj[OBJECT_TYPE.DAY, 10] =	new LMObject(oKeyTall,			32, 16);
+obj[OBJECT_TYPE.DAY, 11] =	new LMObject(oKeyDoorTall,		32, 16);
+obj[OBJECT_TYPE.DAY, 12] =	undefined;
+obj[OBJECT_TYPE.DAY, 13] =	undefined;
+obj[OBJECT_TYPE.DAY, 14] =	undefined;
+obj[OBJECT_TYPE.DAY, 15] =	undefined;
 
-selectmaxx=3
-maxx = 4 // Last type index.
-maxy = 15 // Last object index per type.
+obj[OBJECT_TYPE.NIGHT, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.NIGHT, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16");
+obj[OBJECT_TYPE.NIGHT, 03] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 04] =	new LMObject(oStarRunning,		16, 16);
+obj[OBJECT_TYPE.NIGHT, 05] =	new LMObject(oLadderNight,		16, 16);
+obj[OBJECT_TYPE.NIGHT, 06] =	new LMObject(oSnailNight,		16, 16).add_tag("can_flip");
+obj[OBJECT_TYPE.NIGHT, 07] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
+obj[OBJECT_TYPE.NIGHT, 08] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 09] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 10] =	new LMObject(oKeyWide,			32, 16);
+obj[OBJECT_TYPE.NIGHT, 11] =	new LMObject(oKeyDoorWide,		32, 16);
+obj[OBJECT_TYPE.NIGHT, 12] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 13] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 14] =	undefined;
+obj[OBJECT_TYPE.NIGHT, 15] =	undefined;
 
-enum LEVEL_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED, LENGTH }
+obj[OBJECT_TYPE.OTHER, 00] =	undefined
+obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16");
+obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 32).add_tag("can_flip");
+obj[OBJECT_TYPE.OTHER, 03] =	undefined;
+obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);
+obj[OBJECT_TYPE.OTHER, 05] =	undefined;
+obj[OBJECT_TYPE.OTHER, 06] =	undefined;
+obj[OBJECT_TYPE.OTHER, 07] =	new LMObject(oLadyGiant4,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
+obj[OBJECT_TYPE.OTHER, 08] =	undefined;
+obj[OBJECT_TYPE.OTHER, 09] =	undefined;
+obj[OBJECT_TYPE.OTHER, 10] =	new LMObject(oKeyTallWide,		32, 32);
+obj[OBJECT_TYPE.OTHER, 11] =	new LMObject(oKeyDoorTallWide,	32, 32);
+obj[OBJECT_TYPE.OTHER, 12] =	undefined;
+obj[OBJECT_TYPE.OTHER, 13] =	undefined;
+obj[OBJECT_TYPE.OTHER, 14] =	undefined;
+obj[OBJECT_TYPE.OTHER, 15] =	undefined;
 
-obj[LEVEL_TYPE.NEUTRAL,	 00] =	new LMObject("Player (Leap)",		oPlayer,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("player");
-obj[LEVEL_TYPE.NEUTRAL,	 01] =	new LMObject("Solid block",			oSolid,			16, 16).add_tag("grid_16");
-obj[LEVEL_TYPE.NEUTRAL,	 02] =	new LMObject("Platform",			oPlatGhost,		16, 16).add_tag("can_spin");
-obj[LEVEL_TYPE.NEUTRAL,	 03] =	new LMObject("Spike",				oPermaSpike,	16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 04] =	new LMObject("Star",				oStar,			16, 16).add_tag("can_spin");
-obj[LEVEL_TYPE.NEUTRAL,	 05] =	new LMObject("Ladder (Neutral)",	oLadderNeutral, 16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 06] =	new LMObject("Snail (Neutral)",		oSnailGray,		16, 16).add_tag("can_flip");
-obj[LEVEL_TYPE.NEUTRAL,	 07] =	new LMObject("Ladybug (Neutral)",	oLadyGray,		16, 16, SPRITE_POSITIONING_TYPE.CENTER).add_tag("can_spin", "can_flip");
-obj[LEVEL_TYPE.NEUTRAL,	 08] =	new LMObject("Bat",					oBat,			16, 16, SPRITE_POSITIONING_TYPE.CENTER).add_tag("can_spin", "can_flip", "grid_16");
-obj[LEVEL_TYPE.NEUTRAL,	 09] =	new LMObject("Mushroom (Neutral)",	oMushGray,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("can_spin");
-obj[LEVEL_TYPE.NEUTRAL,	 10] =	new LMObject("Key",					oKey,			16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 11] =	new LMObject("Door",				oKeyDoor,		16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 12] =	new LMObject("Gray Orb",			oGrayOrb,		16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 13] =	new LMObject("Bird",				oBird,			16, 16).add_tag("can_flip");
-obj[LEVEL_TYPE.NEUTRAL,	 14] =	new LMObject("Black Background",	oBlack,			16, 16).add_tag("grid_16");
-obj[LEVEL_TYPE.NEUTRAL,	 15] =	undefined;
-
-obj[LEVEL_TYPE.DAY,		 00] =	new LMObject("Player (Leap)",		oPlayerDir,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("player");
-obj[LEVEL_TYPE.DAY,		 01] =	new LMObject("Solid (Day)",			oSolidDay,		16, 16).add_tag("grid_16");
-obj[LEVEL_TYPE.DAY,		 02] =	new LMObject("Broken Stone",		oBrokenStone,	16, 16).add_tag("grid_16");
-obj[LEVEL_TYPE.DAY,		 03] =	undefined;
-obj[LEVEL_TYPE.DAY,		 04] =	new LMObject("Red Star",			oStarColor,		16, 16);
-obj[LEVEL_TYPE.DAY,		 05] =	new LMObject("Ladder (Day)",		oLadderDay,		16, 16);
-obj[LEVEL_TYPE.DAY,		 06] =	new LMObject("Snail",				oSnail,			16, 16).add_tag("can_flip");
-obj[LEVEL_TYPE.DAY,		 07] =	new LMObject("Ladybug",				oLady,			16, 16, SPRITE_POSITIONING_TYPE.CENTER).add_tag("can_spin", "can_flip");
-obj[LEVEL_TYPE.DAY,		 08] =	new LMObject("Three Bats",			oBatGiant,		48, 16, SPRITE_POSITIONING_TYPE.CENTER);
-obj[LEVEL_TYPE.DAY,		 09] =	new LMObject("Mushroom",			oMush,			16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("can_spin");
-obj[LEVEL_TYPE.DAY,		 10] =	new LMObject("Key (Tall)",			oKeyTall,		32, 16);
-obj[LEVEL_TYPE.DAY,		 11] =	new LMObject("Door (Tall)",			oKeyDoorTall,	32, 16);
-obj[LEVEL_TYPE.DAY,		 12] =	undefined;
-obj[LEVEL_TYPE.DAY,		 13] =	undefined;
-obj[LEVEL_TYPE.DAY,		 14] =	undefined;
-obj[LEVEL_TYPE.DAY,		 15] =	undefined;
-
-obj[LEVEL_TYPE.NIGHT,	 00] =	new LMObject("Player (Neutral)",	oPlayerNeutral,		16, 16, SPRITE_POSITIONING_TYPE.BOTTOM).add_tag("player");
-obj[LEVEL_TYPE.NIGHT,	 01] =	new LMObject("Solid (Night)",		oSolidNight,		16, 16).add_tag("grid_16");
-obj[LEVEL_TYPE.NIGHT,	 02] =	new LMObject("Big Broken Stone",	oBrokenStoneBig,	32, 32).add_tag("grid_16");
-obj[LEVEL_TYPE.NIGHT,	 03] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 04] =	new LMObject("Running Star",		oStarRunning,		16, 16);
-obj[LEVEL_TYPE.NIGHT,	 05] =	new LMObject("Ladder (Night)",		oLadderNight,		16, 16);
-obj[LEVEL_TYPE.NIGHT,	 06] =	new LMObject("Snail (Night)",		oSnailNight,		16, 16).add_tag("can_flip");
-obj[LEVEL_TYPE.NIGHT,	 07] =	new LMObject("Three Ladybugs",		oLadyGiant,			48, 16, SPRITE_POSITIONING_TYPE.CENTER).add_tag("can_flip");
-obj[LEVEL_TYPE.NIGHT,	 08] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 09] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 10] =	new LMObject("Key (Wide)",			oKeyWide,			32, 16);
-obj[LEVEL_TYPE.NIGHT,	 11] =	new LMObject("Door (Wide)",			oKeyDoorWide,		32, 16);
-obj[LEVEL_TYPE.NIGHT,	 12] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 13] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 14] =	undefined;
-obj[LEVEL_TYPE.NIGHT,	 15] =	undefined;
-
-obj[LEVEL_TYPE.OTHER,	 00] =	undefined
-obj[LEVEL_TYPE.OTHER,	 01] =	new LMObject("Solid (Big)",			oBigSolid,			32, 32).add_tag("grid_16");
-obj[LEVEL_TYPE.OTHER,	 02] =	new LMObject("Solid Ramp",			oSolidRamp,			32, 32).add_tag("can_flip");
-obj[LEVEL_TYPE.OTHER,	 03] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 04] =	new LMObject("Red Running Star",	oStarRunningColor,	16, 16);
-obj[LEVEL_TYPE.OTHER,	 05] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 06] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 07] =	new LMObject("Four Ladybugs",		oLadyGiant4,		48, 16, SPRITE_POSITIONING_TYPE.CENTER).add_tag("can_flip");
-obj[LEVEL_TYPE.OTHER,	 08] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 09] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 10] =	new LMObject("Key (Tall & Wide)",	oKeyTallWide,		32, 32);
-obj[LEVEL_TYPE.OTHER,	 11] =	new LMObject("Door (Tall & Wide)",	oKeyDoorTallWide,	32, 32);
-obj[LEVEL_TYPE.OTHER,	 12] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 13] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 14] =	undefined;
-obj[LEVEL_TYPE.OTHER,	 15] =	undefined;
-
-obj[LEVEL_TYPE.UNUSED,	 00] =	undefined
-obj[LEVEL_TYPE.UNUSED,	 01] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 02] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 03] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 04] =	new LMObject("Flying Star",			oStarFly,			16, 16);
-obj[LEVEL_TYPE.UNUSED,	 05] =	new LMObject("Platform (Left)",		oPlatGhostL,		16, 16);
-obj[LEVEL_TYPE.UNUSED,	 06] =	new LMObject("Platform (Right)",	oPlatGhostR,		16, 16);
-obj[LEVEL_TYPE.UNUSED,	 07] =	new LMObject("Platform (Down)",		oPlatGhostInv,		16, 16);
-obj[LEVEL_TYPE.UNUSED,	 08] =	new LMObject("Neutral Flag",		oNeutralFlag,		16, 16);
-obj[LEVEL_TYPE.UNUSED,	 09] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 10] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 11] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 12] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 13] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 14] =	undefined;
-obj[LEVEL_TYPE.UNUSED,	 15] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 00] =	undefined
+obj[OBJECT_TYPE.UNUSED, 01] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 02] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 03] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 04] =	new LMObject(oStarFly,			16, 16);
+obj[OBJECT_TYPE.UNUSED, 05] =	new LMObject(oPlatGhostL,		16, 16);
+obj[OBJECT_TYPE.UNUSED, 06] =	new LMObject(oPlatGhostR,		16, 16);
+obj[OBJECT_TYPE.UNUSED, 07] =	new LMObject(oPlatGhostInv,		16, 16);
+obj[OBJECT_TYPE.UNUSED, 08] =	new LMObject(oNeutralFlag,		16, 16);
+obj[OBJECT_TYPE.UNUSED, 09] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 10] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 11] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 12] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 13] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 14] =	undefined;
+obj[OBJECT_TYPE.UNUSED, 15] =	undefined;
 
 //x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
 obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
@@ -161,8 +167,8 @@ obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefin
 obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
 
 function get_x_y_from_object_index(_object_index){
-	for (var yy = maxy; yy>=0; yy-=1) {
-		for (var xx = maxx; xx>=0; xx-=1) {
+	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			if(obj[xx,yy] == _object_index){
 				return [xx,yy];
 			}
@@ -196,7 +202,7 @@ function is_player_object(_object_index){
 	return is_in_array(group_player,_object_index);
 }
 
-/*enum SPRITE_POSITIONING_TYPE {
+/*enum SPRITE_ORIGIN {
 	CENTER,
 	BOTTOM,
 	TOP_LEFT,
@@ -204,12 +210,12 @@ function is_player_object(_object_index){
 }*/
 
 var _object_sizes = [
-	[oPlayer, 16, 16			, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oPlayerDir, 16, 16			],
-	[oPlayerNeutral, 16, 16		],
+	[oPlayer, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+	[oPlayerDir, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+	[oPlayerNeutral, 16, 16		, SPRITE_ORIGIN.BOTTOM],
 	[oSolid, 16, 16				],
-	[oSolidDay, 16, 16			, SPRITE_POSITIONING_TYPE.OFFSET5 ],
-	[oSolidNight, 16, 16		, SPRITE_POSITIONING_TYPE.OFFSET5 ],
+	[oSolidDay, 16, 16			, SPRITE_ORIGIN.OFFSET5 ],
+	[oSolidNight, 16, 16		, SPRITE_ORIGIN.OFFSET5 ],
 	[oBigSolid, 32, 32			],
 	[oPlatGhost, 16, 16			],
 	[oPlatGhostInv, 16, 16			],
@@ -217,27 +223,27 @@ var _object_sizes = [
 	[oPlatGhostR, 16, 16			],
 	[oBrokenStone, 16, 16		],
 	[oBrokenStoneBig, 32, 32	],
-	[oSolidRamp, 32, 16			,SPRITE_POSITIONING_TYPE.CENTER ],
+	[oSolidRamp, 32, 16			,SPRITE_ORIGIN.CENTER ],
 	[oPermaSpike, 16, 16		],
 	[oStar, 16, 16				],
 	[oStarColor, 16, 16			],
 	[oStarRunning, 16, 16		],
 	[oStarRunningColor, 16, 16	],
 	[oStarFly, 16, 16			],
-	[oLadderNeutral, 16, 16		, SPRITE_POSITIONING_TYPE.TOP_LEFT],
-	[oLadderDay, 16, 16			, SPRITE_POSITIONING_TYPE.TOP_LEFT],
-	[oLadderNight, 16, 16		, SPRITE_POSITIONING_TYPE.TOP_LEFT],
-	[oSnailGray, 16, 16			, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oSnail, 16, 16				, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oSnailNight, 16, 16		, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oLadyGray, 16, 16			, SPRITE_POSITIONING_TYPE.CENTER],
-	[oLadyDay, 16, 16			, SPRITE_POSITIONING_TYPE.CENTER],
-	[oLady, 16, 16				, SPRITE_POSITIONING_TYPE.CENTER],
-	[oLadyGiant, 48, 16			, SPRITE_POSITIONING_TYPE.CENTER],
-	[oBatVer, 32, 16			, SPRITE_POSITIONING_TYPE.CENTER],
-	[oBat, 16, 16				, SPRITE_POSITIONING_TYPE.CENTER],
-	[oBatGiant, 48, 16			, SPRITE_POSITIONING_TYPE.CENTER],
-	[oBatSuperGiant, 64, 16		, SPRITE_POSITIONING_TYPE.CENTER],
+	[oLadderNeutral, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
+	[oLadderDay, 16, 16			, SPRITE_ORIGIN.TOP_LEFT],
+	[oLadderNight, 16, 16		, SPRITE_ORIGIN.TOP_LEFT],
+	[oSnailGray, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+	[oSnail, 16, 16				, SPRITE_ORIGIN.BOTTOM],
+	[oSnailNight, 16, 16		, SPRITE_ORIGIN.BOTTOM],
+	[oLadyGray, 16, 16			, SPRITE_ORIGIN.CENTER],
+	[oLadyDay, 16, 16			, SPRITE_ORIGIN.CENTER],
+	[oLady, 16, 16				, SPRITE_ORIGIN.CENTER],
+	[oLadyGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
+	[oBatVer, 32, 16			, SPRITE_ORIGIN.CENTER],
+	[oBat, 16, 16				, SPRITE_ORIGIN.CENTER],
+	[oBatGiant, 48, 16			, SPRITE_ORIGIN.CENTER],
+	[oBatSuperGiant, 64, 16		, SPRITE_ORIGIN.CENTER],
 	[oMushGray, 16, 16			],
 	[oMush, 16, 16				],
 	[oKey, 16, 16				],
@@ -248,15 +254,15 @@ var _object_sizes = [
 	[oKeyDoorTall, 16, 32		],
 	[oKeyDoorWide, 32, 16		],
 	[oKeyDoorTallWide, 32, 32	],
-	[oGrayOrb, 16, 16			, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oMagicOrb, 16, 16			, SPRITE_POSITIONING_TYPE.BOTTOM],
-	[oBird, 16, 16				],
+	[oGrayOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+	[oMagicOrb, 16, 16			, SPRITE_ORIGIN.BOTTOM],
+	[oBird, 16, 16				, SPRITE_ORIGIN.BOTTOM],
 	[oBlack, 16, 16				],
 ];
 
 function object_sprite_get_offset_typed(_object_index, _object_width, _object_height, _origin_type){
 	
-	//var _origin_type = default_origin_type;
+	//var _origin_type = default_sprite_origin;
 	//var _object_width = 1;
 	//var _object_height = 1;
 	
@@ -276,22 +282,22 @@ function object_sprite_get_offset_typed(_object_index, _object_width, _object_he
 	var _h = sprite_get_height(_sprite);
 	
 	switch(_origin_type){
-		case SPRITE_POSITIONING_TYPE.OFFSET5: //guselect
+		case SPRITE_ORIGIN.OFFSET5: //guselect
 			return [
 				_offx-8,
 				_offy-8
 			];
-		case SPRITE_POSITIONING_TYPE.TOP_LEFT:
+		case SPRITE_ORIGIN.TOP_LEFT:
 			return [
 				_offx,
 				_offy
 			];
-		case SPRITE_POSITIONING_TYPE.BOTTOM:
+		case SPRITE_ORIGIN.BOTTOM:
 			return [
 				_offx-_w div 2+_object_width*tile_size div 2,
 				_offy-_h+_object_height*tile_size,
 			];
-		case SPRITE_POSITIONING_TYPE.CENTER:
+		case SPRITE_ORIGIN.CENTER:
 			return [
 				_offx-_w div 2+_object_width*tile_size div 2,
 				_offy-_h div 2+_object_height*tile_size div 2
@@ -322,7 +328,7 @@ function rotate_object_offset(_object_width, _object_height, _sprite_offset_x, _
 for(var _i = 0; _i < array_length(_object_sizes); _i++){
 	var _v = _object_sizes[_i];
 	
-	var _origin_type = default_origin_type;
+	var _origin_type = default_sprite_origin;
 	if(array_length(_v) > 3){
 		_origin_type = _v[3];
 	}
@@ -335,18 +341,10 @@ for(var _i = 0; _i < array_length(_object_sizes); _i++){
 	object_to_size[? _v[0]] = [_w,_h, _offset[0], _offset[1]];
 }
 
-scr_inputcreate()
-
-for(var _x = 0; _x < room_tile_width; _x++){
-	for(var _y = 0; _y < room_tile_height; _y++){
-		object_grid[_x,_y] = -1;
-	}	
-}
-
 function get_grid_object_hovering(_mouse_x, _mouse_y){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
 				
 				var _w = _val[3];
@@ -371,7 +369,7 @@ function remove_object_from_grid(_object_data){
 	
 	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
 		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			object_grid[_x,_y] = -1;
+			objects_grid[_x,_y] = -1;
 		}	
 	}
 }
@@ -394,7 +392,7 @@ function check_for_objects_in_grid_position(_top_left_x,_top_left_y,_object_inde
 	
 	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
 		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			if(is_array(object_grid[_x,_y]))
+			if(is_array(objects_grid[_x,_y]))
 				return true;
 		}	
 	}
@@ -405,7 +403,7 @@ function check_for_objects_in_grid_position(_top_left_x,_top_left_y,_object_inde
 function remove_all_player_objects_from_grid(){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
 				if(_val[2] == oPlayer || _val[2] == oPlayerDir || _val[2] == oPlayerNeutral){
 					remove_object_from_grid(_val);
@@ -418,7 +416,7 @@ function remove_all_player_objects_from_grid(){
 function remove_orb_from_grid(){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
 				if(_val[2] == oMagicOrb || _val[2] == oGrayOrb){
 					remove_object_from_grid(_val);
@@ -458,7 +456,7 @@ function place_object_in_object_grid(_top_left_x,_top_left_y,_object_index, _xsc
 	
 	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
 		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			object_grid[_x,_y] = _object_data;
+			objects_grid[_x,_y] = _object_data;
 		}	
 	}
 }
@@ -481,7 +479,7 @@ place_object_in_object_grid(8*2+6, 6*2, oStar);
 function object_of_type_exists_in_editor(_object_index){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[2] == _object_index)
 				return true;
 		}
@@ -495,8 +493,7 @@ function start_level(){
 	
 	instance_destroy(oPause);
 	
-	switch (style_selected)
-	{
+	switch (selected_style) {
 		case LEVEL_STYLE.GRASS:		instance_create_layer(0, 0,"Instances", o_grass_song);		break;
 		case LEVEL_STYLE.CLOUDS:	instance_create_layer(0, 0,"Instances", o_cloud_song);		break;
 		case LEVEL_STYLE.FLOWERS:	instance_create_layer(0, 0,"Instances", o_flower_song);		break;
@@ -506,7 +503,7 @@ function start_level(){
 	
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = object_grid[_x,_y];
+			var _val = objects_grid[_x,_y];
 			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
 				var _obj_ind = _val[2];
 				
@@ -545,34 +542,36 @@ function start_level(){
 	}
 	
 	
-	with(oLevelMaker) {scr_update_style()}
+	with(oLevelMaker) {
+		scr_update_style()
+	}
 	//game_save("level.savetemp")
 		
 	//oPlayer.inistar=instance_number(oStar)
 	
 	with (oBrokenStone)
 	{
-		brokenright=instance_place(x+1,y,oBrokenStone)
-		brokenleft=instance_place(x-1,y,oBrokenStone)
-		brokenup=instance_place(x,y-1,oBrokenStone)
-		brokendown=instance_place(x,y+1,oBrokenStone)
+		brokenright = instance_place(x+1,y,oBrokenStone)
+		brokenleft = instance_place(x-1,y,oBrokenStone)
+		brokenup = instance_place(x,y-1,oBrokenStone)
+		brokendown = instance_place(x,y+1,oBrokenStone)
 	}
 	
-	oPlayer.inistar=instance_number(oStar)-1 //IDK why, just works
+	oPlayer.inistar = instance_number(oStar) - 1; //IDK why, just works
 	//show_message(oPlayer.inistar)
 }
 
 function delete_all_objects_from_grid(){
-	for (var yy = maxy; yy>=0; yy-=1) {
-		for (var xx = maxx; xx>=0; xx-=1) {
+	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			remove_object_from_grid(obj[xx,yy]);
 		}
 	}
 }
 
 function delete_all_objects_from_level(){
-	for (var yy = maxy; yy>=0; yy-=1) {
-		for (var xx = maxx; xx>=0; xx-=1) {
+	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			instance_destroy(obj[xx,yy]);
 		}
 	}
@@ -595,9 +594,13 @@ function end_level_and_return_to_editor(){
 
 //CAMERA CODE
 
+oCamera.fancyeffects = false;
+
 camera_current_interpolation = 0;
 
 global.level_maker_mouse_x = mouse_x;
 global.level_maker_mouse_y = mouse_y;
 
 just_entered_level_editor = false;
+
+instance_create_layer(x,y,layer,oPause);

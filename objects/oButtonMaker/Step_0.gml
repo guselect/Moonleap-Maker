@@ -45,7 +45,7 @@ if is_mouse_hover {
 		case 6:  oLevelMaker.hover_text = LANG.maker_play;				break;
 		case 7:  oLevelMaker.hover_text = LANG.maker_help;				break;
 		case 8: //get style text
-			switch (oLevelMaker.style_selected)
+			switch (oLevelMaker.selected_style)
 			{
 				case LEVEL_STYLE.GRASS:		stext = LANG.maker_grassstyle;		break;
 				case LEVEL_STYLE.CLOUDS:	stext = LANG.maker_cloudstyle;		break;
@@ -84,11 +84,16 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_down(
 {
 	with(oLevelMaker)
 	{
-		yplus=-4
-	    currentx-=1
-		repeat(maxx) {if currentx<0 {currentx=selectmaxx} if curobj=noone currentx-=1}
+		item_preview_offset_y = -4
+	    selected_object_type -= 1
+		repeat(object_types_length) {
+			if selected_object_type < 0 {
+				selected_object_type = object_types_length - 1;
+			} 
+			if selected_object == noone then selected_object_type -= 1;
+		}
 		audio_play_sfx(snd_morcego_02,false,-20,13)
-		oButtonMakerObj.drawplus=-1
+		oButtonMakerObj.drawplus = -1
 	}
 }
 
@@ -96,14 +101,14 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_down(
 if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_up()) {
 	with(oLevelMaker)
 	{
-		yplus = 4
-	    currentx += 1
-		repeat(maxy) {
-			if currentx > selectmaxx then currentx = 0;
-			if curobj = noone then currenty += 1;
+		item_preview_offset_y = 4
+	    selected_object_type += 1
+		repeat(object_positions_length - 1) {
+			if selected_object_type > object_types_length - 1 then selected_object_type = 0;
+			if selected_object = noone then selected_object_position += 1;
 		}
 		audio_play_sfx(snd_morcego_02,false,-20,13)
-		oButtonMakerObj.drawplus=+1
+		oButtonMakerObj.drawplus = 1
 	}
 }
 
@@ -165,8 +170,8 @@ if image_index == 8 and is_mouse_left_pressing {
 	audio_play_sfx(sndUiChange,false,-18.3,1)
 	
 	with(oLevelMaker) {
-		style_selected += 1
-		if style_selected >= LEVEL_STYLE.LENGTH then style_selected = 0
+		selected_style += 1
+		if selected_style >= LEVEL_STYLE.LENGTH then selected_style = 0
 		scr_update_style()
 	}
 }
