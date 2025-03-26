@@ -1,15 +1,13 @@
-/// @description Insert description here
-// You can write your code in this editor
 drawtarget=0
 
 if !instance_exists(oPause) {exit}
 
 obj = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
 
-var active = obj != oUndefined;
+var is_active = obj != undefined;
 var obj_sprite = is_undefined(obj) ? oUndefined : obj.index;
 
-visible = active;
+visible = is_active;
 
 // Draw button
 sprite_index = object_get_sprite(obj_sprite);
@@ -32,19 +30,22 @@ if sprite_yoffset>6
 y=yy+8
 }
 
-if active 
+if is_active 
 	and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32)
 	and oLevelMaker.cursor != LEVEL_CURSOR_TYPE.ERASER
 {
 	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
 }
 
-if mouse_check_button(mb_left) and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32)
+if is_active 
+	and mouse_check_button(mb_left)
+	and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32)
 {
-	if mouse_check_button_pressed(mb_left){audio_play_sfx(sndUiChange,false,-18.3,1);}
+	if mouse_check_button_pressed(mb_left) {
+		audio_play_sfx(sndUiChange,false,-18.3,1);
+	}
 	oLevelMaker.selected_object_position = index;
 	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
-	
 }
 
 scale=1

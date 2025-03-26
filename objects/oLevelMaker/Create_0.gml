@@ -6,7 +6,7 @@
 
 - Some objects just didnt pause when oPause exists, thats a bug
 - oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
-- the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that (DTLion says: i'm doing it)
+- [DONE!] the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
 - Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
 based on that they update their colors
 - oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
@@ -73,7 +73,7 @@ obj[OBJECT_TYPE.NEUTRAL, 08] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTE
 obj[OBJECT_TYPE.NEUTRAL, 09] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 10] =	new LMObject(oKey,				16, 16);
 obj[OBJECT_TYPE.NEUTRAL, 11] =	new LMObject(oKeyDoor,			16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16).add_tag("is_orb");
+obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
 obj[OBJECT_TYPE.NEUTRAL, 13] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
 obj[OBJECT_TYPE.NEUTRAL, 14] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
 obj[OBJECT_TYPE.NEUTRAL, 15] =	undefined;
@@ -90,7 +90,7 @@ obj[OBJECT_TYPE.DAY, 08] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTE
 obj[OBJECT_TYPE.DAY, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
 obj[OBJECT_TYPE.DAY, 10] =	new LMObject(oKeyTall,			32, 16);
 obj[OBJECT_TYPE.DAY, 11] =	new LMObject(oKeyDoorTall,		32, 16);
-obj[OBJECT_TYPE.DAY, 12] =	new LMObject(oMagicOrb,			16, 16).add_tag("is_orb");
+obj[OBJECT_TYPE.DAY, 12] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
 obj[OBJECT_TYPE.DAY, 13] =	undefined;
 obj[OBJECT_TYPE.DAY, 14] =	undefined;
 obj[OBJECT_TYPE.DAY, 15] =	undefined;
@@ -405,8 +405,7 @@ remove_object_from_grid = function(_object_data){
 	}
 }
 
-check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object){
-	
+check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object) {
 	var _object_width = 1;
 	var _object_height = 1;
 	var _size = _object.get_size(tile_size);

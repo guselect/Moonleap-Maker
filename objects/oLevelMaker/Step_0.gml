@@ -73,7 +73,7 @@ if not is_undefined(selected_object) {
 }
 
 // ------------------------------------
-// Object tile placing calculations
+// Object tile mouse calculations
 // ------------------------------------
 is_cursor_inside_level = 
 	global.level_maker_mouse_x > 0
@@ -111,10 +111,6 @@ _sprite_offset_y = _new_offset[1];
 x = _curobj_mouse_tile_x * tile_size + _sprite_offset_x;
 y = _curobj_mouse_tile_y * tile_size + _sprite_offset_y;
 
-
-//top_left_x = _curobj_mouse_tile_x;
-//top_left_y = _curobj_mouse_tile_y;
-
 // Check the object that is behind the cursor
 object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
 
@@ -123,7 +119,7 @@ object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, glob
 // ------------------------------------
 
 // If not an eraser, switch between other two cursors.
-// Finger if there's an object on the mouse. Cursor otherwise.
+// Finger if there's an object selected. Cursor otherwise.
 if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
@@ -145,8 +141,8 @@ if is_cursor_inside_level {
 	// Create object
 	if mouse_check_button_released(mb_left)
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
+		and not is_undefined(selected_object)
 		and not check_for_objects_in_grid_position(_curobj_mouse_tile_x, _curobj_mouse_tile_y, selected_object)
-		and (selected_object != oUndefined or not is_undefined(selected_object))
 	{
 		if selected_object.has_tag("is_player") {
 			remove_all_player_objects_from_grid();
