@@ -7,6 +7,7 @@ vsp=0
 grav=0.125
 hsp_plus=0
 flash=0
+scare=false
 
 colapproach=0
 if !audio_is_playing(sndPush){audio_play_sfx(sndPush,true,-17,0)}

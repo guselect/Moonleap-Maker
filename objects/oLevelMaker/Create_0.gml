@@ -260,7 +260,7 @@ var _object_sizes = [
 	[oBlack, 16, 16				],
 ];
 
-function object_sprite_get_offset_typed(_object_index, _object_width, _object_height, _origin_type){
+object_sprite_get_offset_typed = function(_object_index, _object_width, _object_height, _origin_type){
 	
 	//var _origin_type = default_sprite_origin;
 	//var _object_width = 1;
@@ -305,7 +305,7 @@ function object_sprite_get_offset_typed(_object_index, _object_width, _object_he
 	}
 }
 
-function rotate_object_offset(_object_width, _object_height, _sprite_offset_x, _sprite_offset_y, _angle){
+rotate_object_offset = function(_object_width, _object_height, _sprite_offset_x, _sprite_offset_y, _angle){
 	
 	var _half_width_object = (_object_width * tile_size) div 2;
 	var _half_height_object = (_object_height * tile_size) div 2;
@@ -341,7 +341,7 @@ for(var _i = 0; _i < array_length(_object_sizes); _i++){
 	object_to_size[? _v[0]] = [_w,_h, _offset[0], _offset[1]];
 }
 
-function get_grid_object_hovering(_mouse_x, _mouse_y){
+get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
@@ -359,7 +359,7 @@ function get_grid_object_hovering(_mouse_x, _mouse_y){
 	return -1;
 }
 
-function remove_object_from_grid(_object_data){
+remove_object_from_grid = function(_object_data){
 	
 	var _top_left_x = _object_data[0];
 	var _top_left_y = _object_data[1];
@@ -374,7 +374,7 @@ function remove_object_from_grid(_object_data){
 	}
 }
 
-function check_for_objects_in_grid_position(_top_left_x,_top_left_y,_object_index){
+check_for_objects_in_grid_position = function(_top_left_x,_top_left_y,_object_index){
 	
 	var _object_width = 1;
 	var _object_height = 1;
@@ -400,7 +400,7 @@ function check_for_objects_in_grid_position(_top_left_x,_top_left_y,_object_inde
 	return false;
 }
 
-function remove_all_player_objects_from_grid(){
+remove_all_player_objects_from_grid = function() {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
@@ -413,7 +413,7 @@ function remove_all_player_objects_from_grid(){
 	}
 }
 
-function remove_orb_from_grid(){
+remove_orb_from_grid = function() {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
@@ -428,7 +428,7 @@ function remove_orb_from_grid(){
 
 //TOP LEFT X AND Y ARE IN GRID INCREMENTS OF tile_size
 
-function place_object_in_object_grid(_top_left_x,_top_left_y,_object_index, _xscale = 1, _angle = 0){
+place_object_in_object_grid = function(_top_left_x, _top_left_y, _object_index, _xscale = 1, _angle = 0){
 	
 	var _object_width = 1;
 	var _object_height = 1;
@@ -476,7 +476,7 @@ place_object_in_object_grid(8*2+6, 6*2, oStar);
 
 //
 
-function object_of_type_exists_in_editor(_object_index){
+object_of_type_exists_in_editor = function(_object_index) {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
 			var _val = objects_grid[_x,_y];
@@ -487,7 +487,7 @@ function object_of_type_exists_in_editor(_object_index){
 	return false;
 }
 
-function start_level(){
+start_level = function() {
 	audio_play_sfx(sndStarGame,false,-18.3,1)
 	hover_text = "";
 	
@@ -561,7 +561,7 @@ function start_level(){
 	//show_message(oPlayer.inistar)
 }
 
-function delete_all_objects_from_grid(){
+delete_all_objects_from_grid = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			remove_object_from_grid(obj[xx,yy]);
@@ -569,7 +569,7 @@ function delete_all_objects_from_grid(){
 	}
 }
 
-function delete_all_objects_from_level(){
+delete_all_objects_from_level = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			instance_destroy(obj[xx,yy]);
@@ -577,7 +577,7 @@ function delete_all_objects_from_level(){
 	}
 }
 
-function end_level_and_return_to_editor(){
+end_level_and_return_to_editor = function(){
 	//destroy the "song"
 	instance_destroy(o_grass_song)	
 	instance_destroy(o_cloud_song)	
