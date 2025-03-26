@@ -1,10 +1,10 @@
 item_preview_offset_y = smooth_approach(item_preview_offset_y,0,0.25)
 item_preview_offset_x = smooth_approach(item_preview_offset_x,0,0.25)
 
-//if the level editor is not in use dont run any more code
+// If the level editor is not in use don't run any more code
 if !instance_exists(oPause) then exit;
 
-// this code is to prevent random misfiring clicks after you press the button to play the level again
+// This code is to prevent random misfiring clicks after you press the button to play the level again
 if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 	just_entered_level_editor = false;
 	exit;
@@ -14,13 +14,11 @@ if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 // ACTUAL EDITOR CODE FROM HERE...
 //----------------------------------------
 
-// Change the current object in the 2darray
+// Only gets input if not paused
+scr_inputget();
 
 hover_text = "";
 selected_object = obj[selected_object_type,selected_object_position]
-
-// Only gets input if not paused
-scr_inputget();
 
 // ------------------------------------
 // Selecting objects
@@ -68,7 +66,7 @@ if not is_undefined(selected_object) {
 			if image_angle >= 360 then image_angle = 0;
 		}
 	} else {
-		image_xscale = 1;
+		image_angle = 0;
 	}
 }
 
