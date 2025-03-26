@@ -69,7 +69,9 @@ if is_mirror_object(curobj) {
 //		image_angle += 90 
 //		if image_angle >= 360 then image_angle = 0;
 //	}
-//} else image_xscale = 1;
+//} else {
+//	image_xscale = 1;
+//}
 
 if is_spin_object(curobj) {
 	if keyboard_check_pressed(ord("Z")) and is_in_array(group_canspin,curobj) {
@@ -80,8 +82,10 @@ if is_spin_object(curobj) {
 	image_angle = 0;
 }
 
-//calculate object stuff
-is_level_cursor_inside_level = 
+// ------------------------------------
+// Object tile placing calculations
+// ------------------------------------
+is_cursor_inside_level = 
 	global.level_maker_mouse_x > 0
 	and global.level_maker_mouse_x < 320
 	and global.level_maker_mouse_y > 0
@@ -101,7 +105,7 @@ var _sprite_offset_y = sprite_get_yoffset(_curobj_sprite);
 var _sprite_offset_x_original = _sprite_offset_x;
 var _sprite_offset_y_original = _sprite_offset_y;
 
-//var _size = curobj.get_size(tile_size);
+//var _size = not is_undefined(curobj) ? curobj.get_size(tile_size) : curobj;
 var _size = object_to_size[? curobj];
 
 if(_size != undefined){
@@ -140,16 +144,19 @@ if time > 6 {
 }
 
 // Check the object that is behind the cursor
+place_grid_obj = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
 
-place_grid_obj = get_grid_object_hovering(global.level_maker_mouse_x,global.level_maker_mouse_y);
+// ------------------------------------
+// MOUSE ACTIONS
+// ------------------------------------
 
-/// MOUSE ACTIONS
-
+// If not an eraser, switch between other two cursors.
+// Finger if there's an object on the mouse. Cursor otherwise.
 if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	cursor = place_grid_obj != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
 
-if is_level_cursor_inside_level {
+if is_cursor_inside_level {
 	if mouse_check_button_pressed(mb_left) 
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
 		and is_array(place_grid_obj) 
@@ -188,8 +195,8 @@ if is_level_cursor_inside_level {
 		repeat(3) {
 			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
 			
-			sm.image_xscale=0.5
-			sm.image_yscale=0.5
+			sm.image_xscale=0.5;
+			sm.image_yscale=0.5;
 		}
 	}
 

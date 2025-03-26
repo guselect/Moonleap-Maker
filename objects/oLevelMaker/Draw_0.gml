@@ -1,13 +1,10 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-//draw every tile on the level maker
+// Draw every tile on the level maker
 if(instance_exists(oPause)) {
 	for(var _x = 0; _x < room_tile_width; _x++) {
 		for(var _y = 0; _y < room_tile_height; _y++){
 			//draw_sprite(spr_ghostfish_3,0,_x*8,_y*8);
-			var _xx = _x*8;
-			var _yy = _y*8;
+			var _xx = _x * 8;
+			var _yy = _y * 8;
 		
 			var _val = object_grid[_x,_y];
 		
@@ -48,21 +45,19 @@ if(instance_exists(oPause)) {
 draw_set_color(c_white)
 draw_set_font(fntSmall)
 
+// Background
 draw_sprite(sPauseMaker,0,0,0)
 
-if cursor != LEVEL_CURSOR_TYPE.ERASER and is_level_cursor_inside_level
-{
+// Draw item preview on cursor
+if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level {
 	if sprite_exists(sprite_index) {
 		draw_sprite_ext(sprite_index,0,x+xplus,y+yplus,image_xscale,image_yscale,image_angle,c_white,0.5);
 	} else {
-		draw_text(x+4,y,"?")
+		draw_text(x + 4, y, "?");
 	}
-	//draw_sprite(sLevelsb,0,xx,yy)
 }
 
-//draw_sprite(sLevelsb,0,top_left_x,top_left_y);
-
-//STYLE STUFF, PLACEHOLDER
+// Sprite placeholders for oSolid day and night
 var sday = undefined, snight = undefined;
 
 switch(style_selected) {

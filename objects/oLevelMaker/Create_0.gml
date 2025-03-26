@@ -15,14 +15,15 @@ based on that they update their colors
 
 */
 
-yplus=0
-xplus=0
+// Item preview offsets
+yplus = 0;
+xplus = 0;
 
 tile_size = 8;
 room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
 object_grid = []; // Grid where the objects inserted by player are.
-place_grid_obj = -1;
+place_grid_obj = -1; // Object where cursor is above at.
 
 nice_black = make_color_rgb(0,0,72)
 nice_white = make_color_rgb(170,255,255)
@@ -31,7 +32,7 @@ nice_blue = $FFFFAA55
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
 default_origin_type = SPRITE_POSITIONING_TYPE.TOP_LEFT;
 
-is_level_cursor_inside_level = false;
+is_cursor_inside_level = false;
 time = 0; //used for release the buttons
 style_selected = LEVEL_STYLE.GRASS;
 hover_text = "";
@@ -40,7 +41,7 @@ object_to_size = ds_map_create();
 
 //current_object = undefined;
 //current_object_type = 0;
-//current_object_item = 0;
+//current_object_index = 0;
 curobj = 0;
 currentx = 0;
 currenty = 0;
@@ -68,7 +69,7 @@ obj[LEVEL_TYPE.NEUTRAL,	 09] =	new LMObject("Mushroom (Neutral)",	oMushGray,		16
 obj[LEVEL_TYPE.NEUTRAL,	 10] =	new LMObject("Key",					oKey,			16, 16);
 obj[LEVEL_TYPE.NEUTRAL,	 11] =	new LMObject("Door",				oKeyDoor,		16, 16);
 obj[LEVEL_TYPE.NEUTRAL,	 12] =	new LMObject("Gray Orb",			oGrayOrb,		16, 16);
-obj[LEVEL_TYPE.NEUTRAL,	 13] =	new LMObject("Bird",				oBird,			16, 16);
+obj[LEVEL_TYPE.NEUTRAL,	 13] =	new LMObject("Bird",				oBird,			16, 16).add_tag("can_flip");
 obj[LEVEL_TYPE.NEUTRAL,	 14] =	new LMObject("Black Background",	oBlack,			16, 16).add_tag("grid_16");
 obj[LEVEL_TYPE.NEUTRAL,	 15] =	undefined;
 
@@ -159,8 +160,6 @@ obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefin
 obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
 obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
 
-
-
 function get_x_y_from_object_index(_object_index){
 	for (var yy = maxy; yy>=0; yy-=1) {
 		for (var xx = maxx; xx>=0; xx-=1) {
@@ -179,7 +178,7 @@ group_canspin=array_create(0,0)
 array_push(group_canspin,oMush,oMushGray,oStar,oLady,oLadyDay,oLadyGray,oBat,oPlatGhost)
 
 group_canmirror=array_create(0,0)
-array_push(group_canmirror,oSnailNight,oSnailGray,oSnail,oBat,oSolidRamp,oLady,oLadyDay,oLadyGray,oLadyGiant,oLadyGiant4)
+array_push(group_canmirror,oSnailNight,oSnailGray,oSnail,oBat,oSolidRamp,oLady,oLadyDay,oLadyGray,oLadyGiant,oLadyGiant4,oBird)
 
 group_16grid=array_create(0,0)
 array_push(group_16grid,oSolid, oBrokenStone,oBigSolid,oBrokenStoneBig,oBat,oBlack,oSolidDay,oSolidNight, oBatVer)
