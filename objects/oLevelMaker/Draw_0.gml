@@ -1,24 +1,32 @@
 // Draw every tile on the level maker
 if(instance_exists(oPause)) {
 	for(var _x = 0; _x < room_tile_width; _x++) {
-		for(var _y = 0; _y < room_tile_height; _y++){
-			//draw_sprite(spr_ghostfish_3,0,_x*8,_y*8);
+		for(var _y = 0; _y < room_tile_height; _y++) {
 			var _xx = _x * 8;
 			var _yy = _y * 8;
-			var _val = objects_grid[_x,_y];
-		
-			if(is_array(_val) and _val[0] == _x and _val[1] == _y){
-				var _obj = _val[2];
-				var _obj_angle = _val[6];
+			var _object_grid = objects_grid[_x, _y];
 			
-				var _sprite = object_get_sprite(_obj.index);
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+		
+			if is_struct(_object_grid)
+				and _top_left_x == _x
+				and _top_left_y == _y 
+			{
+				var _object = _object_grid.object;
+				var _xscale = _object_grid.xscale;
+				var _obj_angle = _object_grid.angle;
+			
+				var _sprite = object_get_sprite(_object.index);
 			
 				var _object_width = 1;
 				var _object_height = 1;
 				var _sprite_offset_x = sprite_get_xoffset(_sprite);
 				var _sprite_offset_y = sprite_get_yoffset(_sprite);
 
-				var _size = _obj.get_size(tile_size);
+				var _size = _object.get_size(tile_size);
 			
 				_sprite_offset_x = _size[2];
 				_sprite_offset_y = _size[3];
@@ -31,7 +39,7 @@ if(instance_exists(oPause)) {
 				_sprite_offset_x = _new_offset[0];
 				_sprite_offset_y = _new_offset[1];
 
-				draw_sprite_ext(_sprite,0,_xx + _sprite_offset_x,_yy + _sprite_offset_y , _val[5], 1, _val[6], c_white,1);
+				draw_sprite_ext(_sprite,0,_xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, 1, _obj_angle, c_white,1);
 			}
 		}	
 	}

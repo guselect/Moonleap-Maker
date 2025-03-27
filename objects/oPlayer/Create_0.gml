@@ -100,6 +100,11 @@ roomh=room_height
 	
 inistar=0//instance_number(oStar)
 
+has_collected_all_stars = function() {
+	inistar = instance_number(oStar);
+	return inistar == 0;
+}
+
 idletime=0
 
 timee=0

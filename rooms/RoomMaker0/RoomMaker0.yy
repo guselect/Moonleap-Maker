@@ -127,7 +127,6 @@
 1,41,-5,0,4,268435488,268435487,34,35,-10,1,3,8,28,29,-3,0,4,8,1,
 37,38,-11,1,3,31,32,3,-32,1,],},"visible":false,"depth":200,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritVisibility":true,"inheritSubLayers":true,"gridX":32,"gridY":32,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRInstanceLayer","resourceVersion":"1.0","name":"Instances","instances":[
-        {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_174397E6_1_1_1_2","properties":[],"isDnd":false,"objectId":{"name":"oGrassDay","path":"objects/oGrassDay/oGrassDay.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":400.0,"y":88.0,},
         {"resourceType":"GMRInstance","resourceVersion":"1.0","name":"inst_188C669","properties":[],"isDnd":false,"objectId":{"name":"oLevelMaker","path":"objects/oLevelMaker/oLevelMaker.yy",},"inheritCode":false,"hasCreationCode":false,"colour":4294967295,"rotation":0.0,"scaleX":1.0,"scaleY":1.0,"imageIndex":0,"imageSpeed":1.0,"inheritedItemId":null,"frozen":false,"ignore":false,"inheritItemSettings":false,"x":64.0,"y":64.0,},
       ],"visible":true,"depth":300,"userdefinedDepth":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritVisibility":true,"inheritSubLayers":true,"gridX":8,"gridY":8,"layers":[],"hierarchyFrozen":false,"effectEnabled":true,"effectType":null,"properties":[],},
     {"resourceType":"GMRTileLayer","resourceVersion":"1.1","name":"Tiles_2","tilesetId":{"name":"tGrass","path":"tilesets/tGrass/tGrass.yy",},"x":0,"y":0,"tiles":{"TileDataFormat":1,"SerialiseWidth":20,"SerialiseHeight":12,"TileCompressedData":[
@@ -245,7 +244,6 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
-    {"name":"inst_174397E6_1_1_1_2","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_57EB66F1","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_E41105A","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_14757B65","path":"rooms/RoomMaker0/RoomMaker0.yy",},

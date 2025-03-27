@@ -114,7 +114,7 @@ obj[OBJECT_TYPE.NIGHT, 15] =	undefined;
 
 obj[OBJECT_TYPE.OTHER, 00] =	undefined
 obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16");
-obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
+obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(8, 0, 16, 16);
 obj[OBJECT_TYPE.OTHER, 03] =	undefined;
 obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);
 obj[OBJECT_TYPE.OTHER, 05] =	new LMObject(oStarFly,			16, 16);
@@ -200,14 +200,23 @@ rotate_object_offset = function(_object_width, _object_height, _sprite_offset_x,
 get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = objects_grid[_x,_y];
-			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
+			var _object_grid = objects_grid[_x,_y];
+			
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			
+			if is_struct(_object_grid) 
+				and _top_left_x == _x
+				and _top_left_y == _y
+			{
 				
-				var _w = _val[3];
-				var _h = _val[4];
+				var _w = _object_grid.object_width;
+				var _h = _object_grid.object_height;
 				
-				if(point_in_rectangle(_mouse_x, _mouse_y, _x*tile_size,_y*tile_size, (_x+_w)*tile_size, (_y+_h)*tile_size)){
-					return _val;
+				if point_in_rectangle(_mouse_x, _mouse_y, _x*tile_size,_y*tile_size, (_x+_w)*tile_size, (_y+_h)*tile_size) {
+					return _object_grid;
 				}
 			}
 		}	
@@ -222,9 +231,9 @@ place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscal
 	var _tiled_size = _object.get_size(tile_size);
 
 	_object_width = _tiled_size[0];
-	_object_height = _tiled_size[1];	
+	_object_height = _tiled_size[1];
 	
-	var _object_data = [
+	var _object_grid = new LMObjectGrid(
 		_top_left_x,
 		_top_left_y,
 		_object,
@@ -232,29 +241,39 @@ place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscal
 		_object_height,
 		_xscale,
 		_angle
-	];
+	);
+	
+	//var _object_data = [
+	//	_top_left_x,
+	//	_top_left_y,
+	//	_object,
+	//	_object_width,
+	//	_object_height,
+	//	_xscale,
+	//	_angle
+	//];
 	
 	//make sure the object stays inside the grid
 	_top_left_x = clamp(_top_left_x, 0, room_tile_width - _object_width);
 	_top_left_y = clamp(_top_left_y, 0, room_tile_height - _object_height);
 	
-	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
-		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++) {
-			objects_grid[_x,_y] = _object_data;
+	for(var _x = _top_left_x; _x < _top_left_x + _object_width; _x++){
+		for(var _y = _top_left_y; _y < _top_left_y + _object_height; _y++) {
+			objects_grid[_x, _y] = _object_grid;
 		}	
 	}
 }
 
-remove_object_from_grid = function(_object_data){
-	var _top_left_x = _object_data[0];
-	var _top_left_y = _object_data[1];
+remove_object_from_grid = function(_object_grid){
+	var _top_left_x = _object_grid.top_left_x;
+	var _top_left_y = _object_grid.top_left_y;
 	
-	var _object_width = _object_data[3];
-	var _object_height = _object_data[4];
+	var _object_width = _object_grid.object_width;
+	var _object_height = _object_grid.object_height;
 	
-	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
-		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			objects_grid[_x,_y] = -1;
+	for(var _x = _top_left_x; _x < _top_left_x + _object_width; _x++) {
+		for(var _y = _top_left_y; _y < _top_left_y + _object_height; _y++) {
+			objects_grid[_x, _y] = -1;
 		}	
 	}
 }
@@ -273,8 +292,9 @@ check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object)
 	
 	for(var _x = _top_left_x; _x < _top_left_x+_object_width; _x++){
 		for(var _y = _top_left_y; _y < _top_left_y+_object_height; _y++){
-			if(is_array(objects_grid[_x,_y]))
-				return true;
+			var _object_grid = objects_grid[_x, _y];
+			
+			if is_struct(_object_grid) then return true;
 		}	
 	}
 	
@@ -282,14 +302,22 @@ check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object)
 }
 
 remove_all_player_objects_from_grid = function() {
-	for(var _x = 0; _x < room_tile_width; _x++){
-		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = objects_grid[_x,_y];
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			var _object_grid = objects_grid[_x, _y];
 			
-			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				if (_val[2].has_tag("is_player")){
-					remove_object_from_grid(_val);
-				}
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			var _object_index = _object_grid.object;
+			
+			if is_struct(_object_grid)
+				and _top_left_x == _x 
+				and _top_left_y == _y 
+				and _object_index.has_tag("is_player") 
+			{
+				remove_object_from_grid(_object_grid);
 			}
 		}
 	}
@@ -298,25 +326,39 @@ remove_all_player_objects_from_grid = function() {
 remove_orb_from_grid = function() {
 	for(var _x = 0; _x < room_tile_width; _x++){
 		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = objects_grid[_x,_y];
-			if(is_array(_val) && _val[0] == _x && _val[1] == _y){
-				if(_val[2].index == oMagicOrb || _val[2].index == oGrayOrb) {
-					remove_object_from_grid(_val);
-				}
+			var _object_grid = objects_grid[_x,_y];
+			
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			var _object_index = _object_grid.object;
+			
+			if is_struct(_object_grid)
+				and _top_left_x == _x
+				and _top_left_y == _y
+				and (_object_grid.object.index == oMagicOrb 
+					or _object_grid.object.index == oGrayOrb)
+			{
+				remove_object_from_grid(_object_grid);
 			}
 		}
 	}
 }
 
 object_of_type_exists_in_editor = function(_object_index) {
-	for(var _x = 0; _x < room_tile_width; _x++){
-		for(var _y = 0; _y < room_tile_height; _y++){
-			var _val = objects_grid[_x,_y];
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			var _object_grid = objects_grid[_x,_y];
 			
-			if(is_array(_val) and _val[2].index == _object_index)
+			if _object_grid == -1 then continue;
+			
+			if is_struct(_object_grid)
+				and _object_grid.object.index == _object_index then
 				return true;
 		}
 	}
+	
 	return false;
 }
 
@@ -337,27 +379,34 @@ start_level = function() {
 	// Instantiate all objects on the level
 	for(var _x = 0; _x < room_tile_width; _x++) {
 		for(var _y = 0; _y < room_tile_height; _y++) {
-			var _val = objects_grid[_x, _y];
+			var _object_grid = objects_grid[_x,_y];
 			
-			if(is_array(_val) and _val[0] == _x and _val[1] == _y) {
-				var _obj = _val[2];
-				var _angle = _val[6];
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			
+			if is_struct(_object_grid)
+				and _top_left_x == _x 
+				and _top_left_y == _y
+			{
+				var _object = _object_grid.object;
+				var _xscale = _object_grid.xscale;
+				var _angle = _object_grid.angle;
 				
-				var _sprite = object_get_sprite(_obj.index);
-				
+				var _sprite = object_get_sprite(_object.index);
 				var _object_width = 1;
 				var _object_height = 1;
 				var _sprite_offset_x = sprite_get_xoffset(_sprite);
 				var _sprite_offset_y = sprite_get_yoffset(_sprite);
-
-				var _size = _obj.get_size(tile_size);
+				var _size = _object.get_size(tile_size);
 
 				_object_width = _size[0];
 				_object_height = _size[1];
 				_sprite_offset_x = _size[2];
 				_sprite_offset_y = _size[3];
 			
-				var _new_offset = rotate_object_offset(_object_width,_object_height,_sprite_offset_x,_sprite_offset_y,_angle);
+				var _new_offset = rotate_object_offset(_object_width, _object_height, _sprite_offset_x, _sprite_offset_y, _angle);
 				
 				_sprite_offset_x = _new_offset[0];
 				_sprite_offset_y = _new_offset[1];
@@ -365,9 +414,10 @@ start_level = function() {
 				var _in_world_x = _x * tile_size + _sprite_offset_x;
 				var _in_world_y = _y * tile_size + _sprite_offset_y;
 				
-				var _xscale = _val[5];
-				
-				instance_create_layer(_in_world_x, _in_world_y, "Instances", _obj.index, { image_xscale: _xscale, image_angle: _angle });
+				instance_create_layer(_in_world_x, _in_world_y, "Instances", _object.index, {
+					image_xscale: _xscale,
+					image_angle: _angle
+				});
 			}
 		}
 	}
@@ -385,15 +435,14 @@ start_level = function() {
 		brokenup = instance_place(x,y-1,oBrokenStone)
 		brokendown = instance_place(x,y+1,oBrokenStone)
 	}
-	
-	//oPlayer.inistar = instance_number(oStar) - 1; // IDK why, just works
 }
 
 delete_all_objects_from_level = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
-			var object = obj[xx,yy];
-			if is_undefined(obj[xx,yy]) then continue;
+			var object = obj[xx, yy];
+			
+			if is_undefined(obj[xx, yy]) then continue;
 			instance_destroy(object.index);
 		}
 	}

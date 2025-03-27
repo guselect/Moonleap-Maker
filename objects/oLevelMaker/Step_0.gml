@@ -82,13 +82,13 @@ is_cursor_inside_level =
 	and global.level_maker_mouse_y > 0
 	and global.level_maker_mouse_y < 320;
 
-var _curobj_sprite = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
+var _selected_object_sprite = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
 var _tile_scale = not is_undefined(selected_object) and selected_object.has_tag("grid_16") ? 2 : 1;
 
 var _object_width = 1;
 var _object_height = 1;
-var _sprite_offset_x = sprite_get_xoffset(_curobj_sprite) || 0;
-var _sprite_offset_y = sprite_get_yoffset(_curobj_sprite) || 0;
+var _sprite_offset_x = sprite_get_xoffset(_selected_object_sprite) || 0;
+var _sprite_offset_y = sprite_get_yoffset(_selected_object_sprite) || 0;
 
 var _size = is_undefined(selected_object) ? [1, 1, 0, 0] : selected_object.get_size(tile_size, _object_width, _object_height);
 
@@ -97,11 +97,11 @@ _object_height = _size[1];
 _sprite_offset_x = _size[2];
 _sprite_offset_y = _size[3];
 
-var _curobj_mouse_tile_x = round((global.level_maker_mouse_x - _object_width * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
-var _curobj_mouse_tile_y = round((global.level_maker_mouse_y - _object_height * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
+var _selected_object_mouse_tile_x = round((global.level_maker_mouse_x - _object_width * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
+var _selected_object_mouse_tile_y = round((global.level_maker_mouse_y - _object_height * tile_size / 2) / (_tile_scale * tile_size)) * _tile_scale;
 
-_curobj_mouse_tile_x = clamp(_curobj_mouse_tile_x,0, room_tile_width - _object_width);
-_curobj_mouse_tile_y = clamp(_curobj_mouse_tile_y,0, room_tile_height - _object_height);
+_selected_object_mouse_tile_x = clamp(_selected_object_mouse_tile_x,0, room_tile_width - _object_width);
+_selected_object_mouse_tile_y = clamp(_selected_object_mouse_tile_y,0, room_tile_height - _object_height);
 
 var _new_offset = rotate_object_offset(_object_width,_object_height,_sprite_offset_x,_sprite_offset_y,image_angle);
 
@@ -109,8 +109,8 @@ _sprite_offset_x = _new_offset[0];
 _sprite_offset_y = _new_offset[1];
 
 //placing objects with centered visuals
-x = _curobj_mouse_tile_x * tile_size + _sprite_offset_x;
-y = _curobj_mouse_tile_y * tile_size + _sprite_offset_y;
+x = _selected_object_mouse_tile_x * tile_size + _sprite_offset_x;
+y = _selected_object_mouse_tile_y * tile_size + _sprite_offset_y;
 
 // Check the object that is behind the cursor
 object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
@@ -129,7 +129,7 @@ if is_cursor_inside_level {
 	// Replace object
 	if mouse_check_button_pressed(mb_left) 
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
-		and is_array(object_grid_hovering) 
+		and is_struct(object_grid_hovering)
 	{
 		var _obj_pos = get_x_y_from_object_index(object_grid_hovering[2]);
 				
@@ -143,7 +143,7 @@ if is_cursor_inside_level {
 	if mouse_check_button_released(mb_left)
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
-		and not check_for_objects_in_grid_position(_curobj_mouse_tile_x, _curobj_mouse_tile_y, selected_object)
+		and not check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object)
 	{
 		if selected_object.has_tag("is_player") {
 			remove_all_player_objects_from_grid();
@@ -157,7 +157,7 @@ if is_cursor_inside_level {
 		}
 		
 		//instance_create_layer(x,y,"Instances",curobj,{image_xscale: oLevelMaker.image_xscale, image_angle: oLevelMaker.image_angle})
-		place_object_in_object_grid(_curobj_mouse_tile_x, _curobj_mouse_tile_y, selected_object, oLevelMaker.image_xscale, oLevelMaker.image_angle);
+		place_object_in_object_grid(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object, oLevelMaker.image_xscale, oLevelMaker.image_angle);
 		
 		if instance_exists(oSolidDay) then oSolidDay.update = true;
 		if instance_exists(oSolidNight) then oSolidNight.update = true;
@@ -173,9 +173,9 @@ if is_cursor_inside_level {
 
 	//Destroy Objects
 	if (mouse_check_button(mb_right) 
-			or (mouse_check_button(mb_left) 
+		or (mouse_check_button(mb_left) 
 			and cursor == LEVEL_CURSOR_TYPE.ERASER))
-		and is_array(object_grid_hovering) 
+		and is_struct(object_grid_hovering) 
 	{
 		remove_object_from_grid(object_grid_hovering);
 		

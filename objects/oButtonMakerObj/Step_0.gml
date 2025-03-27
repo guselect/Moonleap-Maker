@@ -8,26 +8,21 @@ var is_active = obj != undefined;
 var obj_sprite = is_undefined(obj) ? oUndefined : obj.index;
 
 visible = is_active;
-
-// Draw button
 sprite_index = object_get_sprite(obj_sprite);
 
 xx=round(xstart-8)
 yy=round(ystart-8)
 
-
 x=xx
 y=yy
 
-if sprite_xoffset>6 
-{
-x=xx+8
+if sprite_xoffset>6 {
+	x=xx+8
 }
 
 
-if sprite_yoffset>6 
-{
-y=yy+8
+if sprite_yoffset>6 {
+	y=yy+8
 }
 
 if is_active 
@@ -48,11 +43,11 @@ if is_active
 	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
 }
 
-scale=1
-if  sprite_get_height(sprite_index)>30  {scale=0.5 }
-if  sprite_get_width(sprite_index)>30	{scale=0.5 }
-if  sprite_get_width(sprite_index)>50	{scale=0.4 }
-if  sprite_get_width(sprite_index)>60	{scale=0.3 }
+scale = 1
+if sprite_get_height(sprite_index) > 30 then scale = 0.5;
+if sprite_get_width(sprite_index) > 30	then scale = 0.5;
+if sprite_get_width(sprite_index) > 50	then scale = 0.4;
+if sprite_get_width(sprite_index) > 60	then scale = 0.3;
 
 if sprite_index=sGemFly or sprite_index=sGemGrayUI {y=yy+3}
 if sprite_index=sBird {y=yy+16}

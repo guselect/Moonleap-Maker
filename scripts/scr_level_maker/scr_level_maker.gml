@@ -39,6 +39,17 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	custom_offset_x = 0;
 	custom_offset_y = 0;
 	
+	sprite_button = -1;
+	
+	set_sprite_button_part = function(_x, _y, _width, _height) {
+		sprite_button_x = _x;
+		sprite_button_y = _y;
+		sprite_button_width = _width;
+		sprite_button_height = _height;
+		
+		return self;
+	}
+	
 	add_tag = function() {
 		var i = 0;
 		
@@ -72,6 +83,11 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 					_offx - 8,
 					_offy - 8
 				];
+			case SPRITE_ORIGIN.CUSTOM_OFFSET:
+				return [
+					_offx + custom_offset_x,
+					_offy + custom_offset_y
+				];
 			case SPRITE_ORIGIN.TOP_LEFT:
 				return [
 					_offx,
@@ -100,4 +116,21 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	}
 	
 	return self;
+}
+
+/// @param {real} _top_left_x
+/// @param {real} _top_left_y
+/// @param {Asset.GMObject} _object
+/// @param {real} _object_width
+/// @param {real} _object_height
+/// @param {real} _xscale
+/// @param {real} _angle
+function LMObjectGrid(_top_left_x, _top_left_y, _object, _object_width, _object_height, _xscale, _angle) constructor {
+	top_left_x = _top_left_x;
+	top_left_y = _top_left_y;
+	object = _object;
+	object_width = _object_width;
+	object_height = _object_height;
+	xscale = _xscale;
+	angle = _angle;
 }

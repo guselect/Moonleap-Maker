@@ -185,8 +185,7 @@ if (!on_ground_var) {
 
 image_xscale=move
 
-if star=inistar
-{
+if has_collected_all_stars() {
 	with (oPermaSpike) {solidvar=instance_create_layer(x,y,layer,oSolid) solidvar.x=x  solidvar.image_xscale=image_xscale solidvar.image_yscale=image_yscale solidvar.visible=false}
 	//if winwait=60 {instance_create_layer(x,y,layer,oSuperStar)}
 	state=WIN
