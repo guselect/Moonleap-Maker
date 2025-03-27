@@ -316,7 +316,7 @@ if ds_list_size(ladder_list) > 0 and key_jump {
 	on_ladder = true;
 	var nearest_ladder = ds_list_find_value(ladder_list, 0);
 	
-	if ds_list_size(ladder_list) > 1 
+	if ds_list_size(ladder_list) > 1
 		or y > nearest_ladder.bbox_top - 4
 		or place_meeting(x, y, oPlatGhost)
 	{
@@ -328,9 +328,8 @@ if ds_list_size(ladder_list) > 0 and key_jump {
 	if key_left + key_right == 0 then
 		x = approach(x, nearest_ladder.x + nearest_ladder.sprite_width / 2, 0.5);
 } else {
-	on_ladder=false
+	on_ladder = false;
 }
-
 
 if state=RUN
 {

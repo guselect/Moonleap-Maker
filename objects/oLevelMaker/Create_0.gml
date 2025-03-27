@@ -415,7 +415,11 @@ start_level = function() {
 				var _in_world_x = _x * tile_size + _sprite_offset_x;
 				var _in_world_y = _y * tile_size + _sprite_offset_y;
 				
-				instance_create_layer(_in_world_x, _in_world_y, "Instances", _object.index, {
+				var _layer_name = "GimmickInstances";
+				
+				if _object.has_tag("is_player") or _object.has_tag("is_orb") then _layer_name = "PlayerInstances";
+				
+				instance_create_layer(_in_world_x, _in_world_y, _layer_name, _object.index, {
 					image_xscale: _xscale,
 					image_angle: _angle
 				});
