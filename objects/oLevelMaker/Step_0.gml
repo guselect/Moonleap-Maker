@@ -131,7 +131,7 @@ if is_cursor_inside_level {
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
 		and is_struct(object_grid_hovering)
 	{
-		var _obj_pos = get_x_y_from_object_index(object_grid_hovering[2]);
+		var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
 				
 		selected_object_type = _obj_pos[0];
 		selected_object_position = _obj_pos[1];

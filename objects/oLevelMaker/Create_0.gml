@@ -168,9 +168,10 @@ obj[OBJECT_TYPE.UNUSED, 15] =	undefined;
 get_x_y_from_object_index = function(_object) {
 	for (var yy = object_positions_length - 1; yy >= 0; yy--) {
 		for (var xx = object_types_length - 1; xx >= 0; xx--) {
-			var object_from_list = obj[xx,yy];
+			var object_from_list = obj[xx, yy];
 			
 			if is_undefined(object_from_list) then continue;
+			
 			if (object_from_list.index == _object.index) {
 				return [xx, yy];
 			}
