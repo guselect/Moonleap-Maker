@@ -112,6 +112,8 @@ glow=false
 
 mypar=self
 
+ladder_list = ds_list_create();
+
 alarm[11] = game_get_speed(gamespeed_fps) * 30;
 
 if instance_exists(oSaveManager) and room!=RoomIntro0

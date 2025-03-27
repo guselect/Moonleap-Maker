@@ -309,24 +309,27 @@ if place_meeting(x+1,y-2,oParentNight) {if night=false{if state!=WIN and godmode
 		}
 	}
 
-//sobe escada
-var ladder=instance_place(x,y,oLadderParent)
-if ladder!=noone 
-{
-		if key_jump=true
+// Sobe escada
+ds_list_clear(ladder_list);
+collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
+if ds_list_size(ladder_list) > 0 and key_jump {
+	on_ladder = true;
+	var nearest_ladder = ds_list_find_value(ladder_list, 0);
+	
+	if ds_list_size(ladder_list) > 1 
+		or y > nearest_ladder.bbox_top - 4
+		or place_meeting(x, y, oPlatGhost)
 	{
-		on_ladder=true
-		if y>ladder.bbox_top-4 or place_meeting(x,y,oPlatGhost) {vsp=-0.75} else {vsp=0}
-		if key_left+key_right=0
-		{
-			if x<ladder.x+8 {hsp=+0.5}
-			if x>ladder.x+8 {hsp=-0.5}
-		}
+		vsp = -0.75;
+	} else {
+		vsp = 0;
 	}
-	else {on_ladder=false}//if on_ladder=true and on_ground_var=false { vsp=+0.5 }
 
+	if key_left + key_right == 0 then
+		x = approach(x, nearest_ladder.x + nearest_ladder.sprite_width / 2, 0.5);
+} else {
+	on_ladder=false
 }
-else {on_ladder=false}
 
 
 if state=RUN
