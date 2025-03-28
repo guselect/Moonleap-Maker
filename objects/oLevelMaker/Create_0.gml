@@ -63,7 +63,7 @@ object_grid_hovering = -1; // Object where cursor is above at.
 // Objects List
 obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
 obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16");
-obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
+obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16); //.add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16);
 obj[OBJECT_TYPE.NEUTRAL, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 05] =	new LMObject(oLadderNeutral,	16, 16);
@@ -444,7 +444,7 @@ start_level = function() {
 
 delete_all_objects_from_level = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
-		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
+		for (var xx = OBJECT_TYPE.LENGTH - 1; xx>=0; xx-=1) {
 			var object = obj[xx, yy];
 			
 			if is_undefined(obj[xx, yy]) then continue;

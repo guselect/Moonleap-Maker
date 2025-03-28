@@ -1,7 +1,5 @@
 /// @description  platform_check();
 function platform_check() {
-
-
 	var collision = instance_place(x, y + sign(vsp), oSolid); 
 
 	if (collision) {
@@ -14,24 +12,24 @@ function platform_check() {
 	    return true;
 	}
 
-function place_meeting_exception(argument0, argument1, argument2, argument3) {
-	var exception = argument3;
+	function place_meeting_exception(argument0, argument1, argument2, argument3) {
+		var exception = argument3;
 
-	with (argument2) {
-	    // Allow 'other' access
-	    var this = id;
+		with (argument2) {
+		    // Allow 'other' access
+		    var this = id;
     
-	    if (id == exception)
-	        continue;
-	    else
-	        with (other)
-	            if (place_meeting(argument0, argument1, this))
-	                return true;
-	}
+		    if (id == exception)
+		        continue;
+		    else
+		        with (other)
+		            if (place_meeting(argument0, argument1, this))
+		                return true;
+		}
 
-	// Collision with a different object
-	return false;
-}
+		// Collision with a different object
+		return false;
+	}
 
 
 	if (vsp <= 0) {
@@ -72,7 +70,4 @@ function place_meeting_exception(argument0, argument1, argument2, argument3) {
 
 	platform_target = 0;
 	return false;
-
-
-
 }

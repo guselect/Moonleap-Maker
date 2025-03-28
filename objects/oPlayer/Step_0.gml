@@ -103,74 +103,79 @@ else// if on_ladder=false
 	
 }
 
-
-//Jump
-if key_jump_pressed=true and !place_meeting(x,y,oLadderParent) and !key_down and !place_meeting(x,y-2,oSolid)
+// Jump
+if key_jump_pressed 
+	and not place_meeting(x,y,oLadderParent)
+	and not key_down 
+	and not place_meeting(x,y - 2, oSolid)
 {
-	if vsp>-1
-	{
 	#region Stick to the floor
-		if night=false
-		{
-			var otherspike= instance_place(x,y+6,oParentNight)
-			if otherspike!=noone
-			{
-				y+=otherspike.bbox_top-(y+10)if !place_meeting(x,y,oNope) //é 10 porque sprite_height/2=9
-				{if state!=WIN and godmode=false {instance_destroy()}}
+	if vsp > -1 {	
+		if not night {
+			var otherspike = instance_place(x, y + 6, oParentNight);
+			if otherspike != noone {
+				y += otherspike.bbox_top - (y + 10); //é 10 porque sprite_height/2=9
+				
+				if not place_meeting(x,y,oNope) 
+					and state != WIN 
+					and not godmode then instance_destroy();
 			} 
-		}
-		else
-		{
-			var otherspike= instance_place(x,y+6,oParentDay)
-			if otherspike!=noone
-			{  y+=otherspike.bbox_top-(y+10) if !place_meeting(x,y,oNope) {if state!=WIN and godmode=false {instance_destroy()}}}
-		}
-	
-		var near_solid=instance_place(x,y+6,oSolid)
-	
-		if place_meeting(x, y + 8, oPlatGhost) and !place_meeting(x, y, oPlatGhost)
-		{
-			near_solid=instance_place(x,y+6,oPlatGhost)
-		}
-
-		if near_solid!=noone
-		{
-			if !place_meeting(x,y+6,oRamp)
-			{grace_time=2 y+=near_solid.bbox_top-(y+10)}
-			
-			if key>0 and (place_meeting(x,y+6,oKeyDoor) or place_meeting(x,y+6,oKeyDoorTall) or place_meeting(x,y+6,oKeyDoorWide) or place_meeting(x,y+6,oKeyDoorWide))
-			{grace_time=0 y+=near_solid.bbox_top-(y+10)} //dont jump but stick to the floor, this prevents a gamebreaker bug
-		}
-	
-			var otherbroken= instance_place(x,y+6,oBrokenStone)
-		if otherbroken!=noone
-		{  instance_destroy(otherbroken) }
-	
-	#endregion
-	}
-		
-    if grace_time > 0 
-    {	
-	if neutral=false {scr_change()}
-	
-	if last_plat!=noone {instance_destroy(last_plat)}
-	grace_time=0
-	vsp = -jumpspeed
-	image_index=0
-	audio_play_sfx(snd_jump_player,false,-1.46,5)
-	//audio_play_sfx(snd_switch,false,-9,13)
-	
-	//Partículas
-	if godmode=false and ghost=false
-	{
-		shake_gamepad(0.4,2)
-		repeat(random_range(3,5))
-			{
-			var dust=instance_create_layer(x,y+(sprite_height/2),"Instances_2",oBigDust)
-			dust.hsp=hsp/random_range(5,10)
-			dust.vsp=vsp/random_range(5,10)
+		} else {
+			var otherspike = instance_place(x,y+6,oParentDay)
+			if otherspike != noone { 
+				y += otherspike.bbox_top - (y + 10)
+				if not place_meeting(x,y,oNope) 
+					and state != WIN 
+					and not godmode then instance_destroy();
 			}
+		}
+	
+		var near_solid = instance_place(x,y + 6, oSolid);
+	
+		if place_meeting(x, y + 8, oPlatGhost)
+			and not place_meeting(x, y, oPlatGhost) then near_solid = instance_place(x, y + 6, oPlatGhost)
+
+		if near_solid != noone {
+			if not place_meeting(x, y + 6, oRamp) {
+				grace_time = 2;
+				y += near_solid.bbox_top - (y + 10)
+			}
+			
+			if key > 0 
+				and (place_meeting(x,y+6,oKeyDoor) 
+					or place_meeting(x,y+6,oKeyDoorTall) 
+					or place_meeting(x,y+6,oKeyDoorWide) 
+					or place_meeting(x,y+6,oKeyDoorWide))
+			{
+				grace_time = 0;
+				y += near_solid.bbox_top - (y + 10)
+			} //dont jump but stick to the floor, this prevents a gamebreaker bug
+		}
+	
+		var otherbroken = instance_place(x,y+6,oBrokenStone)
+		if otherbroken != noone then instance_destroy(otherbroken);
 	}
+	#endregion
+	
+	// Change code
+    if grace_time > 0 {
+		if not neutral then scr_change();
+	
+		if last_plat != noone then instance_destroy(last_plat);
+		grace_time = 0;
+		vsp = -jumpspeed;
+		image_index = 0;
+		audio_play_sfx(snd_jump_player,false,-1.46,5);
+	
+		//Partículas
+		if not godmode and not ghost {
+			shake_gamepad(0.4, 2);
+			repeat(random_range(3, 5)) {
+				var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
+				dust.hsp = hsp / random_range(5, 10);
+				dust.vsp = vsp / random_range(5, 10);
+			}
+		}
 	}
 }
 
@@ -254,30 +259,55 @@ if night=true
 else
 */
 
-if global.settings.gamespd!=100
-{
+// Player animation speed
+if global.settings.gamespd != 100 {
 	image_speed=global.settings.gamespd/100
-}
-else
-{
+} else {
 	image_speed=1	
 }
 
-idletime+=0.01
-if idletime=20 {image_index=0}
+// Player idle animation timer
+idletime += 0.01;
 
+if idletime == 20 {
+	image_index = 0;
+} 
 
-{
-		switch (state)
-	{
-	case IDLE : if idletime>=20 {sprite_index=PlayerSit} else {sprite_index=PlayerIdle} v_fric=0.25  break;
-	case RUN  : sprite_index=PlayerRun v_fric=0.25 idletime=0  break;
-	case JUMP : idletime=0  if on_ladder=true {sprite_index=PlayerClimb} else {sprite_index=PlayerJump } break;
-	case WIN  :sprite_index=PlayerHappy break;
-	}
+// Player animation switching
+switch (state) {
+	case IDLE: 
+		if idletime >= 20 {
+			sprite_index = PlayerSit;
+		} else {
+			sprite_index = PlayerIdle;
+		}
+		v_fric = 0.25;
+		break;
+		
+	case RUN:
+		sprite_index = PlayerRun;
+		v_fric = 0.25;
+		idletime = 0;
+		break;
+		
+	case JUMP:
+		idletime = 0;
+		if on_ladder {
+			sprite_index = PlayerClimb;
+		} else {
+			sprite_index = PlayerJump;
+		}
+		break;
+		
+	case WIN:
+		sprite_index = PlayerHappy;
+		break;
 }
 
-if pick>0 {sprite_index=PlayerPickGrass pick-=1}
+if pick > 0 {
+	sprite_index = PlayerPickGrass;
+	pick -= 1;
+}
 
 if !place_meeting(x,y,oNope)
 {
@@ -293,21 +323,24 @@ if place_meeting(x+1,y-2,oParentNight) {if night=false{if state!=WIN and godmode
 
 }
 
-	if vsp<0
-{
-	if  on_ladder=false and !audio_is_playing(snd_bump) and vsp<-0.75
+if vsp < 0 {
+	if not on_ladder and not audio_is_playing(snd_bump) and vsp < -0.75 {
+		if place_meeting(x, y - 3, oSolid) 
+			or (place_meeting(x, y - 3, oPlatGhostInv) 
+			and not place_meeting(x, y, oPlatGhostInv))
 		{
-			if place_meeting(x,y-3,oSolid) or (place_meeting(x,y-3,oPlatGhostInv) and ! place_meeting(x,y,oPlatGhostInv))
-			{
-				var plat=instance_place(x,y-3,oBrokenStone)
-				instance_destroy(plat)
-				if plat!=noone {vsp=0}	
-				shake_gamepad(1,3)
-				audio_play_sfx(snd_bump,false,-5,13)  
-				repeat(3) {instance_create_layer(x,y-(sprite_height/2),"Instances_2",oStarSmol)}
-			} 
-		}
+			var plat = instance_place(x, y - 3, oBrokenStone);
+			
+			instance_destroy(plat)
+			if plat != noone then vsp = 0;
+			shake_gamepad(1, 3);
+			audio_play_sfx(snd_bump,false,-5,13)  
+			repeat(3) {
+				instance_create_layer(x, y-(sprite_height / 2),"Instances_2",oStarSmol)
+			}
+		} 
 	}
+}
 
 // Sobe escada
 ds_list_clear(ladder_list);

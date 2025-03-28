@@ -12,7 +12,7 @@ landed = false;
 
 
 repeat(abs(vsp_new)) {
-    if (!platform_check())
+    if (not platform_check())
         y += sign(vsp);
     else  {
         vsp = 0;
@@ -53,21 +53,32 @@ repeat(abs(hsp_new))
 	}
 	
 
-		//Normal Terrain
-	if sign(hsp)=1
+	// Normal Terrain
+	if sign(hsp) == 1
 	{
-		if (!place_meeting(x + 1, y, oSolid)) and !(place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL)) and !(place_meeting(x + 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
-		{x += sign(hsp)*tempH} else { hsp = 0; break;}
+		if (not place_meeting(x + 1, y, oSolid)) 
+			and not (place_meeting(x + 1, y, oPlatGhostL) and not place_meeting(x, y, oPlatGhostL)) 
+			and not (place_meeting(x + 1, y, oMagicOrb) and not place_meeting(x, y, oMagicOrb))
+		{
+			x += sign(hsp) * tempH;
+		} else { 
+			hsp = 0;
+			break;
+		}
 	}
 	
-	if sign(hsp)=-1
+	if sign(hsp) == -1
 	{
-		if (!place_meeting(x - 1, y, oSolid)) and!(place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR)) and !(place_meeting(x - 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
-		{x += sign(hsp)*tempH} else { hsp = 0; break;}
+		if (!place_meeting(x - 1, y, oSolid))
+			and not (place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR))
+			and !(place_meeting(x - 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
+		{
+			x += sign(hsp) * tempH;
+		} else {
+			hsp = 0;
+			break;
+		}
 	}
-
-
-		
 }
 
 if oCamera.current_skin=5
