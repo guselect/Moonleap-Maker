@@ -343,25 +343,27 @@ if vsp < 0 {
 }
 
 // Sobe escada
-ds_list_clear(ladder_list);
-collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
-if ds_list_size(ladder_list) > 0 and key_jump {
-	on_ladder = true;
-	var nearest_ladder = ds_list_find_value(ladder_list, 0);
+if ds_exists(ladder_list, ds_type_list) {
+	ds_list_clear(ladder_list);
+	collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
+	if ds_list_size(ladder_list) > 0 and key_jump {
+		on_ladder = true;
+		var nearest_ladder = ds_list_find_value(ladder_list, 0);
 	
-	if ds_list_size(ladder_list) > 1
-		or y > nearest_ladder.bbox_top - 4
-		or place_meeting(x, y, oPlatGhost)
-	{
-		vsp = -0.75;
-	} else {
-		vsp = 0;
-	}
+		if ds_list_size(ladder_list) > 1
+			or y > nearest_ladder.bbox_top - 4
+			or place_meeting(x, y, oPlatGhost)
+		{
+			vsp = -0.75;
+		} else {
+			vsp = 0;
+		}
 
-	if key_left + key_right == 0 then
-		x = approach(x, nearest_ladder.x + nearest_ladder.sprite_width / 2, 0.5);
-} else {
-	on_ladder = false;
+		if key_left + key_right == 0 then
+			x = approach(x, nearest_ladder.x + nearest_ladder.sprite_width / 2, 0.5);
+	} else {
+		on_ladder = false;
+	}
 }
 
 if state=RUN

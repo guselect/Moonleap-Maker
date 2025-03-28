@@ -1,4 +1,4 @@
-#macro SAVE_SYSTEM_VERSION "1.0"
+#macro SAVE_SYSTEM_VERSION "1.1"
 
 function save_level(_level_name) {
 	
@@ -19,20 +19,20 @@ function save_level(_level_name) {
 		for(var _x = 0; _x < room_tile_width; _x++){
 			for(var _y = 0; _y < room_tile_height; _y++){
 				
-				var _val = objects_grid[_x, _y];
+				var _object_grid = objects_grid[_x, _y];
 				
 				var _data_copy = [];
 				
-				if(is_array(_val)){
-					_data_copy = [
-						_val[0],
-						_val[1],
-						object_get_name(_val[2]),
-						_val[3],
-						_val[4],
-						_val[5],
-						_val[6],
-					];
+				if is_struct(_object_grid) {
+					_data_copy = {
+						top_left_x: _object_grid.top_left_x,
+						top_left_y: _object_grid.top_left_y,
+						object_name: object_get_name(_object_grid.object.index),
+						object_width: _object_grid.object_width,
+						object_height: _object_grid.object_height,
+						xscale: _object_grid.xscale,
+						angle: _object_grid.angle,
+					};
 				} else {
 					_data_copy = -1;
 				}
@@ -64,9 +64,7 @@ function load_level(_level_name){
 	with(oLevelMaker){
 		
 		//var _file_name = "Levels\\" + string(_level_name) + ".moonlevel";
-		
-			var _file_name = string(_level_name)
-	
+		var _file_name = string(_level_name)
 	
 		if(!file_exists(_file_name)){
 			show_message(_file_name + " does not exist");
@@ -82,27 +80,47 @@ function load_level(_level_name){
 		file_text_close(_file);
 	
 		var _loaded_data = json_parse(_json_string);
-	
+
 		if(_loaded_data.version == SAVE_SYSTEM_VERSION){
-			
-			objects_grid =  _loaded_data.level_data;
-	
-			for(var _x = 0; _x < room_tile_width; _x++){
-				for(var _y = 0; _y < room_tile_height; _y++){
-				
-					var _save_object = objects_grid[@ _x,_y];
-				
-					//replace object names with indexes
-					if(is_array(_save_object)){
-						var _object_index = asset_get_index(_save_object[2]);
+			for(var _x = 0; _x < room_tile_width; _x++) {
+				for(var _y = 0; _y < room_tile_height; _y++) {
+					var _loaded_object_grid = _loaded_data.level_data[_x, _y];
 					
-						objects_grid[@ _x,_y][@ 2] = _object_index;
+					if _loaded_object_grid == -1 {
+						objects_grid[_x, _y] = -1;
+					} else {
+						var _object_index = asset_get_index(_loaded_object_grid.object_name);
+						var _object = undefined;
+						
+						for(var t = 0; t < oLevelMaker.object_types_length and is_undefined(_object); t++) {
+							for(var p = 0; p < oLevelMaker.object_positions_length and is_undefined(_object); p++) {
+								var _object_to_find = oLevelMaker.obj[t, p];
+								
+								if is_undefined(_object_to_find) then continue;
+								
+								if _object_to_find.index == _object_index then
+									_object = _object_to_find;
+							}
+						}
+						
+						if not is_undefined(_object) {
+							objects_grid[_loaded_object_grid.top_left_x, _loaded_object_grid.top_left_y] = new LMObjectGrid(
+								_loaded_object_grid.top_left_x,
+								_loaded_object_grid.top_left_y,
+								_object,
+								_loaded_object_grid.object_width,
+								_loaded_object_grid.object_height,
+								_loaded_object_grid.xscale,
+								_loaded_object_grid.angle
+							)
+						} else {
+							objects_grid[_loaded_object_grid.top_left_x, _loaded_object_grid.top_left_y] = -1;
+						}
 					}
 				}
 			}
 		} else {
-		
-			show_message("THIS SAVE USES AN OLDER SAVE VERSION");
+			show_message("THIS SAVE USES AN DIFFERENT SAVE VERSION AND CANNOT BE LOADED.");
 		}
 	
 	}
