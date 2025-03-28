@@ -5,7 +5,7 @@ ani=0
 
 var sday = undefined, snight = undefined;
 
-switch(selected_style) {
+switch(oLevelMaker.selected_style) {
 	case LEVEL_STYLE.GRASS:
 		sday = sGrassGre; snight = sGrassOre;
 		break;
