@@ -291,6 +291,8 @@ remove_object_from_grid = function(_object_grid){
 }
 
 check_for_objects_in_grid_position = function(_top_left_x, _top_left_y, _object) {
+	if _object == undefined then return false;
+	
 	var _object_width = 1;
 	var _object_height = 1;
 	var _size = _object.get_size(tile_size);
