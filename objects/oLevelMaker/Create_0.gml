@@ -63,9 +63,9 @@ object_grid_hovering = -1; // Object where cursor is above at.
 
 // Objects List
 obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
 obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16); //.add_tag("can_spin");
-obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16);
+obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
 obj[OBJECT_TYPE.NEUTRAL, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 05] =	new LMObject(oLadderNeutral,	16, 16);
 obj[OBJECT_TYPE.NEUTRAL, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
@@ -80,8 +80,8 @@ obj[OBJECT_TYPE.NEUTRAL, 14] =	new LMObject(oBlack,			16, 16).add_tag("grid_16")
 obj[OBJECT_TYPE.NEUTRAL, 15] =	undefined;
 
 obj[OBJECT_TYPE.DAY, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
-obj[OBJECT_TYPE.DAY, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16");
+obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
+obj[OBJECT_TYPE.DAY, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
 obj[OBJECT_TYPE.DAY, 03] =	undefined;						
 obj[OBJECT_TYPE.DAY, 04] =	new LMObject(oStarColor,		16, 16);
 obj[OBJECT_TYPE.DAY, 05] =	new LMObject(oLadderDay,		16, 16);
@@ -97,8 +97,8 @@ obj[OBJECT_TYPE.DAY, 14] =	undefined;
 obj[OBJECT_TYPE.DAY, 15] =	undefined;
 
 obj[OBJECT_TYPE.NIGHT, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
-obj[OBJECT_TYPE.NIGHT, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16");
+obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
+obj[OBJECT_TYPE.NIGHT, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable");
 obj[OBJECT_TYPE.NIGHT, 03] =	undefined;
 obj[OBJECT_TYPE.NIGHT, 04] =	new LMObject(oStarRunning,		16, 16);
 obj[OBJECT_TYPE.NIGHT, 05] =	new LMObject(oLadderNight,		16, 16);
@@ -114,7 +114,7 @@ obj[OBJECT_TYPE.NIGHT, 14] =	undefined;
 obj[OBJECT_TYPE.NIGHT, 15] =	undefined;
 
 obj[OBJECT_TYPE.OTHER, 00] =	undefined
-obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16");
+obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable");
 obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(8, 0, 16, 16);
 obj[OBJECT_TYPE.OTHER, 03] =	undefined;
 obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);

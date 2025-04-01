@@ -142,7 +142,8 @@ if is_cursor_inside_level {
 	}
 
 	// Create object
-	if mouse_check_button_released(mb_left)
+	if (mouse_check_button_released(mb_left) or (mouse_check_button(mb_left)
+			and selected_object.has_tag("is_holdable")))
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
 		and not has_object_below_cursor
