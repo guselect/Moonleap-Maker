@@ -64,7 +64,7 @@ object_grid_hovering = -1; // Object where cursor is above at.
 // Objects List
 obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
 obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
-obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16); //.add_tag("can_spin");
+obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16);
 obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
 obj[OBJECT_TYPE.NEUTRAL, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
 obj[OBJECT_TYPE.NEUTRAL, 05] =	new LMObject(oLadderNeutral,	16, 16);
@@ -118,7 +118,7 @@ obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16"
 obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(8, 0, 16, 16);
 obj[OBJECT_TYPE.OTHER, 03] =	undefined;
 obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);
-obj[OBJECT_TYPE.OTHER, 05] =	new LMObject(oStarFly,			16, 16);
+obj[OBJECT_TYPE.OTHER, 05] =	new LMObject(oStarFly,			16, 16).add_tag("can_flip");
 obj[OBJECT_TYPE.OTHER, 06] =	undefined;
 obj[OBJECT_TYPE.OTHER, 07] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
 obj[OBJECT_TYPE.OTHER, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");

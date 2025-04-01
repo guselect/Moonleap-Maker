@@ -58,7 +58,10 @@ sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_o
 
 if not is_undefined(selected_object) {
 	if selected_object.has_tag("can_flip") {
-		if keyboard_check_pressed(ord("X")) then image_xscale *= -1;
+		if keyboard_check_pressed(ord("X")) {
+			image_xscale *= -1;
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
 	} else {
 		image_xscale = 1;
 	}
@@ -67,6 +70,7 @@ if not is_undefined(selected_object) {
 		if keyboard_check_pressed(ord("Z")) {
 			image_angle += 90;
 			if image_angle >= 360 then image_angle = 0;
+			audio_play_sfx(sndPress, false, -5, 13);
 		}
 	} else {
 		image_angle = 0;
