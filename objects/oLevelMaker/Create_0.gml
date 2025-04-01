@@ -165,6 +165,16 @@ obj[OBJECT_TYPE.UNUSED, 15] =	undefined;
 //obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
 //obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
 
+get_lmobject_from_list = function(_object_index) {
+	for(var t = 0; t < array_length(obj); t++) {
+		var type = obj[t];
+		
+		for(var p = 0; p < array_length(type); p++) {
+			if type[p].index == _object_index then return type[p];
+		}
+	}
+}
+
 get_x_y_from_object_index = function(_object) {
 	for (var yy = object_positions_length - 1; yy >= 0; yy--) {
 		for (var xx = object_types_length - 1; xx >= 0; xx--) {
@@ -448,7 +458,7 @@ delete_all_objects_from_level = function() {
 			var object = obj[xx, yy];
 			
 			if is_undefined(obj[xx, yy]) then continue;
-			instance_destroy(object.index);
+			instance_destroy(object.index, false);
 		}
 	}
 }
@@ -465,6 +475,10 @@ end_level_and_return_to_editor = function(){
 	delete_all_objects_from_level();
 	instance_create_layer(x,y,layer,oPause);
 	
+	if instance_exists(oCamera) then
+		oCamera.night = false;
+	
+	audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
 }
 
@@ -485,13 +499,14 @@ instance_create_layer(x,y,layer,oPause);
 // DEFAULT LEVEL
 
 // floor
-place_object_in_object_grid(8*2, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
-place_object_in_object_grid(8*2+2, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
-place_object_in_object_grid(8*2+4, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
-place_object_in_object_grid(8*2+6, 7*2, obj[OBJECT_TYPE.NEUTRAL, 01]);
+var fi = 0;
+repeat(6) {
+	place_object_in_object_grid(14 + 2 * fi, 14, get_lmobject_from_list(oSolid));
+	fi++;
+}
 
 // player
-place_object_in_object_grid(8*2, 6*2, obj[OBJECT_TYPE.NEUTRAL, 00]);
+place_object_in_object_grid(16, 12, get_lmobject_from_list(oPlayer));
 
 // star
-place_object_in_object_grid(8*2+6, 6*2, obj[OBJECT_TYPE.NEUTRAL, 04]);
+place_object_in_object_grid(22, 12, get_lmobject_from_list(oStar));

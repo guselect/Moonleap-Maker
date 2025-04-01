@@ -1,3 +1,39 @@
+// Sprite placeholders for oSolid day and night
+var sday = undefined, snight = undefined;
+
+switch(selected_style) {
+	case LEVEL_STYLE.GRASS:
+		sday = sGrassGre; snight = sGrassOre;
+		break;
+	case LEVEL_STYLE.CLOUDS:	
+		sday = sCloudDay; snight = sCloudNight;
+		break;
+	case LEVEL_STYLE.FLOWERS:	
+		sday = sFlowerDay; snight = sFlowerNight;
+		break;
+	case LEVEL_STYLE.SPACE:	
+		sday = sSpaceGre; snight = sSpacePurple;
+		break;
+	case LEVEL_STYLE.DUNGEON:
+		sday = sDunDay; snight = sDunNight;
+		break;
+}
+
+with (oSolidDay)
+{
+	//I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
+	draw_sprite(sday,0,x,y)
+}
+with (oSolidNight)
+{
+	draw_sprite(snight,0,x,y)
+}
+
+with (oBlack)
+{
+	draw_sprite(sBlack,0,x,y)
+}
+
 draw_set_color(color.nice_white)
 
 if !instance_exists(oPause)

@@ -127,7 +127,7 @@ if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) 
 }
 
 // Test
-if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_space)) {
+if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)) {
 	audio_play_sfx(sndUiChange,false,-18.3,1)
 	if instance_exists(oPause) //editor is opened 
 	{

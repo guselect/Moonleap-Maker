@@ -56,42 +56,7 @@ draw_sprite(sPauseMaker,0,0,0)
 if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
 	if sprite_exists(sprite_index) {
 		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, 0.5);
-	} else {
-		draw_text_shadow(x + 4, y, "?", text_shadow_x, text_shadow_y, color.nice_black);
-	}
-}
-
-// Sprite placeholders for oSolid day and night
-var sday = undefined, snight = undefined;
-
-switch(selected_style) {
-	case LEVEL_STYLE.GRASS:
-		sday = sGrassGre; snight = sGrassOre;
-		break;
-	case LEVEL_STYLE.CLOUDS:	
-		sday = sCloudDay; snight = sCloudNight;
-		break;
-	case LEVEL_STYLE.FLOWERS:	
-		sday = sFlowerDay; snight = sFlowerNight;
-		break;
-	case LEVEL_STYLE.SPACE:	
-		sday = sSpaceGre; snight = sSpacePurple;
-		break;
-	case LEVEL_STYLE.DUNGEON:
-		sday = sDunDay; snight = sDunNight;
-		break;
-}
-
-with (oSolidDay)
-{
-	draw_sprite(sday,0,x,y) //I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
-}
-with (oSolidNight)
-{
-	draw_sprite(snight,0,x,y)
-}
-
-with (oBlack)
-{
-	draw_sprite(sBlack,0,x,y)
+	}// else {
+	//	draw_text_shadow(x + 4, y, "?", text_shadow_x, text_shadow_y, color.nice_black);
+	//}
 }
