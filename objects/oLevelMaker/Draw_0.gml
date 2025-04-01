@@ -54,9 +54,8 @@ draw_sprite(sPauseMaker,0,0,0)
 
 // Draw item preview on cursor
 if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
-	if sprite_exists(sprite_index) {
-		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, 0.5);
-	}// else {
-	//	draw_text_shadow(x + 4, y, "?", text_shadow_x, text_shadow_y, color.nice_black);
-	//}
+	if sprite_exists(sprite_index) and not has_object_below_cursor {
+		var alpha = 0.6;
+		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, alpha);
+	}
 }

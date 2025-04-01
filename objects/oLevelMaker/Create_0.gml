@@ -34,6 +34,7 @@ cursor = LEVEL_CURSOR_TYPE.NOTHING;
 is_cursor_inside_level = false;
 item_preview_offset_x = 0;
 item_preview_offset_y = 0;
+has_object_below_cursor = false;
 
 // Level-related
 selected_style = LEVEL_STYLE.GRASS;

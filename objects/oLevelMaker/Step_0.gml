@@ -125,6 +125,8 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
 
+has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
+
 if is_cursor_inside_level {
 	// Replace object
 	if mouse_check_button_pressed(mb_left) 
@@ -143,7 +145,7 @@ if is_cursor_inside_level {
 	if mouse_check_button_released(mb_left)
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
-		and not check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object)
+		and not has_object_below_cursor
 	{
 		if selected_object.has_tag("is_player") {
 			remove_all_player_objects_from_grid();
