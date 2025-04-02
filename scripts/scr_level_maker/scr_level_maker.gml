@@ -29,6 +29,7 @@ enum SPRITE_ORIGIN {
 /// @param {real} _origin_type The origin type to position the object sprite on level grid.
 /// Use one of the SPRITE_ORIGIN enumerator values to set it.
 function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = SPRITE_ORIGIN.TOP_LEFT) constructor {
+	label = "";
 	index = _object_index;
 	size_x = _object_size_x;
 	size_y = _object_size_y;
