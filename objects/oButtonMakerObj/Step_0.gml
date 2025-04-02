@@ -2,10 +2,10 @@ drawtarget=0
 
 if !instance_exists(oPause) {exit}
 
-obj = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
+object = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
 
-var is_active = obj != undefined;
-var obj_sprite = is_undefined(obj) ? oUndefined : obj.index;
+var is_active = not is_undefined(object);
+var obj_sprite = not is_active ? oUndefined : object.index;
 
 visible = is_active;
 sprite_index = object_get_sprite(obj_sprite);
@@ -19,7 +19,6 @@ y=yy
 if sprite_xoffset>6 {
 	x=xx+8
 }
-
 
 if sprite_yoffset>6 {
 	y=yy+8
@@ -54,7 +53,7 @@ if sprite_index=sBird {y=yy+16}
 if sprite_index=sTestDay or sprite_index=sTestNight {y=yy x=xx scale=1}
 
 
-if obj == oLevelMaker.obj[oLevelMaker.selected_object_type,oLevelMaker.selected_object_position] {
+if object == oLevelMaker.obj[oLevelMaker.selected_object_type, oLevelMaker.selected_object_position] {
 	drawtarget=-2
 }
 drawplus=smooth_approach(drawplus,drawtarget,0.25)

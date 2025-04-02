@@ -129,6 +129,10 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
 
+if test_button_cooldown > 0 {
+	test_button_cooldown -= 1;
+}
+
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
 if is_cursor_inside_level {
@@ -151,6 +155,7 @@ if is_cursor_inside_level {
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
 		and not has_object_below_cursor
+		and test_button_cooldown == 0
 	{
 		if selected_object.has_tag("is_player") {
 			remove_all_player_objects_from_grid();

@@ -18,8 +18,7 @@ enum SPRITE_ORIGIN {
 	TOP_LEFT,
 	CENTER,
 	BOTTOM,
-	OFFSET5,
-	CUSTOM_OFFSET
+	OFFSET5
 }
 
 /// @description A "Level Maker Object" constructor. Use this as base to create
@@ -36,18 +35,29 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	origin_type = _origin_type;
 	tags = [];
 	
-	custom_offset_x = 0;
-	custom_offset_y = 0;
+	sprite_button = undefined;
+	sprite_button_x_add = 0;
+	sprite_button_y_add = 0;
+	sprite_button_part_left = 0;
+	sprite_button_part_top = 0;
 	
-	sprite_button = -1;
-	
-	set_sprite_button_part = function(_x, _y, _width, _height) {
-		sprite_button_x = _x;
-		sprite_button_y = _y;
-		sprite_button_width = _width;
-		sprite_button_height = _height;
-		
+	set_sprite_button_part = function(_x_add, _y_add, _left, _top, _sprite_alt = undefined) {
+		sprite_button = not is_undefined(_sprite_alt) ? _sprite_alt : object_get_sprite(index);
+		sprite_button_x_add = _x_add;
+		sprite_button_y_add = _y_add;
+		sprite_button_part_left = _left;
+		sprite_button_part_top = _top;
 		return self;
+	}
+	
+	draw_sprite_button_part = function(_x, _y) {
+		var sprite = sprite_button;
+		var sprite_nineslice = sprite_get_nineslice(sprite);
+		var prev_nineslice_enabled = sprite_nineslice.enabled;
+		
+		sprite_nineslice.enabled = false;
+		draw_sprite_part(sprite, 0, sprite_button_part_left, sprite_button_part_top, 16, 16, _x + sprite_button_x_add, _y + sprite_button_y_add);
+		sprite_nineslice.enabled = prev_nineslice_enabled;
 	}
 	
 	add_tag = function() {
@@ -83,11 +93,6 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 					_offx - 8,
 					_offy - 8
 				];
-			case SPRITE_ORIGIN.CUSTOM_OFFSET:
-				return [
-					_offx + custom_offset_x,
-					_offy + custom_offset_y
-				];
 			case SPRITE_ORIGIN.TOP_LEFT:
 				return [
 					_offx,
@@ -106,7 +111,7 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 		}
 	}
 	
-	get_size = function(_tile_size) {
+	get_size = function(_tile_size = 8) {
 		var _tiled_width = size_x / _tile_size;
 		var _tiled_height = size_y / _tile_size;
 		
