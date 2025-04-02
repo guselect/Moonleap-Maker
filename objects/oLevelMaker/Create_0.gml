@@ -475,20 +475,25 @@ delete_all_objects_from_level = function() {
 
 end_level_and_return_to_editor = function(){
 	//destroy the "song"
-	instance_destroy(o_grass_song)	
-	instance_destroy(o_cloud_song)	
-	instance_destroy(o_flower_song)
-	instance_destroy(o_space_song)	
-	instance_destroy(o_dungeon_song)
+	instance_destroy(o_grass_song);
+	instance_destroy(o_cloud_song);
+	instance_destroy(o_flower_song);
+	instance_destroy(o_space_song);
+	instance_destroy(o_dungeon_song);
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
 	instance_create_layer(x,y,layer,oPause);
 	
+	// Reset day/night state
 	if instance_exists(oCamera) then
 		oCamera.night = false;
-	if instance_exists(oNeutralFlag) then
-		instance_destroy(oNeutralFlag);
+	
+	// Destroy gimmicks that would persist on level editor after playtest
+	instance_destroy(oNeutralFlag);
+	instance_destroy(oKeyFollow);
+	instance_destroy(oKeyFollow2);
+	instance_destroy(oKeyFollow3);
 	
 	audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
