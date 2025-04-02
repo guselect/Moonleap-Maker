@@ -487,6 +487,8 @@ end_level_and_return_to_editor = function(){
 	
 	if instance_exists(oCamera) then
 		oCamera.night = false;
+	if instance_exists(oNeutralFlag) then
+		instance_destroy(oNeutralFlag);
 	
 	audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
