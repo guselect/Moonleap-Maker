@@ -18,8 +18,7 @@ enum SPRITE_ORIGIN {
 	TOP_LEFT,
 	CENTER,
 	BOTTOM,
-	OFFSET5,
-	CUSTOM_OFFSET
+	OFFSET5
 }
 
 /// @description A "Level Maker Object" constructor. Use this as base to create
@@ -30,24 +29,51 @@ enum SPRITE_ORIGIN {
 /// @param {real} _origin_type The origin type to position the object sprite on level grid.
 /// Use one of the SPRITE_ORIGIN enumerator values to set it.
 function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = SPRITE_ORIGIN.TOP_LEFT) constructor {
+	label = "";
 	index = _object_index;
 	size_x = _object_size_x;
 	size_y = _object_size_y;
 	origin_type = _origin_type;
 	tags = [];
 	
-	custom_offset_x = 0;
-	custom_offset_y = 0;
+	sprite_button_sprite_index = undefined;
+	sprite_button_image_index = 0;
+	sprite_button_x_offset = 0;
+	sprite_button_y_offset = 0;
+	sprite_button_part_left = 0;
+	sprite_button_part_top = 0;
+	sprite_button_part_width = 16;
+	sprite_button_part_height = 16;
 	
-	sprite_button = -1;
-	
-	set_sprite_button_part = function(_x, _y, _width, _height) {
-		sprite_button_x = _x;
-		sprite_button_y = _y;
-		sprite_button_width = _width;
-		sprite_button_height = _height;
-		
+	set_sprite_button_part = function(
+		left_position,
+		top_position,
+		x_offset, 
+		y_offset,
+		width = undefined,
+		height = undefined,
+		sprite_index_alt = undefined,
+		sprite_image_index = undefined
+	) {
+		sprite_button_part_left = left_position;
+		sprite_button_part_top = top_position;
+		sprite_button_x_offset = x_offset;
+		sprite_button_y_offset = y_offset;
+		sprite_button_sprite_index = is_undefined(sprite_index_alt) ? object_get_sprite(index) : sprite_index_alt;
+		sprite_button_image_index = is_undefined(sprite_image_index) ? 0 : sprite_image_index;
+		sprite_button_part_width = is_undefined(width) ? sprite_button_part_width : width;
+		sprite_button_part_height = is_undefined(height) ? sprite_button_part_height : height;
 		return self;
+	}
+	
+	draw_sprite_button_part = function(_x, _y) {
+		var sprite = sprite_button_sprite_index;
+		var sprite_nineslice = sprite_get_nineslice(sprite);
+		var prev_nineslice_enabled = sprite_nineslice.enabled;
+		
+		sprite_nineslice.enabled = false;
+		draw_sprite_part(sprite, sprite_button_image_index, sprite_button_part_left, sprite_button_part_top, sprite_button_part_width, sprite_button_part_height, _x + sprite_button_x_offset, _y + sprite_button_y_offset);
+		sprite_nineslice.enabled = prev_nineslice_enabled;
 	}
 	
 	add_tag = function() {
@@ -83,11 +109,6 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 					_offx - 8,
 					_offy - 8
 				];
-			case SPRITE_ORIGIN.CUSTOM_OFFSET:
-				return [
-					_offx + custom_offset_x,
-					_offy + custom_offset_y
-				];
 			case SPRITE_ORIGIN.TOP_LEFT:
 				return [
 					_offx,
@@ -106,7 +127,7 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 		}
 	}
 	
-	get_size = function(_tile_size) {
+	get_size = function(_tile_size = 8) {
 		var _tiled_width = size_x / _tile_size;
 		var _tiled_height = size_y / _tile_size;
 		

@@ -80,7 +80,7 @@ if is_mouse_hover {
 // if image_index == 0 and is_mouse_left_pressing {}
 
 // Move object group up
-if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_down())
+if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_up())
 {
 	with(oLevelMaker)
 	{
@@ -98,7 +98,7 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_down(
 }
 
 // Move object group down
-if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_up()) {
+if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down()) {
 	with(oLevelMaker)
 	{
 		item_preview_offset_y = 4
@@ -154,6 +154,7 @@ if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)
 			}
 		}
 	} else {
+		oLevelMaker.reset_test_button_cooldown();
 		oLevelMaker.end_level_and_return_to_editor();
 	}
 }

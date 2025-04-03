@@ -50,7 +50,10 @@ draw_set_halign(fa_center)
 var object = obj[selected_object_type,selected_object_position]
 var object_name = is_undefined(object) ? "" : object_get_name(object.index);
 
-if global.level_maker_mouse_x >- 16 and global.level_maker_mouse_x < room_width + 16 {
+var room_x_offset = 16;
+if global.level_maker_mouse_x > -room_x_offset 
+	and global.level_maker_mouse_x < room_width + room_x_offset 
+{
 	var object_name_x = (160 + global.level_maker_mouse_x * 3) / 4;
 	
 	draw_text(object_name_x, -20, object_name);

@@ -35,6 +35,11 @@ is_cursor_inside_level = false;
 item_preview_offset_x = 0;
 item_preview_offset_y = 0;
 has_object_below_cursor = false;
+test_button_cooldown_max = 20;
+test_button_cooldown = test_button_cooldown_max;
+reset_test_button_cooldown = function() {
+	test_button_cooldown = test_button_cooldown_max;
+}
 
 // Level-related
 selected_style = LEVEL_STYLE.GRASS;
@@ -51,101 +56,66 @@ color = {
 };
 
 // Objects-related
-enum OBJECT_TYPE { NEUTRAL, DAY, NIGHT, OTHER, UNUSED, LENGTH }
-
 selected_object = 0;
 selected_object_type = 0;
 selected_object_position = 0;
 default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
-object_types_length = OBJECT_TYPE.LENGTH - 1;
 object_positions_length = 16;
 object_grid_hovering = -1; // Object where cursor is above at.
 
 // Objects List
-obj[OBJECT_TYPE.NEUTRAL, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.NEUTRAL, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16");
-obj[OBJECT_TYPE.NEUTRAL, 02] =	new LMObject(oPlatGhost,		16, 16); //.add_tag("can_spin");
-obj[OBJECT_TYPE.NEUTRAL, 03] =	new LMObject(oPermaSpike,		16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
-obj[OBJECT_TYPE.NEUTRAL, 05] =	new LMObject(oLadderNeutral,	16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[OBJECT_TYPE.NEUTRAL, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
-obj[OBJECT_TYPE.NEUTRAL, 08] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip", "grid_16");
-obj[OBJECT_TYPE.NEUTRAL, 09] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
-obj[OBJECT_TYPE.NEUTRAL, 10] =	new LMObject(oKey,				16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 11] =	new LMObject(oKeyDoor,			16, 16);
-obj[OBJECT_TYPE.NEUTRAL, 12] =	new LMObject(oGrayOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
-obj[OBJECT_TYPE.NEUTRAL, 13] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[OBJECT_TYPE.NEUTRAL, 14] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
-obj[OBJECT_TYPE.NEUTRAL, 15] =	undefined;
+obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[0, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
+obj[0, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
+obj[0, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
+obj[0, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
+obj[0, 05] =	new LMObject(oStarRunning,		16, 16);
+obj[0, 06] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
+obj[0, 07] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
+obj[0, 08] =	new LMObject(oLadderDay,		16, 16);
+obj[0, 09] =	new LMObject(oLadderNight,		16, 16);
+obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(0, 2, -9, 0,);
+obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(0, 2, -11, 0, 18);
+obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(10, 4, -7, -8);
+obj[0, 14] =	new LMObject(oPlatGhost,		16, 16);
+obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(16, 0, -8, -8);
 
-obj[OBJECT_TYPE.DAY, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.DAY, 01] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
-obj[OBJECT_TYPE.DAY, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16");
-obj[OBJECT_TYPE.DAY, 03] =	undefined;						
-obj[OBJECT_TYPE.DAY, 04] =	new LMObject(oStarColor,		16, 16);
-obj[OBJECT_TYPE.DAY, 05] =	new LMObject(oLadderDay,		16, 16);
-obj[OBJECT_TYPE.DAY, 06] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[OBJECT_TYPE.DAY, 07] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
-obj[OBJECT_TYPE.DAY, 08] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER);
-obj[OBJECT_TYPE.DAY, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
-obj[OBJECT_TYPE.DAY, 10] =	new LMObject(oKeyTall,			32, 16);
-obj[OBJECT_TYPE.DAY, 11] =	new LMObject(oKeyDoorTall,		32, 16);
-obj[OBJECT_TYPE.DAY, 12] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
-obj[OBJECT_TYPE.DAY, 13] =	undefined;
-obj[OBJECT_TYPE.DAY, 14] =	undefined;
-obj[OBJECT_TYPE.DAY, 15] =	undefined;
+obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(0, 0, 0, 0);
+obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(0, 0, 0, 0);
+obj[1, 03] =	new LMObject(oStarColor,		16, 16);
+obj[1, 04] =	new LMObject(oStarRunningColor,	16, 16);
+obj[1, 05] =	new LMObject(oLadderNeutral,	16, 16);
+obj[1, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(10, 4, -7, -8);
+obj[1, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
+obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(0, 0, 0, 0, 16, 16, sMushGrayUI);
+obj[1, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(19, 1, -8, -8);
+obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(14, 1, -8, -8);
+obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(21, 1, -8, -8);
+obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(12, 1, -8, -8);
 
-obj[OBJECT_TYPE.NIGHT, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[OBJECT_TYPE.NIGHT, 01] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16");
-obj[OBJECT_TYPE.NIGHT, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16");
-obj[OBJECT_TYPE.NIGHT, 03] =	undefined;
-obj[OBJECT_TYPE.NIGHT, 04] =	new LMObject(oStarRunning,		16, 16);
-obj[OBJECT_TYPE.NIGHT, 05] =	new LMObject(oLadderNight,		16, 16);
-obj[OBJECT_TYPE.NIGHT, 06] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[OBJECT_TYPE.NIGHT, 07] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[OBJECT_TYPE.NIGHT, 08] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[OBJECT_TYPE.NIGHT, 09] =	undefined;
-obj[OBJECT_TYPE.NIGHT, 10] =	new LMObject(oKeyWide,			32, 16);
-obj[OBJECT_TYPE.NIGHT, 11] =	new LMObject(oKeyDoorWide,		32, 16);
-obj[OBJECT_TYPE.NIGHT, 12] =	undefined;
-obj[OBJECT_TYPE.NIGHT, 13] =	undefined;
-obj[OBJECT_TYPE.NIGHT, 14] =	undefined;
-obj[OBJECT_TYPE.NIGHT, 15] =	undefined;
+obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
+obj[2, 02] =	new LMObject(oStarFly,			16, 16);
+obj[2, 03] =	new LMObject(oKey,				16, 16);
+obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
+obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(0, 8, -8, -8);
+obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(0, 8, -8, -8);
+obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(8, 0, -8, -8);
+obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(8, 0, -8, -8);
+obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(0, 0, -8, -8);
+obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(0, 0, -8, -8);
+obj[2, 11] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
+obj[2, 12] =	undefined;
+obj[2, 13] =	undefined;
+obj[2, 14] =	undefined;
+obj[2, 15] =	undefined;
 
-obj[OBJECT_TYPE.OTHER, 00] =	undefined
-obj[OBJECT_TYPE.OTHER, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16");
-obj[OBJECT_TYPE.OTHER, 02] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(8, 0, 16, 16);
-obj[OBJECT_TYPE.OTHER, 03] =	undefined;
-obj[OBJECT_TYPE.OTHER, 04] =	new LMObject(oStarRunningColor,	16, 16);
-obj[OBJECT_TYPE.OTHER, 05] =	new LMObject(oStarFly,			16, 16);
-obj[OBJECT_TYPE.OTHER, 06] =	undefined;
-obj[OBJECT_TYPE.OTHER, 07] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[OBJECT_TYPE.OTHER, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[OBJECT_TYPE.OTHER, 09] =	undefined;
-obj[OBJECT_TYPE.OTHER, 10] =	new LMObject(oKeyTallWide,		32, 32);
-obj[OBJECT_TYPE.OTHER, 11] =	new LMObject(oKeyDoorTallWide,	32, 32);
-obj[OBJECT_TYPE.OTHER, 12] =	undefined;
-obj[OBJECT_TYPE.OTHER, 13] =	undefined;
-obj[OBJECT_TYPE.OTHER, 14] =	undefined;
-obj[OBJECT_TYPE.OTHER, 15] =	undefined;
-
-obj[OBJECT_TYPE.UNUSED, 00] =	undefined
-obj[OBJECT_TYPE.UNUSED, 01] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 02] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 03] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 04] =	new LMObject(oStarFly,			16, 16);
-obj[OBJECT_TYPE.UNUSED, 05] =	new LMObject(oPlatGhostL,		16, 16);
-obj[OBJECT_TYPE.UNUSED, 06] =	new LMObject(oPlatGhostR,		16, 16);
-obj[OBJECT_TYPE.UNUSED, 07] =	new LMObject(oPlatGhostInv,		16, 16);
-obj[OBJECT_TYPE.UNUSED, 08] =	new LMObject(oNeutralFlag,		16, 16);
-obj[OBJECT_TYPE.UNUSED, 09] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 10] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 11] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 12] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 13] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 14] =	undefined;
-obj[OBJECT_TYPE.UNUSED, 15] =	undefined;
+object_types_length = array_length(obj);
 
 ////x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
 //obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
@@ -457,7 +427,7 @@ start_level = function() {
 
 delete_all_objects_from_level = function() {
 	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
-		for (var xx = OBJECT_TYPE.LENGTH - 1; xx>=0; xx-=1) {
+		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			var object = obj[xx, yy];
 			
 			if is_undefined(obj[xx, yy]) then continue;
@@ -468,18 +438,25 @@ delete_all_objects_from_level = function() {
 
 end_level_and_return_to_editor = function(){
 	//destroy the "song"
-	instance_destroy(o_grass_song)	
-	instance_destroy(o_cloud_song)	
-	instance_destroy(o_flower_song)
-	instance_destroy(o_space_song)	
-	instance_destroy(o_dungeon_song)
+	instance_destroy(o_grass_song);
+	instance_destroy(o_cloud_song);
+	instance_destroy(o_flower_song);
+	instance_destroy(o_space_song);
+	instance_destroy(o_dungeon_song);
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
 	instance_create_layer(x,y,layer,oPause);
 	
+	// Reset day/night state
 	if instance_exists(oCamera) then
 		oCamera.night = false;
+	
+	// Destroy gimmicks that would persist on level editor after playtest
+	instance_destroy(oNeutralFlag);
+	instance_destroy(oKeyFollow);
+	instance_destroy(oKeyFollow2);
+	instance_destroy(oKeyFollow3);
 	
 	audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;

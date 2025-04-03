@@ -58,7 +58,10 @@ sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_o
 
 if not is_undefined(selected_object) {
 	if selected_object.has_tag("can_flip") {
-		if keyboard_check_pressed(ord("X")) then image_xscale *= -1;
+		if keyboard_check_pressed(ord("X")) {
+			image_xscale *= -1;
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
 	} else {
 		image_xscale = 1;
 	}
@@ -67,6 +70,7 @@ if not is_undefined(selected_object) {
 		if keyboard_check_pressed(ord("Z")) {
 			image_angle += 90;
 			if image_angle >= 360 then image_angle = 0;
+			audio_play_sfx(sndPress, false, -5, 13);
 		}
 	} else {
 		image_angle = 0;
@@ -125,6 +129,10 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
 }
 
+if test_button_cooldown > 0 {
+	test_button_cooldown -= 1;
+}
+
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
 if is_cursor_inside_level {
@@ -142,10 +150,12 @@ if is_cursor_inside_level {
 	}
 
 	// Create object
-	if mouse_check_button_released(mb_left)
+	if (mouse_check_button_released(mb_left) or (mouse_check_button(mb_left)
+			and selected_object.has_tag("is_holdable")))
 		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
 		and not has_object_below_cursor
+		and test_button_cooldown == 0
 	{
 		if selected_object.has_tag("is_player") {
 			remove_all_player_objects_from_grid();
