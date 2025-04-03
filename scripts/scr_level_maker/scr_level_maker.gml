@@ -36,34 +36,43 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	origin_type = _origin_type;
 	tags = [];
 	
-	sprite_button = undefined;
+	sprite_button_sprite_index = undefined;
 	sprite_button_image_index = 0;
-	sprite_button_x_add = 0;
-	sprite_button_y_add = 0;
+	sprite_button_x_offset = 0;
+	sprite_button_y_offset = 0;
 	sprite_button_part_left = 0;
 	sprite_button_part_top = 0;
 	sprite_button_part_width = 16;
 	sprite_button_part_height = 16;
 	
-	set_sprite_button_part = function(_x_add, _y_add, _left, _top, _width = sprite_button_part_width, _height = sprite_button_part_height, _sprite_alt = undefined, _image_index = 0) {
-		sprite_button = not is_undefined(_sprite_alt) ? _sprite_alt : object_get_sprite(index);
-		sprite_button_image_index = _image_index;
-		sprite_button_x_add = _x_add;
-		sprite_button_y_add = _y_add;
-		sprite_button_part_left = _left;
-		sprite_button_part_top = _top;
-		sprite_button_part_width = _width;
-		sprite_button_part_height = _height;
+	set_sprite_button_part = function(
+		left_position,
+		top_position,
+		x_offset, 
+		y_offset,
+		width = undefined,
+		height = undefined,
+		sprite_index_alt = undefined,
+		sprite_image_index = undefined
+	) {
+		sprite_button_part_left = left_position;
+		sprite_button_part_top = top_position;
+		sprite_button_x_offset = x_offset;
+		sprite_button_y_offset = y_offset;
+		sprite_button_sprite_index = is_undefined(sprite_index_alt) ? object_get_sprite(index) : sprite_index_alt;
+		sprite_button_image_index = is_undefined(sprite_image_index) ? 0 : sprite_image_index;
+		sprite_button_part_width = is_undefined(width) ? sprite_button_part_width : width;
+		sprite_button_part_height = is_undefined(height) ? sprite_button_part_height : height;
 		return self;
 	}
 	
 	draw_sprite_button_part = function(_x, _y) {
-		var sprite = sprite_button;
+		var sprite = sprite_button_sprite_index;
 		var sprite_nineslice = sprite_get_nineslice(sprite);
 		var prev_nineslice_enabled = sprite_nineslice.enabled;
 		
 		sprite_nineslice.enabled = false;
-		draw_sprite_part(sprite, sprite_button_image_index, sprite_button_part_left, sprite_button_part_top, sprite_button_part_width, sprite_button_part_height, _x + sprite_button_x_add, _y + sprite_button_y_add);
+		draw_sprite_part(sprite, sprite_button_image_index, sprite_button_part_left, sprite_button_part_top, sprite_button_part_width, sprite_button_part_height, _x + sprite_button_x_offset, _y + sprite_button_y_offset);
 		sprite_nineslice.enabled = prev_nineslice_enabled;
 	}
 	
