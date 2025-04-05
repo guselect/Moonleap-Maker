@@ -398,6 +398,9 @@ start_level = function() {
 				var _in_world_x = _x * tile_size + _sprite_offset_x;
 				var _in_world_y = _y * tile_size + _sprite_offset_y;
 				
+				_in_world_x = round(_in_world_x);
+				_in_world_y = round(_in_world_y);
+				
 				var _layer_name = "GimmickInstances";
 				
 				if _object.has_tag("is_player") or _object.has_tag("is_orb") then _layer_name = "PlayerInstances";

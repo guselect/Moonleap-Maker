@@ -2,8 +2,8 @@
 
 cx += hsp 
 cy += vsp
-hsp_new = floor(cx);
-vsp_new = floor(cy);
+var hsp_new = floor(cx);
+var vsp_new = floor(cy);
 cx -= hsp_new;
 cy -= vsp_new;
 
@@ -32,26 +32,21 @@ repeat(abs(vsp_new)) {
 
 ////slopes
 
-tempH=1
 repeat(abs(hsp_new)) 
 {
 	// UP slope
-	if (place_meeting(x + sign(hsp), y, oSolid) && place_meeting(x + sign(hsp), y - 1, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -= 1; 
-	} else if (place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -=1;  
+	if place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y - 1, oSolid) {
+	    y -= 1;  
 	}
 	
 	// DOWN slope
-	if vsp>=0
-	{
-		if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 2, oSolid))
-		  {  y += 1; }
-			
-		else if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 1, oSolid))
-		    { y += 1;}
+	if vsp >= 0
+	and not place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y + 1, oSolid)
+	and place_meeting(x + sign(hsp), y + 2, oSolid) {
+		y += 1;
 	}
-	
 
 	// Normal Terrain
 	if sign(hsp) == 1
@@ -60,7 +55,7 @@ repeat(abs(hsp_new))
 			and not (place_meeting(x + 1, y, oPlatGhostL) and not place_meeting(x, y, oPlatGhostL)) 
 			and not (place_meeting(x + 1, y, oMagicOrb) and not place_meeting(x, y, oMagicOrb))
 		{
-			x += sign(hsp) * tempH;
+			x += sign(hsp);
 		} else { 
 			hsp = 0;
 			break;
@@ -73,7 +68,7 @@ repeat(abs(hsp_new))
 			and not (place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR))
 			and !(place_meeting(x - 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
 		{
-			x += sign(hsp) * tempH;
+			x += sign(hsp);
 		} else {
 			hsp = 0;
 			break;
