@@ -38,8 +38,15 @@ if(instance_exists(oPause)) {
 
 				_sprite_offset_x = _new_offset[0];
 				_sprite_offset_y = _new_offset[1];
+				
+				var _new_image_index = 0;
+				var _config = _object.object_config;
+				
+				if not is_undefined(_config) {
+					_new_image_index = _config.image_index;
+				}
 
-				draw_sprite_ext(_sprite,0,_xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, 1, _obj_angle, c_white,1);
+				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, 1, _obj_angle, c_white,1);
 			}
 		}	
 	}
@@ -53,9 +60,19 @@ draw_set_font(fntSmall)
 draw_sprite(sPauseMaker,0,0,0)
 
 // Draw item preview on cursor
-if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
-	if sprite_exists(sprite_index) and not has_object_below_cursor {
-		var alpha = 0.6;
-		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, alpha);
+if cursor != LEVEL_CURSOR_TYPE.ERASER
+and is_cursor_inside_level 
+and instance_exists(oPause)
+and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
+and not has_object_below_cursor {
+	var _new_image_index = 0;
+	var sprite = object_get_sprite(cursor_object_hovering.index);
+	var _config = cursor_object_hovering.object_config;
+				
+	if not is_undefined(_config) {
+		_new_image_index = _config.image_index;
 	}
+	
+	var alpha = 0.6;
+	draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, alpha);
 }

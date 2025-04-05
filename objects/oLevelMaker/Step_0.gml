@@ -51,6 +51,7 @@ selected_object = obj[selected_object_type,selected_object_position];
 
 // sprite_index = object_get_sprite(selected_object.object)
 sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
+cursor_object_hovering = selected_object;
 
 // ------------------------------------
 // Object rotation and scaling

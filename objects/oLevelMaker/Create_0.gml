@@ -31,6 +31,7 @@ for(var _x = 0; _x < room_tile_width; _x++){
 
 // Cursor-related
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
+cursor_object_hovering = undefined;
 is_cursor_inside_level = false;
 item_preview_offset_x = 0;
 item_preview_offset_y = 0;
@@ -74,46 +75,63 @@ obj[0, 06] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("g
 obj[0, 07] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
 obj[0, 08] =	new LMObject(oLadderDay,		16, 16);
 obj[0, 09] =	new LMObject(oLadderNight,		16, 16);
-obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(0, 2, -9, 0,);
-obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(0, 2, -11, 0, 18);
+obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailWalk, 0, 0, 2, -9, 0);
+obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18);
 obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
-obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(10, 4, -7, -8);
+obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
 obj[0, 14] =	new LMObject(oPlatGhost,		16, 16);
-obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(16, 0, -8, -8);
+obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBlockRampEditor, 0, 16, 0, -8, -8);
 
 obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(0, 0, 0, 0);
-obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(0, 0, 0, 0);
+obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
+obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
 obj[1, 03] =	new LMObject(oStarColor,		16, 16);
 obj[1, 04] =	new LMObject(oStarRunningColor,	16, 16);
 obj[1, 05] =	new LMObject(oLadderNeutral,	16, 16);
 obj[1, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
 obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
-obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(10, 4, -7, -8);
+obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatDown, 0, 10, 4, -7, -8);
 obj[1, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
-obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(0, 0, 0, 0, 16, 16, sMushGrayUI);
+obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(sMushGrayUI, 0, 0, 0, 0, 0);
 obj[1, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(19, 1, -8, -8);
-obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(14, 1, -8, -8);
-obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(21, 1, -8, -8);
-obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(12, 1, -8, -8);
+obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
+obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
+obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8);
+obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);
 
 obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
 obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
 obj[2, 02] =	new LMObject(oStarFly,			16, 16);
 obj[2, 03] =	new LMObject(oKey,				16, 16);
 obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
-obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(0, 8, -8, -8);
-obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(0, 8, -8, -8);
-obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(8, 0, -8, -8);
-obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(8, 0, -8, -8);
-obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(0, 0, -8, -8);
-obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(0, 0, -8, -8);
+obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
+obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
+obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
+obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
+obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
+obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
 obj[2, 11] =	new LMObject(oBlack,			16, 16).add_tag("grid_16");
-obj[2, 12] =	undefined;
+obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
 obj[2, 13] =	undefined;
 obj[2, 14] =	undefined;
 obj[2, 15] =	undefined;
+
+//obj[3, 00] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
+//obj[3, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 1, 0, 0, 0, 0).set_object_config(1);
+//obj[3, 02] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 2, 0, 0, 0, 0).set_object_config(2);
+//obj[3, 03] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
+//obj[3, 04] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 1, 0, 0, 0, 0).set_object_config(1);
+//obj[3, 05] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 2, 0, 0, 0, 0).set_object_config(2);
+//obj[3, 06] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
+//obj[3, 07] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
+//obj[3, 08] =	undefined;
+//obj[3, 09] =	undefined;
+//obj[3, 10] =	undefined;
+//obj[3, 11] =	undefined;
+//obj[3, 12] =	undefined;
+//obj[3, 13] =	undefined;
+//obj[3, 14] =	undefined;
+//obj[3, 15] =	undefined;
 
 object_types_length = array_length(obj);
 
@@ -405,10 +423,17 @@ start_level = function() {
 				
 				if _object.has_tag("is_player") or _object.has_tag("is_orb") then _layer_name = "PlayerInstances";
 				
-				instance_create_layer(_in_world_x, _in_world_y, _layer_name, _object.index, {
+				var _object_in_world = instance_create_layer(_in_world_x, _in_world_y, _layer_name, _object.index, {
 					image_xscale: _xscale,
 					image_angle: _angle
 				});
+				
+				if not is_undefined(_object.object_config) {
+					var config = _object.object_config;
+					with(_object_in_world) {
+						image_index = config.image_index;
+					}
+				}
 			}
 		}
 	}
