@@ -41,7 +41,19 @@ drawskip=0
 
 prevroom=room
 
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay)  {col=c_black}
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			col = c_black;
+			nice_black = c_black;
+			break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	col = c_black;
+	nice_black=c_black
+}
 
 oCamera.previous_room=room_get_name(room)
 
@@ -59,10 +71,6 @@ if room=Room100
 	{
 	if oDead.y<room_height/2 { nice_black=c_black}
 	}
-}
-else
-{
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {nice_black=c_black}
 }
 
 //if solid=true
