@@ -85,7 +85,7 @@ is_cursor_inside_level =
 	global.level_maker_mouse_x > 0
 	and global.level_maker_mouse_x < 320
 	and global.level_maker_mouse_y > 0
-	and global.level_maker_mouse_y < 320;
+	and global.level_maker_mouse_y < 180;
 
 var _selected_object_sprite = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
 var _tile_scale = not is_undefined(selected_object) and selected_object.has_tag("grid_16") ? 2 : 1;
