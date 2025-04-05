@@ -36,12 +36,21 @@ sony=0
 
 
 cooldown=0
+trueblack=false
 
-
-if instance_exists(oSpaceDay) or instance_exists(oFlowerDay)or instance_exists(oDunDay) {trueblack=true} else {trueblack=false}
-
-if instance_exists(oNeutralFlag) 
-{neutral=true}
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			trueblack = true; break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	trueblack = true;
+}
+if instance_exists(oNeutralFlag) {
+	neutral = true
+}
 
 /*
 var cu=self

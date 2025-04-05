@@ -13,19 +13,27 @@ view_camera[0] = camera_create();
 
 camera_set_view_size(view_camera[0],view_width,view_height)
 
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			nice_black = c_black;
+			break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	nice_black = c_black;
+}
 
-nice_black=make_color_rgb(0,0,72)
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {nice_black=c_black}
-
-
-if instance_exists(oDunDay) {instance_create_layer(0,0,"Instances_2",oFog)}
+if (instance_exists(oLevelMaker) and oLevelMaker.selected_style)
+or instance_exists(oDunDay) {
+	instance_create_layer(0, 0, "Instances_2", oFog);
+}
 //if room_height>180
 //{y=view_height}else {y=0}
 
 y=0
 x=0
-
-
 
 shaketime=0
 if actualroom!=room {deathcount=0 actualroom=room}

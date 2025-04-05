@@ -10,7 +10,17 @@ night=false
 hsp=0
 vsp=0
 
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay)  {sprite_index=sStarFlower}
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			sprite_index = sStarFlower;
+			break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	sprite_index = sStarFlower;
+}
 
 // new movement code
 
