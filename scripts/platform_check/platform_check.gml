@@ -51,10 +51,18 @@ function platform_check() {
 	return false;
 }
 
-function has_collided(x_add, y_add) {
-	var platform_list = ds_list_create();
-	var platform_count = instance_place_list(x + x_add, y + y_add, oPlatGhost, platform_list, true);
+/// @param {real} xx The horizontal position.
+/// @param {real} yy The vertical position.
+/// @param {bool} is_position_relative If true, the xx and yy positions are relative to the object position.
+/// If false, they are relative to the room position. Default: true
+function has_collided(xx, yy, is_position_relative = true) {
+	xx = (is_position_relative * x) + xx;
+	yy = (is_position_relative * y) + yy;
 	
+	// Platforms collision checking
+	var platform_list = ds_list_create();
+	
+	var platform_count = instance_place_list(xx, yy, oPlatGhost, platform_list, true);
 	if platform_count > 0 {
 		var p = 0;
 		var collided = false;
@@ -62,16 +70,16 @@ function has_collided(x_add, y_add) {
 			var platform = ds_list_find_value(platform_list, p);
 			
 			switch(platform.image_angle) {
-				default:
-					collided = bbox_bottom <= platform.bbox_top;
-					break;
 				case 90:
-					collided = bbox_bottom <= platform.bbox_top;
+					collided = bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top;
 					break;
 				case 180:
-					collided = bbox_bottom <= platform.bbox_top;
+					collided = bbox_top >= platform.bbox_bottom;
 					break;
 				case 270:
+					collided = bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top;
+					break;
+				default:
 					collided = bbox_bottom <= platform.bbox_top;
 					break;
 			}
@@ -84,9 +92,52 @@ function has_collided(x_add, y_add) {
 			p++;
 		}
 	}
+	
+	ds_list_clear(platform_list);
+	platform_count = instance_place_list(xx, yy, oPlatGhostL, platform_list, true);
+	if (platform_count > 0) {
+		var p = 0;
+		repeat(platform_count) {
+			var platform = ds_list_find_value(platform_list, p);
+			if bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top {
+				ds_list_destroy(platform_list);
+				return true;
+			}
+			p++;
+		}
+	}
+	
+	ds_list_clear(platform_list);
+	platform_count = instance_place_list(xx, yy, oPlatGhostR, platform_list, true);
+	if (platform_count > 0) {
+		var p = 0;
+		repeat(platform_count) {
+			var platform = ds_list_find_value(platform_list, p);
+			if bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top {
+				ds_list_destroy(platform_list);
+				return true;
+			}
+			p++;
+		}
+	}
+	
+	ds_list_clear(platform_list);
+	platform_count = instance_place_list(xx, yy, oPlatGhostInv, platform_list, true);
+	if (platform_count > 0) {
+		var p = 0;
+		repeat(platform_count) {
+			var platform = ds_list_find_value(platform_list, p);
+			if bbox_top >= platform.bbox_bottom {
+				ds_list_destroy(platform_list);
+				return true;
+			}
+			p++;
+		}
+	}
+	
 	ds_list_destroy(platform_list);
 	
-	if place_meeting(x + x_add, y + y_add, oSolid) {
+	if place_meeting(xx, yy, oSolid) {
 		return true;
 	}
 	

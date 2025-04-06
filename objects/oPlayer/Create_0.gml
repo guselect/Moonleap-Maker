@@ -56,6 +56,7 @@ v_max=1//velocidade máxima do personagem
 v_ace=0.25  //velocidade da aceleração do personagem
 v_fric=0.25 //friction
 pick=0
+grav = 0.125;
 
 numb=0
 

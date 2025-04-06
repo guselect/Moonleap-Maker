@@ -79,7 +79,7 @@ obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_f
 obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18);
 obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
 obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
-obj[0, 14] =	new LMObject(oPlatGhost,		16, 16);
+obj[0, 14] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
 obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBlockRampEditor, 0, 16, 0, -8, -8);
 
 obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
@@ -112,9 +112,9 @@ obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoor
 obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
 obj[2, 11] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
 obj[2, 12] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 13] =	undefined;
-obj[2, 14] =	undefined;
-obj[2, 15] =	undefined;
+obj[2, 13] =	new LMObject(oPlatGhostL,		16, 16);
+obj[2, 14] =	new LMObject(oPlatGhostR,		16, 16);
+obj[2, 15] =	new LMObject(oPlatGhostInv,		16, 16);
 
 //obj[3, 00] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
 //obj[3, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 1, 0, 0, 0, 0).set_object_config(1);

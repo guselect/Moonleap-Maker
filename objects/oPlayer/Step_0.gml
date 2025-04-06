@@ -91,27 +91,24 @@ image_angle=0
 
 //Vertical movement
 
-if was_on_ground
-
-{
+if was_on_ground {
 	grace_time= grace_time_frames
 	last_plat=instance_place(x,y+6,oBrokenStone)
-
-}
-else// if on_ladder=false
-{
-	if vsp>-1 and vsp<1 {grav=0.09} else {grav=0.125}
+} else {
+	if vsp > -1 and vsp < 1 {
+		grav = 0.09;
+	} else {
+		grav = 0.125;
+	}
 	vsp = approach(vsp,3+(key_down*2),grav) //gravidade limitada por 4 de vsp 
 	grace_time=approach(grace_time,0,1) + ghost
-	
-	
 }
 
 // Jump
 if key_jump_pressed 
 	and not place_meeting(x,y,oLadderParent)
 	and not key_down 
-	and not place_meeting(x,y - 2, oSolid)
+	and not has_collided(0, -2)
 {
 	#region Stick to the floor
 	if vsp > -1 {	
@@ -327,26 +324,29 @@ if place_meeting(x+1,y-2,oParentNight) {if night=false{if state!=WIN and godmode
 
 }
 
-if vsp < 0 {
-	if not on_ladder and not audio_is_playing(snd_bump) and vsp < -0.75 {
-		if place_meeting(x, y - 3, oSolid) 
-			or (place_meeting(x, y - 3, oPlatGhostInv) 
-			and not place_meeting(x, y, oPlatGhostInv))
-		{
-			var plat = instance_place(x, y - 3, oBrokenStone);
+// When the player collides its head on solid while jumping...
+if vsp < 0 
+and not on_ladder
+and not audio_is_playing(snd_bump)
+and vsp < -0.75 
+and has_collided(0, -3) {
+	// Break stone if is above player
+	var plat = instance_place(x, y - 3, oBrokenStone);
+	instance_destroy(plat)
 			
-			instance_destroy(plat)
-			if plat != noone then vsp = 0;
-			shake_gamepad(1, 3);
-			audio_play_sfx(snd_bump,false,-5,13)  
-			repeat(3) {
-				instance_create_layer(x, y-(sprite_height / 2),"Instances_2",oStarSmol)
-			}
-		} 
+	// Then make it stop vertically
+	if plat != noone then vsp = 0;
+			
+	shake_gamepad(1, 3);
+	audio_play_sfx(snd_bump, false, -5, 13);
+			
+	// Create particles above the player
+	repeat(3) {
+		instance_create_layer(x, y - sprite_height / 2,"Instances_2",oStarSmol);
 	}
 }
 
-// Sobe escada
+// Climb ladder
 if ds_exists(ladder_list, ds_type_list) {
 	ds_list_clear(ladder_list);
 	collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
