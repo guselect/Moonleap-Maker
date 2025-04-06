@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-on_ground_var= on_ground()
+on_ground_var= has_collided(0, 1);
 if on_ground_var=false {vsp+=grav}
 if vsp>3 {vsp=3}
 

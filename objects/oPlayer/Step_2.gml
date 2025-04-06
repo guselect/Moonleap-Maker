@@ -8,7 +8,7 @@ cy -= vsp_new;
 jumped = false;
 landed = false;
 
-
+// Vertical collision
 repeat(abs(vsp_new)) {
 	if has_collided(0, sign(vsp)) {
 		vsp = 0;
@@ -18,6 +18,7 @@ repeat(abs(vsp_new)) {
 	y += sign(vsp);
 }
 
+// Horizontal collision
 repeat(abs(hsp_new)) {
 	// Going up slopes
 	if place_meeting(x + sign(hsp), y, oSolid)
@@ -39,33 +40,6 @@ repeat(abs(hsp_new)) {
 	}
 	
 	x += sign(hsp);
-	
-	//// Normal Terrain
-	//if sign(hsp) == 1
-	//{
-	//	if (not place_meeting(x + 1, y, oSolid)) 
-	//		and not (place_meeting(x + 1, y, oPlatGhostL) and not place_meeting(x, y, oPlatGhostL)) 
-	//		and not (place_meeting(x + 1, y, oMagicOrb) and not place_meeting(x, y, oMagicOrb))
-	//	{
-	//		x += sign(hsp);
-	//	} else { 
-	//		hsp = 0;
-	//		break;
-	//	}
-	//}
-	
-	//if sign(hsp) == -1
-	//{
-	//	if (!place_meeting(x - 1, y, oSolid))
-	//		and not (place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR))
-	//		and !(place_meeting(x - 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
-	//	{
-	//		x += sign(hsp);
-	//	} else {
-	//		hsp = 0;
-	//		break;
-	//	}
-	//}
 }
 
 if oCamera.current_skin=5

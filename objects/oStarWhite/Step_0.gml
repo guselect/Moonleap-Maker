@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-on_ground_var= on_ground()
+on_ground_var= has_collided(0, 1)
 if on_ground_var=false and image_angle=0 {vsp+=0.125}
 if vsp>4 {vsp=4}
 

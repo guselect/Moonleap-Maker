@@ -50,6 +50,7 @@
     {"id":{"name":"sPlayerIdle3","path":"sprites/sPlayerIdle3/sPlayerIdle3.yy",},"order":2,},
     {"id":{"name":"sprSpecial","path":"sprites/sprSpecial/sprSpecial.yy",},"order":22,},
     {"id":{"name":"oChamberDay","path":"objects/oChamberDay/oChamberDay.yy",},"order":7,},
+    {"id":{"name":"scr_movement_collision","path":"scripts/scr_movement_collision/scr_movement_collision.yy",},"order":38,},
     {"id":{"name":"sFinaltransSuperTrue","path":"sprites/sFinaltransSuperTrue/sFinaltransSuperTrue.yy",},"order":11,},
     {"id":{"name":"oWaterDrop","path":"objects/oWaterDrop/oWaterDrop.yy",},"order":39,},
     {"id":{"name":"oGiantSolidLock","path":"objects/oGiantSolidLock/oGiantSolidLock.yy",},"order":27,},

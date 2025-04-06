@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-on_ground_var= place_meeting(x, y + 1, oSolid) or place_meeting(x, y + 1, oPermaSpike) or (place_meeting(x, y + 1, oPlatGhost) and !place_meeting(x, y, oPlatGhost))
+on_ground_var= has_collided(0, 1) or place_meeting(x, y + 1, oPermaSpike);
 if on_ground_var=false {vsp+=0.125}
 if vsp>4 {vsp=4}
 
