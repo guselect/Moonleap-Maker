@@ -12,7 +12,7 @@ landed = false;
 
 
 repeat(abs(vsp_new)) {
-    if (not platform_check())
+    if (not has_collided(0, sign(vsp)))
         y += sign(vsp);
     else  {
         vsp = 0;
