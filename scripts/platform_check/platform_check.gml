@@ -57,14 +57,30 @@ function has_collided(x_add, y_add) {
 	
 	if platform_count > 0 {
 		var p = 0;
-		
+		var collided = false;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
 			
-			if bbox_bottom <= platform.bbox_top {
+			switch(platform.image_angle) {
+				default:
+					collided = bbox_bottom <= platform.bbox_top;
+					break;
+				case 90:
+					collided = bbox_bottom <= platform.bbox_top;
+					break;
+				case 180:
+					collided = bbox_bottom <= platform.bbox_top;
+					break;
+				case 270:
+					collided = bbox_bottom <= platform.bbox_top;
+					break;
+			}
+			
+			if collided {
 				ds_list_destroy(platform_list);
 				return true;
 			}
+			
 			p++;
 		}
 	}

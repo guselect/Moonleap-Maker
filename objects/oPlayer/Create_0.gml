@@ -74,10 +74,8 @@ flash=0
 jumped = false;
 landed = false;
 
-platform_target = 0;
 wall_target     = 0;
 
-on_ground_var = on_ground();
 was_on_ground = has_collided(0, 1);
 
 // Used for sub-pixel movement

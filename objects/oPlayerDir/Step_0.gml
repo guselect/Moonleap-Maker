@@ -9,19 +9,22 @@ if key_right + key_left == 1
 }
 
 
-if on_ground_var=false and on_ground()=true 
+// Shake gamepad and make particles on landing.
+if not was_on_ground and vsp > 0 and has_collided(0, 1)
 {
-	if !instance_exists(oTransition) {shake_gamepad(1,3)}
-	repeat(random_range(3,5))
+	if not instance_exists(oTransition) {shake_gamepad(1,3)}
+	repeat(irandom_range(3,5))
 	{
 		var dust=instance_create_layer(x,y+(sprite_height/2),"Instances_2",oBigDust)
 		dust.hsp=random_range(-0.5,0.5)+(hsp/5)
 	}
 }
 
-on_ground_var = on_ground()
+was_on_ground = has_collided(0, 1);
 
-	if key_left=true {key_right=false}
+if key_left {
+	key_right = false
+}
 
 // RESET (suicide)
 if debug_mode=false and state!=WIN 
@@ -42,10 +45,10 @@ if debug_mode=false and state!=WIN
 #region Movimentação + Pulo
 
 // Wall cling to avoid accidental push-off
-if ((!key_right && !key_left) || on_ground_var) {
+if ((!key_right && !key_left) || was_on_ground) {
     can_stick = true;
     sticking = false;
-} else if (((key_right && key_left) || (key_left && key_right)) && can_stick && !on_ground_var) {
+} else if (((key_right && key_left) || (key_left && key_right)) && can_stick && !was_on_ground) {
     alarm[0] = cling_time;
     sticking = true; 
     can_stick = false;       
@@ -91,7 +94,7 @@ image_angle=0
 
 //Vertical movement
 
-if on_ground_var
+if was_on_ground
 
 {
 	grace_time= grace_time_frames
@@ -187,12 +190,9 @@ if key_jump_pressed=true and !place_meeting(x,y,oLadderParent) and !key_down and
 
 
 // Jump state check 
-if (!on_ground_var) {
-    state = JUMP; 
+if not has_collided(0, 1) {
+    state = JUMP;
 }
-
-
-
 #endregion
 
 
