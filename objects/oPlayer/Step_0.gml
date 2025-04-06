@@ -349,12 +349,12 @@ and has_collided(0, -3) {
 // Climb ladder
 if ds_exists(ladder_list, ds_type_list) {
 	ds_list_clear(ladder_list);
-	collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
-	if ds_list_size(ladder_list) > 0 and key_jump {
+	var ladder_count = collision_rectangle_list(bbox_left, bbox_top, bbox_right, bbox_bottom, oLadderParent, false, true, ladder_list, true);
+	if ladder_count > 0 and key_jump {
 		on_ladder = true;
 		var nearest_ladder = ds_list_find_value(ladder_list, 0);
 	
-		if ds_list_size(ladder_list) > 1
+		if ladder_count > 1
 			or y > nearest_ladder.bbox_top - 4
 			or place_meeting(x, y, oPlatGhost)
 		{
@@ -370,42 +370,57 @@ if ds_exists(ladder_list, ds_type_list) {
 	}
 }
 
-if state=RUN
-{
-	if (floor(image_index)=3 or floor(image_index)=7) 
-	{ 
-		
-		if !audio_is_playing(sndWalkGrass)
-		{
-			if place_meeting(x,y+1,oGrassDay) or place_meeting(x,y+1,oGrassNight)
-			{audio_play_sfx(sndWalkGrass,false,-3.11,25)}
-		}
+// Footsteps sounds
+if state == RUN and (floor(image_index) == 3 or floor(image_index) == 7) { 
+	// Walking on grass/flowers
+	if not audio_is_playing(sndWalkGrass)
+	and (place_meeting(x,y+1,oGrassDay) 
+		or place_meeting(x,y+1,oGrassNight)
+		or place_meeting(x,y+1,oFlowerDay)
+		or place_meeting(x,y+1,oFlowerNight)
+		or (instance_exists(oLevelMaker) 
+			and (oLevelMaker.selected_style == LEVEL_STYLE.GRASS
+				or oLevelMaker.selected_style == LEVEL_STYLE.FLOWERS
+			) and (place_meeting(x, y + 1, oSolidDay) 
+				or place_meeting(x, y + 1, oSolidNight)
+			)
+		)
+	) {
+		audio_play_sfx(sndWalkGrass, false, -3.11, 25);
+	}
 
-		
-		
-		if !(audio_is_playing(sfx_cloud_01) or audio_is_playing(sfx_cloud_02) or audio_is_playing(sfx_cloud_03) or audio_is_playing(sfx_cloud_04))
-		{
-			if place_meeting(x,y+1,oCloudDay) or place_meeting(x,y+1,oCloudNight)
-			{	
-				var sfxwalkcloud=choose(sfx_cloud_01,sfx_cloud_02,sfx_cloud_03,sfx_cloud_04)
-				audio_play_sfx(sfxwalkcloud,false,-9.2,5)
+	// Walking on ground
+	if not (audio_is_playing(sfx_cloud_01) 
+		or audio_is_playing(sfx_cloud_02) 
+		or audio_is_playing(sfx_cloud_03) 
+		or audio_is_playing(sfx_cloud_04)
+	) and (place_meeting(x,y+1,oCloudDay) 
+		or place_meeting(x,y+1,oCloudNight)
+		or (instance_exists(oLevelMaker) 
+			and oLevelMaker.selected_style == LEVEL_STYLE.CLOUDS 
+			and (place_meeting(x, y + 1, oSolidDay) 
+				or place_meeting(x, y + 1, oSolidNight)
+			)
+		)
+	) {	
+		var sfxwalkcloud = choose(sfx_cloud_01, sfx_cloud_02, sfx_cloud_03, sfx_cloud_04);
+		audio_play_sfx(sfxwalkcloud, false, -9.2, 5);
 				
-				var dust=instance_create_layer(x,y+(sprite_height/2),"Instances_2",oBigDust)
-				dust.hsp=hsp/random_range(5,10)
-				dust.vsp=vsp/random_range(5,10)	
-				dust.image_index=1
-			}
-		}
-		
-		if !audio_is_playing(sndWalkStone) and !audio_is_playing(sndWalkGrass) and !audio_is_playing(sndWalkCloud)
-		{
-		if place_meeting(x,y+1,oSolid) or place_meeting(x,y+1,oPlatGhost) 
-		{audio_play_sfx(sndWalkStone,false,-11.7,8)}
-		}
-		
-		
+		var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
+		dust.hsp = hsp / random_range(5, 10);
+		dust.vsp = vsp / random_range(5, 10);
+		dust.image_index = 1;
 	}
+		
+	if not audio_is_playing(sndWalkStone)
+	and not audio_is_playing(sndWalkGrass)
+	and not audio_is_playing(sndWalkCloud)
+	and (place_meeting(x,y+1,oSolid) 
+		or place_meeting(x,y+1,oPlatGhost)
+	) {  
+		audio_play_sfx(sndWalkStone, false, -11.7, 8);
 	}
+}
 	
 if  place_meeting(x,y+1,oSnailGray) and vsp>-1.75
 {
