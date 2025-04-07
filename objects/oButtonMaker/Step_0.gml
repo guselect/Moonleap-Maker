@@ -94,6 +94,9 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_up())
 		}
 		audio_play_sfx(snd_morcego_02,false,-20,13)
 		oButtonMakerObj.drawplus = -1
+		oLevelMaker.image_xscale = 1;
+		oLevelMaker.image_yscale = 1;
+		oLevelMaker.image_angle = 0;
 	}
 }
 
@@ -109,6 +112,9 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 		}
 		audio_play_sfx(snd_morcego_02,false,-20,13)
 		oButtonMakerObj.drawplus = 1
+		oLevelMaker.image_xscale = 1;
+		oLevelMaker.image_yscale = 1;
+		oLevelMaker.image_angle = 0;
 	}
 }
 

@@ -1,13 +1,7 @@
 #macro SAVE_SYSTEM_VERSION "1.1"
 
 function save_level(_level_name) {
-	
 	with(oLevelMaker){
-		
-		//var _file_name = "Levels\\" + string(_level_name) + ".moonlevel";
-		
-		var _file_name = string(_level_name)
-		
 		//-----------------------------------------------------------------------------------------
 		//
 		// MAKE A DEEP COPY OF THE OBJECT_GRID ARRAY AND REPLACE OBJECT INDEX WITH OBJECT ASSET NAME
@@ -31,6 +25,7 @@ function save_level(_level_name) {
 						object_width: _object_grid.object_width,
 						object_height: _object_grid.object_height,
 						xscale: _object_grid.xscale,
+						yscale: _object_grid.yscale,
 						angle: _object_grid.angle,
 					};
 				} else {
@@ -49,14 +44,17 @@ function save_level(_level_name) {
 			level_data: _level_data
 		};
 		
+		var _file_name = string(_level_name);
 		var _json = json_stringify(_save);
+		
+		if file_exists(_file_name) {
+			file_delete(_file_name)
+		}
 		
 		var _file = file_text_open_write(_file_name);
 		file_text_write_string(_file, _json);
 		file_text_close(_file);
 	}
-	
-	//game_save(_file_name);
 }
 
 function load_level(_level_name){

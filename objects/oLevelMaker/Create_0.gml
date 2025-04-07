@@ -77,7 +77,7 @@ obj[0, 08] =	new LMObject(oLadderDay,		16, 16);
 obj[0, 09] =	new LMObject(oLadderNight,		16, 16);
 obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailWalk, 0, 0, 2, -9, 0);
 obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18);
-obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
 obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
 obj[0, 14] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
 obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBlockRampEditor, 0, 16, 0, -8, -8);
@@ -89,11 +89,11 @@ obj[1, 03] =	new LMObject(oStarColor,		16, 16);
 obj[1, 04] =	new LMObject(oStarRunningColor,	16, 16);
 obj[1, 05] =	new LMObject(oLadderNeutral,	16, 16);
 obj[1, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_spin", "can_flip");
+obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGrayUI, 0, 3, 0, -8, -8);
 obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatDown, 0, 10, 4, -7, -8);
 obj[1, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
 obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(sMushGrayUI, 0, 0, 0, 0, 0);
-obj[1, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[1, 11] =	new LMObject(oLadyVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_sprite_button_part(sLadyVerUI, 0, 3, 1, -8, -8);
 obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
 obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
 obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8);
@@ -110,9 +110,9 @@ obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWid
 obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
 obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
 obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-obj[2, 11] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 12] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 13] =	undefined;
+obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
+obj[2, 13] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
 obj[2, 14] =	undefined;
 obj[2, 15] =	undefined;
 
@@ -224,7 +224,7 @@ get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	return -1;
 }
 
-place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscale = 1, _angle = 0){
+place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscale = 1, _yscale = 1, _angle = 0){
 	var _object_width = 1;
 	var _object_height = 1;
 
@@ -233,6 +233,7 @@ place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscal
 	_object_width = _tiled_size[0];
 	_object_height = _tiled_size[1];
 	
+	// Create object grid struct
 	var _object_grid = new LMObjectGrid(
 		_top_left_x,
 		_top_left_y,
@@ -240,18 +241,9 @@ place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscal
 		_object_width,
 		_object_height,
 		_xscale,
+		_yscale,
 		_angle
 	);
-	
-	//var _object_data = [
-	//	_top_left_x,
-	//	_top_left_y,
-	//	_object,
-	//	_object_width,
-	//	_object_height,
-	//	_xscale,
-	//	_angle
-	//];
 	
 	//make sure the object stays inside the grid
 	_top_left_x = clamp(_top_left_x, 0, room_tile_width - _object_width);
@@ -394,6 +386,7 @@ start_level = function() {
 			{
 				var _object = _object_grid.object;
 				var _xscale = _object_grid.xscale;
+				var _yscale = _object_grid.yscale;
 				var _angle = _object_grid.angle;
 				
 				var _sprite = object_get_sprite(_object.index);
@@ -425,6 +418,7 @@ start_level = function() {
 				
 				var _object_in_world = instance_create_layer(_in_world_x, _in_world_y, _layer_name, _object.index, {
 					image_xscale: _xscale,
+					image_yscale: _yscale,
 					image_angle: _angle
 				});
 				

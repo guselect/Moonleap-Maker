@@ -17,6 +17,7 @@ if(instance_exists(oPause)) {
 			{
 				var _object = _object_grid.object;
 				var _xscale = _object_grid.xscale;
+				var _yscale = _object_grid.yscale;
 				var _obj_angle = _object_grid.angle;
 			
 				var _sprite = object_get_sprite(_object.index);
@@ -46,7 +47,7 @@ if(instance_exists(oPause)) {
 					_new_image_index = _config.image_index;
 				}
 
-				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, 1, _obj_angle, c_white,1);
+				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, _yscale, _obj_angle, c_white, 1);
 			}
 		}	
 	}

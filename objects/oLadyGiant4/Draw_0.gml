@@ -1,27 +1,31 @@
-/// @description Insert description here
-// You can write your code in this editor
-if !palette_index=2 {pal_swap_set(sSnailPal,palette_index,0)}
+if palette_index != 2 {
+	pal_swap_set(sSnailPal, palette_index, 0);
+}
 
-if round(hsp)!=0 { drawhsp=hsp}
-
+if round(hsp)!=0 {
+	drawhsp = hsp
+}
 
 if sprite_index=sturn_day or sprite_index=sturn_dayB
 {
-	if palette_index=2{sprindex=sLadyTurnSun} else {sprindex=sprite_index} 
+	if palette_index=2 {
+		sprindex=sLadyTurnSun
+	}
+	
 	if drawhsp<0
 	{
-	draw_sprite_ext(sprindex,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
 	}
 	if drawhsp>0
 	{
 
-	draw_sprite_ext(sprindex,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
-	draw_sprite_ext(sprindex,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_ext(sprindex,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
 	}	
 }
 else

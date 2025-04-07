@@ -50,7 +50,6 @@ if startindex == 0
 		image_index = 2;
 		image_xscale = 1;
 	}
-	
 }
 
 if startindex == 1
@@ -58,7 +57,7 @@ if startindex == 1
 	image_xscale = sign(prehsp);
 	
 	if prehsp > maxspdm or prehsp < -maxspdm {
-		sprite_index=sLadyDay
+		sprite_index = smove_dayB;
 	}
 	if prehsp >= halfspd and prehsp <= maxspdm {
 		sprite_index = sturn_dayB;

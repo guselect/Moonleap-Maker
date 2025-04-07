@@ -60,7 +60,12 @@ cursor_object_hovering = selected_object;
 if not is_undefined(selected_object) {
 	if selected_object.has_tag("can_flip") {
 		if keyboard_check_pressed(ord("X")) {
-			image_xscale *= -1;
+			if selected_object.has_tag("is_vertical") {
+				image_yscale *= -1;
+			} else {
+				image_xscale *= -1;
+			}
+			
 			audio_play_sfx(sndPress, false, -5, 13);
 		}
 	} else {
@@ -170,7 +175,14 @@ if is_cursor_inside_level {
 		}
 		
 		//instance_create_layer(x,y,"Instances",curobj,{image_xscale: oLevelMaker.image_xscale, image_angle: oLevelMaker.image_angle})
-		place_object_in_object_grid(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object, oLevelMaker.image_xscale, oLevelMaker.image_angle);
+		place_object_in_object_grid(
+			_selected_object_mouse_tile_x,
+			_selected_object_mouse_tile_y,
+			selected_object,
+			oLevelMaker.image_xscale,
+			oLevelMaker.image_yscale,
+			oLevelMaker.image_angle
+		);
 		
 		if instance_exists(oSolidDay) then oSolidDay.update = true;
 		if instance_exists(oSolidNight) then oSolidNight.update = true;
