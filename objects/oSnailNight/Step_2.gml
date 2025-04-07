@@ -25,12 +25,16 @@ landed = false;
 
 // Vertical collision
 repeat(abs(vsp_new)) {
-	if has_collided(0, sign(vsp)) {
+	if has_collided(0, sign(vsp), true, [oPermaSpike]) {
 		vsp = 0;
         break;
 	}
 	
 	y += sign(vsp);
+}
+
+if vsp != 0 {
+	hsp_new = 0;
 }
 
 // Horizontal collision
@@ -49,7 +53,7 @@ repeat(abs(hsp_new)) {
 		y += 1;
 	}
 	
-	if has_collided(sign(hsp), 0) {
+	if has_collided(sign(hsp), 0, true, [oPermaSpike]) {
 		hsp = 0;
 		break;
 	}

@@ -1,7 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
-on_ground_var= has_collided(0, 1);
-if on_ground_var=false {vsp+=grav}
+on_ground_var = has_collided(0, 1, true, [oPermaSpike]);
+if not on_ground_var {
+	vsp += grav
+}
 if vsp>3 {vsp=3}
 
 
@@ -20,30 +22,19 @@ if x<0{x+=320}
 
 sprite_index=sSnailWalk
 
-if vsp=0
-{
-	if abs(image_xscale) == 1
-	and (not has_collided(-(sprite_width / 1.3), 2, true, [oPermaSpike]) 
-		or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
-	) {
-		image_xscale *= -1;
-	}
-	//if image_xscale=1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
-	//	{image_xscale=-image_xscale }
-
-	//if image_xscale=-1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
-	//	{image_xscale=-image_xscale }
-	
-	//if image_xscale=-1  and place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {image_xscale=-image_xscale }
-	//if image_xscale=1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {image_xscale=-image_xscale }
+if vsp == 0 and
+abs(image_xscale) == 1
+and (not has_collided(-(sprite_width / 1.3), 2, true, [oPermaSpike]) 
+	or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
+) {
+	image_xscale *= -1;
 }
+	
+hsp -= image_xscale * 0.075;
+hsp = clamp(hsp,-0.55,0.55);
 
-
-nearmush=instance_place(x,y,oMush)
-if 	nearmush!=noone
-{
-
-
+var nearmush = instance_place(x,y,oMush)
+if nearmush != noone {
 	if nearmush.image_angle=0
 	{
 		if place_meeting(x,y,nearmush) and vsp>=0
@@ -122,14 +113,6 @@ if 	nearmush!=noone
 	}
 	
 }
-	
-if place_meeting(x-(image_xscale*4),y,oSolid) or place_meeting(x-(image_xscale*4),y,oPermaSpike)
-	{image_xscale=-image_xscale }
-	
-hsp-=image_xscale*0.075
-hsp=clamp(hsp,-0.55,0.55)
-
-
  
  
 sindex=sprite_index

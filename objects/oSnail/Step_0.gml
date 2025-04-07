@@ -3,7 +3,7 @@
 
 numb=approach(numb,0,1)
 
-on_ground_var = has_collided(0, 1) or place_meeting(x, y + 1, oPermaSpike);
+on_ground_var = has_collided(0, 1, true, [oPermaSpike]);
 if on_ground_var=false {vsp += grav}
 if vsp > 3 {vsp = 3}
 
@@ -17,7 +17,8 @@ if ani>0 {sprite_index = idlesprite image_index=0 ani-=1}
 
 if not night
 {
-	if abs(image_xscale) == 1
+	if vsp == 0 
+	and abs(image_xscale) == 1
 	and (not has_collided(-(sprite_width / 1.3), 2, true, [oPermaSpike]) 
 		or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
 	) {
