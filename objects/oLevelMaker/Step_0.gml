@@ -142,7 +142,7 @@ if test_button_cooldown > 0 {
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
 if is_cursor_inside_level {
-	// Replace object
+	// Get object
 	if mouse_check_button_pressed(mb_left) 
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
 		and is_struct(object_grid_hovering)
@@ -151,6 +151,9 @@ if is_cursor_inside_level {
 				
 		selected_object_type = _obj_pos[0];
 		selected_object_position = _obj_pos[1];
+		image_xscale = object_grid_hovering.xscale;
+		image_yscale = object_grid_hovering.yscale;
+		image_angle = object_grid_hovering.angle;
 		
 		remove_object_from_grid(object_grid_hovering);
 	}

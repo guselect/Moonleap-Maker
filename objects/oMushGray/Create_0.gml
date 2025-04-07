@@ -1,5 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
+sprite_index = sSuperMush;
+
 bigmask=false
 
 near_lady=noone
