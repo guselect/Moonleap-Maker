@@ -22,16 +22,24 @@ sprite_index=sSnailWalk
 
 if vsp=0
 {
-if image_xscale=1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
-	{image_xscale=-image_xscale }
+	if abs(image_xscale) == 1
+	and (not has_collided(-(sprite_width / 1.3), 2, true, [oPermaSpike]) 
+		or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
+	) {
+		image_xscale *= -1;
+	}
+	//if image_xscale=1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
+	//	{image_xscale=-image_xscale }
 
-if image_xscale=-1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
-	{image_xscale=-image_xscale }
+	//if image_xscale=-1 and !(place_meeting(x-(sprite_width/2),y+4,oSolid) or place_meeting(x-(sprite_width/2.5),y+4,oPlatGhost))
+	//	{image_xscale=-image_xscale }
+	
+	//if image_xscale=-1  and place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {image_xscale=-image_xscale }
+	//if image_xscale=1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {image_xscale=-image_xscale }
 }
-	if image_xscale=-1  and place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {image_xscale=-image_xscale }
-	if image_xscale=1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {image_xscale=-image_xscale }
 
-	nearmush=instance_place(x,y,oMush)
+
+nearmush=instance_place(x,y,oMush)
 if 	nearmush!=noone
 {
 

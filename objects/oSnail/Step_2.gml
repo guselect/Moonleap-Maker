@@ -16,8 +16,8 @@ image_speed=1
 
 cx +=(( hsp*(abs(night-1)))* on_ground_var) +hsp_plus
 cy += vsp
-hsp_new = floor(cx);
-vsp_new = floor(cy);
+var hsp_new = floor(cx);
+var vsp_new = floor(cy);
 cx -= hsp_new;
 cy -= vsp_new;
 
@@ -27,7 +27,7 @@ landed = false;
 
 
 repeat(abs(vsp_new)) {
-    if (!platform_check()) and !place_meeting(x,y+1,oPermaSpike)
+    if (not has_collided(0, 1, true, [oPermaSpike]))
         y += sign(vsp);
     else  {
         vsp = 0;
@@ -47,12 +47,10 @@ repeat(abs(vsp_new)) {
 
 ////slopes
 
-tempH=1
 repeat(abs(hsp_new)) 
 {
-	
-	if sign(hsp_new)=1  and place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {hsp=0 break;}
-	if sign(hsp_new)=-1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {hsp=0 break;}
+	if sign(hsp_new) == 1 and  place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {hsp=0 break;}
+	if sign(hsp_new) == -1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {hsp=0 break;}
 	
 	// UP slope
 	if (place_meeting(x + sign(hsp), y, oSolid) && place_meeting(x + sign(hsp), y - 1, oSolid) && !place_meeting(x + sign(hsp), y - 2, oSolid)) {
@@ -75,7 +73,7 @@ repeat(abs(hsp_new))
 	
 	//Normal Terrain
 	if (!place_meeting(x + sign(hsp), y, oSolid)) and (!place_meeting(x + sign(hsp), y, oPermaSpike))
-		{x += sign(hsp)*tempH} else { hsp = 0; break;}
+		{x += sign(hsp)} else { hsp = 0; break;}
 		
 		
 }

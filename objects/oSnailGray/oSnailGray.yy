@@ -10,8 +10,8 @@
   "visible": true,
   "managed": true,
   "spriteMaskId": {
-    "name": "sSnalGrayMask",
-    "path": "sprites/sSnalGrayMask/sSnalGrayMask.yy",
+    "name": "sSnailMask",
+    "path": "sprites/sSnailMask/sSnailMask.yy",
   },
   "persistent": false,
   "parentObjectId": null,
