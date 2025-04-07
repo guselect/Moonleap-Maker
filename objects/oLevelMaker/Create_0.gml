@@ -17,14 +17,23 @@ based on that they update their colors
 // Input variables
 scr_inputcreate()
 
+level_name = "";
+level_author_name = "";
+
+use_ranking_system = false;
+rank_S_change_max = 0;
+rank_A_change_max = 0;
+rank_B_change_max = 0;
+rank_C_change_max = 0;
+
 // Grid-related
 tile_size = 8;
 room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
 objects_grid = []; // Grid where the objects inserted by player are.
 
-for(var _x = 0; _x < room_tile_width; _x++){
-	for(var _y = 0; _y < room_tile_height; _y++){
+for(var _x = 0; _x < room_tile_width; _x++) {
+	for(var _y = 0; _y < room_tile_height; _y++) {
 		objects_grid[_x,_y] = -1;
 	}	
 }
@@ -65,7 +74,7 @@ object_positions_length = 16;
 object_grid_hovering = -1; // Object where cursor is above at.
 
 // Objects List
-obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
 obj[0, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
 obj[0, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
 obj[0, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
@@ -99,8 +108,8 @@ obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("c
 obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8);
 obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);
 
-obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_orb");
+obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
+obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
 obj[2, 02] =	new LMObject(oStarFly,			16, 16);
 obj[2, 03] =	new LMObject(oKey,				16, 16);
 obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
@@ -110,7 +119,7 @@ obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWid
 obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
 obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
 obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
+obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
 obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
 obj[2, 13] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
 obj[2, 14] =	undefined;
@@ -224,6 +233,24 @@ get_grid_object_hovering = function(_mouse_x, _mouse_y){
 	return -1;
 }
 
+count_objects_in_grid = function(_object_index) {
+	var counter = 0;
+	
+	for(var _x = 0; _x < room_tile_width; _x++){
+		for(var _y = 0; _y < room_tile_height; _y++){
+			var _object_grid = objects_grid[_x,_y];
+			
+			if _object_grid == -1 then continue;
+			
+			if _object_grid.object.index == _object_index {
+				counter += 1;
+			}
+		}	
+	}
+	
+	return counter;
+}
+
 place_object_in_object_grid = function(_top_left_x, _top_left_y, _object, _xscale = 1, _yscale = 1, _angle = 0){
 	var _object_width = 1;
 	var _object_height = 1;
@@ -310,6 +337,50 @@ remove_all_player_objects_from_grid = function() {
 				and _top_left_x == _x 
 				and _top_left_y == _y 
 				and _object_index.has_tag("is_player") 
+			{
+				remove_object_from_grid(_object_grid);
+			}
+		}
+	}
+}
+
+remove_all_specific_objects_from_grid = function(_object_index) {
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			var _object_grid = objects_grid[_x, _y];
+			
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			var _object = _object_grid.object;
+			
+			if is_struct(_object_grid)
+				and _top_left_x == _x 
+				and _top_left_y == _y 
+				and _object.index == _object_index
+			{
+				remove_object_from_grid(_object_grid);
+			}
+		}
+	}
+}
+
+remove_all_bird_objects_from_grid = function() {
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			var _object_grid = objects_grid[_x, _y];
+			
+			if _object_grid == -1 then continue;
+			
+			var _top_left_x = _object_grid.top_left_x;
+			var _top_left_y = _object_grid.top_left_y;
+			var _object_index = _object_grid.object;
+			
+			if is_struct(_object_grid)
+				and _top_left_x == _x 
+				and _top_left_y == _y 
+				and _object_index.has_tag("is_bird") 
 			{
 				remove_object_from_grid(_object_grid);
 			}

@@ -166,14 +166,12 @@ if is_cursor_inside_level {
 		and not has_object_below_cursor
 		and test_button_cooldown == 0
 	{
-		if selected_object.has_tag("is_player") {
-			remove_all_player_objects_from_grid();
+		if selected_object.has_tag("is_unique") {
+			remove_all_specific_objects_from_grid(selected_object.index);
 		}
 		
 		if selected_object.index == oMagicOrb 
-			or selected_object.index == oGrayOrb
-		{
-		//if selected_object == oMagicOrb or selected_object == oGrayOrb {
+		or selected_object.index == oGrayOrb {
 			remove_orb_from_grid();
 		}
 		
