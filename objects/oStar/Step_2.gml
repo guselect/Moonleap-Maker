@@ -41,7 +41,7 @@ repeat(abs(hsp_new)) {
 		y += 1;
 	}
 	
-	if has_collided(sign(hsp), 0) {
+	if has_collided(sign(hsp), 0, true, [oPermaSpike]) {
 		hsp = 0;
 		break;
 	}

@@ -18,10 +18,6 @@ repeat(abs(vsp_new)) {
 	y += sign(vsp);
 }
 
-if vsp != 0 {
-	hsp_new = 0;
-}
-
 // Horizontal collision
 repeat(abs(hsp_new)) {
 	// Going up slopes
