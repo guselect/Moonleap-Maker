@@ -1,19 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-maxspd=0.55
-
+maxspd = 0.55;
 levelnumb=0
-
-
-/*
-if room!=RoomMenu and room!=RoomMenu2
-{
-levelnumb=real(string_digits(room_get_name(room)))
-if levelnumb=16 {levelnumb=0}
-
-if levelnumb<10 {oDust.sprite_index=sDUST}
-}
-*/
 
 smove_day=sLadyNight
 sturn_day=sLadyTurn
@@ -42,7 +28,12 @@ yy=0
 layer=layer_get_id("Instances_2")
 drawy=y
 
-prehsp=hsp
+prehsp = hsp;
+
+if image_index == 1 then
+	hsp = maxspd;
+else 
+	hsp = -maxspd;
 
 if instance_exists(oGrassDay)
 {palette_index=0 exit;}
