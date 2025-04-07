@@ -21,7 +21,7 @@ jumped = false;
 landed = false;
 
 repeat(abs(vsp_new)) {
-    if (!platform_check()) and !place_meeting(x,y+1,oPermaSpike)
+    if not has_collided(0, sign(vsp), true, [oPermaSpike])
         y += sign(vsp);
     else  {
         vsp = 0;
