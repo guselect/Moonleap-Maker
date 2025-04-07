@@ -37,6 +37,8 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	tags = [];
 	object_config = undefined;
 	
+	preview_image_index_vertical = undefined;
+	
 	sprite_button_sprite_index = undefined;
 	sprite_button_image_index = 0;
 	sprite_button_x_offset = 0;
@@ -45,6 +47,11 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	sprite_button_part_top = 0;
 	sprite_button_part_width = 16;
 	sprite_button_part_height = 16;
+	
+	set_preview_index_vertical = function(_image_index_flipped = 0) {
+		preview_image_index_vertical = _image_index_flipped;
+		return self;
+	}
 	
 	set_sprite_button_part = function(
 		new_sprite_index,

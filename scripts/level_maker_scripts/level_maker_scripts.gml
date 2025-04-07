@@ -1,4 +1,4 @@
-#macro SAVE_SYSTEM_VERSION "1.1"
+#macro SAVE_SYSTEM_VERSION "1.2"
 
 function save_level(_level_name) {
 	with(oLevelMaker){
@@ -109,6 +109,7 @@ function load_level(_level_name){
 								_loaded_object_grid.object_width,
 								_loaded_object_grid.object_height,
 								_loaded_object_grid.xscale,
+								_loaded_object_grid.yscale,
 								_loaded_object_grid.angle
 							)
 						} else {

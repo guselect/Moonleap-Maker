@@ -801,6 +801,7 @@
     {"id":{"name":"sLadyDay","path":"sprites/sLadyDay/sLadyDay.yy",},"order":2,},
     {"id":{"name":"sLadyGiant","path":"sprites/sLadyGiant/sLadyGiant.yy",},"order":3,},
     {"id":{"name":"sLadyNight","path":"sprites/sLadyNight/sLadyNight.yy",},"order":4,},
+    {"id":{"name":"sBatVerUI","path":"sprites/sBatVerUI/sBatVerUI.yy",},"order":42,},
     {"id":{"name":"approach","path":"scripts/approach/approach.yy",},"order":31,},
     {"id":{"name":"sLadyTurn","path":"sprites/sLadyTurn/sLadyTurn.yy",},"order":5,},
     {"id":{"name":"sPlayerIdle1","path":"sprites/sPlayerIdle1/sPlayerIdle1.yy",},"order":5,},
