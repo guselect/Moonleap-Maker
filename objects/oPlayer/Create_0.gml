@@ -67,7 +67,7 @@ move=1
 sticking = true; 
 can_stick = false;
 flash=0
-
+squash = false;
 
 
 // new movement code
@@ -94,7 +94,7 @@ JUMP      = 12;
 WIN     = 13;
 
 state= IDLE
-star=0
+
 
 
 
@@ -107,12 +107,12 @@ roomh=room_height
 //	var s=instance_create_layer(roomw,roomh,layer,oStar)
 //	s.visible=false
 //}
-	
-inistar=0//instance_number(oStar)
+
+stars_collected = 0;
+stars_to_collect = instance_number(oStar);
 
 has_collected_all_stars = function() {
-	inistar = instance_number(oStar);
-	return inistar == 0;
+	return stars_collected == stars_to_collect;
 }
 
 idletime=0

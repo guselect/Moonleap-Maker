@@ -41,6 +41,10 @@ if batver!=noone
 	}
 }
 
-if place_meeting(x,y,oSpike) {
-	instance_destroy()
+if place_meeting(x, y, oSolid) {
+	repeat(irandom_range(2, 4)) {
+		instance_create_layer(x,y,"Instances_2",oBigSmoke);
+	}
+	audio_play_sfx(snd_kick,false,-7.3,13)
+	instance_destroy();
 }

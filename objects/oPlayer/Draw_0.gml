@@ -1,7 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-
 var xx=x+random_range(-shake,shake)
 var yy=y
 

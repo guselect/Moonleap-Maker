@@ -1,12 +1,7 @@
-/// @description Insert description here
-// You can write your code in this editor
-/// @description Insert description here
-// You can write your code in this editor
-
 cx += hsp 
 cy += vsp
-hsp_new = floor(cx);
-vsp_new = floor(cy);
+var hsp_new = floor(cx);
+var vsp_new = floor(cy);
 cx -= hsp_new;
 cy -= vsp_new;
 
@@ -48,13 +43,3 @@ repeat(abs(hsp_new)) {
 	
 	x += sign(hsp);
 }
-
-
-
-
-
-
-
-
-
-
