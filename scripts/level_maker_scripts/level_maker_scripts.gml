@@ -59,35 +59,33 @@ function save_level(_level_name) {
 }
 
 function load_level(_level_name){
+	var _file_name = string(_level_name)
 	
-	with(oLevelMaker){
-		var _file_name = string(_level_name)
+	if not file_exists(_file_name) {
+		show_message(_file_name + " does not exist.");
+		return;
+	}
 	
-		if not file_exists(_file_name) {
-			show_message(_file_name + " does not exist.");
-			return;
-		}
+	// Read json from file
+	var _json_string = "";
+	var _file = file_text_open_read(_file_name);
+	while not file_text_eof(_file) {
+		_json_string += file_text_read_string(_file);
+	}
+	file_text_close(_file);
 	
-		// Read json from file
-		var _json_string = "";
-		var _file = file_text_open_read(_file_name);
-		while not file_text_eof(_file) {
-			_json_string += file_text_read_string(_file);
-		}
-		file_text_close(_file);
-	
-		var _loaded_data = json_parse(_json_string);
+	// All level info parsed
+	var _loaded_data = json_parse(_json_string);
 		
-		if(_loaded_data.version != SAVE_SYSTEM_VERSION) {
-			show_message("THIS SAVE USES AN DIFFERENT SAVE VERSION AND CANNOT BE LOADED.");
-			return;
-		}
-		
-		with(oLevelMaker) {
-			var _level_style = variable_struct_exists(_loaded_data, "level_style") ? _loaded_data.level_style : LEVEL_STYLE.GRASS;
+	if(_loaded_data.version != SAVE_SYSTEM_VERSION) {
+		show_message("THIS SAVE USES AN DIFFERENT SAVE VERSION AND CANNOT BE LOADED.");
+		return;
+	}
+	
+	with(oLevelMaker) {
+		var _level_style = variable_struct_exists(_loaded_data, "level_style") ? _loaded_data.level_style : LEVEL_STYLE.GRASS;
 			
-			selected_style = _level_style;
-		}
+		selected_style = _level_style;
 		
 		for(var _x = 0; _x < room_tile_width; _x++) {
 			for(var _y = 0; _y < room_tile_height; _y++) {
