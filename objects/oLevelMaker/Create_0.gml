@@ -441,6 +441,10 @@ start_level = function() {
 		case LEVEL_STYLE.DUNGEON:	instance_create_layer(0, 0,"Instances", o_dungeon_song);	break;
 	}
 	
+	// This will be used to determine which objects will be
+	// created first.
+	var instance_queue = ds_priority_create();
+	
 	// Instantiate all objects on the level
 	for(var _x = 0; _x < room_tile_width; _x++) {
 		for(var _y = 0; _y < room_tile_height; _y++) {
@@ -483,31 +487,67 @@ start_level = function() {
 				_in_world_x = round(_in_world_x);
 				_in_world_y = round(_in_world_y);
 				
-				var _layer_name = "GimmickInstances";
+				var _priority = 0;
+				var _layer_name = "";
 				
-				if _object.has_tag("is_player") or _object.has_tag("is_orb") then _layer_name = "PlayerInstances";
+				switch(_object.index) {
+					// THEY MUST BE THE LAST TO NOT BREAK THE STAR COUNTING.
+					case oPlayer:
+					case oPlayerDir:
+					case oPlayerNeutral:
+						_priority = 0;
+						_layer_name = "Player_Instances";
+						break;
+						
+					case oStar:
+					case oStarColor:
+					case oStarRunning:
+					case oStarRunningColor:
+					case oMagicOrb:
+					case oGrayOrb:
+					case oBird:
+						_layer_name = "Player_Instances";
+						_priority = 1;
+						break;
+						
+					default:
+						_layer_name = "Gimmick_Instances";
+						_priority = 10;
+						break;
+				}
 				
-				var _object_in_world = instance_create_layer(_in_world_x, _in_world_y, _layer_name, _object.index, {
+				var _object_var_struct = {
 					image_xscale: _xscale,
 					image_yscale: _yscale,
 					image_angle: _angle
-				});
+				};
+
+				ds_priority_add(
+					instance_queue, 
+					{
+						x: _in_world_x,
+						y: _in_world_y,
+						layer: _layer_name,
+						index: _object.index,
+						var_struct: _object_var_struct
+					},
+					_priority
+				);
 				
-				if not is_undefined(_object.object_config) {
-					var config = _object.object_config;
-					with(_object_in_world) {
-						image_index = config.image_index;
-					}
-				}
+				//instance_create_layer(_in_world_x, _in_world_y, "Instances", _object.index, _object_var_struct);
 			}
 		}
 	}
 	
+	repeat(ds_priority_size(instance_queue)) {
+		var instance = ds_priority_delete_max(instance_queue);
+		instance_create_layer(instance.x, instance.y, instance.layer, instance.index, instance.var_struct);
+	}
+	ds_priority_destroy(instance_queue);
 	
 	with(oLevelMaker) {
-		scr_update_style()
+		scr_update_style();
 	}
-	//game_save("level.savetemp")
 	
 	with (oBrokenStone)
 	{

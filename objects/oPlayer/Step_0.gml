@@ -1,7 +1,4 @@
-//show_debug_message("oPlayer.star:" + string(star));
-//show_debug_message("oPlayer.inistar:" + string(inistar));
-
-var ghost= (PlayerIdle=	sGhost)
+var ghost = PlayerIdle == sGhost;
 
 // Shake gamepad and make particles on landing.
 if not was_on_ground and vsp > 0 and has_collided(0, 1)
@@ -190,7 +187,7 @@ image_xscale=move
 
 if has_collected_all_stars() {
 	with (oPermaSpike) {
-		solidvar = instance_create_layer(x,y,layer,oSolid);
+		var solidvar = instance_create_layer(x, y, layer, oSolid);
 		solidvar.x = x;
 		solidvar.image_xscale = image_xscale;
 		solidvar.image_yscale = image_yscale;
@@ -518,10 +515,10 @@ if colstar != noone and colstar.sprite_index != sStarDaySpike {
 colstar = instance_place(x, y, oStar);
 if colstar != noone and colstar.visible {
 	if not colstar.neww {
-		if star == 0 then audio_play_sfx(sndStar1, false, -9.3, 0);
-		if star == 1 then audio_play_sfx(sndStar2, false, -9.3, 0);
-		if star == 2 then audio_play_sfx(sndStar3, false, -9.3, 0);
-		if star == 3 and global.settings.enable_sfx {
+		if stars_collected == 0 then audio_play_sfx(sndStar1, false, -9.3, 0);
+		if stars_collected == 1 then audio_play_sfx(sndStar2, false, -9.3, 0);
+		if stars_collected == 2 then audio_play_sfx(sndStar3, false, -9.3, 0);
+		if stars_collected == 3 and global.settings.enable_sfx {
 			audio_play_sound(sndStar3, 10, false, power(10, -9.3 / 20), 0, 1.05);
 		}
 	}
@@ -530,7 +527,7 @@ if colstar != noone and colstar.visible {
 	};
 		
 	instance_destroy(colstar);
-	star += 1;
+	stars_collected += 1;
 	flash = 1;
 }
 
