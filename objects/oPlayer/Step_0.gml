@@ -87,7 +87,6 @@ image_angle=0
 
 
 //Vertical movement
-
 if was_on_ground {
 	grace_time= grace_time_frames
 	last_plat=instance_place(x,y+6,oBrokenStone)
@@ -490,7 +489,7 @@ with (instance_place(x, y, oRopeSegment)) {
 
 #region Star, Spike and Bird Collisions
 
-/////STAR COLLISION
+///// STAR COLLISION
 var colstar = instance_place(x, y, oStarColor);
 if colstar != noone and colstar.sprite_index != sStarDaySpike {
 	if colstar.sprite_index == sStarDaySpike 
