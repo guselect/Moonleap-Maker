@@ -14,7 +14,10 @@
     "path": "sprites/sSnailMask/sSnailMask.yy",
   },
   "persistent": false,
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "oSolid",
+    "path": "objects/oSolid/oSolid.yy",
+  },
   "physicsObject": false,
   "physicsSensor": false,
   "physicsShape": 1,

@@ -8,8 +8,6 @@ cy -= vsp_new;
 jumped = false;
 landed = false;
 
-
-
 // Vertical collision
 repeat(abs(vsp_new)) {
 	if has_collided(0, sign(vsp), true, [oPermaSpike]) {
@@ -25,7 +23,7 @@ repeat(abs(hsp_new)) {
 	// Going up slopes
 	if place_meeting(x + sign(hsp), y, oSolid)
 	and not place_meeting(x + sign(hsp), y - 1, oSolid) {
-		y -= 1;  
+		y -= 1;
 	}
 	
 	// Going down slopes

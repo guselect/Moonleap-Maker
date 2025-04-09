@@ -8,6 +8,7 @@ night=false
 ani=0
 hsp=-(image_xscale*0.55)
 vsp=0
+hsp_plus=0
 grav=0.08
 
 
