@@ -17,6 +17,7 @@ if(instance_exists(oPause)) {
 			{
 				var _object = _object_grid.object;
 				var _xscale = _object_grid.xscale;
+				var _yscale = _object_grid.yscale;
 				var _obj_angle = _object_grid.angle;
 			
 				var _sprite = object_get_sprite(_object.index);
@@ -38,8 +39,17 @@ if(instance_exists(oPause)) {
 
 				_sprite_offset_x = _new_offset[0];
 				_sprite_offset_y = _new_offset[1];
+				
+				var _new_image_index = 0;
+				var _new_y_scale = _yscale;
+				var _preview_index_vertical = _object.preview_image_index_vertical;
+				
+				if not is_undefined(_preview_index_vertical) {
+					_new_image_index = _yscale == -1 ? _preview_index_vertical : 0;
+					_new_y_scale = 1;
+				}
 
-				draw_sprite_ext(_sprite,0,_xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, 1, _obj_angle, c_white,1);
+				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, _new_y_scale, _obj_angle, c_white, 1);
 			}
 		}	
 	}
@@ -53,9 +63,21 @@ draw_set_font(fntSmall)
 draw_sprite(sPauseMaker,0,0,0)
 
 // Draw item preview on cursor
-if cursor != LEVEL_CURSOR_TYPE.ERASER and is_cursor_inside_level and instance_exists(oPause) {
-	if sprite_exists(sprite_index) and not has_object_below_cursor {
-		var alpha = 0.6;
-		draw_sprite_ext(sprite_index, 0, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, image_yscale, image_angle, c_white, alpha);
+if cursor != LEVEL_CURSOR_TYPE.ERASER
+and is_cursor_inside_level 
+and instance_exists(oPause)
+and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
+and not has_object_below_cursor {
+	var _new_image_index = 0;
+	var _new_y_scale = image_yscale;
+	var sprite = object_get_sprite(cursor_object_hovering.index);
+	var _preview_index_vertical = cursor_object_hovering.preview_image_index_vertical
+				
+	if not is_undefined(_preview_index_vertical) {
+		_new_image_index = image_yscale == -1 ? _preview_index_vertical : 0;
+		_new_y_scale = 1;
 	}
+	
+	var alpha = 0.6;
+	draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, _new_y_scale, image_angle, c_white, alpha);
 }

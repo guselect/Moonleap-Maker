@@ -57,7 +57,7 @@ maker_menumakelevel: "Criar Níveis",
 maker_noplayer: "Você não pode testar sem um jogador!",
 maker_noestar: "Você não pode testar sem uma estrela!",
 
-maker_help_text: "Bem-vindo ao Moonleap Maker!\nClique nos objetos e posicione-os na fase\n\nTeclado: \nZ - Rotaciona o objeto \nX - Espelha o objeto \nWASD ou Setas - Navegam pela lista de objetos \nBarra de Espaço - Testa o Nível \n\nMouse: \nBotão Esquerdo - Coloca o Objeto \nBotão Direito - Apaga Objetos \nScroll - Muda o tipo na lista de objetos\n\nRecomendamos que somente o player loope pela tela\nOutros objetos podem não funcionar corretamente",
+maker_help_text: "Bem-vindo ao Moonleap Maker!\nClique nos objetos e posicione-os na fase\n\nTeclado: \nZ - Rotaciona o objeto \nX - Espelha o objeto \nWASD ou Setas - Navegam pela lista de objetos \nF5 - Testa o Nível \n\nMouse: \nBotão Esquerdo - Coloca o Objeto \nBotão Direito - Apaga Objetos \nScroll - Muda o tipo na lista de objetos\n\nRecomendamos que somente o player loope pela tela\nOutros objetos podem não funcionar corretamente",
 
 maker_intro: "Bem-vindo ao Moonleap Maker! Este editor está em beta",
 	

@@ -6,12 +6,28 @@ maxspd=0.55
 smove_dayB=sLadyDay
 sturn_dayB=sLadyTurnNight
 
-if image_index=1 {vsp=0.55} else {vsp=-0.55}
-image_xscale=sign(vsp)
-startindex=image_index
-if image_index=0 {sprite_index=sLadyNight} else {sprite_index=sLadyDay}
+if image_index == 1 {
+	vsp = 0.55;
+} else {
+	vsp = -0.55;
+}
 
-image_angle=-90
+startindex = image_index;
+
+if sign(image_yscale) == 1 {
+	vsp = -0.55;
+	startindex = 1;
+}
+
+if startindex == 0 {
+	sprite_index = sLadyNight;
+} else {
+	sprite_index = sLadyDay;
+}
+
+image_yscale = 1;
+image_angle = -90;
+
 levelnumb=0
 night=false
 

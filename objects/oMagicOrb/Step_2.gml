@@ -4,7 +4,6 @@ if !instance_exists(oPlayer) {exit;}
 
 if change=true and instance_exists(oPlayer) and cooldown=0
 {
-
 	cooldown=10
 	x=oPlayer.x
 	y=oPlayer.y
@@ -12,19 +11,8 @@ if change=true and instance_exists(oPlayer) and cooldown=0
 	oPlayer.y=yprevious
 	oPlayer.flash=true
 	flash=true
-	//vsp=-0.25
-	//hsp=0
-	//vsp=oPlayer.vsp
-	//hsp=oPlayer.hsp
-	//hsp_plus=oPlayer.hsp_plus
-	
-	//oPlayer.vsp+=oldvsp
-	//oPlayer.hsp+=oldhsp
-	
 	
 	instance_create_layer(x,y,layer,oGemSpark)
-	
-
 	
 	var sfxcogu=choose(snd_warp,snd_warp2,snd_warp3) audio_play_sfx(sfxcogu,false,-14,2)
 	change=false
@@ -34,15 +22,7 @@ if change=true and instance_exists(oPlayer) and cooldown=0
 
 }
 
-
-//scr_moving_plat()
-
-
-/// @description freeze_game(spd/by)
-/// @param spd/by
-
 if instance_exists(oPauseMenu) or instance_exists(oDead) {image_speed=0 exit;}			if instance_exists(oTransition) { if oTransition.wait!=0 {image_speed=0 exit;} }; if instance_exists(oPlayer) { if oPlayer.state=oPlayer.WIN {image_speed=0 exit;} }
-
 
 var hsp_new, vsp_new;
 
@@ -76,21 +56,18 @@ repeat(abs(hsp_new)) {
 	if sign(hsp_new)=1  and place_meeting(x + 1, y, oPlatGhostL) and !place_meeting(x, y, oPlatGhostL) {hsp=0 break;}
 	if sign(hsp_new)=-1 and place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR) {hsp=0 break;}
 	
-	// UP slope
-	if (place_meeting(x + sign(hsp), y, oSolid) && place_meeting(x + sign(hsp), y - 1, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -= 1; 
-	} else if (place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -=1;  
+	// Going up slopes
+	if place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y - 1, oSolid) {
+		y -= 1;  
 	}
 	
-	// DOWN slope
-	if vsp>=0
-	{
-		if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 2, oSolid))
-		  {  y += 1; }
-			
-		else if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 1, oSolid))
-		    { y += 1;}
+	// Going down slopes
+	if vsp >= 0
+	and not place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y + 1, oSolid)
+	and place_meeting(x + sign(hsp), y + 2, oSolid) {
+		y += 1;
 	}
 	
 	///Normal Terrain

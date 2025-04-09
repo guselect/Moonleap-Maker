@@ -1,8 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-
 levelnumb=0
-maxspd=0.45
+maxspd = 0.55;
 
 if room!=RoomMenu and room!=RoomMenu2
 {
@@ -19,11 +16,25 @@ sturn_day=sLadyTurn
 smove_dayB=sLadyDay
 sturn_dayB=sLadyTurnNight
 
+hsp = 0.55;
+startindex = image_index;
 
-if image_index=1 {hsp=0.55} else {hsp=-0.55}
-image_xscale=sign(hsp)
-startindex=image_index
-if image_index=0 {sprite_index=sLadyNight} else {sprite_index=sLadyDay}
+if image_index == 1 {
+	hsp = -0.55;
+}
+
+if sign(image_xscale) == -1 {
+	hsp = -0.55;
+	startindex = 1;
+}
+
+image_xscale = sign(hsp);
+
+if startindex == 0 {
+	sprite_index = smove_day;
+} else {
+	sprite_index = smove_dayB;
+}
 
 
 mynight=true

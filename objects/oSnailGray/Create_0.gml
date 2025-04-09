@@ -8,6 +8,7 @@ night=false
 ani=0
 hsp=-(image_xscale*0.55)
 vsp=0
+hsp_plus=0
 grav=0.08
 
 
@@ -19,7 +20,7 @@ landed = false;
 platform_target = 0;
 wall_target     = 0;
 
-on_ground_var = on_ground();
+on_ground_var = has_collided(0, 1);
 
 // Used for sub-pixel movement
 cx = 0;

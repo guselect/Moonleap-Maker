@@ -8,7 +8,17 @@ night=false
 hsp=0
 vsp=0
 
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay)  {sprite_index=sStarFlower}
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			sprite_index = sStarFlower;
+			break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	sprite_index = sStarFlower;
+}
 
 // new movement code
 
@@ -18,7 +28,7 @@ landed = false;
 platform_target = 0;
 wall_target     = 0;
 
-on_ground_var = on_ground();
+on_ground_var = has_collided(0, 1);
 
 // Used for sub-pixel movement
 cx = 0;

@@ -1,84 +1,45 @@
-
-
 cx += hsp 
 cy += vsp
-hsp_new = floor(cx);
-vsp_new = floor(cy);
+var hsp_new = floor(cx);
+var vsp_new = floor(cy);
 cx -= hsp_new;
 cy -= vsp_new;
 
 jumped = false;
 landed = false;
 
-
+// Vertical collision
 repeat(abs(vsp_new)) {
-    if (not platform_check())
-        y += sign(vsp);
-    else  {
-        vsp = 0;
+	if has_collided(0, sign(vsp)) {
+		vsp = 0;
         break;
-    }
+	}
+	
+	y += sign(vsp);
 }
 
-
-//repeat(abs(hsp_new)) {        
-//    if (!place_meeting(x + sign(hsp), y, oSolid))
-//        x += sign(hsp);
-//   else {
-//       hsp = 0;
-//        break;
-//    }
-//}
-
-////slopes
-
-tempH=1
-repeat(abs(hsp_new)) 
-{
-	// UP slope
-	if (place_meeting(x + sign(hsp), y, oSolid) && place_meeting(x + sign(hsp), y - 1, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -= 1; 
-	} else if (place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y - 1, oSolid)) {
-	    y -=1;  
+// Horizontal collision
+repeat(abs(hsp_new)) {
+	// Going up slopes
+	if place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y - 1, oSolid) {
+		y -= 1;  
 	}
 	
-	// DOWN slope
-	if vsp>=0
-	{
-		if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 2, oSolid))
-		  {  y += 1; }
-			
-		else if (!place_meeting(x + sign(hsp), y, oSolid) && !place_meeting(x + sign(hsp), y + 1, oSolid) && place_meeting(x + sign(hsp), y + 1, oSolid))
-		    { y += 1;}
+	// Going down slopes
+	if vsp >= 0
+	and not place_meeting(x + sign(hsp), y, oSolid)
+	and not place_meeting(x + sign(hsp), y + 1, oSolid)
+	and place_meeting(x + sign(hsp), y + 2, oSolid) {
+		y += 1;
 	}
 	
-
-	// Normal Terrain
-	if sign(hsp) == 1
-	{
-		if (not place_meeting(x + 1, y, oSolid)) 
-			and not (place_meeting(x + 1, y, oPlatGhostL) and not place_meeting(x, y, oPlatGhostL)) 
-			and not (place_meeting(x + 1, y, oMagicOrb) and not place_meeting(x, y, oMagicOrb))
-		{
-			x += sign(hsp) * tempH;
-		} else { 
-			hsp = 0;
-			break;
-		}
+	if has_collided(sign(hsp), 0) {
+		hsp = 0;
+		break;
 	}
 	
-	if sign(hsp) == -1
-	{
-		if (!place_meeting(x - 1, y, oSolid))
-			and not (place_meeting(x - 1, y, oPlatGhostR) and !place_meeting(x, y, oPlatGhostR))
-			and !(place_meeting(x - 1, y, oMagicOrb) and !place_meeting(x, y, oMagicOrb))
-		{
-			x += sign(hsp) * tempH;
-		} else {
-			hsp = 0;
-			break;
-		}
-	}
+	x += sign(hsp);
 }
 
 if oCamera.current_skin=5

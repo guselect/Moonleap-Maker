@@ -35,6 +35,9 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	size_y = _object_size_y;
 	origin_type = _origin_type;
 	tags = [];
+	object_config = undefined;
+	
+	preview_image_index_vertical = undefined;
 	
 	sprite_button_sprite_index = undefined;
 	sprite_button_image_index = 0;
@@ -45,24 +48,37 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	sprite_button_part_width = 16;
 	sprite_button_part_height = 16;
 	
+	set_preview_index_vertical = function(_image_index_flipped = 0) {
+		preview_image_index_vertical = _image_index_flipped;
+		return self;
+	}
+	
 	set_sprite_button_part = function(
+		new_sprite_index,
+		new_image_index,
 		left_position,
 		top_position,
 		x_offset, 
 		y_offset,
 		width = undefined,
-		height = undefined,
-		sprite_index_alt = undefined,
-		sprite_image_index = undefined
+		height = undefined
 	) {
+		sprite_button_sprite_index = new_sprite_index;
+		sprite_button_image_index = new_image_index;
 		sprite_button_part_left = left_position;
 		sprite_button_part_top = top_position;
 		sprite_button_x_offset = x_offset;
 		sprite_button_y_offset = y_offset;
-		sprite_button_sprite_index = is_undefined(sprite_index_alt) ? object_get_sprite(index) : sprite_index_alt;
-		sprite_button_image_index = is_undefined(sprite_image_index) ? 0 : sprite_image_index;
 		sprite_button_part_width = is_undefined(width) ? sprite_button_part_width : width;
 		sprite_button_part_height = is_undefined(height) ? sprite_button_part_height : height;
+		return self;
+	}
+	
+	set_object_config = function(_object_config) {
+		if not is_struct(_object_config) then
+			throw "Object config must be a struct of object variables names as keys.";
+		
+		object_config = _object_config;
 		return self;
 	}
 	
@@ -145,13 +161,15 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 /// @param {real} _object_width
 /// @param {real} _object_height
 /// @param {real} _xscale
+/// @param {real} _yscale
 /// @param {real} _angle
-function LMObjectGrid(_top_left_x, _top_left_y, _object, _object_width, _object_height, _xscale, _angle) constructor {
+function LMObjectGrid(_top_left_x, _top_left_y, _object, _object_width, _object_height, _xscale, _yscale, _angle) constructor {
 	top_left_x = _top_left_x;
 	top_left_y = _top_left_y;
 	object = _object;
 	object_width = _object_width;
 	object_height = _object_height;
 	xscale = _xscale;
+	yscale = _yscale;
 	angle = _angle;
 }

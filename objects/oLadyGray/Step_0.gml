@@ -1,10 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-if startindex=0
-{if mynight=true {prehsp+=0.05} else {prehsp-=0.05}}
-else
-{if mynight=true {prehsp-=0.05} else {prehsp+=0.05}}
-prehsp=clamp(prehsp,-maxspd,maxspd)
+prehsp += (startindex == 0 ? 0.05 : -0.05);
+prehsp = clamp(prehsp, -maxspd, maxspd);
 
 if y>room_height{y-=room_height}
 if x>room_width{x-=room_width}
@@ -15,31 +10,79 @@ if !place_meeting(x,y-2,oPlayer)
 {drawy=y-2 }
 drawy=approach(drawy,y,0.1)
 
-var halfspd=maxspd/2
-var maxspdm=maxspd-0.05
+var halfspd = maxspd / 2;
+var maxspdm = maxspd - 0.05;
 
-if startindex=0
+if startindex == 0
 {
-	image_xscale=sign(prehsp) if prehsp>maxspdm or prehsp<-maxspdm {sprite_index=smove_day}
-	if prehsp>= halfspd and prehsp<=maxspdm
-	{sprite_index=sturn_day image_index=0 image_xscale=1}
-	if prehsp>=- halfspd and prehsp<= halfspd
-	{sprite_index=sturn_day image_index=1 image_xscale=1}
-	if prehsp>=-maxspdm and prehsp<=- halfspd
-	{sprite_index=sturn_day image_index=2 image_xscale=1}
+	image_xscale = sign(prehsp);
 	
+	if prehsp > maxspdm or prehsp < -maxspdm {
+		sprite_index = smove_day
+	}
+	if prehsp >= halfspd and prehsp <= maxspdm {
+		sprite_index = sturn_day;
+		image_index = 0;
+		image_xscale = 1;
+	}
+	if prehsp >= -halfspd and prehsp <= halfspd {
+		sprite_index = sturn_day;
+		image_index = 1;
+		image_xscale = 1;
+	}
+	if prehsp >= -maxspdm and prehsp <= -halfspd {
+		sprite_index = sturn_day;
+		image_index = 2;
+		image_xscale = 1;
+	}
 }
 
-if startindex=1
+if startindex == 1
 {
-	image_xscale=sign(prehsp) if prehsp>maxspdm or prehsp<-maxspdm {sprite_index=sLadyDay}
-	if prehsp>= halfspd and prehsp<=maxspdm
-	{sprite_index=sturn_dayB image_index=0 image_xscale=1}
-	if prehsp>=- halfspd and prehsp<= halfspd
-	{sprite_index=sturn_dayB image_index=1 image_xscale=1}
-	if prehsp>=-maxspdm and prehsp<=- halfspd
-	{sprite_index=sturn_dayB image_index=2 image_xscale=1}
+	image_xscale = sign(prehsp);
+	
+	if prehsp > maxspdm or prehsp < -maxspdm {
+		sprite_index = smove_dayB;
+	}
+	if prehsp >= halfspd and prehsp <= maxspdm {
+		sprite_index = sturn_dayB;
+		image_index = 0;
+		image_xscale = 1;
+	}
+	if prehsp >= -halfspd and prehsp <= halfspd {
+		sprite_index = sturn_dayB;
+		image_index = 1;
+		image_xscale = 1;
+	}
+	if prehsp >= -maxspdm and prehsp <= -halfspd {
+		sprite_index = sturn_dayB;
+		image_index = 2;
+		image_xscale = 1;
+	}
 }
+
+//if startindex=0
+//{
+//	image_xscale=sign(prehsp) if prehsp>maxspdm or prehsp<-maxspdm {sprite_index=smove_day}
+//	if prehsp>= halfspd and prehsp<=maxspdm
+//	{sprite_index=sturn_day image_index=0 image_xscale=1}
+//	if prehsp>=- halfspd and prehsp<= halfspd
+//	{sprite_index=sturn_day image_index=1 image_xscale=1}
+//	if prehsp>=-maxspdm and prehsp<=- halfspd
+//	{sprite_index=sturn_day image_index=2 image_xscale=1}
+	
+//}
+
+//if startindex=1
+//{
+//	image_xscale=sign(prehsp) if prehsp>maxspdm or prehsp<-maxspdm {sprite_index=sLadyDay}
+//	if prehsp>= halfspd and prehsp<=maxspdm
+//	{sprite_index=sturn_dayB image_index=0 image_xscale=1}
+//	if prehsp>=- halfspd and prehsp<= halfspd
+//	{sprite_index=sturn_dayB image_index=1 image_xscale=1}
+//	if prehsp>=-maxspdm and prehsp<=- halfspd
+//	{sprite_index=sturn_dayB image_index=2 image_xscale=1}
+//}
 
 if instance_exists(oMush)
 {

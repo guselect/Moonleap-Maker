@@ -40,6 +40,9 @@ if is_active
 	}
 	oLevelMaker.selected_object_position = index;
 	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
+	oLevelMaker.image_xscale = 1;
+	oLevelMaker.image_yscale = 1;
+	oLevelMaker.image_angle = 0;
 }
 
 scale = 1

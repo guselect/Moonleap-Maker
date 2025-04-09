@@ -19,18 +19,16 @@ switch(selected_style) {
 		break;
 }
 
-with (oSolidDay)
-{
-	//I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
+//I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
+with (oSolidDay) {
 	draw_sprite(sday,0,x,y)
 }
-with (oSolidNight)
-{
+
+with (oSolidNight) {
 	draw_sprite(snight,0,x,y)
 }
 
-with (oBlack)
-{
+with (oBlack) {
 	draw_sprite(sBlack,0,x,y)
 }
 

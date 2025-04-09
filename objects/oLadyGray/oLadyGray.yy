@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oLadyGray",
   "spriteId": {
-    "name": "sLady",
-    "path": "sprites/sLady/sLady.yy",
+    "name": "sLadyGrayUI",
+    "path": "sprites/sLadyGrayUI/sLadyGrayUI.yy",
   },
   "solid": false,
   "visible": true,

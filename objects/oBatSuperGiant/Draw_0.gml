@@ -4,8 +4,8 @@ pal_swap_set(sSnailPal,palette_index,0)
 
 if round(hsp)!=0 { drawhsp=hsp}
 
-var xx=x-17
-var yy=y-12
+var xx = x - 25;
+var yy = y - 12;
 
 	if drawhsp<=0
 	{
