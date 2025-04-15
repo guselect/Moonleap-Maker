@@ -3,19 +3,26 @@
 startindex=image_index
 night=false
 
-brokenright=instance_place(x+1,y,oBrokenStone)
-
- brokenleft=instance_place(x-1,y,oBrokenStone)
-
- brokenup=instance_place(x,y-1,oBrokenStone)
-
-brokendown=instance_place(x,y+1,oBrokenStone)
+brokenright = instance_place(x+1,y,oBrokenStone)
+brokenleft = instance_place(x-1,y,oBrokenStone)
+brokenup = instance_place(x,y-1,oBrokenStone)
+brokendown = instance_place(x,y+1,oBrokenStone)
 
 des=false
 
 time=5
 
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {image_index=1}
+image_index = 0;
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			image_index = 1; break;
+	}
+} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	image_index = 1;
+}
 
 if image_xscale=1
 {

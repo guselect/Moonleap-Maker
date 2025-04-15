@@ -14,8 +14,18 @@ godmode=false
 neutral=false
 jump_trigger = false;
 down_time=0
-	
-if instance_exists(oSpaceDay) or instance_exists(oFlowerDay)or instance_exists(oDunDay) {trueblack=true} else {trueblack=false}
+
+trueblack = false;
+if instance_exists(oLevelMaker) {
+	switch(oLevelMaker.selected_style) {
+		case LEVEL_STYLE.FLOWERS:
+		case LEVEL_STYLE.SPACE:
+		case LEVEL_STYLE.DUNGEON:
+			trueblack = true; break;
+	}
+} else if instance_exists(oSpaceDay) or instance_exists(oFlowerDay)or instance_exists(oDunDay) {
+	trueblack = true;
+}
 
 if instance_exists(oNeutralFlag) 
 {neutral=true}
