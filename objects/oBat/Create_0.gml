@@ -1,54 +1,48 @@
-/// @description Insert description here
-// You can write your code in this editor
-//y-=1
+hsp = 0;
+vsp = 0;
 
-dir=image_xscale
-drawhsp=image_xscale
-mask_index=sprite_index
-image_xscale=1
+dir = image_xscale;
+drawhsp = image_xscale;
+mask_index = sprite_index;
+image_xscale = 1;
 
-if image_index=1 {hsp=0.5} else {hsp=-0.5}
-
-startindex=image_index
-//if image_index=0 {sprite_index=sLadyNight} else {sprite_index=sLadyDay}
-
-
-
-night=false
-
-hsp=0
-vsp=0
+hsp = image_index == 1 ? 0.5 : -0.5;
+startindex = image_index;
+night = false;
+early_night = false;
 
 cx = 0;
 cy = 0;
 
+layer = layer_get_id("Instances_2");
+drawy = y;
 
+prehsp = hsp;
 
-layer=layer_get_id("Instances_2")
-drawy=y
+xx = x;
+yy = y;
 
-prehsp=hsp
+change = false
+palette_index = 4;
 
+image_index = 0;
 
-xx=x
-yy=y
+if instance_exists(oGrassDay) {
+	palette_index = 0;
+} else if instance_exists(oCloudDay) {
+	palette_index = 1;
+} else if instance_exists(oFlowerDay) {
+	palette_index = 2;
+} else if instance_exists(oSpaceDay) {
+	palette_index = 3;
+} else if instance_exists(oDunDay) {
+	palette_index = 4;
+}
 
-change=false
-palette_index=4
-if instance_exists(oGrassDay)
-{palette_index=0 exit;}
+change_dir_on_collide = function() {
+	if not has_collided(sign(hsp), 0, true, [oPermaSpike]) then return;
+	
+	dir *= -1;
+}
 
-if instance_exists(oCloudDay)
-{palette_index=1 exit;}
-
-if instance_exists(oFlowerDay)
-{palette_index=2 exit;}
-
-if instance_exists(oSpaceDay)
-{palette_index=3 exit;}
-
-if instance_exists(oDunDay)
-{palette_index=4 exit;}
-
-
-image_index=0
+change_dir_on_collide();
