@@ -67,7 +67,7 @@ maker_menumakelevel: "Crea Livelli",
 maker_noplayer: "Non puoi testare senza un giocatore!",
 maker_noestar: "Non puoi testare senza una stella!",
 
-maker_help_text: "Benvenuto in Moonleap Maker!\nClicca sugli oggetti e posizionali nel livello\n\nTastiera: \nZ - Ruota l'oggetto \nX - Specchia l'oggetto \nWASD o Frecce - Naviga nella lista degli oggetti \nBarra Spaziatrice - Testa il Livello \n\nMouse: \nTasto Sinistro - Posiziona l'Oggetto \nTasto Destro - Cancella Oggetti \nScroll - Cambia il tipo nella lista degli oggetti \nConsigliamo di limitare il loop dello schermo solo al giocatore\nAltri oggetti potrebbero non comportarsi come previsto",
+maker_help_text: "Benvenuto in Moonleap Maker!\nClicca sugli oggetti e posizionali nel livello\n\nTastiera: \nZ - Ruota l'oggetto \nX - Specchia l'oggetto \nWASD o Frecce - Naviga nella lista degli oggetti \nF5 - Testa il Livello \n\nMouse: \nTasto Sinistro - Posiziona l'Oggetto \nTasto Destro - Cancella Oggetti \nScroll - Cambia il tipo nella lista degli oggetti \nConsigliamo di limitare il loop dello schermo solo al giocatore\nAltri oggetti potrebbero non comportarsi come previsto",
 
 maker_intro: "Benvenuto in Moonleap Maker! Questo editor è in beta",
 

@@ -19,7 +19,7 @@ landed = false;
 platform_target = 0;
 wall_target     = 0;
 
-on_ground_var = on_ground();
+on_ground_var = has_collided(0, 1);
 
 // Used for sub-pixel movement
 cx = 0;

@@ -1,4 +1,12 @@
-
+// ---------------------- NOTA IMPORTANTE ----------------------
+//
+// Nas fases, o jogador deve ser instanciado depois que as estrelas forem instanciadas.
+// Havia um problema no editor de níveis onde algumas estrelas eram instanciadas depois
+// do oPlayer, fazendo com que estas não sejam contabilizadas.
+// O ideal é que o oPlayer seja criado na Room depois que as estrelas já forem criadas
+// para que a contagem de estrelas seja feita corretamente.
+//
+// -------------------------------------------------------------
 
 changecount=0
 dsquash=false
@@ -56,6 +64,7 @@ v_max=1//velocidade máxima do personagem
 v_ace=0.25  //velocidade da aceleração do personagem
 v_fric=0.25 //friction
 pick=0
+grav = 0.125;
 
 numb=0
 
@@ -66,7 +75,7 @@ move=1
 sticking = true; 
 can_stick = false;
 flash=0
-
+squash = false;
 
 
 // new movement code
@@ -74,10 +83,9 @@ flash=0
 jumped = false;
 landed = false;
 
-platform_target = 0;
-wall_target     = 0;
+wall_target = 0;
 
-on_ground_var = on_ground();
+was_on_ground = has_collided(0, 1);
 
 // Used for sub-pixel movement
 cx = 0;
@@ -94,25 +102,28 @@ JUMP      = 12;
 WIN     = 13;
 
 state= IDLE
-star=0
-
-
 
 roomw=room_width
 roomh=room_height
 
-//if !instance_exists(oStar)
-//{
-//	show_debug_message("Criei uma estrela na room, te vira.");
-//	var s=instance_create_layer(roomw,roomh,layer,oStar)
-//	s.visible=false
-//}
-	
-inistar=0//instance_number(oStar)
+has_collected_bird = false;
+stars_collected = 0;
+stars_to_collect = 0;
+
+if not instance_exists(oStar) {
+	var hidden_star = instance_create_layer(roomw, roomh, layer, oStar);
+	hidden_star.visible = false;
+}
 
 has_collected_all_stars = function() {
-	inistar = instance_number(oStar);
-	return inistar == 0;
+	return stars_collected == stars_to_collect;
+}
+
+stars_to_collect = instance_number(oStar);
+
+// If level is secret bird level
+if room == Room58 { 
+	stars_to_collect = 1;
 }
 
 idletime=0

@@ -51,6 +51,7 @@ selected_object = obj[selected_object_type,selected_object_position];
 
 // sprite_index = object_get_sprite(selected_object.object)
 sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
+cursor_object_hovering = selected_object;
 
 // ------------------------------------
 // Object rotation and scaling
@@ -59,7 +60,12 @@ sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_o
 if not is_undefined(selected_object) {
 	if selected_object.has_tag("can_flip") {
 		if keyboard_check_pressed(ord("X")) {
-			image_xscale *= -1;
+			if selected_object.has_tag("is_vertical") {
+				image_yscale *= -1;
+			} else {
+				image_xscale *= -1;
+			}
+			
 			audio_play_sfx(sndPress, false, -5, 13);
 		}
 	} else {
@@ -84,7 +90,7 @@ is_cursor_inside_level =
 	global.level_maker_mouse_x > 0
 	and global.level_maker_mouse_x < 320
 	and global.level_maker_mouse_y > 0
-	and global.level_maker_mouse_y < 320;
+	and global.level_maker_mouse_y < 180;
 
 var _selected_object_sprite = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
 var _tile_scale = not is_undefined(selected_object) and selected_object.has_tag("grid_16") ? 2 : 1;
@@ -136,7 +142,7 @@ if test_button_cooldown > 0 {
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
 if is_cursor_inside_level {
-	// Replace object
+	// Get object
 	if mouse_check_button_pressed(mb_left) 
 		and cursor == LEVEL_CURSOR_TYPE.FINGER 
 		and is_struct(object_grid_hovering)
@@ -145,6 +151,9 @@ if is_cursor_inside_level {
 				
 		selected_object_type = _obj_pos[0];
 		selected_object_position = _obj_pos[1];
+		image_xscale = object_grid_hovering.xscale;
+		image_yscale = object_grid_hovering.yscale;
+		image_angle = object_grid_hovering.angle;
 		
 		remove_object_from_grid(object_grid_hovering);
 	}
@@ -157,19 +166,24 @@ if is_cursor_inside_level {
 		and not has_object_below_cursor
 		and test_button_cooldown == 0
 	{
-		if selected_object.has_tag("is_player") {
-			remove_all_player_objects_from_grid();
+		if selected_object.has_tag("is_unique") {
+			remove_all_specific_objects_from_grid(selected_object.index);
 		}
 		
 		if selected_object.index == oMagicOrb 
-			or selected_object.index == oGrayOrb
-		{
-		//if selected_object == oMagicOrb or selected_object == oGrayOrb {
+		or selected_object.index == oGrayOrb {
 			remove_orb_from_grid();
 		}
 		
 		//instance_create_layer(x,y,"Instances",curobj,{image_xscale: oLevelMaker.image_xscale, image_angle: oLevelMaker.image_angle})
-		place_object_in_object_grid(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object, oLevelMaker.image_xscale, oLevelMaker.image_angle);
+		place_object_in_object_grid(
+			_selected_object_mouse_tile_x,
+			_selected_object_mouse_tile_y,
+			selected_object,
+			oLevelMaker.image_xscale,
+			oLevelMaker.image_yscale,
+			oLevelMaker.image_angle
+		);
 		
 		if instance_exists(oSolidDay) then oSolidDay.update = true;
 		if instance_exists(oSolidNight) then oSolidNight.update = true;

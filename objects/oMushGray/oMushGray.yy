@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oMushGray",
   "spriteId": {
-    "name": "sSuperMush",
-    "path": "sprites/sSuperMush/sSuperMush.yy",
+    "name": "sMushGrayUI",
+    "path": "sprites/sMushGrayUI/sMushGrayUI.yy",
   },
   "solid": false,
   "visible": true,

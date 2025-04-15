@@ -9,7 +9,10 @@
   "solid": false,
   "visible": true,
   "managed": true,
-  "spriteMaskId": null,
+  "spriteMaskId": {
+    "name": "sSnailMask",
+    "path": "sprites/sSnailMask/sSnailMask.yy",
+  },
   "persistent": false,
   "parentObjectId": {
     "name": "oSolid",

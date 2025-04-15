@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "oBatVer",
   "spriteId": {
-    "name": "sBatDown",
-    "path": "sprites/sBatDown/sBatDown.yy",
+    "name": "sBatVerUI",
+    "path": "sprites/sBatVerUI/sBatVerUI.yy",
   },
   "solid": false,
   "visible": true,

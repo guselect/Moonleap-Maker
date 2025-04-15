@@ -3,7 +3,7 @@
 
 numb=approach(numb,0,1)
 
-on_ground_var= place_meeting(x, y + 1, oSolid) or place_meeting(x, y + 1, oPermaSpike) or (place_meeting(x, y + 1, oPlatGhost) and !place_meeting(x, y, oPlatGhost))
+on_ground_var= has_collided(0, 1) or place_meeting(x, y + 1, oPermaSpike);
 if on_ground_var=false {vsp+=grav}
 if vsp>3 {vsp=3}
 

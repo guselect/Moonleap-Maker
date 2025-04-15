@@ -35,11 +35,13 @@ spark=0
 
 ////BIRD COLLISION
 
-	if place_meeting(x,y,oPlayer)
-	{
-	//if instance_exists(oTimeAttack) {oTimeAttack.hearts+=2} 
-	audio_play_sfx(snd_warp,false,-10,5)//temp
-	instance_destroy()
-	oPlayer.flash=1
-		if room=Room58 {oPlayer.star=oPlayer.inistar}
+if place_meeting(x,y,oPlayer) {
+	audio_play_sfx(snd_warp,false,-10,5);
+	instance_destroy();
+	oPlayer.flash = 1;
+	oPlayer.has_collected_bird = true;
+	
+	if room == Room58 {
+		oPlayer.stars_collected = oPlayer.stars_to_collect;
 	}
+}
