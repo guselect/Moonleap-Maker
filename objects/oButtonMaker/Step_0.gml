@@ -11,14 +11,12 @@ if image_index=6 { //play button
 	
 	if instance_exists(oPause) //editor is opened 
 	{
-		
 		x = lerp(x,start_pos_x,.2);
 		y = lerp(y,start_pos_y,.2);
 		
 		image_xscale = lerp(image_xscale,1,.2);
 		image_yscale = image_xscale;
 	} else {
-	
 		x = lerp(x,(32-small_size)/2,.2);
 		y = lerp(y,room_height-16-small_size/2,.2);
 
@@ -57,6 +55,7 @@ if is_mouse_hover {
 			break;
 		case 9:  oLevelMaker.hover_text= LANG.maker_eraser;				break;
 		case 10: oLevelMaker.hover_text= LANG.maker_erase_level;		break;
+		case 11: oLevelMaker.hover_text= "Current layer: " + string(level_maker_get_layer_hover_text());	break;
 	}
 	
 	if oLevelMaker.cursor != LEVEL_CURSOR_TYPE.ERASER {
@@ -84,15 +83,19 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_up())
 {
 	with(oLevelMaker)
 	{
-		item_preview_offset_y = -4
-	    selected_object_type -= 1
-		repeat(object_types_length) {
-			if selected_object_type < 0 {
-				selected_object_type = object_types_length - 1;
-			} 
-			if selected_object == noone then selected_object_type -= 1;
+		var _pages_length = current_layer == LEVEL_CURRENT_LAYER.OBJECTS ? array_length(obj) - 1 : array_length(tiles) - 1;
+		
+		audio_play_sfx(snd_morcego_02, false, -20, 13);
+		
+		item_preview_offset_y = -4;
+	    selected_object_type -= 1;
+		repeat(_pages_length) {
+			if selected_object_type < 0 then
+				selected_object_type = _pages_length;
+			if selected_object == noone then
+				selected_object_type -= 1;
 		}
-		audio_play_sfx(snd_morcego_02,false,-20,13)
+		
 		oButtonMakerObj.drawplus = -1
 		oLevelMaker.image_xscale = 1;
 		oLevelMaker.image_yscale = 1;
@@ -102,15 +105,21 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_up())
 
 // Move object group down
 if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down()) {
-	with(oLevelMaker)
-	{
-		item_preview_offset_y = 4
-	    selected_object_type += 1
-		repeat(object_positions_length - 1) {
-			if selected_object_type > object_types_length - 1 then selected_object_type = 0;
-			if selected_object = noone then selected_object_position += 1;
+	with(oLevelMaker) {
+		var _pages_length = current_layer == LEVEL_CURRENT_LAYER.OBJECTS ? array_length(obj) - 1 : array_length(tiles) - 1;
+		
+		audio_play_sfx(snd_morcego_02, false, -20, 13);
+		
+		item_preview_offset_y = 4;
+	    selected_object_type += 1;
+		
+		repeat(list_positions_length - 1) {
+			if selected_object_type > _pages_length then
+				selected_object_type = 0;
+			if selected_object = noone then 
+				selected_object_position += 1;
 		}
-		audio_play_sfx(snd_morcego_02,false,-20,13)
+		
 		oButtonMakerObj.drawplus = 1
 		oLevelMaker.image_xscale = 1;
 		oLevelMaker.image_yscale = 1;
@@ -120,21 +129,22 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 
 // Save level
 if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) and keyboard_check_pressed(ord("S")))) {
-	audio_play_sfx(sndUiChange,false,-18.3,1)
+	play_sound_on_press();
 	d_levelName = get_save_filename("*.moonlevel","mylevel");
 	if (d_levelName != "") then save_level(d_levelName);
 }
 
 // Load level
  if image_index == 5 and is_mouse_left_pressing {
-	audio_play_sfx(sndUiChange,false,-18.3,1)
+	play_sound_on_press();
 	d_loadLevel = get_open_filename("*.moonlevel","mylevel");
 	if (d_loadLevel != "") then load_level(d_loadLevel);
 }
 
 // Test
 if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)) {
-	audio_play_sfx(sndUiChange,false,-18.3,1)
+	play_sound_on_press();
+	
 	if instance_exists(oPause) //editor is opened 
 	{
 		with(oLevelMaker) {
@@ -167,18 +177,20 @@ if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)
 
 // Help
 if image_index == 7 and is_mouse_left_pressing {
-	audio_play_sfx(sndUiChange,false,-18.3,1)
+	play_sound_on_press();
 	
 	show_message_async(LANG.maker_help_text)
 }
 
 // Change style
 if image_index == 8 and is_mouse_left_pressing {
-	audio_play_sfx(sndUiChange,false,-18.3,1)
+	play_sound_on_press();
 	
 	with(oLevelMaker) {
 		selected_style += 1
-		if selected_style >= LEVEL_STYLE.LENGTH then selected_style = 0
+		if selected_style >= LEVEL_STYLE.LENGTH then 
+			selected_style = 0;
+		tiles = level_maker_get_tiles_list();
 		scr_update_style()
 	}
 }
@@ -194,10 +206,23 @@ if image_index == 10 {
 	if mouse_check_button(mb_left) {
 		holding += 0.05
 		if holding == 4 {
-			audio_play_sfx(sfx_luano_death_pause_01,false,-8.79,5) room_restart()
+			audio_play_sfx(sfx_luano_death_pause_01, false, -8.79, 5);
+			room_restart();
 		}
 	} else {
-		holding = 0
+		holding = 0;
 	}
+}
 
+if image_index == 11 and is_mouse_left_pressing {
+	play_sound_on_press();
+	
+	with(oLevelMaker) {
+		selected_object_type = 0;
+		selected_object_position = 0;
+		
+		current_layer -= 1;
+		if current_layer < 0 then
+			current_layer = LEVEL_CURRENT_LAYER.BACKGROUND_3;
+	}
 }

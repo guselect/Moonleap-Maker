@@ -63,21 +63,31 @@ draw_set_font(fntSmall)
 draw_sprite(sPauseMaker,0,0,0)
 
 // Draw item preview on cursor
-if cursor != LEVEL_CURSOR_TYPE.ERASER
-and is_cursor_inside_level 
-and instance_exists(oPause)
-and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
-and not has_object_below_cursor {
-	var _new_image_index = 0;
-	var _new_y_scale = image_yscale;
-	var sprite = object_get_sprite(cursor_object_hovering.index);
-	var _preview_index_vertical = cursor_object_hovering.preview_image_index_vertical
+if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+	if cursor != LEVEL_CURSOR_TYPE.ERASER
+	and is_cursor_inside_level 
+	and instance_exists(oPause)
+	and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
+	and not has_object_below_cursor {
+		var _new_image_index = 0;
+		var _new_y_scale = image_yscale;
+		var sprite = object_get_sprite(cursor_object_hovering.index);
+		var _preview_index_vertical = cursor_object_hovering.preview_image_index_vertical
 				
-	if not is_undefined(_preview_index_vertical) {
-		_new_image_index = image_yscale == -1 ? _preview_index_vertical : 0;
-		_new_y_scale = 1;
-	}
+		if not is_undefined(_preview_index_vertical) {
+			_new_image_index = image_yscale == -1 ? _preview_index_vertical : 0;
+			_new_y_scale = 1;
+		}
 	
-	var alpha = 0.6;
-	draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, _new_y_scale, image_angle, c_white, alpha);
+		var alpha = 0.6;
+		draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, _new_y_scale, image_angle, c_white, alpha);
+	}
+} else {
+	//if cursor != LEVEL_CURSOR_TYPE.ERASER
+	//and is_cursor_inside_level 
+	//and instance_exists(oPause) {
+	//	var _tile = tiles[selected_object_type, selected_object_position];
+		
+	//	_tile.draw_sprite_preview(x, y);
+	//}
 }

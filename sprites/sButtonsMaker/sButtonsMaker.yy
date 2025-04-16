@@ -39,6 +39,7 @@
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"72324caa-671f-4f1a-98d2-aa446f45fb82",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"eaa63aa2-f328-4a9d-8db9-fd160ff33ca4",},
     {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"4ef950ef-66b8-46bb-8632-81fcee7d1025",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"665b176c-804c-47d1-a7cf-957ccc9e78b7",},
   ],
   "sequence": {
     "resourceType": "GMSequence",
@@ -50,7 +51,7 @@
     "playbackSpeedType": 0,
     "autoRecord": true,
     "volume": 1.0,
-    "length": 11.0,
+    "length": 12.0,
     "events": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MessageEventKeyframe>",},
     "moments": {"Keyframes":[],"resourceVersion":"1.0","resourceType":"KeyframeStore<MomentsEventKeyframe>",},
     "tracks": [
@@ -66,6 +67,7 @@
             {"id":"b2aac94a-ad12-45b6-a377-281b541e7cfb","Key":8.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"72324caa-671f-4f1a-98d2-aa446f45fb82","path":"sprites/sButtonsMaker/sButtonsMaker.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"13f9a96e-17b9-406c-b83f-ee0f29d4d973","Key":9.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"eaa63aa2-f328-4a9d-8db9-fd160ff33ca4","path":"sprites/sButtonsMaker/sButtonsMaker.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
             {"id":"fba72d23-82a3-47df-8d48-fc01de8e1f4d","Key":10.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"4ef950ef-66b8-46bb-8632-81fcee7d1025","path":"sprites/sButtonsMaker/sButtonsMaker.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
+            {"id":"20cc0a34-fcca-4371-94d6-ffc7e25d585c","Key":11.0,"Length":1.0,"Stretch":false,"Disabled":false,"IsCreationKey":false,"Channels":{"0":{"Id":{"name":"665b176c-804c-47d1-a7cf-957ccc9e78b7","path":"sprites/sButtonsMaker/sButtonsMaker.yy",},"resourceVersion":"1.0","resourceType":"SpriteFrameKeyframe",},},"resourceVersion":"1.0","resourceType":"Keyframe<SpriteFrameKeyframe>",},
           ],"resourceVersion":"1.0","resourceType":"KeyframeStore<SpriteFrameKeyframe>",},"trackColour":0,"inheritsTrackColour":true,"builtinName":0,"traits":0,"interpolation":1,"tracks":[],"events":[],"isCreationTrack":false,"modifiers":[],},
     ],
     "visibleRange": null,
@@ -84,6 +86,7 @@
     "eventStubScript": null,
   },
   "layers": [
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"6d03a1f4-3f8b-4096-8766-4a32ffa39622","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"Icon1",},
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"ccb2ec09-8033-49b1-9d27-34a4f897b968","visible":true,"isLocked":false,"blendMode":0,"opacity":100.0,"displayName":"default",},
   ],
   "nineSlice": null,

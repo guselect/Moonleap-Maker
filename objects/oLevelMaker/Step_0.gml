@@ -1,14 +1,11 @@
-//show_debug_message("oStar instances:" + string(instance_number(oStar)));
-//show_debug_message("oPlayer instances:" + string(instance_number(oPlayer)));
-
-item_preview_offset_y = smooth_approach(item_preview_offset_y,0,0.25)
-item_preview_offset_x = smooth_approach(item_preview_offset_x,0,0.25)
+item_preview_offset_y = smooth_approach(item_preview_offset_y, 0, 0.25);
+item_preview_offset_x = smooth_approach(item_preview_offset_x, 0, 0.25);
 
 // If the level editor is not in use don't run any more code
 if !instance_exists(oPause) then exit;
 
 // This code is to prevent random misfiring clicks after you press the button to play the level again
-if(just_entered_level_editor && mouse_check_button_released(mb_left)){
+if just_entered_level_editor and mouse_check_button_released(mb_left) {
 	just_entered_level_editor = false;
 	exit;
 }
@@ -21,73 +18,31 @@ if(just_entered_level_editor && mouse_check_button_released(mb_left)){
 scr_inputget();
 
 hover_text = "";
-selected_object = obj[selected_object_type,selected_object_position]
 
 // ------------------------------------
 // Selecting objects
 // ------------------------------------
-var ui_object_nav_x = key_right_pressed - key_left_pressed;
-
-if ui_object_nav_x != 0 {
-	item_preview_offset_x = 2 * sign(ui_object_nav_x);
-	selected_object_position += sign(ui_object_nav_x);
-	
-	while selected_object_position < 0 
-		or selected_object_position > object_positions_length - 1 
-		or is_undefined(obj[selected_object_type, selected_object_position])
-	{
-		selected_object_position += sign(ui_object_nav_x);
-		
-		if selected_object_position < 0 then 
-			selected_object_position = object_positions_length - 1;
-		else if selected_object_position > object_positions_length - 1 then 
-			selected_object_position = 0;
-	}
-	audio_play_sfx(snd_bump, false, -5, 13);
-}
-
-// Update the selected object
-selected_object = obj[selected_object_type,selected_object_position];
+set_list_navigation();
+update_selected_item();
+update_tilesets_by_style();
+//set_tilesets_alpha();
 
 // sprite_index = object_get_sprite(selected_object.object)
 sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
 cursor_object_hovering = selected_object;
 
+// Check the object that is behind the cursor
+object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
+
 // ------------------------------------
 // Object rotation and scaling
 // ------------------------------------
-
-if not is_undefined(selected_object) {
-	if selected_object.has_tag("can_flip") {
-		if keyboard_check_pressed(ord("X")) {
-			if selected_object.has_tag("is_vertical") {
-				image_yscale *= -1;
-			} else {
-				image_xscale *= -1;
-			}
-			
-			audio_play_sfx(sndPress, false, -5, 13);
-		}
-	} else {
-		image_xscale = 1;
-	}
-	
-	if selected_object.has_tag("can_spin") {
-		if keyboard_check_pressed(ord("Z")) {
-			image_angle += 90;
-			if image_angle >= 360 then image_angle = 0;
-			audio_play_sfx(sndPress, false, -5, 13);
-		}
-	} else {
-		image_angle = 0;
-	}
-}
+set_rotation_and_scaling();
 
 // ------------------------------------
-// Object tile mouse calculations
+// Tiled mouse calculation setting
 // ------------------------------------
-is_cursor_inside_level = 
-	global.level_maker_mouse_x > 0
+is_cursor_inside_level = global.level_maker_mouse_x > 0
 	and global.level_maker_mouse_x < 320
 	and global.level_maker_mouse_y > 0
 	and global.level_maker_mouse_y < 180;
@@ -122,8 +77,10 @@ _sprite_offset_y = _new_offset[1];
 x = _selected_object_mouse_tile_x * tile_size + _sprite_offset_x;
 y = _selected_object_mouse_tile_y * tile_size + _sprite_offset_y;
 
-// Check the object that is behind the cursor
-object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
+if current_layer != LEVEL_CURRENT_LAYER.OBJECTS {
+	x = global.level_maker_mouse_x;
+	y = global.level_maker_mouse_y;
+}
 
 // ------------------------------------
 // MOUSE ACTIONS
@@ -131,9 +88,9 @@ object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, glob
 
 // If not an eraser, switch between other two cursors.
 // Finger if there's an object selected. Cursor otherwise.
-if cursor != LEVEL_CURSOR_TYPE.ERASER {
+if cursor != LEVEL_CURSOR_TYPE.ERASER
+	and current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
 	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
-}
 
 if test_button_cooldown > 0 {
 	test_button_cooldown -= 1;
@@ -141,72 +98,9 @@ if test_button_cooldown > 0 {
 
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
-if is_cursor_inside_level {
-	// Get object
-	if mouse_check_button_pressed(mb_left) 
-		and cursor == LEVEL_CURSOR_TYPE.FINGER 
-		and is_struct(object_grid_hovering)
-	{
-		var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
-				
-		selected_object_type = _obj_pos[0];
-		selected_object_position = _obj_pos[1];
-		image_xscale = object_grid_hovering.xscale;
-		image_yscale = object_grid_hovering.yscale;
-		image_angle = object_grid_hovering.angle;
-		
-		remove_object_from_grid(object_grid_hovering);
-	}
+cursor_get_object_from_grid();
+cursor_create_object_in_grid(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y);
+cursor_remove_object_from_grid();
 
-	// Create object
-	if (mouse_check_button_released(mb_left) or (mouse_check_button(mb_left)
-			and selected_object.has_tag("is_holdable")))
-		and cursor == LEVEL_CURSOR_TYPE.CURSOR 
-		and not is_undefined(selected_object)
-		and not has_object_below_cursor
-		and test_button_cooldown == 0
-	{
-		if selected_object.has_tag("is_unique") {
-			remove_all_specific_objects_from_grid(selected_object.index);
-		}
-		
-		if selected_object.index == oMagicOrb 
-		or selected_object.index == oGrayOrb {
-			remove_orb_from_grid();
-		}
-		
-		//instance_create_layer(x,y,"Instances",curobj,{image_xscale: oLevelMaker.image_xscale, image_angle: oLevelMaker.image_angle})
-		place_object_in_object_grid(
-			_selected_object_mouse_tile_x,
-			_selected_object_mouse_tile_y,
-			selected_object,
-			oLevelMaker.image_xscale,
-			oLevelMaker.image_yscale,
-			oLevelMaker.image_angle
-		);
-		
-		if instance_exists(oSolidDay) then oSolidDay.update = true;
-		if instance_exists(oSolidNight) then oSolidNight.update = true;
-		audio_play_sfx(snd_key2,false,-18.3,20);
-		
-		repeat(3) {
-			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-			
-			sm.image_xscale=0.5;
-			sm.image_yscale=0.5;
-		}
-	}
-
-	//Destroy Objects
-	if (mouse_check_button(mb_right) 
-		or (mouse_check_button(mb_left) 
-			and cursor == LEVEL_CURSOR_TYPE.ERASER))
-		and is_struct(object_grid_hovering) 
-	{
-		remove_object_from_grid(object_grid_hovering);
-		
-		audio_play_sfx(snd_brokestone,false,-5,15);
-		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-	}
-}
+cursor_create_tile_in_grid();
+cursor_remove_tile_from_grid();

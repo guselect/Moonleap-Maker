@@ -15,7 +15,7 @@
     "path": "audiogroups/audiogroup_default",
   },
   "soundFile": "snd_warp.wav",
-  "duration": 0.0,
+  "duration": 0.766667,
   "parent": {
     "name": "Doors (gamefile)",
     "path": "folders/Sounds/Sfx/Doors (gamefile).yy",

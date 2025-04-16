@@ -65,103 +65,390 @@ color = {
 	nice_blue: $FFFFAA55,
 };
 
+// List-related
+current_layer = LEVEL_CURRENT_LAYER.OBJECTS;
+list_positions_length = 16;
+
+// Tileset-related
+tiles = level_maker_get_tiles_list();
+selected_tile = undefined;
+cursor_tile_hovering = undefined;
+
 // Objects-related
+obj = level_maker_get_objects_list();
 selected_object = 0;
 selected_object_type = 0;
 selected_object_position = 0;
 default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
-object_positions_length = 16;
 object_grid_hovering = -1; // Object where cursor is above at.
-
-// Objects List
-obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[0, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
-obj[0, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
-obj[0, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
-obj[0, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
-obj[0, 05] =	new LMObject(oStarRunning,		16, 16);
-obj[0, 06] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
-obj[0, 07] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
-obj[0, 08] =	new LMObject(oLadderDay,		16, 16);
-obj[0, 09] =	new LMObject(oLadderNight,		16, 16);
-obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailWalk, 0, 0, 2, -9, 0);
-obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18);
-obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
-obj[0, 14] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
-obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBlockRampEditor, 0, 16, 0, -8, -8);
-
-obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
-obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
-obj[1, 03] =	new LMObject(oStarColor,		16, 16);
-obj[1, 04] =	new LMObject(oStarRunningColor,	16, 16);
-obj[1, 05] =	new LMObject(oLadderNeutral,	16, 16);
-obj[1, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGrayUI, 0, 3, 0, -8, -8);
-obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_preview_index_vertical(1).set_sprite_button_part(sBatDown, 0, 10, 4, -7, -8);
-obj[1, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
-obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(sMushGrayUI, 0, 0, 0, 0, 0);
-obj[1, 11] =	new LMObject(oLadyVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_sprite_button_part(sLadyVerUI, 0, 3, 1, -8, -8);
-obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
-obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
-obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8);
-obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);
-
-obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[2, 02] =	new LMObject(oStarFly,			16, 16);
-obj[2, 03] =	new LMObject(oKey,				16, 16);
-obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
-obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
-obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
-obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
-obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
-obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
-obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
-obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 13] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 14] =	undefined;
-obj[2, 15] =	undefined;
-
-//obj[3, 00] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
-//obj[3, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 1, 0, 0, 0, 0).set_object_config(1);
-//obj[3, 02] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 2, 0, 0, 0, 0).set_object_config(2);
-//obj[3, 03] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
-//obj[3, 04] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 1, 0, 0, 0, 0).set_object_config(1);
-//obj[3, 05] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 2, 0, 0, 0, 0).set_object_config(2);
-//obj[3, 06] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
-//obj[3, 07] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
-//obj[3, 08] =	undefined;
-//obj[3, 09] =	undefined;
-//obj[3, 10] =	undefined;
-//obj[3, 11] =	undefined;
-//obj[3, 12] =	undefined;
-//obj[3, 13] =	undefined;
-//obj[3, 14] =	undefined;
-//obj[3, 15] =	undefined;
 
 object_types_length = array_length(obj);
 
-////x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
-//obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
-//obj[0,1]=oSolid			obj[1,1]=oSolidDay			obj[2,1]=oSolidNight		obj[3,1]=oBigSolid				obj[4,1]=oUndefined
-//obj[0,2]=oPlatGhost		obj[1,2]=oBrokenStone		obj[2,2]=oBrokenStoneBig	obj[3,2]=oSolidRamp/**/			obj[4,2]=oUndefined
-//obj[0,3]=oPermaSpike	obj[1,3]=oUndefined			obj[2,3]=oUndefined			obj[3,3]=oUndefined/**/			obj[4,3]=oUndefined
-//obj[0,4]=oStar			obj[1,4]=oStarColor			obj[2,4]=oStarRunning		obj[3,4]=oStarRunningColor		obj[4,4]=oStarFly
-//obj[0,5]=oLadderNeutral obj[1,5]=oLadderDay			obj[2,5]=oLadderNight		obj[3,5]=oUndefined/**/			obj[4,5]=oPlatGhostL
-//obj[0,6]=oSnailGray		obj[1,6]=oSnail				obj[2,6]=oSnailNight		obj[3,6]=oUndefined/**/			obj[4,6]=oPlatGhostR
-//obj[0,7]=oLadyGray		obj[1,7]=oLady				obj[2,7]=oLadyGiant			obj[3,7]=oLadyGiant4			obj[4,7]=oPlatGhostInv
-//obj[0,8]=oBat			obj[1,8]=oBatGiant			obj[2,8]=oUndefined			obj[3,8]=oUndefined/*baixo*/	obj[4,8]=oNeutralFlag
-//obj[0,9]=oMushGray		obj[1,9]=oMush				obj[2,9]=oMushGray			obj[3,9]=oUndefined				obj[4,9]=oUndefined
-////obj[0,10]=oUndefined	obj[1,10]=oUndefined		obj[2,10]=oUndefined		obj[3,10]=oUndefined			obj[4,10]=oUndefined
-//obj[0,10]=oKey			obj[1,10]=oKeyTall			obj[2,10]=oKeyWide			obj[3,10]=oKeyTallWide			obj[4,10]=oUndefined //make different spr to differentiate the keys
-//obj[0,11]=oKeyDoor		obj[1,11]=oKeyDoorTall		obj[2,11]=oKeyDoorWide		obj[3,11]=oKeyDoorTallWide		obj[4,11]=oUndefined
-//obj[0,12]=oGrayOrb		obj[1,12]=oMagicOrb			obj[2,12]=oUndefined		obj[3,12]=oUndefined			obj[4,12]=oUndefined
-//obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefined			obj[4,13]=oUndefined
-//obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
-//obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
+set_list_navigation = function() {
+	var ui_nav_x = key_right_pressed - key_left_pressed;
+	
+	if ui_nav_x == 0 then return;
+
+	item_preview_offset_x = 2 * sign(ui_nav_x);
+	selected_object_position += sign(ui_nav_x);
+	
+	while selected_object_position < 0 
+		or selected_object_position > list_positions_length - 1 
+		or is_undefined(obj[selected_object_type, selected_object_position])
+	{
+		selected_object_position += sign(ui_nav_x);
+		
+		if selected_object_position < 0 then 
+			selected_object_position = list_positions_length - 1;
+		else if selected_object_position > list_positions_length - 1 then 
+			selected_object_position = 0;
+	}
+	
+	audio_play_sfx(snd_bump, false, -5, 13);
+
+	selected_object = obj[selected_object_type, selected_object_position];
+}
+
+update_selected_item = function() {
+	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+		selected_object = obj[selected_object_type, selected_object_position];
+	} else {
+		selected_tile = tiles[selected_object_type, selected_object_position];
+	}
+}
+
+cursor_set_position = function() {
+	var _in_level_editor = instance_exists(oPause);
+
+	camera_current_interpolation += _in_level_editor ? -0.07 : 0.07;
+	camera_current_interpolation = clamp(camera_current_interpolation, 0, 1);
+
+	// Recalculate the mouse position since I'm using oAppSurfaceManager to resize the application surface to keep it pixel perfect
+	// this is instead of using the actual camera cause then it would look ugly zoomed in
+
+	var _cam_offset_x = camera_get_view_x(view_camera[0]);
+	var _cam_offset_y = camera_get_view_y(view_camera[0]);
+	
+	var _cam_width = camera_get_view_width(view_camera[0]);
+	var _cam_height = camera_get_view_height(view_camera[0]);
+	
+	var _app_surface_x = lerp(0, _cam_offset_x, camera_current_interpolation);
+	var _app_surface_y = lerp(0, _cam_offset_y, camera_current_interpolation);
+	
+	var _gui_scale_x = lerp(1,  _cam_width/room_width, camera_current_interpolation);
+	var _gui_scale_y = lerp(1,  _cam_height/room_height, camera_current_interpolation);
+
+	global.level_maker_mouse_x = (mouse_x - _app_surface_x) / _gui_scale_x;
+	global.level_maker_mouse_y = (mouse_y - _app_surface_y) / _gui_scale_y;
+}
+
+cursor_get_object_from_grid = function() {
+	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+	
+	if mouse_check_button_pressed(mb_left) 
+		and cursor == LEVEL_CURSOR_TYPE.FINGER 
+		and is_struct(object_grid_hovering)
+	{
+		var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
+				
+		selected_object_type = _obj_pos[0];
+		selected_object_position = _obj_pos[1];
+		image_xscale = object_grid_hovering.xscale;
+		image_yscale = object_grid_hovering.yscale;
+		image_angle = object_grid_hovering.angle;
+		
+		remove_object_from_grid(object_grid_hovering);
+	}
+}
+
+cursor_create_object_in_grid = function(_tile_x, _tile_y) {
+	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+	
+	if (mouse_check_button_released(mb_left) 
+			or (mouse_check_button(mb_left) and selected_object.has_tag("is_holdable"))
+		) and cursor == LEVEL_CURSOR_TYPE.CURSOR 
+		and not is_undefined(selected_object)
+		and not has_object_below_cursor
+		and test_button_cooldown == 0
+	{
+		if selected_object.has_tag("is_unique") {
+			remove_all_specific_objects_from_grid(selected_object.index);
+		}
+		
+		if selected_object.index == oMagicOrb 
+		or selected_object.index == oGrayOrb {
+			remove_orb_from_grid();
+		}
+		
+		place_object_in_object_grid(
+			_tile_x,
+			_tile_y,
+			selected_object,
+			oLevelMaker.image_xscale,
+			oLevelMaker.image_yscale,
+			oLevelMaker.image_angle
+		);
+		
+		if instance_exists(oSolidDay) then oSolidDay.update = true;
+		if instance_exists(oSolidNight) then oSolidNight.update = true;
+		audio_play_sfx(snd_key2, false, -18.3, 20);
+		
+		repeat(3) {
+			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+			
+			sm.image_xscale=0.5;
+			sm.image_yscale=0.5;
+		}
+	}
+}
+
+cursor_remove_object_from_grid = function() {
+	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+	
+	if (mouse_check_button(mb_right) 
+		or (mouse_check_button(mb_left) 
+			and cursor == LEVEL_CURSOR_TYPE.ERASER))
+		and is_struct(object_grid_hovering) 
+	{
+		remove_object_from_grid(object_grid_hovering);
+		
+		audio_play_sfx(snd_brokestone,false,-5,15);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+	}
+}
+
+cursor_create_tile_in_grid = function() {
+	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+		
+	if mouse_check_button(mb_left)
+		and cursor == LEVEL_CURSOR_TYPE.CURSOR
+		and not is_undefined(selected_tile)
+		and test_button_cooldown == 0
+	{
+		var layer_name = level_maker_get_background_layer_name();
+		var tilemap_id = layer_tilemap_get_id(layer_name);
+		
+		if tilemap_id == -1 {
+			show_debug_message("Tilemap_id not found or is incorrect. (Layer name: " + layer_name + ")");
+			return;
+		}
+
+		var tile_hover_cursor = tilemap_get_at_pixel(tilemap_id, x, y);
+		
+		if tile_hover_cursor > 0 {
+			return;
+		}
+		
+		var _tile_id = selected_tile.tile_id;
+		
+		tilemap_set_at_pixel(tilemap_id, selected_tile.tile_id, x, y);
+		audio_play_sfx(snd_key2, false, -18.3, 20);
+		
+		repeat(3) {
+			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+			
+			sm.image_xscale=0.5;
+			sm.image_yscale=0.5;
+		}
+	}
+}
+
+cursor_remove_tile_from_grid = function() {
+	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+		
+	if ((not mouse_check_button(mb_left) and mouse_check_button(mb_right)
+		) or (mouse_check_button(mb_left) 
+			and cursor == LEVEL_CURSOR_TYPE.ERASER)
+	) {
+		var layer_name = level_maker_get_background_layer_name();
+		var tilemap_id = layer_tilemap_get_id(layer_name);
+		
+		if tilemap_id == -1 then
+			return;
+
+		var tile_hover_cursor = tilemap_get_at_pixel(tilemap_id, x, y);
+		
+		if tile_hover_cursor <= 0 {
+			return;
+		}
+		
+		tile_hover_cursor = tile_set_empty(tile_hover_cursor);
+		
+		tilemap_set_at_pixel(tilemap_id, tile_hover_cursor, x, y);
+		
+		audio_play_sfx(snd_brokestone,false,-5,15);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+	}
+}
+
+set_tilesets_alpha = function() {
+	var layer_foreground = layer_get_id("Tiles_Foreground");
+	var layer_objects_1 = layer_get_id("PlayerInstances");
+	var layer_objects_2 = layer_get_id("GimmickInstances");
+	var layer_background1 = layer_get_id("Tiles_Background1");
+	var layer_background2 = layer_get_id("Tiles_Background2");
+	var layer_background3 = layer_get_id("Tiles_Background3");
+	
+	set_half_alpha = function() {
+		draw_set_alpha(0.5);
+	}
+	
+	set_full_alpha = function() {
+		draw_set_alpha(1);
+	}
+	
+	reset_alpha = function() {
+		draw_set_alpha(1);
+	}
+	
+	set_layer_alpha_script = function(_layer, _alpha_script) {
+		layer_script_begin(_layer, _alpha_script);
+		layer_script_end(_layer, reset_alpha);
+	}
+	
+	if not instance_exists(oPause) {
+		set_layer_alpha_script(layer_foreground, set_full_alpha);
+		set_layer_alpha_script(layer_objects_1, set_full_alpha);
+		set_layer_alpha_script(layer_objects_2, set_full_alpha);
+		set_layer_alpha_script(layer_background1, set_full_alpha);
+		set_layer_alpha_script(layer_background2, set_full_alpha);
+		set_layer_alpha_script(layer_background3, set_full_alpha);
+		return;
+	}
+	
+	switch(current_layer) {
+		case LEVEL_CURRENT_LAYER.FOREGROUND:
+			set_layer_alpha_script(layer_foreground, set_full_alpha);
+			set_layer_alpha_script(layer_objects_1, set_half_alpha);
+			set_layer_alpha_script(layer_objects_2, set_half_alpha);
+			set_layer_alpha_script(layer_background1, set_half_alpha);
+			set_layer_alpha_script(layer_background2, set_half_alpha);
+			set_layer_alpha_script(layer_background3, set_half_alpha);
+			break;
+		case LEVEL_CURRENT_LAYER.OBJECTS:
+			set_layer_alpha_script(layer_foreground, set_half_alpha);
+			set_layer_alpha_script(layer_objects_1, set_full_alpha);
+			set_layer_alpha_script(layer_objects_2, set_full_alpha);
+			set_layer_alpha_script(layer_background1, set_half_alpha);
+			set_layer_alpha_script(layer_background2, set_half_alpha);
+			set_layer_alpha_script(layer_background3, set_half_alpha);
+			break;
+		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
+			set_layer_alpha_script(layer_foreground, set_half_alpha);
+			set_layer_alpha_script(layer_objects_1, set_half_alpha);
+			set_layer_alpha_script(layer_objects_2, set_half_alpha);
+			set_layer_alpha_script(layer_background1, set_full_alpha);
+			set_layer_alpha_script(layer_background2, set_half_alpha);
+			set_layer_alpha_script(layer_background3, set_half_alpha);
+			break;
+		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
+			set_layer_alpha_script(layer_foreground, set_half_alpha);
+			set_layer_alpha_script(layer_objects_1, set_half_alpha);
+			set_layer_alpha_script(layer_objects_2, set_half_alpha);
+			set_layer_alpha_script(layer_background1, set_half_alpha);
+			set_layer_alpha_script(layer_background2, set_full_alpha);
+			set_layer_alpha_script(layer_background3, set_half_alpha);
+			break;
+		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
+			set_layer_alpha_script(layer_foreground, set_half_alpha);
+			set_layer_alpha_script(layer_objects_1, set_half_alpha);
+			set_layer_alpha_script(layer_objects_2, set_half_alpha);
+			set_layer_alpha_script(layer_background1, set_half_alpha);
+			set_layer_alpha_script(layer_background2, set_half_alpha);
+			set_layer_alpha_script(layer_background3, set_full_alpha);
+			break;
+	}
+}
+
+update_tilesets_by_style = function() {
+	if not instance_exists(oPause) then return;
+	
+	var layer_foreground = layer_get_id("Tiles_Foreground");
+	var layer_background1 = layer_get_id("Tiles_Background1");
+	var layer_background2 = layer_get_id("Tiles_Background2");
+	var layer_background3 = layer_get_id("Tiles_Background3");
+	
+	var tilemap_foreground = layer_tilemap_get_id(layer_foreground);
+	var tilemap_background1 = layer_tilemap_get_id(layer_background1);
+	var tilemap_background2 = layer_tilemap_get_id(layer_background2);
+	var tilemap_background3 = layer_tilemap_get_id(layer_background3);
+	
+	var _tileset = undefined;
+	
+	switch(selected_style) {
+		case LEVEL_STYLE.GRASS:
+			_tileset = tMakerGrassDay;
+			tilemap_tileset(tilemap_foreground, _tileset);
+			tilemap_tileset(tilemap_background1, _tileset);
+			tilemap_tileset(tilemap_background2, _tileset);
+			tilemap_tileset(tilemap_background3, _tileset);
+			break;
+		case LEVEL_STYLE.CLOUDS:
+			_tileset = tMakerCloudDay;
+			tilemap_tileset(tilemap_foreground, _tileset);
+			tilemap_tileset(tilemap_background1, _tileset);
+			tilemap_tileset(tilemap_background2, _tileset);
+			tilemap_tileset(tilemap_background3, _tileset);
+			break;
+		case LEVEL_STYLE.FLOWERS:
+			_tileset = tMakerFlowerDay;
+			tilemap_tileset(tilemap_foreground, _tileset);
+			tilemap_tileset(tilemap_background1, _tileset);
+			tilemap_tileset(tilemap_background2, _tileset);
+			tilemap_tileset(tilemap_background3, _tileset);
+			break;
+		case LEVEL_STYLE.SPACE:
+			_tileset = tMakerSpaceDay;
+			tilemap_tileset(tilemap_foreground, _tileset);
+			tilemap_tileset(tilemap_background1, _tileset);
+			tilemap_tileset(tilemap_background2, _tileset);
+			tilemap_tileset(tilemap_background3, _tileset);
+			break;
+		case LEVEL_STYLE.DUNGEON:
+			_tileset = tMakerDungeonDay;
+			tilemap_tileset(tilemap_foreground, _tileset);
+			tilemap_tileset(tilemap_background1, _tileset);
+			tilemap_tileset(tilemap_background2, _tileset);
+			tilemap_tileset(tilemap_background3, _tileset);
+			break;
+	}
+}
+
+set_rotation_and_scaling = function() {
+	if is_undefined(selected_object) or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then 
+		return;
+	
+	if selected_object.has_tag("can_flip") {
+		if keyboard_check_pressed(ord("X")) {
+			if selected_object.has_tag("is_vertical") {
+				image_yscale *= -1;
+			} else {
+				image_xscale *= -1;
+			}
+			
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
+	} else {
+		image_xscale = 1;
+	}
+	
+	if selected_object.has_tag("can_spin") {
+		if keyboard_check_pressed(ord("Z")) {
+			image_angle += 90;
+			if image_angle >= 360 then image_angle = 0;
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
+	} else {
+		image_angle = 0;
+	}
+}
 
 get_lmobject_from_list = function(_object_index) {
 	for(var t = 0; t < array_length(obj); t++) {
@@ -174,7 +461,7 @@ get_lmobject_from_list = function(_object_index) {
 }
 
 get_x_y_from_object_index = function(_object) {
-	for (var yy = object_positions_length - 1; yy >= 0; yy--) {
+	for (var yy = list_positions_length - 1; yy >= 0; yy--) {
 		for (var xx = object_types_length - 1; xx >= 0; xx--) {
 			var object_from_list = obj[xx, yy];
 			
@@ -559,7 +846,7 @@ start_level = function() {
 }
 
 delete_all_objects_from_level = function() {
-	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+	for (var yy = list_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			var object = obj[xx, yy];
 			

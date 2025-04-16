@@ -1,7 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-xs = x
-ys = y
+xs = x;
+ys = y;
 level_name = "";
 d_levelName = "";
 load_name = "";
@@ -22,3 +20,7 @@ drawplus=0
 drawtarget=0
 
 scr_inputcreate()
+
+play_sound_on_press = function() {
+	audio_play_sfx(sndUiChange, false, -18.3, 1);
+}

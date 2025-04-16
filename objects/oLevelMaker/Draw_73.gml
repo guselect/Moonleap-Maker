@@ -20,17 +20,17 @@ switch(selected_style) {
 }
 
 //I used to draw only the inner part of the sprite, but that caused bugs with the nine-slice scaling of these sprites
-with (oSolidDay) {
-	draw_sprite(sday,0,x,y)
-}
+//with (oSolidDay) {
+//	draw_sprite(sday,0,x,y)
+//}
 
-with (oSolidNight) {
-	draw_sprite(snight,0,x,y)
-}
+//with (oSolidNight) {
+//	draw_sprite(snight,0,x,y)
+//}
 
-with (oBlack) {
-	draw_sprite(sBlack,0,x,y)
-}
+//with (oBlack) {
+//	draw_sprite(sBlack,0,x,y)
+//}
 
 draw_set_color(color.nice_white)
 
@@ -45,18 +45,19 @@ if !instance_exists(oPause)
 draw_set_halign(fa_center)
 
 // GET SELECTED OBJECT NAME
-var object = obj[selected_object_type,selected_object_position]
-var object_name = is_undefined(object) ? "" : object_get_name(object.index);
+if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+	var object = obj[selected_object_type,selected_object_position]
+	var object_name = is_undefined(object) ? "" : object_get_name(object.index);
 
-var room_x_offset = 16;
-if global.level_maker_mouse_x > -room_x_offset 
-	and global.level_maker_mouse_x < room_width + room_x_offset 
-{
-	var object_name_x = (160 + global.level_maker_mouse_x * 3) / 4;
+	var room_x_offset = 16;
+	if global.level_maker_mouse_x > -room_x_offset 
+		and global.level_maker_mouse_x < room_width + room_x_offset 
+	{
+		var object_name_x = (160 + global.level_maker_mouse_x * 3) / 4;
 	
-	draw_text(object_name_x, -20, object_name);
+		draw_text(object_name_x, -20, object_name);
+	}
 }
-
 
 // HOVER TEXT
 if instance_exists(oPause) {
@@ -71,4 +72,4 @@ if instance_exists(oPause) {
 
 // CURSOR
 draw_set_halign(fa_left)
-draw_sprite(sCursor,cursor,global.level_maker_mouse_x,global.level_maker_mouse_y)
+draw_sprite(sCursor, cursor, global.level_maker_mouse_x, global.level_maker_mouse_y);

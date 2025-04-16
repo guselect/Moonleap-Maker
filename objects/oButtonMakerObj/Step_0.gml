@@ -1,27 +1,38 @@
-drawtarget=0
+drawtarget = 0;
 
-if !instance_exists(oPause) {exit}
-
-object = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
-
-var is_active = not is_undefined(object);
-var obj_sprite = not is_active ? oUndefined : object.index;
-
-visible = is_active;
-sprite_index = object_get_sprite(obj_sprite);
-
-xx=round(xstart-8)
-yy=round(ystart-8)
-
-x=xx
-y=yy
-
-if sprite_xoffset>6 {
-	x=xx+8
+if not instance_exists(oPause) {
+	exit;
 }
 
-if sprite_yoffset>6 {
-	y=yy+8
+var is_active = false;
+
+if oLevelMaker.current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+	object = oLevelMaker.obj[oLevelMaker.selected_object_type, index]
+
+	is_active = not is_undefined(object);
+
+	visible = is_active;
+	sprite_index = not is_active ? -1 : object_get_sprite(object.index);
+} else {
+	tile = oLevelMaker.tiles[oLevelMaker.selected_object_type, index];
+	
+	is_active = not is_undefined(tile) or tile == 0;
+	visible = is_active;
+	sprite_index = -1;
+}
+
+xx = round(xstart - 8)
+yy = round(ystart - 8)
+
+x = xx;
+y = yy;
+
+if sprite_xoffset > 6 {
+	x = xx + 8;
+}
+
+if sprite_yoffset > 6 {
+	y = yy + 8;
 }
 
 if is_active 
@@ -45,18 +56,36 @@ if is_active
 	oLevelMaker.image_angle = 0;
 }
 
-scale = 1
+scale = 1;
 if sprite_get_height(sprite_index) > 30 then scale = 0.5;
-if sprite_get_width(sprite_index) > 30	then scale = 0.5;
-if sprite_get_width(sprite_index) > 50	then scale = 0.4;
-if sprite_get_width(sprite_index) > 60	then scale = 0.3;
+if sprite_get_width(sprite_index) > 30 then scale = 0.5;
+if sprite_get_width(sprite_index) > 50 then scale = 0.4;
+if sprite_get_width(sprite_index) > 60 then scale = 0.3;
 
-if sprite_index=sGemFly or sprite_index=sGemGrayUI {y=yy+3}
-if sprite_index=sBird {y=yy+16}
-if sprite_index=sTestDay or sprite_index=sTestNight {y=yy x=xx scale=1}
-
-
-if object == oLevelMaker.obj[oLevelMaker.selected_object_type, oLevelMaker.selected_object_position] {
-	drawtarget=-2
+switch(sprite_index) {
+	case sGemFly:
+	case sGemGrayUI:
+		y = yy + 3;
+		break;
+	case sBird:
+		y = yy + 16;
+		break;
+	case sTestDay:
+	case sTestNight:
+		y = yy;
+		x = xx;
+		scale = 1;
+		break;
 }
-drawplus=smooth_approach(drawplus,drawtarget,0.25)
+
+var _selected_layer = oLevelMaker.current_layer;
+
+if (_selected_layer == LEVEL_CURRENT_LAYER.OBJECTS
+	and object == oLevelMaker.obj[oLevelMaker.selected_object_type, oLevelMaker.selected_object_position]
+) or (_selected_layer != LEVEL_CURRENT_LAYER.OBJECTS
+	and tile == oLevelMaker.tiles[oLevelMaker.selected_object_type, oLevelMaker.selected_object_position]
+) {
+	drawtarget = -2;
+}
+
+drawplus = smooth_approach(drawplus, drawtarget, 0.25);

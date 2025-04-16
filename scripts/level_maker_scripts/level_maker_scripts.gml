@@ -98,7 +98,7 @@ function load_level(_level_name){
 					var _object = undefined;
 						
 					for(var t = 0; t < oLevelMaker.object_types_length and is_undefined(_object); t++) {
-						for(var p = 0; p < oLevelMaker.object_positions_length and is_undefined(_object); p++) {
+						for(var p = 0; p < oLevelMaker.list_positions_length and is_undefined(_object); p++) {
 							var _object_to_find = oLevelMaker.obj[t, p];
 								
 							if is_undefined(_object_to_find) then continue;
@@ -143,7 +143,7 @@ function scr_update_style(){
 		case LEVEL_STYLE.DUNGEON:	instance_create_layer(-64, -64, layer, oDunDay);		break;
 	}
 	
-	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+	for (var yy = list_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			var object = obj[xx,yy];
 			

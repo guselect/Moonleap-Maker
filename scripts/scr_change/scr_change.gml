@@ -1,6 +1,6 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
-function scr_change(){ 
+function scr_change() { 
 
 	if instance_exists(oPlayer) {oPlayer.changecount+=1}
 	if instance_exists(oMagicOrb) {oMagicOrb.change=true exit;} 
@@ -43,23 +43,25 @@ function scr_change(){
 	//var actualnight=oCamera.night
 		
 	//Tilesets
-		
+	
 	if instance_exists(oCloudDay)
 	{
-		lay_id = layer_get_id("Tiles_2");
+		var lay_id = layer_get_id("Tiles_2");
 		if (lay_id != -1) {
-			tile_id = layer_tilemap_get_id(lay_id);
-
-			if oCamera.night=true
+			var tilemap_id = layer_tilemap_get_id(lay_id);
+			var tileset = oCamera.night ? tCloudNight : tCloudDay;
+			if oCamera.night
 			{tilemap_tileset(tile_id,tCloudNight)}
 			else
 			{tilemap_tileset(tile_id,tCloudDay)}
 		}
+		
+		
 	}
 	
 	if instance_exists(oGrassDay)
 	{
-		lay_id = layer_get_id("Tiles_Back");
+		var lay_id = layer_get_id("Tiles_Back");
 		if (lay_id != -1) {
 			tile_id = layer_tilemap_get_id(lay_id);
 
@@ -69,7 +71,7 @@ function scr_change(){
 			{tilemap_tileset(tile_id,tGrassDay)}
 		}
 
-		lay_id = layer_get_id("Tiles_Back_2");
+		var lay_id = layer_get_id("Tiles_Back_2");
 		if (lay_id != -1) {
 			tile_id = layer_tilemap_get_id(lay_id);
 
@@ -87,7 +89,7 @@ function scr_change(){
 		
 	if instance_exists(oSpaceDay)
 	{
-		lay_id = layer_get_id("Tiles_2");
+		var lay_id = layer_get_id("Tiles_2");
 		if (lay_id != -1) {
 			tile_id = layer_tilemap_get_id(lay_id);
 
@@ -100,7 +102,7 @@ function scr_change(){
 		
 	if instance_exists(oDunDay)
 	{
-		lay_id = layer_get_id("Tiles_2");
+		var lay_id = layer_get_id("Tiles_2");
 		if (lay_id != -1) {
 			tile_id = layer_tilemap_get_id(lay_id);
 
@@ -119,7 +121,9 @@ function scr_change(){
 		repeat (choose(1,2)) {if place_meeting(x,y+1,oFlowerNight) {instance_create_layer(x,y+(sprite_height/3),"Instances_2",oLeafNightFlower)}} //folha
 		}
 	}
-		
+	
+	level_maker_change_tilesets();
+	
 	if instance_exists(oWaterDust) { if oWaterDust.sprite_index=oBack.sprite_index {oWaterDust.image_index=oBack.image_index}}
 
 	if oCamera.fancyeffects=true
@@ -159,6 +163,134 @@ function scr_change(){
 	}
 	}
 	if instance_exists(oBack) {oBack.image_index=oCamera.night}
+}
+
+function level_maker_change_tilesets() {
+	var _level_maker = instance_exists(oLevelMaker);
+	var _style = oLevelMaker.selected_style;
+	var _is_night = oCamera.night;
+	
+	var layer_foreground = layer_get_id("Tiles_Foreground");
+	var layer_background1 = layer_get_id("Tiles_Background1");
+	var layer_background2 = layer_get_id("Tiles_Background2");
+	var layer_background3 = layer_get_id("Tiles_Background3");
+	
+	if instance_exists(oGrassDay) or (_level_maker and _style == LEVEL_STYLE.GRASS) {
+		var tilemap_id = -1;
+		var tileset = _is_night ? tMakerGrassNight : tMakerGrassDay;
+		
+		if layer_foreground != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_foreground);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background1 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background1);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background2 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background2);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background3 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background3);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+	} else if instance_exists(oCloudDay) or (_level_maker and _style == LEVEL_STYLE.CLOUDS) {
+		var tilemap_id = -1;
+		var tileset = _is_night ? tMakerCloudNight : tMakerCloudDay;
+		
+		if layer_foreground != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_foreground);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background1 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background1);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background2 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background2);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background3 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background3);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+	} else if instance_exists(oFlowerDay) or (_level_maker and _style == LEVEL_STYLE.FLOWERS) {
+		var tilemap_id = -1;
+		var tileset = _is_night ? tMakerFlowerNight : tMakerFlowerDay;
+		
+		if layer_foreground != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_foreground);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background1 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background1);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background2 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background2);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background3 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background3);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+	} else if instance_exists(oSpaceDay) or (_level_maker and _style == LEVEL_STYLE.SPACE) {
+		var tilemap_id = -1;
+		var tileset = _is_night ? tMakerSpaceNight : tMakerSpaceDay;
+		
+		if layer_foreground != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_foreground);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background1 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background1);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background2 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background2);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background3 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background3);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+	} else if instance_exists(oDunDay) or (_level_maker and _style == LEVEL_STYLE.DUNGEON) {
+		var tilemap_id = -1;
+		var tileset = _is_night ? tMakerDungeonNight : tMakerDungeonDay;
+		
+		if layer_foreground != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_foreground);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background1 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background1);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background2 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background2);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+			
+		if layer_background3 != -1 {
+			tilemap_id = layer_tilemap_get_id(layer_background3);
+			tilemap_tileset(tilemap_id, tileset)
+		}
+	}
 }
 	
 function scr_change_orb(){ 
