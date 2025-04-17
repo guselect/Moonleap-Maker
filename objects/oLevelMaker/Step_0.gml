@@ -35,9 +35,10 @@ cursor_object_hovering = selected_object;
 object_grid_hovering = get_grid_object_hovering(global.level_maker_mouse_x, global.level_maker_mouse_y);
 
 // ------------------------------------
-// Object rotation and scaling
+// Object rotation, mirroring and scaling
 // ------------------------------------
-set_rotation_and_scaling();
+set_object_rotation_and_scaling();
+set_tile_manipulation();
 
 // ------------------------------------
 // Tiled mouse calculation setting

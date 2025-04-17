@@ -51,9 +51,9 @@ function scr_change() {
 			var tilemap_id = layer_tilemap_get_id(lay_id);
 			var tileset = oCamera.night ? tCloudNight : tCloudDay;
 			if oCamera.night
-			{tilemap_tileset(tile_id,tCloudNight)}
+			{tilemap_tileset(tilemap_id,tCloudNight)}
 			else
-			{tilemap_tileset(tile_id,tCloudDay)}
+			{tilemap_tileset(tilemap_id,tCloudDay)}
 		}
 		
 		
@@ -63,7 +63,7 @@ function scr_change() {
 	{
 		var lay_id = layer_get_id("Tiles_Back");
 		if (lay_id != -1) {
-			tile_id = layer_tilemap_get_id(lay_id);
+			var tile_id = layer_tilemap_get_id(lay_id);
 
 			if oCamera.night=true
 			{tilemap_tileset(tile_id,tGrassNight)}
@@ -71,9 +71,9 @@ function scr_change() {
 			{tilemap_tileset(tile_id,tGrassDay)}
 		}
 
-		var lay_id = layer_get_id("Tiles_Back_2");
+		lay_id = layer_get_id("Tiles_Back_2");
 		if (lay_id != -1) {
-			tile_id = layer_tilemap_get_id(lay_id);
+			var tile_id = layer_tilemap_get_id(lay_id);
 
 			if oCamera.night=true
 			{tilemap_tileset(tile_id,tGrassNight)}
@@ -91,7 +91,7 @@ function scr_change() {
 	{
 		var lay_id = layer_get_id("Tiles_2");
 		if (lay_id != -1) {
-			tile_id = layer_tilemap_get_id(lay_id);
+			var tile_id = layer_tilemap_get_id(lay_id);
 
 			if oCamera.night=true
 			{tilemap_tileset(tile_id,tSpaceNight)}
@@ -104,7 +104,7 @@ function scr_change() {
 	{
 		var lay_id = layer_get_id("Tiles_2");
 		if (lay_id != -1) {
-			tile_id = layer_tilemap_get_id(lay_id);
+			var tile_id = layer_tilemap_get_id(lay_id);
 
 			if oCamera.night=true
 			{tilemap_tileset(tile_id,tDungeon)}
@@ -166,6 +166,8 @@ function scr_change() {
 }
 
 function level_maker_change_tilesets() {
+	if not instance_exists(oLevelMaker) then return;
+	
 	var _level_maker = instance_exists(oLevelMaker);
 	var _style = oLevelMaker.selected_style;
 	var _is_night = oCamera.night;
@@ -175,7 +177,7 @@ function level_maker_change_tilesets() {
 	var layer_background2 = layer_get_id("Tiles_Background2");
 	var layer_background3 = layer_get_id("Tiles_Background3");
 	
-	if instance_exists(oGrassDay) or (_level_maker and _style == LEVEL_STYLE.GRASS) {
+	if instance_exists(oGrassDay) or _style == LEVEL_STYLE.GRASS {
 		var tilemap_id = -1;
 		var tileset = _is_night ? tMakerGrassNight : tMakerGrassDay;
 		
@@ -198,7 +200,7 @@ function level_maker_change_tilesets() {
 			tilemap_id = layer_tilemap_get_id(layer_background3);
 			tilemap_tileset(tilemap_id, tileset)
 		}
-	} else if instance_exists(oCloudDay) or (_level_maker and _style == LEVEL_STYLE.CLOUDS) {
+	} else if instance_exists(oCloudDay) or _style == LEVEL_STYLE.CLOUDS {
 		var tilemap_id = -1;
 		var tileset = _is_night ? tMakerCloudNight : tMakerCloudDay;
 		
@@ -221,7 +223,7 @@ function level_maker_change_tilesets() {
 			tilemap_id = layer_tilemap_get_id(layer_background3);
 			tilemap_tileset(tilemap_id, tileset)
 		}
-	} else if instance_exists(oFlowerDay) or (_level_maker and _style == LEVEL_STYLE.FLOWERS) {
+	} else if instance_exists(oFlowerDay) or _style == LEVEL_STYLE.FLOWERS {
 		var tilemap_id = -1;
 		var tileset = _is_night ? tMakerFlowerNight : tMakerFlowerDay;
 		
@@ -244,7 +246,7 @@ function level_maker_change_tilesets() {
 			tilemap_id = layer_tilemap_get_id(layer_background3);
 			tilemap_tileset(tilemap_id, tileset)
 		}
-	} else if instance_exists(oSpaceDay) or (_level_maker and _style == LEVEL_STYLE.SPACE) {
+	} else if instance_exists(oSpaceDay) or _style == LEVEL_STYLE.SPACE {
 		var tilemap_id = -1;
 		var tileset = _is_night ? tMakerSpaceNight : tMakerSpaceDay;
 		
@@ -267,7 +269,7 @@ function level_maker_change_tilesets() {
 			tilemap_id = layer_tilemap_get_id(layer_background3);
 			tilemap_tileset(tilemap_id, tileset)
 		}
-	} else if instance_exists(oDunDay) or (_level_maker and _style == LEVEL_STYLE.DUNGEON) {
+	} else if instance_exists(oDunDay) or _style == LEVEL_STYLE.DUNGEON {
 		var tilemap_id = -1;
 		var tileset = _is_night ? tMakerDungeonNight : tMakerDungeonDay;
 		

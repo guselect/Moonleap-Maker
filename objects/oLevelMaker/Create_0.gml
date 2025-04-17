@@ -17,9 +17,10 @@ based on that they update their colors
 // Input variables
 scr_inputcreate()
 
+// User Level Config
 level_name = "";
 level_author_name = "";
-
+use_night_music = true;
 use_ranking_system = false;
 rank_S_change_max = 0;
 rank_A_change_max = 0;
@@ -274,96 +275,14 @@ cursor_remove_tile_from_grid = function() {
 
 		var tile_hover_cursor = tilemap_get_at_pixel(tilemap_id, x, y);
 		
-		if tile_hover_cursor <= 0 {
+		if tile_hover_cursor <= 0 then
 			return;
-		}
 		
-		tile_hover_cursor = tile_set_empty(tile_hover_cursor);
+		tilemap_set_at_pixel(tilemap_id, 0, x, y);
 		
-		tilemap_set_at_pixel(tilemap_id, tile_hover_cursor, x, y);
-		
-		audio_play_sfx(snd_brokestone,false,-5,15);
+		audio_play_sfx(snd_brokestone,false, -5, 15);
 		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
 		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-	}
-}
-
-set_tilesets_alpha = function() {
-	var layer_foreground = layer_get_id("Tiles_Foreground");
-	var layer_objects_1 = layer_get_id("PlayerInstances");
-	var layer_objects_2 = layer_get_id("GimmickInstances");
-	var layer_background1 = layer_get_id("Tiles_Background1");
-	var layer_background2 = layer_get_id("Tiles_Background2");
-	var layer_background3 = layer_get_id("Tiles_Background3");
-	
-	set_half_alpha = function() {
-		draw_set_alpha(0.5);
-	}
-	
-	set_full_alpha = function() {
-		draw_set_alpha(1);
-	}
-	
-	reset_alpha = function() {
-		draw_set_alpha(1);
-	}
-	
-	set_layer_alpha_script = function(_layer, _alpha_script) {
-		layer_script_begin(_layer, _alpha_script);
-		layer_script_end(_layer, reset_alpha);
-	}
-	
-	if not instance_exists(oPause) {
-		set_layer_alpha_script(layer_foreground, set_full_alpha);
-		set_layer_alpha_script(layer_objects_1, set_full_alpha);
-		set_layer_alpha_script(layer_objects_2, set_full_alpha);
-		set_layer_alpha_script(layer_background1, set_full_alpha);
-		set_layer_alpha_script(layer_background2, set_full_alpha);
-		set_layer_alpha_script(layer_background3, set_full_alpha);
-		return;
-	}
-	
-	switch(current_layer) {
-		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			set_layer_alpha_script(layer_foreground, set_full_alpha);
-			set_layer_alpha_script(layer_objects_1, set_half_alpha);
-			set_layer_alpha_script(layer_objects_2, set_half_alpha);
-			set_layer_alpha_script(layer_background1, set_half_alpha);
-			set_layer_alpha_script(layer_background2, set_half_alpha);
-			set_layer_alpha_script(layer_background3, set_half_alpha);
-			break;
-		case LEVEL_CURRENT_LAYER.OBJECTS:
-			set_layer_alpha_script(layer_foreground, set_half_alpha);
-			set_layer_alpha_script(layer_objects_1, set_full_alpha);
-			set_layer_alpha_script(layer_objects_2, set_full_alpha);
-			set_layer_alpha_script(layer_background1, set_half_alpha);
-			set_layer_alpha_script(layer_background2, set_half_alpha);
-			set_layer_alpha_script(layer_background3, set_half_alpha);
-			break;
-		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			set_layer_alpha_script(layer_foreground, set_half_alpha);
-			set_layer_alpha_script(layer_objects_1, set_half_alpha);
-			set_layer_alpha_script(layer_objects_2, set_half_alpha);
-			set_layer_alpha_script(layer_background1, set_full_alpha);
-			set_layer_alpha_script(layer_background2, set_half_alpha);
-			set_layer_alpha_script(layer_background3, set_half_alpha);
-			break;
-		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			set_layer_alpha_script(layer_foreground, set_half_alpha);
-			set_layer_alpha_script(layer_objects_1, set_half_alpha);
-			set_layer_alpha_script(layer_objects_2, set_half_alpha);
-			set_layer_alpha_script(layer_background1, set_half_alpha);
-			set_layer_alpha_script(layer_background2, set_full_alpha);
-			set_layer_alpha_script(layer_background3, set_half_alpha);
-			break;
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			set_layer_alpha_script(layer_foreground, set_half_alpha);
-			set_layer_alpha_script(layer_objects_1, set_half_alpha);
-			set_layer_alpha_script(layer_objects_2, set_half_alpha);
-			set_layer_alpha_script(layer_background1, set_half_alpha);
-			set_layer_alpha_script(layer_background2, set_half_alpha);
-			set_layer_alpha_script(layer_background3, set_full_alpha);
-			break;
 	}
 }
 
@@ -421,7 +340,37 @@ update_tilesets_by_style = function() {
 	}
 }
 
-set_rotation_and_scaling = function() {
+set_tile_manipulation = function() {
+	if is_undefined(selected_tile) or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then 
+		return;
+		
+	var _tile = selected_tile.tile_id;
+	
+	// Rotate tile
+	if keyboard_check_pressed(ord("Z")) {
+		audio_play_sfx(sndPress, false, -5, 13);
+		var _rotated_tile = tile_set_rotate(_tile, not tile_get_rotate(_tile));
+		_tile = _rotated_tile;
+	}
+	
+	// Mirror tile
+	if keyboard_check_pressed(ord("X")) {
+		audio_play_sfx(sndPress, false, -5, 13);
+		var _mirrored_tile = tile_set_mirror(_tile, not tile_get_mirror(_tile));
+		_tile = _mirrored_tile;
+	}
+
+	// Flip tile
+	if keyboard_check_pressed(ord("C")) {
+		audio_play_sfx(sndPress, false, -5, 13);
+		var _flipped_tile = tile_set_flip(_tile, not tile_get_flip(_tile));
+		_tile = _flipped_tile;
+	}
+	
+	selected_tile.tile_id = _tile;
+}
+
+set_object_rotation_and_scaling = function() {
 	if is_undefined(selected_object) or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then 
 		return;
 	
@@ -721,11 +670,21 @@ start_level = function() {
 	instance_destroy(oPause);
 	
 	switch (selected_style) {
-		case LEVEL_STYLE.GRASS:		instance_create_layer(0, 0,"Instances", o_grass_song);		break;
-		case LEVEL_STYLE.CLOUDS:	instance_create_layer(0, 0,"Instances", o_cloud_song);		break;
-		case LEVEL_STYLE.FLOWERS:	instance_create_layer(0, 0,"Instances", o_flower_song);		break;
-		case LEVEL_STYLE.SPACE:		instance_create_layer(0, 0,"Instances", o_space_song);		break;
-		case LEVEL_STYLE.DUNGEON:	instance_create_layer(0, 0,"Instances", o_dungeon_song);	break;
+		case LEVEL_STYLE.GRASS:	
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_grass_song_night : o_grass_song);
+			break;
+		case LEVEL_STYLE.CLOUDS:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_cloud_song_night : o_cloud_song);
+			break;
+		case LEVEL_STYLE.FLOWERS:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_flower_song_night : o_flower_song);
+			break;
+		case LEVEL_STYLE.SPACE:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_space_song_night : o_space_song);
+			break;
+		case LEVEL_STYLE.DUNGEON:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_dungeon_song_night : o_dungeon_song);
+			break;
 	}
 	
 	// This will be used to determine which objects will be
@@ -856,13 +815,9 @@ delete_all_objects_from_level = function() {
 	}
 }
 
-end_level_and_return_to_editor = function(){
+end_level_and_return_to_editor = function() {
 	//destroy the "song"
-	instance_destroy(o_grass_song);
-	instance_destroy(o_cloud_song);
-	instance_destroy(o_flower_song);
-	instance_destroy(o_space_song);
-	instance_destroy(o_dungeon_song);
+	instance_destroy(o_music);
 	audio_stop_all()
 	
 	delete_all_objects_from_level();

@@ -940,6 +940,7 @@
     {"id":{"name":"sStarFlower","path":"sprites/sStarFlower/sStarFlower.yy",},"order":4,},
     {"id":{"name":"sStarSmol","path":"sprites/sStarSmol/sStarSmol.yy",},"order":16,},
     {"id":{"name":"sStarWhite","path":"sprites/sStarWhite/sStarWhite.yy",},"order":6,},
+    {"id":{"name":"sMakerChangeIcon","path":"sprites/sMakerChangeIcon/sMakerChangeIcon.yy",},"order":10,},
     {"id":{"name":"oSolidRamp","path":"objects/oSolidRamp/oSolidRamp.yy",},"order":33,},
     {"id":{"name":"sTinySmoke","path":"sprites/sTinySmoke/sTinySmoke.yy",},"order":17,},
     {"id":{"name":"sGemGrayUI","path":"sprites/sGemGrayUI/sGemGrayUI.yy",},"order":40,},

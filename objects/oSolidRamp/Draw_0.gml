@@ -7,7 +7,6 @@ if sindex == sBlockRampMaskDark {
 	
 	if sign(image_xscale) == -1 {
 		_x = x + 16;
-		_y = y - 8;
 	}
 }
 

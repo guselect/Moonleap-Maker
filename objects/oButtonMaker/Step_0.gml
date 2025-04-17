@@ -55,7 +55,7 @@ if is_mouse_hover {
 			break;
 		case 9:  oLevelMaker.hover_text= LANG.maker_eraser;				break;
 		case 10: oLevelMaker.hover_text= LANG.maker_erase_level;		break;
-		case 11: oLevelMaker.hover_text= "Current layer: " + string(level_maker_get_layer_hover_text());	break;
+		case 11: oLevelMaker.hover_text= "Change Layer:\n" + string(level_maker_get_layer_hover_text());	break;
 	}
 	
 	if oLevelMaker.cursor != LEVEL_CURSOR_TYPE.ERASER {
@@ -187,9 +187,13 @@ if image_index == 8 and is_mouse_left_pressing {
 	play_sound_on_press();
 	
 	with(oLevelMaker) {
-		selected_style += 1
+		selected_object_type = 0;
+		selected_object_position = 0;
+		
+		selected_style += 1;
 		if selected_style >= LEVEL_STYLE.LENGTH then 
 			selected_style = 0;
+			
 		tiles = level_maker_get_tiles_list();
 		scr_update_style()
 	}
@@ -218,6 +222,7 @@ if image_index == 11 and is_mouse_left_pressing {
 	play_sound_on_press();
 	
 	with(oLevelMaker) {
+		selected_object = undefined;
 		selected_object_type = 0;
 		selected_object_position = 0;
 		

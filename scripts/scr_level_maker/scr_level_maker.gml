@@ -174,6 +174,8 @@ function LMTile(_tile_id) constructor {
 	
 	draw_sprite_preview = function(_x, _y) {
 		draw_tile(tileset, tile_id, 0, _x, _y);
+		if can_change then
+			draw_sprite(sMakerChangeIcon, 0, _x + 16, _y + 16);
 	}
 }
 
@@ -217,17 +219,17 @@ function level_maker_get_objects_list() {
 	_obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
 	_obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
 	_obj[2, 02] =	new LMObject(oStarFly,			16, 16);
-	_obj[2, 03] =	new LMObject(oKey,				16, 16);
-	_obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
-	_obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
-	_obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
-	_obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
-	_obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
-	_obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
-	_obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-	_obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
-	_obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
-	_obj[2, 13] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
+	_obj[2, 03] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
+	_obj[2, 04] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
+	_obj[2, 05] =	new LMObject(oKey,				16, 16);
+	_obj[2, 06] =	new LMObject(oKeyDoor,			16, 16);
+	_obj[2, 07] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
+	_obj[2, 08] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
+	_obj[2, 09] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
+	_obj[2, 10] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
+	_obj[2, 11] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
+	_obj[2, 12] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
+	_obj[2, 13] =	undefined;
 	_obj[2, 14] =	undefined;
 	_obj[2, 15] =	undefined;
 	
@@ -266,52 +268,56 @@ function level_maker_get_layer_hover_text() {
 	}
 }
 
-
-
 function level_maker_get_tiles_list() {
 	var _tiles_list = []; // result of the list
 	var _tileset = undefined;
 	var _tiles_amount = 0; // the amount of tiles the matching tileset has
-	var _exclude_tiles = []; // the tiles ID to not be included to the list
+	var _tile_changes_starts_from = 0;
+	var _pages = 1;
 	var c_tile_id = 0;
 	
 	switch(oLevelMaker.selected_style) {
 		case LEVEL_STYLE.GRASS:
 			_tileset = tMakerGrassDay;
-			_tiles_amount = 69;
-			_exclude_tiles = [26, 43, 69];
+			_pages = 4;
+			_tiles_amount = 56;
+			_tile_changes_starts_from = 38;
 			break;
 		case LEVEL_STYLE.CLOUDS:
 			_tileset = tMakerCloudDay;
-			_tiles_amount = 93;
-			_exclude_tiles = [18, 21, 22, 23, 36, 37, 39, 51, 54, 55, 57, 58, 59, 69, 70, 71, 81, 87, 91, 92];
+			_pages = 4;
+			_tiles_amount = 61;
+			_tile_changes_starts_from = 37;
 			break;
 		case LEVEL_STYLE.FLOWERS:
 			_tileset = tMakerFlowerDay;
-			_tiles_amount = 36;
-			_exclude_tiles = [19, 34, 35];
+			_pages = 2;
+			_tiles_amount = 33;
+			_tile_changes_starts_from = 14;
 			break;
 		case LEVEL_STYLE.SPACE:
 			_tileset = tMakerSpaceDay;
-			_tiles_amount = 96;
-			_exclude_tiles = [14, 17, 18, 19, 20, 21, 22, 23, 24, 27, 41, 42, 48, 65, 89, 90, 95];
+			_pages = 4;
+			_tiles_amount = 53;
+			_tile_changes_starts_from = 34;
 			break;
 		case LEVEL_STYLE.DUNGEON:
 			_tileset = tMakerDungeonDay;
+			_pages = 4;
 			_tiles_amount = 57;
-			_exclude_tiles = [56];
+			_tile_changes_starts_from = 45;
 			break;
 	}
 	
-	for (var t = 0; t < floor(_tiles_amount / 16); t++) {
+	for (var t = 0; t < _pages; t++) {
 		for (var p = 0; p < 16; p++) {
 			c_tile_id++
 			
-			while c_tile_id == 0 or array_find_index(_exclude_tiles, c_tile_id) != -1 {
+			while c_tile_id == 0 {
 				c_tile_id++;
 			}
 			
-			if c_tile_id > _tiles_amount - array_length(_exclude_tiles) {
+			if c_tile_id >= _tiles_amount {
 				_tiles_list[t, p] = undefined;
 				continue;
 			}
@@ -319,6 +325,7 @@ function level_maker_get_tiles_list() {
 			var _lmtile = new LMTile(c_tile_id);
 			
 			_lmtile.set_tileset(_tileset);
+			_lmtile.can_change = c_tile_id >= _tile_changes_starts_from;
 			_tiles_list[t, p] = _lmtile;
 		}
 	}
