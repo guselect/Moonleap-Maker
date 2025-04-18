@@ -163,6 +163,10 @@ function LMTile(_tile_id) constructor {
 	tileset = undefined;
 	
 	can_change = false;
+	is_animated = false;
+	
+	sprite_day = -1;
+	sprite_night = -1;
 	
 	set_tileset = function(_tileset) {
 		tileset = _tileset;
@@ -177,6 +181,24 @@ function LMTile(_tile_id) constructor {
 		if can_change then
 			draw_sprite(sMakerChangeIcon, 0, _x + 16, _y + 16);
 	}
+}
+
+function level_maker_get_tileset_layers() {
+	return [
+		layer_get_id("Tiles_Foreground"),
+		layer_get_id("Tiles_Background1"),
+		layer_get_id("Tiles_Background2"),
+		layer_get_id("Tiles_Background3")
+	];
+}
+
+function level_maker_get_asset_layers() {
+	return [
+		layer_get_id("Assets_Foreground"),
+		layer_get_id("Assets_Background1"),
+		layer_get_id("Assets_Background2"),
+		layer_get_id("Assets_Background3")
+	];
 }
 
 function level_maker_get_objects_list() {
@@ -273,8 +295,9 @@ function level_maker_get_tiles_list() {
 	var _tileset = undefined;
 	var _tiles_amount = 0; // the amount of tiles the matching tileset has
 	var _tile_changes_starts_from = 0;
+	var _animated_tiles = {};
 	var _pages = 1;
-	var c_tile_id = 0;
+	var _c_tile_id = 0;
 	
 	switch(oLevelMaker.selected_style) {
 		case LEVEL_STYLE.GRASS:
@@ -286,8 +309,30 @@ function level_maker_get_tiles_list() {
 		case LEVEL_STYLE.CLOUDS:
 			_tileset = tMakerCloudDay;
 			_pages = 4;
-			_tiles_amount = 61;
+			_tiles_amount = 62;
 			_tile_changes_starts_from = 37;
+			_animated_tiles = {
+				"_38": {
+					sprite_day: sAnimTileCloudCloudEdgeDay,
+					sprite_night: sAnimTileCloudCloudEdgeNight,
+				},
+				"_39": {
+					sprite_day: sAnimTileCloudCloudCenterDay,
+					sprite_night: sAnimTileCloudCloudCenterNight,
+				},
+				"_59": {
+					sprite_day: sAnimTileCloudStarDay1,
+					sprite_night: sAnimTileCloudStarNight1,
+				},
+				"_60": {
+					sprite_day: sAnimTileCloudStarDay2,
+					sprite_night: sAnimTileCloudStarNight2,
+				},
+				"_61": {
+					sprite_day: sAnimTileCloudStarDay3,
+					sprite_night: sAnimTileCloudStarNight3,
+				}
+			};
 			break;
 		case LEVEL_STYLE.FLOWERS:
 			_tileset = tMakerFlowerDay;
@@ -311,21 +356,29 @@ function level_maker_get_tiles_list() {
 	
 	for (var t = 0; t < _pages; t++) {
 		for (var p = 0; p < 16; p++) {
-			c_tile_id++
+			_c_tile_id++
 			
-			while c_tile_id == 0 {
-				c_tile_id++;
+			while _c_tile_id == 0 {
+				_c_tile_id++;
 			}
 			
-			if c_tile_id >= _tiles_amount {
+			if _c_tile_id >= _tiles_amount {
 				_tiles_list[t, p] = undefined;
 				continue;
 			}
 			
-			var _lmtile = new LMTile(c_tile_id);
+			var _lmtile = new LMTile(_c_tile_id);
+			var _struct_tile_name = "_" + string(_c_tile_id);
+			var _animated_tile = struct_read(_animated_tiles, _struct_tile_name, -1);
+			
+			if _animated_tile != -1 {
+				_lmtile.is_animated = true;
+				_lmtile.sprite_day = _animated_tile.sprite_day;
+				_lmtile.sprite_night = _animated_tile.sprite_night;
+			}
 			
 			_lmtile.set_tileset(_tileset);
-			_lmtile.can_change = c_tile_id >= _tile_changes_starts_from;
+			_lmtile.can_change = _c_tile_id >= _tile_changes_starts_from;
 			_tiles_list[t, p] = _lmtile;
 		}
 	}

@@ -74,6 +74,7 @@ list_positions_length = 16;
 tiles = level_maker_get_tiles_list();
 selected_tile = undefined;
 cursor_tile_hovering = undefined;
+animated_sprites_in_room = [];
 
 // Objects-related
 obj = level_maker_get_objects_list();
@@ -289,54 +290,39 @@ cursor_remove_tile_from_grid = function() {
 update_tilesets_by_style = function() {
 	if not instance_exists(oPause) then return;
 	
-	var layer_foreground = layer_get_id("Tiles_Foreground");
-	var layer_background1 = layer_get_id("Tiles_Background1");
-	var layer_background2 = layer_get_id("Tiles_Background2");
-	var layer_background3 = layer_get_id("Tiles_Background3");
+	var _layers = level_maker_get_tileset_layers();
 	
-	var tilemap_foreground = layer_tilemap_get_id(layer_foreground);
-	var tilemap_background1 = layer_tilemap_get_id(layer_background1);
-	var tilemap_background2 = layer_tilemap_get_id(layer_background2);
-	var tilemap_background3 = layer_tilemap_get_id(layer_background3);
-	
+	var _tilemaps = [];
 	var _tileset = undefined;
 	
-	switch(selected_style) {
-		case LEVEL_STYLE.GRASS:
-			_tileset = tMakerGrassDay;
-			tilemap_tileset(tilemap_foreground, _tileset);
-			tilemap_tileset(tilemap_background1, _tileset);
-			tilemap_tileset(tilemap_background2, _tileset);
-			tilemap_tileset(tilemap_background3, _tileset);
-			break;
-		case LEVEL_STYLE.CLOUDS:
-			_tileset = tMakerCloudDay;
-			tilemap_tileset(tilemap_foreground, _tileset);
-			tilemap_tileset(tilemap_background1, _tileset);
-			tilemap_tileset(tilemap_background2, _tileset);
-			tilemap_tileset(tilemap_background3, _tileset);
-			break;
-		case LEVEL_STYLE.FLOWERS:
-			_tileset = tMakerFlowerDay;
-			tilemap_tileset(tilemap_foreground, _tileset);
-			tilemap_tileset(tilemap_background1, _tileset);
-			tilemap_tileset(tilemap_background2, _tileset);
-			tilemap_tileset(tilemap_background3, _tileset);
-			break;
-		case LEVEL_STYLE.SPACE:
-			_tileset = tMakerSpaceDay;
-			tilemap_tileset(tilemap_foreground, _tileset);
-			tilemap_tileset(tilemap_background1, _tileset);
-			tilemap_tileset(tilemap_background2, _tileset);
-			tilemap_tileset(tilemap_background3, _tileset);
-			break;
-		case LEVEL_STYLE.DUNGEON:
-			_tileset = tMakerDungeonDay;
-			tilemap_tileset(tilemap_foreground, _tileset);
-			tilemap_tileset(tilemap_background1, _tileset);
-			tilemap_tileset(tilemap_background2, _tileset);
-			tilemap_tileset(tilemap_background3, _tileset);
-			break;
+	for (var i = 0; i < array_length(_layers); i++) {
+		var _layer = _layers[i];
+		
+		if _layer == -1 then continue;
+		
+		var _tilemap = layer_tilemap_get_id(_layer);
+		
+		if _tilemap == -1 then continue;
+		
+		switch(selected_style) {
+			case LEVEL_STYLE.GRASS:
+				_tileset = tMakerGrassDay;
+				break;
+			case LEVEL_STYLE.CLOUDS:
+				_tileset = tMakerCloudDay;
+				break;
+			case LEVEL_STYLE.FLOWERS:
+				_tileset = tMakerFlowerDay;
+				break;
+			case LEVEL_STYLE.SPACE:
+				_tileset = tMakerSpaceDay;
+				break;
+			case LEVEL_STYLE.DUNGEON:
+				_tileset = tMakerDungeonDay;
+				break;
+		}
+		
+		tilemap_tileset(_tilemap, _tileset);
 	}
 }
 
@@ -345,6 +331,10 @@ set_tile_manipulation = function() {
 		return;
 		
 	var _tile = selected_tile.tile_id;
+	
+	//if keyboard_check_pressed(ord("Z")) {
+	//	audio_play_sfx(sndPress, false, -5, 13);
+	//}
 	
 	// Rotate tile
 	if keyboard_check_pressed(ord("Z")) {
@@ -407,6 +397,18 @@ get_lmobject_from_list = function(_object_index) {
 			if type[p].index == _object_index then return type[p];
 		}
 	}
+}
+
+get_tile_from_list = function(_tile_id) {
+	for (var t = 0; t < array_length(tiles); t++) {
+		var type = tiles[t];
+		
+		for(var p = 0; p < array_length(type); p++) {
+			if type[p].tile_id == _tile_id then 
+				return type[p];
+		} 
+	}
+	return -1;
 }
 
 get_x_y_from_object_index = function(_object) {
@@ -663,12 +665,73 @@ object_of_type_exists_in_editor = function(_object_index) {
 	return false;
 }
 
+change_tiles_to_animated_sprites = function() {
+	var _tilesets_layers =  level_maker_get_tileset_layers();
+	var _assets_layers = level_maker_get_asset_layers();
+	
+	for(var _y = 0; _y < room_height; _y += 16) {
+		for(var _x = 0; _x < room_width; _x += 16) {
+			for(var i = 0; i < array_length(_tilesets_layers); i++) {
+				var _tileset_layer = _tilesets_layers[i];
+				
+				if _tileset_layer == -1 then continue;
+				
+				var _tilemap = layer_tilemap_get_id(_tileset_layer);
+				
+				if _tilemap == -1 then continue;
+				
+				var _tile = tilemap_get_at_pixel(_tilemap, _x, _y);
+				
+				if _tile <= 0 then continue;
+				
+				var _tile_on_list = get_tile_from_list(_tile);
+				
+				if _tile_on_list == -1 then continue;
+				if not _tile_on_list.is_animated then continue;
+				
+				var _asset_layer = _assets_layers[i];
+				
+				if _asset_layer == -1 then continue;
+
+				tilemap_set_at_pixel(_tilemap, 0, _x, _y);
+				
+				var _sprite_element = layer_sprite_create(_asset_layer, _x, _y, _tile_on_list.sprite_day);
+				
+				array_push(animated_sprites_in_room, {
+					asset_layer: _asset_layer,
+					tileset_layer: _tileset_layer,
+					tile_id: _tile_on_list.tile_id,
+					sprite_element: _sprite_element,
+					x: _x,
+					y: _y
+				});
+			}
+		}
+	}
+}
+
+change_animated_sprites_to_tiles = function() {
+	repeat(array_length(animated_sprites_in_room)) {
+		var _animated_sprite = array_pop(animated_sprites_in_room);
+		var _tilemap = layer_tilemap_get_id(_animated_sprite.tileset_layer);
+		var _sprite_element = _animated_sprite.sprite_element;
+		var _tile_id = _animated_sprite.tile_id;
+		var _x = _animated_sprite.x;
+		var _y = _animated_sprite.y;
+		
+		layer_sprite_destroy(_sprite_element);
+		tilemap_set_at_pixel(_tilemap, _tile_id, _x, _y);
+	}
+}
+
 start_level = function() {
-	audio_play_sfx(sndStarGame,false,-18.3,1)
 	hover_text = "";
-	
 	instance_destroy(oPause);
+	audio_play_sfx(sndStarGame, false, -18.3, 1);
 	
+	// =========================
+	// MUSIC SETTING
+	// =========================
 	switch (selected_style) {
 		case LEVEL_STYLE.GRASS:	
 			instance_create_layer(0, 0, "Instances", use_night_music ? o_grass_song_night : o_grass_song);
@@ -686,6 +749,15 @@ start_level = function() {
 			instance_create_layer(0, 0, "Instances", use_night_music ? o_dungeon_song_night : o_dungeon_song);
 			break;
 	}
+	
+	// =========================
+	// ANIMATED TILES PLACEMENT
+	// =========================
+	change_tiles_to_animated_sprites();
+	
+	// =========================
+	// OBJECTS PLACEMENT
+	// =========================
 	
 	// This will be used to determine which objects will be
 	// created first.
@@ -734,15 +806,14 @@ start_level = function() {
 				_in_world_y = round(_in_world_y);
 				
 				var _priority = 0;
-				var _layer_name = "";
+				var _layer_name = "Player_Instances";
 				
 				switch(_object.index) {
-					// THEY MUST BE THE LAST TO NOT BREAK THE STAR COUNTING.
+					// THEY MUST BE THE LAST TO BE CREATED IN ROOM TO NOT BREAK THE STAR COUNTING.
 					case oPlayer:
 					case oPlayerDir:
 					case oPlayerNeutral:
 						_priority = 0;
-						_layer_name = "Player_Instances";
 						break;
 						
 					case oStar:
@@ -752,7 +823,6 @@ start_level = function() {
 					case oMagicOrb:
 					case oGrayOrb:
 					case oBird:
-						_layer_name = "Player_Instances";
 						_priority = 1;
 						break;
 						
@@ -779,8 +849,6 @@ start_level = function() {
 					},
 					_priority
 				);
-				
-				//instance_create_layer(_in_world_x, _in_world_y, "Instances", _object.index, _object_var_struct);
 			}
 		}
 	}
@@ -821,7 +889,8 @@ end_level_and_return_to_editor = function() {
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
-	instance_create_layer(x,y,layer,oPause);
+	change_animated_sprites_to_tiles();
+	instance_create_layer(-16, -16, layer, oPause);
 	
 	// Reset day/night state
 	if instance_exists(oCamera) then
