@@ -332,6 +332,7 @@ set_tile_manipulation = function() {
 		
 	var _tile = selected_tile.tile_id;
 	
+	// Rotate tile
 	if keyboard_check_pressed(ord("Z")) {
 		audio_play_sfx(sndPress, false, -5, 13);
 		
@@ -366,11 +367,15 @@ set_tile_manipulation = function() {
 		_tile = _rotated_tile;
 	}
 	
-	// Mirror tile
+	// Flip/Mirror tile
 	if keyboard_check_pressed(ord("X")) {
 		audio_play_sfx(sndPress, false, -5, 13);
-		var _mirrored_tile = tile_set_mirror(_tile, not tile_get_mirror(_tile));
-		_tile = _mirrored_tile;
+		var _new_tile = _tile;
+		
+		image_xscale *= -1;
+		_new_tile = tile_set_mirror(_new_tile, not tile_get_mirror(_tile));
+		
+		_tile = _new_tile;
 	}
 	
 	selected_tile.tile_id = _tile;
