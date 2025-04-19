@@ -158,8 +158,7 @@ function LMObjectGrid(_top_left_x, _top_left_y, _object, _object_width, _object_
 
 function LMTile(_tile_id) constructor {
 	tile_id = _tile_id;
-	tile_frames_id = [];
-	tile_frames_fps = 8;
+	original_tile_id = _tile_id;
 	tileset = undefined;
 	
 	can_change = false;
@@ -172,13 +171,27 @@ function LMTile(_tile_id) constructor {
 		tileset = _tileset;
 	}
 	
+	set_is_animated = function(_is_animated) {
+		is_animated = _is_animated;
+	}
+	
+	set_can_change = function(_can_change) {
+		can_change = _can_change;
+	}
+	
+	set_animated_sprites = function(_sprite_day, _sprite_night) {
+		sprite_day = _sprite_day;
+		sprite_night = _sprite_night;
+	}
+	
 	set_tile_frames = function(_tile_frames_id) {
 		tile_frames_id = _tile_frames_id;
 	}
 	
-	draw_sprite_preview = function(_x, _y) {
+	draw_sprite_preview = function(_x, _y, _show_indicator = true) {
 		draw_tile(tileset, tile_id, 0, _x, _y);
-		if can_change then
+		
+		if can_change and _show_indicator then
 			draw_sprite(sMakerChangeIcon, 0, _x + 16, _y + 16);
 	}
 }
@@ -198,6 +211,16 @@ function level_maker_get_asset_layers() {
 		layer_get_id("Assets_Background1"),
 		layer_get_id("Assets_Background2"),
 		layer_get_id("Assets_Background3")
+	];
+}
+
+
+function level_maker_get_instances_layers() {
+	return [
+		layer_get_id("Instances_Foreground"),
+		layer_get_id("Instances_Background1"),
+		layer_get_id("Instances_Background2"),
+		layer_get_id("Instances_Background3")
 	];
 }
 
@@ -372,13 +395,12 @@ function level_maker_get_tiles_list() {
 			var _animated_tile = struct_read(_animated_tiles, _struct_tile_name, -1);
 			
 			if _animated_tile != -1 {
-				_lmtile.is_animated = true;
-				_lmtile.sprite_day = _animated_tile.sprite_day;
-				_lmtile.sprite_night = _animated_tile.sprite_night;
+				_lmtile.set_is_animated(true);
+				_lmtile.set_animated_sprites(_animated_tile.sprite_day, _animated_tile.sprite_night)
 			}
-			
 			_lmtile.set_tileset(_tileset);
-			_lmtile.can_change = _c_tile_id >= _tile_changes_starts_from;
+			_lmtile.set_can_change(_c_tile_id >= _tile_changes_starts_from);
+			
 			_tiles_list[t, p] = _lmtile;
 		}
 	}

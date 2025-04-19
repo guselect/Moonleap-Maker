@@ -83,11 +83,11 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 		draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, _new_y_scale, image_angle, c_white, alpha);
 	}
 } else {
-	//if cursor != LEVEL_CURSOR_TYPE.ERASER
-	//and is_cursor_inside_level 
-	//and instance_exists(oPause) {
-	//	var _tile = tiles[selected_object_type, selected_object_position];
-		
-	//	_tile.draw_sprite_preview(x, y);
-	//}
+	if cursor != LEVEL_CURSOR_TYPE.ERASER
+	and is_cursor_inside_level 
+	and instance_exists(oPause) {
+		draw_set_alpha(0.6);		
+		selected_tile.draw_sprite_preview(x, y, false);
+		draw_set_alpha(1);
+	}
 }
