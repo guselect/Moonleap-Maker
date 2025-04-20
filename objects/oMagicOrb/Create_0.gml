@@ -31,12 +31,8 @@ c_left    = place_meeting(x - 1, y, oSolid);
 c_right   = place_meeting(x + 1, y, oSolid);
 sticking = false
 
-sonx=0
-sony=0
-
-
-cooldown=0
-trueblack=false
+cooldown = 0;
+trueblack = false;
 
 if instance_exists(oLevelMaker) {
 	switch(oLevelMaker.selected_style) {
@@ -48,14 +44,7 @@ if instance_exists(oLevelMaker) {
 } else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
 	trueblack = true;
 }
+
 if instance_exists(oNeutralFlag) {
-	neutral = true
+	neutral = true;
 }
-
-/*
-var cu=self
-instance_create_layer(x-320,y,layer,oMagicOrbClone,{daddy:cu})
-instance_create_layer(x+320,y,layer,oMagicOrbClone,{daddy:cu})
-instance_create_layer(x,y+180,layer,oMagicOrbClone,{daddy:cu})
-instance_create_layer(x,y-180,layer,oMagicOrbClone,{daddy:cu})
-

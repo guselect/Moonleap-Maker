@@ -4,14 +4,13 @@
 - Rooms 60 to 63 were kept only as examples of how the levels in Moonleap were originally built.
 - The maker_mode=true setting in the oIntro causes the game go straight to the RoomMaker0
 
-- Some objects just didnt pause when oPause exists, thats a bug
-- oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
+- [DIDN'T FIND ANY OF THEM] Some objects just didnt pause when oPause exists, thats a bug
+- [OKAY!] oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
 - [DONE!] the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
-- Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
+- [DONE!] Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
 based on that they update their colors
-- oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
-- The plan is to eventually integrate Moonleap Maker into the Steam version of Moonleap, making it available as an option in the game menu
-
+- [FIXED] oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
+- [NICE!] The plan is to eventually integrate Moonleap Maker into the Steam version of Moonleap, making it available as an option in the game menu
 */
 
 // Input variables
@@ -35,7 +34,7 @@ objects_grid = []; // Grid where the objects inserted by player are.
 
 for(var _x = 0; _x < room_tile_width; _x++) {
 	for(var _y = 0; _y < room_tile_height; _y++) {
-		objects_grid[_x,_y] = -1;
+		objects_grid[_x, _y] = -1;
 	}	
 }
 

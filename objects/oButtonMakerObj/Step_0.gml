@@ -57,10 +57,10 @@ if is_active
 }
 
 scale = 1;
-if sprite_get_height(sprite_index) > 30 then scale = 0.5;
-if sprite_get_width(sprite_index) > 30 then scale = 0.5;
-if sprite_get_width(sprite_index) > 50 then scale = 0.4;
-if sprite_get_width(sprite_index) > 60 then scale = 0.3;
+//if sprite_get_height(sprite_index) > 30 then scale = 0.5;
+//if sprite_get_width(sprite_index) > 30 then scale = 0.5;
+//if sprite_get_width(sprite_index) > 50 then scale = 0.4;
+//if sprite_get_width(sprite_index) > 60 then scale = 0.3;
 
 switch(sprite_index) {
 	case sGemFly:

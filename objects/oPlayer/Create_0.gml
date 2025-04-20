@@ -1,4 +1,4 @@
-// ---------------------- NOTA IMPORTANTE ----------------------
+// ------------------------------------ NOTA IMPORTANTE ------------------------------------
 //
 // Nas fases, o jogador deve ser instanciado depois que as estrelas forem instanciadas.
 // Havia um problema no editor de níveis onde algumas estrelas eram instanciadas depois
@@ -6,24 +6,29 @@
 // O ideal é que o oPlayer seja criado na Room depois que as estrelas já forem criadas
 // para que a contagem de estrelas seja feita corretamente.
 //
-// -------------------------------------------------------------
+// -----------------------------------------------------------------------------------------
 
-changecount=0
-dsquash=false
-dwater=false
-shake=0
-white=0	gowhite=false //fade out on portal
-key=0
+enum PLAYER_MODE { LEAP, DIRECTION, NEUTRAL }
+enum PLAYER_STATE { IDLE = 10, RUN = 11, JUMP = 12, WIN = 13 }
+
 scr_inputcreate()
+changecount = 0;
+dsquash = false;
+dwater = false;
+shake = 0;
+white = 0;
+gowhite = false; // used to fade out on portal
+key = 0;
 
-cape=true
-birdstuck=false
-godmode=false
-neutral=false
+cape = true;
+birdstuck = false;
+godmode = false;
+neutral = false;
 jump_trigger = false;
-down_time=0
+down_time = 0;
 
 trueblack = false;
+
 if instance_exists(oLevelMaker) {
 	switch(oLevelMaker.selected_style) {
 		case LEVEL_STYLE.FLOWERS:
@@ -31,68 +36,57 @@ if instance_exists(oLevelMaker) {
 		case LEVEL_STYLE.DUNGEON:
 			trueblack = true; break;
 	}
-} else if instance_exists(oSpaceDay) or instance_exists(oFlowerDay)or instance_exists(oDunDay) {
+} else if instance_exists(oSpaceDay)
+or instance_exists(oFlowerDay)
+or instance_exists(oDunDay) {
 	trueblack = true;
 }
 
-if instance_exists(oNeutralFlag) 
-{neutral=true}
-//instance_create_layer(x,y,layer,oDust)
+if instance_exists(oNeutralFlag) {
+    neutral = true;
+}
 
-levelnumb=0
+levelnumb = 0;
+idletime = 0;
 
-idletime=0
+night = false;
 
-//virtual_key_add(0, 96, 48, 48, vk_left);
-//virtual_key_add(48, 96, 48, 48, vk_right);
-//virtual_key_add(120, 96, 120, 48, vk_space);
+on_ladder = false;
 
-night=false
+last_plat = 0;
+winwait = 60;
+grace_time = 0;
+grace_time_frames = 10;
 
-if instance_exists(oRoomTransition) {visible=false} else {visible=true}
-//Variables
-on_ladder=false
+hsp = 0; // velocidade horizontal
+vsp = 0; // velocidade vertical
+jumpspeed = 2.25;
+v_max = 1; // Velocidade máxima de movimento do personagem
+v_ace = 0.25; // Aceleração
+v_fric = 0.25; // Fricção
+grav = 0.125; // Gravidade
 
-last_plat=0
-winwait=60
-grace_time=0
-grace_time_frames=10
-hsp=0 //horizontal speed
-vsp=0 //vertical speed
-jumpspeed=2.25
-v_max=1//velocidade máxima do personagem
-v_ace=0.25  //velocidade da aceleração do personagem
-v_fric=0.25 //friction
-pick=0
-grav = 0.125;
+pick = 0;
+numb = 0;
 
-numb=0
-
-inv=0 //tempo de invencibil,diasdeda
-inv=true
-cling_time= 4.0
-move=1
+inv = 0 //tempo de invencibil,diasdeda
+inv = true;
+cling_time = 4.0;
+move = 1;
 sticking = true; 
 can_stick = false;
-flash=0
+flash = 0;
 squash = false;
-
-
-// new movement code
 
 jumped = false;
 landed = false;
-
-wall_target = 0;
-
+//wall_target = 0;
 was_on_ground = has_collided(0, 1);
 
 // Used for sub-pixel movement
 cx = 0;
 cy = 0;
 
-c_left    = place_meeting(x - 1, y, oSolid);
-c_right   = place_meeting(x + 1, y, oSolid);
 sticking = false
 
 // States
@@ -101,10 +95,11 @@ RUN       = 11;
 JUMP      = 12;
 WIN     = 13;
 
-state= IDLE
+mode = PLAYER_MODE.LEAP;
+state = PLAYER_STATE.IDLE;
 
-roomw=room_width
-roomh=room_height
+roomw = room_width;
+roomh = room_height;
 
 has_collected_bird = false;
 stars_collected = 0;
@@ -126,12 +121,12 @@ if room == Room58 {
 	stars_to_collect = 1;
 }
 
-idletime=0
+idletime = 0;
 
-timee=0
-glow=false
+//timee = 0;
+glow = false;
 
-mypar=self
+//mypar = self;
 
 ladder_list = ds_list_create();
 
@@ -154,6 +149,9 @@ else{
 	PlayerHappy=		sPlayerHappy	
 }
 
-if room=RoomFinal {night=oCamera.endnight}
+if room == RoomFinal {
+    night = oCamera.endnight
+}
 
-mask_index=sPlayerIdle
+mask_index = sPlayerIdle;
+visible = not instance_exists(oRoomTransition);

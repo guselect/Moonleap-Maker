@@ -7,14 +7,16 @@
 function has_collided(xx, yy, is_position_relative = true, included_objects = []) {
 	xx = (is_position_relative * x) + xx;
 	yy = (is_position_relative * y) + yy;
+
+    if xx < 0 then xx += room_width;
+    if xx > room_width then xx -= room_width;
+    if yy < 0 then yy += room_height;
+    if yy > room_height then yy += room_height;
 	
 	// Included objects collision checking
-	for (var i = 0; i < array_length(included_objects); i++) {
-		var included_object = included_objects[i]
-		if place_meeting(xx, yy, included_object) {
-			return true;
-		}
-	}
+	if place_meeting(xx, yy, included_objects) {
+        return true;
+    }
 	
 	// Platforms collision checking
 	var platform_list = ds_list_create();

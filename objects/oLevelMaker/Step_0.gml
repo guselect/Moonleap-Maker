@@ -48,13 +48,17 @@ is_cursor_inside_level = global.level_maker_mouse_x > 0
 	and global.level_maker_mouse_y > 0
 	and global.level_maker_mouse_y < 180;
 
-var _selected_object_sprite = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
+var _selected_object_sprite = -1;
 var _tile_scale = not is_undefined(selected_object) and selected_object.has_tag("grid_16") ? 2 : 1;
+
+if not is_undefined(selected_object) {
+    _selected_object_sprite = object_get_sprite(selected_object.index);
+}
 
 var _object_width = 1;
 var _object_height = 1;
-var _sprite_offset_x = sprite_get_xoffset(_selected_object_sprite) || 0;
-var _sprite_offset_y = sprite_get_yoffset(_selected_object_sprite) || 0;
+var _sprite_offset_x = _selected_object_sprite == -1 ? 0 : sprite_get_xoffset(_selected_object_sprite);
+var _sprite_offset_y = _selected_object_sprite == -1 ? 0 : sprite_get_yoffset(_selected_object_sprite);
 
 var _size = is_undefined(selected_object) ? [1, 1, 0, 0] : selected_object.get_size(tile_size, _object_width, _object_height);
 

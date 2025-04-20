@@ -89,7 +89,7 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	}
 	
 	has_tag = function(_tag) {
-		return array_find_index(tags, _tag) == -1 ? false : true;
+		return array_find_index_of_value(tags, _tag) == -1 ? false : true;
 	}
 	
 	/// @desc Gets the x and y position of the object's sprite origin depending of its origin type.
@@ -284,8 +284,8 @@ function level_maker_get_objects_list() {
 	_obj[2, 04] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
 	_obj[2, 05] =	new LMObject(oKey,				16, 16);
 	_obj[2, 06] =	new LMObject(oKeyDoor,			16, 16);
-	_obj[2, 07] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
-	_obj[2, 08] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
+	_obj[2, 07] =	new LMObject(oKeyTall,			16, 32).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
+	_obj[2, 08] =	new LMObject(oKeyDoorTall,		16, 32).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
 	_obj[2, 09] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
 	_obj[2, 10] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
 	_obj[2, 11] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);

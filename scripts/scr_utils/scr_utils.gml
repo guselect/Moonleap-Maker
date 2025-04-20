@@ -28,6 +28,21 @@ function struct_clone(_struct) {
     return _new_struct;
 }
 
+function current_room_is(_room) {
+    if not is_array(_room) {
+        return room == _room;
+    }
+
+    var _is_room = false;
+
+    for (var i = 0; i < array_length(_room) and not _is_room; i++) {
+        var __room = array_get(_room, i);
+    
+        _is_room = room == __room;
+    }
+    return _is_room;
+}
+
 function in_hub_view() {
 	var _x1 = min(oCamera.hubx,oCamera.hubx_prev);
 	var _y1 = min(oCamera.huby,oCamera.huby_prev);

@@ -1,7 +1,7 @@
 #macro LANG global.lang_strings[$ global.language]
 
 
-function array_find_index(_array, _value)
+function array_find_index_of_value(_array, _value)
 {
     var _i = 0;
     repeat(array_length(_array))

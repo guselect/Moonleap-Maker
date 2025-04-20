@@ -70,20 +70,26 @@ if oCamera.current_skin=5
 }
 
 
-if room=Room100
-{
-	if y>360 and y<720 {trueblack=false} else {trueblack=true}
-	}
+if room == Room100 {
+    trueblack = not (y > 360 and y < 720);
+	//if y>360 and y<720 {
+        //trueblack = false;
+    //} else {
+        //trueblack = true;
+    //} 
+}
 
 
 //PORTAL STUFF
-if gowhite=true
-{
-	var nearp= instance_nearest(x,y,oPortal)
-	white+=gowhite/4
-	grav=0
-	vsp=0
-	hsp=0
-	x=smooth_approach(x,nearp.x,0.1)
-	y=smooth_approach(y,nearp.y+6,0.1)
+if gowhite {
+	var nearp = instance_nearest(x, y, oPortal);
+
+	white += gowhite / 4;
+	grav = 0;
+	vsp = 0;
+	hsp = 0;
+	x = smooth_approach(x,nearp.x,0.1)
+	y = smooth_approach(y,nearp.y+6,0.1)
 }
+
+image_xscale = move;
