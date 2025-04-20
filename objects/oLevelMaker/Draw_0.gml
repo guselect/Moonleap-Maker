@@ -86,8 +86,12 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	if cursor != LEVEL_CURSOR_TYPE.ERASER
 	and is_cursor_inside_level 
 	and instance_exists(oPause) {
-		draw_set_alpha(0.6);		
-		selected_tile.draw_sprite_preview(x, y, false);
+		var _x = floor(x / tileset_size) * tileset_size;
+		var _y = floor(y / tileset_size) * tileset_size;
+		
+		draw_set_alpha(0.6);
+		selected_tile.draw_sprite_cursor(_x, _y);
 		draw_set_alpha(1);
+		draw_text(_x, _y, string(_x) + "," + string(_y))
 	}
 }

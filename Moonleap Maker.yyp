@@ -577,7 +577,6 @@
     {"id":{"name":"sSuperStar297","path":"sprites/sSuperStar297/sSuperStar297.yy",},"order":15,},
     {"id":{"name":"shake_gamepad","path":"scripts/shake_gamepad/shake_gamepad.yy",},"order":17,},
     {"id":{"name":"smooth_approach","path":"scripts/smooth_approach/smooth_approach.yy",},"order":18,},
-    {"id":{"name":"snap_to_json","path":"scripts/snap_to_json/snap_to_json.yy",},"order":0,},
     {"id":{"name":"sPlayerClimb2","path":"sprites/sPlayerClimb2/sPlayerClimb2.yy",},"order":0,},
     {"id":{"name":"sPlayerNeutralUI","path":"sprites/sPlayerNeutralUI/sPlayerNeutralUI.yy",},"order":0,},
     {"id":{"name":"sLadySun","path":"sprites/sLadySun/sLadySun.yy",},"order":10,},
@@ -1120,7 +1119,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sprites","folderPath":"folders/Libraries/GooglePlayServices Demo/Sprites.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"GooglePlayServices","folderPath":"folders/Libraries/GooglePlayServices.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Steamworks","folderPath":"folders/Libraries/Steamworks.yy","order":3,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Struct N' Array Parser","folderPath":"folders/Libraries/Struct N' Array Parser.yy","order":1,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"TweenGMX","folderPath":"folders/Libraries/TweenGMX.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Admin","folderPath":"folders/Libraries/TweenGMX/Admin.yy","order":1,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Docs","folderPath":"folders/Libraries/TweenGMX/Docs.yy","order":2,},
@@ -1232,6 +1230,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Silver.ttf","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"Steamworks_Extension_Documentation.html","CopyToMask":0,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"audio_data.json","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"snap_license.txt","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.3.85",

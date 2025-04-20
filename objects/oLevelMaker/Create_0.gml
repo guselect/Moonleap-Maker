@@ -74,6 +74,8 @@ list_positions_length = 16;
 tiles = level_maker_get_tiles_list();
 selected_tile = undefined;
 cursor_tile_hovering = undefined;
+tileset_size = 16;
+tiles_grid = [];
 animated_sprites_in_room = [];
 
 // Objects-related
@@ -115,8 +117,7 @@ update_selected_item = function() {
 	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 		selected_object = array_get(obj[selected_object_type], selected_object_position);
 	} else {
-		var _tile = array_get(tiles[selected_object_type], selected_object_position);
-		selected_tile = _tile;
+		selected_tile = array_get(tiles[selected_object_type], selected_object_position);
 	}
 }
 
@@ -247,9 +248,15 @@ cursor_create_tile_in_grid = function() {
 			return;
 		}
 		
-		var _tile_id = selected_tile.tile_id;
+		var _x = floor(x / tileset_size) * tileset_size;
+		var _y = floor(y / tileset_size) * tileset_size;
 		
-		tilemap_set_at_pixel(tilemap_id, selected_tile.tile_id, x, y);
+		var _tile_id = selected_tile.tile_id;
+		var _original_tile_id = selected_tile.tile_id;
+		
+		tilemap_set_at_pixel(tilemap_id, selected_tile.tile_id, _x, _y);
+		var _tile_grid = new LMTileGrid(_x, _y, _tile_id, _original_tile_id, layer_name);
+		array_push(tiles_grid, _tile_grid);
 		audio_play_sfx(snd_key2, false, -18.3, 20);
 		
 		repeat(3) {
@@ -280,11 +287,26 @@ cursor_remove_tile_from_grid = function() {
 		if tile_hover_cursor <= 0 then
 			return;
 		
-		tilemap_set_at_pixel(tilemap_id, 0, x, y);
+		var _x = floor(x / tileset_size) * tileset_size;
+		var _y = floor(y / tileset_size) * tileset_size;
+		var _tile_grid_index = -1;
 		
-		audio_play_sfx(snd_brokestone,false, -5, 15);
-		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+		for (var i = 0; i < array_length(tiles_grid) and _tile_grid_index == -1; i++) {
+			var _tile_grid = array_get(tiles_grid, i);
+			
+			if _x == _tile_grid.x and _y == _tile_grid.y {
+				_tile_grid_index = i;
+			}
+		}
+		
+		if _tile_grid_index >= 0 {
+			array_delete(tiles_grid, i, 1);
+			tilemap_set_at_pixel(tilemap_id, 0, _x, _y);
+			
+			audio_play_sfx(snd_brokestone,false, -5, 15);
+			instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+			instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+		}
 	}
 }
 
@@ -429,7 +451,7 @@ get_tile_from_list = function(_tile_id) {
 			var _tile = type[p];
 			if is_undefined(_tile) then continue;
 			
-			if _tile.tile_id == _tile_id then 
+			if _tile.original_tile_id == _tile_id then 
 				return _tile;
 		} 
 	}
@@ -711,9 +733,9 @@ change_tiles_to_animated_sprites = function() {
 				if _tile <= 0 then continue;
 				
 				var _original_tile = _tile;
-				_original_tile = tile_set_rotate(_original_tile, false);
-				_original_tile = tile_set_flip(_original_tile, false);
-				_original_tile = tile_set_mirror(_original_tile, false);
+				_original_tile = tile_set_flip(_tile, false);
+				_original_tile = tile_set_mirror(_tile, false);
+				_original_tile = tile_set_rotate(_tile, false);
 				
 				var _tile_on_list = get_tile_from_list(_original_tile);
 				
@@ -726,12 +748,12 @@ change_tiles_to_animated_sprites = function() {
 
 				tilemap_set_at_pixel(_tilemap, 0, _x, _y);
 				
-				var _angle = 0;
-				var _xscale = 1;
-				var _yscale = 1;
 				var _tile_rotate = tile_get_rotate(_tile);
 				var _tile_mirror = tile_get_mirror(_tile);
 				var _tile_flip = tile_get_flip(_tile);
+				var _angle = 0;
+				var _xscale = 1;
+				var _yscale = 1;
 				var _x_add = 8;
 				var _y_add = 8;
 				
@@ -762,6 +784,7 @@ change_tiles_to_animated_sprites = function() {
 					instance: _sprite_instance.id,
 					//sprite_element: _sprite_element,
 					tile_id: _tile_on_list.tile_id,
+					original_tile_id: _tile_on_list.original_tile_id,
 					x: _x,
 					y: _y,
 				});

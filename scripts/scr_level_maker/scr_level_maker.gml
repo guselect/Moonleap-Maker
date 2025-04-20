@@ -167,6 +167,10 @@ function LMTile(_tile_id) constructor {
 	sprite_day = -1;
 	sprite_night = -1;
 	
+	set_original_tile_id = function(_original_tile_id) {
+		original_tile_id = _original_tile_id;
+	}
+	
 	set_tileset = function(_tileset) {
 		tileset = _tileset;
 	}
@@ -189,11 +193,23 @@ function LMTile(_tile_id) constructor {
 	}
 	
 	draw_sprite_preview = function(_x, _y, _show_indicator = true) {
-		draw_tile(tileset, tile_id, 0, _x, _y);
+		draw_tile(tileset, original_tile_id, 0, _x, _y);
 		
 		if can_change and _show_indicator then
 			draw_sprite(sMakerChangeIcon, 0, _x + 16, _y + 16);
 	}
+	
+	draw_sprite_cursor = function(_x, _y, _show_indicator = true) {
+		draw_tile(tileset, tile_id, 0, _x, _y);
+	}
+}
+
+function LMTileGrid(_x, _y, _tile_id, _original_tile_id, _layer_name) constructor {
+	x = _x;
+	y = _y;
+	tile_id = _tile_id;
+	original_tile_id = _original_tile_id;
+	layer_name = _layer_name;
 }
 
 function level_maker_get_tileset_layers() {
@@ -390,7 +406,12 @@ function level_maker_get_tiles_list() {
 				continue;
 			}
 			
-			var _lmtile = new LMTile(_c_tile_id);
+			var _tile_id = _c_tile_id;
+			_tile_id = tile_set_rotate(_tile_id, false);
+			_tile_id = tile_set_mirror(_tile_id, false);
+			_tile_id = tile_set_flip(_tile_id, false);
+			
+			var _lmtile = new LMTile(_tile_id);
 			var _struct_tile_name = "_" + string(_c_tile_id);
 			var _animated_tile = struct_read(_animated_tiles, _struct_tile_name, -1);
 			
@@ -398,6 +419,7 @@ function level_maker_get_tiles_list() {
 				_lmtile.set_is_animated(true);
 				_lmtile.set_animated_sprites(_animated_tile.sprite_day, _animated_tile.sprite_night)
 			}
+			_lmtile.set_original_tile_id(_c_tile_id);
 			_lmtile.set_tileset(_tileset);
 			_lmtile.set_can_change(_c_tile_id >= _tile_changes_starts_from);
 			
