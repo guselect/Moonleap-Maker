@@ -87,9 +87,6 @@ if current_layer != LEVEL_CURRENT_LAYER.OBJECTS {
 // ------------------------------------
 // MOUSE ACTIONS
 // ------------------------------------
-
-// If not an eraser, switch between other two cursors.
-// Finger if there's an object selected. Cursor otherwise.
 if cursor != LEVEL_CURSOR_TYPE.ERASER then
 	cursor = LEVEL_CURSOR_TYPE.CURSOR;
 

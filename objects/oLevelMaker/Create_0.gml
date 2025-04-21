@@ -853,7 +853,6 @@ change_animated_sprites_to_tiles = function() {
 }
 
 start_level = function() {
-	set_hover_text("");
     mode = LEVEL_EDITOR_MODE.TESTING;
 	instance_destroy(oPause);
 	audio_play_sfx(sndStarGame, false, -18.3, 1);
@@ -994,9 +993,17 @@ start_level = function() {
 	with(oLevelMaker) {
 		scr_update_style();
 	}
+
+	// =========================
+	// EFFECTS ENABLING
+	// =========================
+    var _fx_dust = layer_get_id("FX_Dust");
+
+    layer_set_visible(_fx_dust, true);
 	
-	with (oBrokenStone)
-	{
+    level_maker_change_fx();
+
+	with(oBrokenStone) {
 		brokenright = instance_place(x+1,y,oBrokenStone)
 		brokenleft = instance_place(x-1,y,oBrokenStone)
 		brokenup = instance_place(x,y-1,oBrokenStone)
@@ -1017,6 +1024,7 @@ delete_all_objects_from_level = function() {
 
 end_level_and_return_to_editor = function() {
 	//destroy the "song"
+    
 	instance_destroy(o_music);
 	audio_stop_all()
 	
@@ -1038,13 +1046,19 @@ end_level_and_return_to_editor = function() {
 	instance_destroy(oKeyFollow2, false);
 	instance_destroy(oKeyFollow3, false);
 	
-	audio_play_sfx(snd_bump, false, 1, 1);
+    // Disable layer effects
+    var _fx_dust = layer_get_id("FX_Dust");
+
+    layer_set_visible(_fx_dust, false);
+
+    level_maker_change_fx();
+    audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
 }
 
 //CAMERA CODE
 
-oCamera.fancyeffects = false;
+oCamera.fancyeffects = true;
 
 camera_current_interpolation = 0;
 

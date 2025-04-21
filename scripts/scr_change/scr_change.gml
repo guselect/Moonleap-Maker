@@ -161,8 +161,38 @@ function scr_change() {
 		if night=true {fx_set_parameter(layerfx,"param_sprite",sDustHUB)} else {fx_set_parameter(layerfx,"param_sprite",sDustHUB)}
 		}
 	}
+    level_maker_change_fx();
 	}
 	if instance_exists(oBack) {oBack.image_index=oCamera.night}
+}
+
+function level_maker_change_fx() {
+    if not instance_exists(oLevelMaker) then return;
+
+    var _layer_fx = layer_get_id("FX_Dust");
+    var _fx = layer_get_fx(_layer_fx);
+    var _dust_sprite = sDUST;
+    var _is_night = oCamera.night;
+
+    switch(oLevelMaker.selected_style) {
+        case LEVEL_STYLE.GRASS:
+            _dust_sprite = _is_night ? sDustNight : sDUST;
+            break;
+        case LEVEL_STYLE.CLOUDS:
+            _dust_sprite = _is_night ? sDustNightClouds : sDUST;
+            break;
+        case LEVEL_STYLE.FLOWERS:
+            _dust_sprite = _is_night ? sDustNightFlower : sDustFlower;
+            break;
+        case LEVEL_STYLE.SPACE:
+            _dust_sprite = _is_night ? sDustNightSpace : sDustSpace;
+            break;
+        case LEVEL_STYLE.DUNGEON:
+            _dust_sprite = _is_night ? sDustNightDun : sDustDun;
+            break;
+    }
+
+    fx_set_parameter(_fx, "param_sprite", _dust_sprite);
 }
 
 function level_maker_change_tilesets() {
