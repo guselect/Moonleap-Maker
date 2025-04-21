@@ -4,6 +4,8 @@ item_preview_offset_x = smooth_approach(item_preview_offset_x, 0, 0.25);
 // If the level editor is not in use don't run any more code
 if !instance_exists(oPause) then exit;
 
+
+
 // This code is to prevent random misfiring clicks after you press the button to play the level again
 if just_entered_level_editor and mouse_check_button_released(mb_left) {
 	just_entered_level_editor = false;
@@ -22,16 +24,7 @@ scr_inputget();
 // ------------------------------------
 set_list_navigation();
 update_tilesets_by_style();
-//set_tilesets_alpha();
 
-var _button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, false);
-if _button != noone {
-    set_hover_text(_button.hover_text);
-} else {
-    set_hover_text("");
-}
-
-// sprite_index = object_get_sprite(selected_object.object)
 sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);
 cursor_object_hovering = selected_object;
 
@@ -97,9 +90,26 @@ if current_layer != LEVEL_CURRENT_LAYER.OBJECTS {
 
 // If not an eraser, switch between other two cursors.
 // Finger if there's an object selected. Cursor otherwise.
+if cursor != LEVEL_CURSOR_TYPE.ERASER then
+	cursor = LEVEL_CURSOR_TYPE.CURSOR;
+
+var _button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
+var _button_object = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMakerObj, false, true);
+
+if (_button != noone or _button_object != noone) and cursor != LEVEL_CURSOR_TYPE.ERASER {
+    cursor = LEVEL_CURSOR_TYPE.FINGER;
+}
+
+if _button != noone {
+    set_hover_text(_button.hover_text);
+} else {
+    set_hover_text("");
+}
+
 if cursor != LEVEL_CURSOR_TYPE.ERASER
-	and current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
-	cursor = object_grid_hovering != -1 ? LEVEL_CURSOR_TYPE.FINGER : LEVEL_CURSOR_TYPE.CURSOR;
+	and current_layer == LEVEL_CURRENT_LAYER.OBJECTS
+    and object_grid_hovering != -1
+	cursor = LEVEL_CURSOR_TYPE.FINGER;
 
 if test_button_cooldown > 0 {
 	test_button_cooldown -= 1;

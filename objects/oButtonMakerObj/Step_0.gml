@@ -37,12 +37,7 @@ if sprite_yoffset > 6 {
 	y = yy + 8;
 }
 
-if is_active 
-	and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32)
-	and oLevelMaker.cursor != LEVEL_CURSOR_TYPE.ERASER
-{
-	oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER;
-
+if is_active and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32) {
     if mouse_check_button_pressed(mb_left) {
         audio_play_sfx(sndUiChange, false, -18.3 ,1);
         with(oLevelMaker) {

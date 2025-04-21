@@ -1024,7 +1024,7 @@ end_level_and_return_to_editor = function() {
     with(oMakerEditorDraft) {
         remove_from_room();
     }
-	change_animated_sprites_to_tiles();
+
     mode = LEVEL_EDITOR_MODE.EDITING;
 	instance_create_layer(-16, -16, layer, oPause);
 	

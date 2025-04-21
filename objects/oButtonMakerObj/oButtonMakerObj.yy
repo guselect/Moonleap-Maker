@@ -35,6 +35,9 @@
     "name":"sButtonsMakerObj",
     "path":"sprites/sButtonsMakerObj/sButtonsMakerObj.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sButtonsMakerObj",
+    "path":"sprites/sButtonsMakerObj/sButtonsMakerObj.yy",
+  },
   "visible":true,
 }

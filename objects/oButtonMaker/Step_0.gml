@@ -52,17 +52,8 @@ switch (image_index) {
 
 var is_mouse_left_pressing = mouse_check_button_pressed(mb_left);
 var is_mouse_hover = collision_point(global.level_maker_mouse_x,global.level_maker_mouse_y,self,false,false);
-if is_mouse_hover {
-	with (oLevelMaker) {
-        if cursor != LEVEL_CURSOR_TYPE.ERASER {
-    		cursor = LEVEL_CURSOR_TYPE.FINGER;
-    	}
-    }
-
-	if (mouse_check_button(mb_left)) {
-		drawplus=2
-	}
-	
+if is_mouse_hover and mouse_check_button(mb_left) { 
+    drawplus = 2;
 } else {
 	holding = 0; 
 	is_mouse_left_pressing = false;
