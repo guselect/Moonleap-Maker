@@ -1,19 +1,17 @@
-/// @description Insert description here
-// You can write your code in this editor
-night=true
-ani=0
-hsp=0
-vsp=0
-grav=0.125
-hsp_plus=0
-flash=0
-scare=false
+enum ORB_MODE { NORMAL, NEUTRAL };
 
-colapproach=0
-if !audio_is_playing(sndPush){audio_play_sfx(sndPush,true,-17,0)}
+night = true;
+ani = 0;
+hsp = 0;
+vsp = 0;
+grav = 0.125;
+hsp_plus = 0;
+flash = 0;
+scare = false;
+mode = ORB_MODE.NORMAL;
+colapproach = 0;
 
-change=false
-// new movement code
+change = false;
 
 jumped = false;
 landed = false;
@@ -26,9 +24,6 @@ on_ground_var = has_collided(0, 1);
 // Used for sub-pixel movement
 cx = 0;
 cy = 0;
-
-c_left    = place_meeting(x - 1, y, oSolid);
-c_right   = place_meeting(x + 1, y, oSolid);
 sticking = false
 
 cooldown = 0;
@@ -47,4 +42,8 @@ if instance_exists(oLevelMaker) {
 
 if instance_exists(oNeutralFlag) {
 	neutral = true;
+}
+
+if not audio_is_playing(sndPush) {
+    audio_play_sfx(sndPush,true,-17,0)
 }

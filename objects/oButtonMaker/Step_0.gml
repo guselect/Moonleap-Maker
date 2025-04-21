@@ -1,16 +1,14 @@
-/// @description Insert description here
-
 scr_inputget();
 // You can write your code in this editor
-	drawx=random_range(-(holding),(holding))
-	drawy=random_range(-(holding),(holding))
-	drawtarget=0
+drawx=random_range(-(holding),(holding))
+drawy=random_range(-(holding),(holding))
+drawtarget=0
 
 //lerp play button position to be visible in play state
-if image_index=6 { //play button
+if image_index == 6 { //play button
 	
-	if instance_exists(oPause) //editor is opened 
-	{
+    //editor is opened
+	if instance_exists(oPause) { 
 		x = lerp(x,start_pos_x,.2);
 		y = lerp(y,start_pos_y,.2);
 		
@@ -25,52 +23,50 @@ if image_index=6 { //play button
 	}
 
 } else {
-	
-	if !instance_exists(oPause) {exit}
-
+	if not instance_exists(oPause) then exit
 }
 
+var stext = "";
+switch (image_index) {
+    case 1:  hover_text = LANG.maker_change_up;			break;
+    case 2:  hover_text = LANG.maker_change_down;		break;
+    case 3:  hover_text = LANG.maker_menu;				break;
+    case 4:  hover_text = LANG.maker_savemenu;			break;
+    case 5:  hover_text = LANG.maker_load;				break;
+    case 6:  hover_text = LANG.maker_play;				break;
+    case 7:  hover_text = LANG.maker_help;				break;
+    case 8: //get style text
+        switch (oLevelMaker.selected_style) {
+            case LEVEL_STYLE.GRASS:		stext = LANG.maker_grassstyle;		break;
+            case LEVEL_STYLE.CLOUDS:	stext = LANG.maker_cloudstyle;		break;
+            case LEVEL_STYLE.FLOWERS:	stext = LANG.maker_flowerstyle;		break;
+            case LEVEL_STYLE.SPACE:		stext = LANG.maker_spacestyle;		break;
+            case LEVEL_STYLE.DUNGEON:	stext = LANG.maker_dungeonstyle;	break;
+        }
+        hover_text = $"{LANG.maker_change_level_style}\n{stext}";
+        break;
+    case 9:  hover_text = LANG.maker_eraser; break;
+    case 10: hover_text = LANG.maker_erase_level; break;
+    case 11: hover_text = $"Change Layer:\n{level_maker_get_layer_hover_text()}"; break;
+}
 
 var is_mouse_left_pressing = mouse_check_button_pressed(mb_left);
 var is_mouse_hover = collision_point(global.level_maker_mouse_x,global.level_maker_mouse_y,self,false,false);
 if is_mouse_hover {
-	switch (image_index) {
-		case 1:  oLevelMaker.hover_text = LANG.maker_change_up;			break;
-		case 2:  oLevelMaker.hover_text = LANG.maker_change_down;		break;
-		case 3:  oLevelMaker.hover_text = LANG.maker_menu;				break;
-		case 4:  oLevelMaker.hover_text = LANG.maker_savemenu;			break;
-		case 5:  oLevelMaker.hover_text = LANG.maker_load;				break;
-		case 6:  oLevelMaker.hover_text = LANG.maker_play;				break;
-		case 7:  oLevelMaker.hover_text = LANG.maker_help;				break;
-		case 8: //get style text
-			switch (oLevelMaker.selected_style)
-			{
-				case LEVEL_STYLE.GRASS:		stext = LANG.maker_grassstyle;		break;
-				case LEVEL_STYLE.CLOUDS:	stext = LANG.maker_cloudstyle;		break;
-				case LEVEL_STYLE.FLOWERS:	stext = LANG.maker_flowerstyle;		break;
-				case LEVEL_STYLE.SPACE:		stext = LANG.maker_spacestyle;		break;
-				case LEVEL_STYLE.DUNGEON:	stext = LANG.maker_dungeonstyle;	break;
-			}
-			oLevelMaker.hover_text= LANG.maker_change_level_style +":\n"+ stext;
-			break;
-		case 9:  oLevelMaker.hover_text= LANG.maker_eraser;				break;
-		case 10: oLevelMaker.hover_text= LANG.maker_erase_level;		break;
-		case 11: oLevelMaker.hover_text= "Change Layer:\n" + string(level_maker_get_layer_hover_text());	break;
-	}
-	
-	if oLevelMaker.cursor != LEVEL_CURSOR_TYPE.ERASER {
-		oLevelMaker.cursor = LEVEL_CURSOR_TYPE.FINGER
-	}
-	
+	with (oLevelMaker) {
+        if cursor != LEVEL_CURSOR_TYPE.ERASER {
+    		cursor = LEVEL_CURSOR_TYPE.FINGER;
+    	}
+    }
+
 	if (mouse_check_button(mb_left)) {
 		drawplus=2
 	}
 	
 } else {
-	holding=0; 
-	is_mouse_left_pressing=false
+	holding = 0; 
+	is_mouse_left_pressing = false;
 }
-
 // =============================
 // ALL BUTTON FUNCTIONS
 // =============================
@@ -96,10 +92,14 @@ if image_index == 1 and (is_mouse_left_pressing or key_down or mouse_wheel_up())
 				selected_object_type -= 1;
 		}
 		
-		oButtonMakerObj.drawplus = -1
-		oLevelMaker.image_xscale = 1;
-		oLevelMaker.image_yscale = 1;
-		oLevelMaker.image_angle = 0;
+		oButtonMakerObj.drawplus = -1;
+
+        with(oLevelMaker) {
+            image_xscale = 1;
+            image_yscale = 1;
+            image_angle = 0;
+            update_current_item();
+        }
 	}
 }
 
@@ -121,9 +121,13 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 		}
 		
 		oButtonMakerObj.drawplus = 1
-		oLevelMaker.image_xscale = 1;
-		oLevelMaker.image_yscale = 1;
-		oLevelMaker.image_angle = 0;
+
+		with(oLevelMaker) {
+            image_xscale = 1;
+            image_yscale = 1;
+            image_angle = 0;
+            update_current_item();
+        }
 	}
 }
 
@@ -195,7 +199,9 @@ if image_index == 8 and is_mouse_left_pressing {
 			selected_style = 0;
 			
 		tiles = level_maker_get_tiles_list();
-		scr_update_style()
+
+		scr_update_style();
+        update_current_item();
 	}
 }
 
@@ -218,6 +224,7 @@ if image_index == 10 {
 	}
 }
 
+// Change layer
 if image_index == 11 and is_mouse_left_pressing {
 	play_sound_on_press();
 	
@@ -229,5 +236,7 @@ if image_index == 11 and is_mouse_left_pressing {
 		current_layer -= 1;
 		if current_layer < 0 then
 			current_layer = LEVEL_CURRENT_LAYER.BACKGROUND_3;
+
+        update_current_item();
 	}
 }

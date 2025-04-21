@@ -32,9 +32,9 @@
     {"name":"inst_7706DEF7","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_40922613","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_261B0AAB","path":"rooms/RoomMaker0/RoomMaker0.yy",},
-    {"name":"inst_1D46CD34","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_5EED01D","path":"rooms/RoomMaker0/RoomMaker0.yy",},
     {"name":"inst_188C669","path":"rooms/RoomMaker0/RoomMaker0.yy",},
+    {"name":"inst_1D46CD34","path":"rooms/RoomMaker0/RoomMaker0.yy",},
   ],
   "isDnd":false,
   "layers":[
@@ -220,10 +220,11 @@
           ],"resourceType":"GMREffectLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":false,},
         {"$GMRAssetLayer":"","%Name":"Assets_Background3","assets":[],"depth":2400,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Assets_Background3","properties":[],"resourceType":"GMRAssetLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
         {"$GMRTileLayer":"","%Name":"Tiles_Background3","depth":2500,"effectEnabled":true,"effectType":null,"gridX":32,"gridY":32,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"layers":[],"name":"Tiles_Background3","properties":[],"resourceType":"GMRTileLayer","resourceVersion":"2.0","tiles":{"SerialiseHeight":12,"SerialiseWidth":20,"TileCompressedData":[-240,-2147483648,],"TileDataFormat":1,},"tilesetId":{"name":"tMakerGrassDay","path":"tilesets/tMakerGrassDay/tMakerGrassDay.yy",},"userdefinedDepth":false,"visible":true,"x":0,"y":0,},
-        {"$GMRInstanceLayer":"","%Name":"Instances_Background3","depth":2600,"effectEnabled":true,"effectType":null,"gridX":8,"gridY":8,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
-            {"$GMRInstance":"v2","%Name":"inst_1D46CD34","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1D46CD34","objectId":{"name":"oMakerBack","path":"objects/oMakerBack/oMakerBack.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":0.0,},
-          ],"layers":[],"name":"Instances_Background3","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+        {"$GMRInstanceLayer":"","%Name":"Instances_Background3","depth":2600,"effectEnabled":true,"effectType":null,"gridX":8,"gridY":8,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[],"layers":[],"name":"Instances_Background3","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
       ],"name":"LayerGroup_Background3","properties":[],"resourceType":"GMRLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
+    {"$GMRInstanceLayer":"","%Name":"Maker_Background","depth":2700,"effectEnabled":true,"effectType":null,"gridX":8,"gridY":8,"hierarchyFrozen":false,"inheritLayerDepth":false,"inheritLayerSettings":false,"inheritSubLayers":true,"inheritVisibility":true,"instances":[
+        {"$GMRInstance":"v2","%Name":"inst_1D46CD34","colour":4294967295,"frozen":false,"hasCreationCode":false,"ignore":false,"imageIndex":0,"imageSpeed":1.0,"inheritCode":false,"inheritedItemId":null,"inheritItemSettings":false,"isDnd":false,"name":"inst_1D46CD34","objectId":{"name":"oMakerBack","path":"objects/oMakerBack/oMakerBack.yy",},"properties":[],"resourceType":"GMRInstance","resourceVersion":"2.0","rotation":0.0,"scaleX":1.0,"scaleY":1.0,"x":0.0,"y":0.0,},
+      ],"layers":[],"name":"Maker_Background","properties":[],"resourceType":"GMRInstanceLayer","resourceVersion":"2.0","userdefinedDepth":false,"visible":true,},
   ],
   "name":"RoomMaker0",
   "parent":{

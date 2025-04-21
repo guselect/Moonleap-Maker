@@ -1,6 +1,7 @@
 enum LEVEL_CURRENT_LAYER { FOREGROUND, OBJECTS, BACKGROUND_1, BACKGROUND_2, BACKGROUND_3 }
 enum LEVEL_CURSOR_TYPE { NOTHING, CURSOR, FINGER, ERASER }
 enum LEVEL_STYLE { GRASS, CLOUDS, FLOWERS, SPACE, DUNGEON,LENGTH }
+enum LEVEL_EDITOR_MODE { EDITING, TESTING }
 enum SPRITE_ORIGIN { TOP_LEFT, CENTER, BOTTOM, OFFSET5 }
 
 /// @description A "Level Maker Object" constructor. Use this as base to create
@@ -212,6 +213,10 @@ function LMTileGrid(_x, _y, _tile_id, _original_tile_id, _layer_name) constructo
 	layer_name = _layer_name;
 }
 
+function tile_get_transformed(_tile) {
+    
+}
+
 function level_maker_get_tileset_layers() {
 	return [
 		layer_get_id("Tiles_Foreground"),
@@ -297,7 +302,7 @@ function level_maker_get_objects_list() {
 	return _obj;
 }
 
-function level_maker_get_background_layer_name() {
+function level_maker_get_background_tile_layer_name() {
 	switch(oLevelMaker.current_layer) {
 		case LEVEL_CURRENT_LAYER.FOREGROUND:
 			return "Tiles_Foreground";
@@ -307,6 +312,21 @@ function level_maker_get_background_layer_name() {
 			return "Tiles_Background2";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
 			return "Tiles_Background3";
+		default:
+			return -1;
+	}
+}
+
+function level_maker_get_background_instances_layer_name() {
+	switch(oLevelMaker.current_layer) {
+		case LEVEL_CURRENT_LAYER.FOREGROUND:
+			return "Instances_Foreground";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
+			return "Instances_Background1";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
+			return "Instances_Background2";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
+			return "Instances_Background3";
 		default:
 			return -1;
 	}

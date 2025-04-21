@@ -1,3 +1,5 @@
+scr_inputcreate();
+
 xs = x;
 ys = y;
 level_name = "";
@@ -18,8 +20,7 @@ small_size = 20;
 
 drawplus=0
 drawtarget=0
-
-scr_inputcreate()
+hover_text = "";
 
 play_sound_on_press = function() {
 	audio_play_sfx(sndUiChange, false, -18.3, 1);

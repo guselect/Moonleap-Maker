@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":4,
   "parent":{
-    "name":"LevelMaker",
-    "path":"folders/Sprites/LevelMaker.yy",
+    "name":"Buttons UI",
+    "path":"folders/Sprites/LevelMaker/Buttons UI.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

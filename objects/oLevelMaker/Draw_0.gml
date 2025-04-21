@@ -56,11 +56,11 @@ if(instance_exists(oPause)) {
 }
 
 
-draw_set_color(c_white)
-draw_set_font(fntSmall)
+draw_set_color(c_white);
+draw_set_font(fntSmall);
 
 // Background
-draw_sprite(sPauseMaker,0,0,0)
+draw_sprite(sPauseMaker, 0, 0, 0);
 
 // Draw item preview on cursor
 if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
@@ -85,13 +85,14 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 } else {
 	if cursor != LEVEL_CURSOR_TYPE.ERASER
 	and is_cursor_inside_level 
+    and not is_undefined(selected_tile)
 	and instance_exists(oPause) {
 		var _x = floor(x / tileset_size) * tileset_size;
 		var _y = floor(y / tileset_size) * tileset_size;
-		
+
 		draw_set_alpha(0.6);
 		selected_tile.draw_sprite_cursor(_x, _y);
 		draw_set_alpha(1);
-		draw_text(_x, _y, string(_x) + "," + string(_y))
+		//draw_text(_x, _y, string(_x) + "," + string(_y))
 	}
 }

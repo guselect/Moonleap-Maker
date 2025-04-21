@@ -17,15 +17,19 @@ if just_entered_level_editor and mouse_check_button_released(mb_left) {
 // Only gets input if not paused
 scr_inputget();
 
-hover_text = "";
-
 // ------------------------------------
 // Selecting objects
 // ------------------------------------
 set_list_navigation();
-update_selected_item();
 update_tilesets_by_style();
 //set_tilesets_alpha();
+
+var _button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, false);
+if _button != noone {
+    set_hover_text(_button.hover_text);
+} else {
+    set_hover_text("");
+}
 
 // sprite_index = object_get_sprite(selected_object.object)
 sprite_index = is_undefined(selected_object) ? -1 : object_get_sprite(selected_object.index);

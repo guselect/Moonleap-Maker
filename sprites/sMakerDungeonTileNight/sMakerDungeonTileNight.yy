@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"LevelMaker",
-    "path":"folders/Sprites/LevelMaker.yy",
+    "name":"Tilesets",
+    "path":"folders/Sprites/LevelMaker/Tilesets.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -1,6 +1,7 @@
 index = image_index;
 object = undefined;
 tile = undefined;
+is_active = false;
 
 // UI
 drawplus = 0;

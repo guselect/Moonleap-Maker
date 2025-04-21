@@ -16,6 +16,8 @@ based on that they update their colors
 // Input variables
 scr_inputcreate()
 
+mode = LEVEL_EDITOR_MODE.EDITING;
+
 // User Level Config
 level_name = "";
 level_author_name = "";
@@ -87,6 +89,10 @@ object_grid_hovering = -1; // Object where cursor is above at.
 
 object_types_length = array_length(obj);
 
+set_hover_text = function(_hover_text) {
+    hover_text = _hover_text;
+}
+
 set_list_navigation = function() {
 	var ui_nav_x = key_right_pressed - key_left_pressed;
 	
@@ -112,12 +118,20 @@ set_list_navigation = function() {
 	selected_object = obj[selected_object_type, selected_object_position];
 }
 
-update_selected_item = function() {
-	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
-		selected_object = array_get(obj[selected_object_type], selected_object_position);
-	} else {
-		selected_tile = array_get(tiles[selected_object_type], selected_object_position);
-	}
+update_selected_object = function() {
+    selected_object = array_get(obj[selected_object_type], selected_object_position);
+}
+
+update_selected_tile = function() {
+    selected_tile = variable_clone(array_get(tiles[selected_object_type], selected_object_position));
+}
+
+update_current_item = function() {
+    if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+        update_selected_object();
+    } else {
+        update_selected_tile();
+    }
 }
 
 cursor_set_position = function() {
@@ -227,85 +241,115 @@ cursor_remove_object_from_grid = function() {
 cursor_create_tile_in_grid = function() {
 	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
 		return;
-		
-	if mouse_check_button(mb_left)
-		and cursor == LEVEL_CURSOR_TYPE.CURSOR
-		and not is_undefined(selected_tile)
-		and test_button_cooldown == 0
-	{
-		var layer_name = level_maker_get_background_layer_name();
-		var tilemap_id = layer_tilemap_get_id(layer_name);
-		
-		if tilemap_id == -1 {
-			show_debug_message("Tilemap_id not found or is incorrect. (Layer name: " + layer_name + ")");
-			return;
-		}
 
-		var tile_hover_cursor = tilemap_get_at_pixel(tilemap_id, x, y);
-		
-		if tile_hover_cursor > 0 {
-			return;
-		}
-		
-		var _x = floor(x / tileset_size) * tileset_size;
-		var _y = floor(y / tileset_size) * tileset_size;
-		
-		var _tile_id = selected_tile.tile_id;
-		var _original_tile_id = selected_tile.tile_id;
-		
-		tilemap_set_at_pixel(tilemap_id, selected_tile.tile_id, _x, _y);
-		var _tile_grid = new LMTileGrid(_x, _y, _tile_id, _original_tile_id, layer_name);
-		array_push(tiles_grid, _tile_grid);
-		audio_play_sfx(snd_key2, false, -18.3, 20);
-		
-		repeat(3) {
-			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-			
-			sm.image_xscale = 0.5;
-			sm.image_yscale = 0.5;
-		}
-	}
+    if not mouse_check_button(mb_left)
+    or cursor != LEVEL_CURSOR_TYPE.CURSOR
+    or is_undefined(selected_tile)
+    or test_button_cooldown > 0 {
+        return;
+    }
+
+    var _instance_layer_name = level_maker_get_background_instances_layer_name();
+    var _tileset_layer_name = level_maker_get_background_tile_layer_name();
+    var _tilemap_id = layer_tilemap_get_id(_tileset_layer_name);
+
+    if _tilemap_id == -1 then return;
+
+    var _x = floor(x / tileset_size) * tileset_size;
+    var _y = floor(y / tileset_size) * tileset_size;
+
+    var _existing_tile_draft_list = ds_list_create();
+    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _existing_tile_draft_list, true);
+
+    for (var i = 0; i < _existing_tile_draft_amount; i++) {
+        var _current_draft = ds_list_find_value(_existing_tile_draft_list, i);
+
+        if layer_get_name(_current_draft.layer) == _instance_layer_name {
+            ds_list_destroy(_existing_tile_draft_list);
+            return;
+        }
+    }
+
+    ds_list_destroy(_existing_tile_draft_list);
+
+    var _is_animated_sprite = selected_tile.is_animated;
+
+    // Cria um objeto de rascunho que será responsável por desenhar o tile na room
+    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorDraft);
+    _tile_draft.angle = image_angle;
+    _tile_draft.xscale = image_xscale;
+    _tile_draft.yscale = image_yscale;
+    _tile_draft.type = _is_animated_sprite ? DRAFT_TYPE.ANIMATED_TILE : DRAFT_TYPE.TILE;
+    _tile_draft.tile_id = selected_tile.original_tile_id;
+    _tile_draft.tileset = selected_tile.tileset;
+    _tile_draft.tilemap_id = _tilemap_id;
+    _tile_draft.is_rotated = tile_get_rotate(selected_tile.tile_id);
+    _tile_draft.is_mirrored = tile_get_mirror(selected_tile.tile_id);
+    _tile_draft.is_flipped = tile_get_flip(selected_tile.tile_id);
+
+    if _is_animated_sprite {
+        _tile_draft.layer_id = layer_get_id(_instance_layer_name);
+        _tile_draft.sprite_day = selected_tile.sprite_day;
+        _tile_draft.sprite_night = selected_tile.sprite_night;
+    }
+    
+    audio_play_sfx(snd_key2, false, -18.3, 20);
+    
+    repeat(3) {
+        var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+        sm.image_xscale = 0.5;
+        sm.image_yscale = 0.5;
+    }
 }
 
 cursor_remove_tile_from_grid = function() {
 	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
 		return;
 		
-	if ((not mouse_check_button(mb_left) and mouse_check_button(mb_right)
-		) or (mouse_check_button(mb_left) 
-			and cursor == LEVEL_CURSOR_TYPE.ERASER)
-	) {
-		var layer_name = level_maker_get_background_layer_name();
-		var tilemap_id = layer_tilemap_get_id(layer_name);
-		
-		if tilemap_id == -1 then
-			return;
-
-		var tile_hover_cursor = tilemap_get_at_pixel(tilemap_id, x, y);
-		
-		if tile_hover_cursor <= 0 then
-			return;
-		
+	if (not mouse_check_button(mb_left) and mouse_check_button(mb_right)) 
+    or (mouse_check_button(mb_left) and cursor == LEVEL_CURSOR_TYPE.ERASER) {
+		var _instance_layer_name = level_maker_get_background_instances_layer_name();
 		var _x = floor(x / tileset_size) * tileset_size;
 		var _y = floor(y / tileset_size) * tileset_size;
-		var _tile_grid_index = -1;
+        var _tile_draft_list = ds_list_create();
+        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _tile_draft_list, true);
+        var _tile_draft_to_remove = noone;
+
+        for (var i = 0; i < _tile_draft_amount and _tile_draft_to_remove == noone; i++) {
+            var _current_draft = ds_list_find_value(_tile_draft_list, i);
+    
+            if layer_get_name(_current_draft.layer) == _instance_layer_name {
+                _tile_draft_to_remove = _current_draft;
+            }
+        }
+
+        ds_list_destroy(_tile_draft_list);
+        
+        if _tile_draft_to_remove == noone {
+            return;
+        }
+
+        instance_destroy(_tile_draft_to_remove);
+
+        audio_play_sfx(snd_brokestone, false, -5, 15); 
+        repeat(2) {
+            instance_create_layer(x, y, "Instances_2", oBigSmoke);
+        }
+
+		//for (var i = 0; i < array_length(tiles_grid) and _tile_grid_index == -1; i++) {
+			//var _tile_grid = array_get(tiles_grid, i);
+			//
+			//if _x == _tile_grid.x and _y == _tile_grid.y {
+				//_tile_grid_index = i;
+			//}
+		//}
 		
-		for (var i = 0; i < array_length(tiles_grid) and _tile_grid_index == -1; i++) {
-			var _tile_grid = array_get(tiles_grid, i);
-			
-			if _x == _tile_grid.x and _y == _tile_grid.y {
-				_tile_grid_index = i;
-			}
-		}
-		
-		if _tile_grid_index >= 0 {
-			array_delete(tiles_grid, i, 1);
-			tilemap_set_at_pixel(tilemap_id, 0, _x, _y);
-			
-			audio_play_sfx(snd_brokestone,false, -5, 15);
-			instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-			instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
-		}
+		//if _tile_grid_index >= 0 {
+			//array_delete(tiles_grid, i, 1);
+			//tilemap_set_at_pixel(tilemap_id, 0, _x, _y);
+			//
+			//
+		//}
 	}
 }
 
@@ -809,7 +853,8 @@ change_animated_sprites_to_tiles = function() {
 }
 
 start_level = function() {
-	hover_text = "";
+	set_hover_text("");
+    mode = LEVEL_EDITOR_MODE.TESTING;
 	instance_destroy(oPause);
 	audio_play_sfx(sndStarGame, false, -18.3, 1);
 	
@@ -837,7 +882,10 @@ start_level = function() {
 	// =========================
 	// ANIMATED TILES PLACEMENT
 	// =========================
-	change_tiles_to_animated_sprites();
+	//change_tiles_to_animated_sprites();
+    with(oMakerEditorDraft) {
+        set_in_room();
+    }
 	
 	// =========================
 	// OBJECTS PLACEMENT
@@ -973,7 +1021,11 @@ end_level_and_return_to_editor = function() {
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
+    with(oMakerEditorDraft) {
+        remove_from_room();
+    }
 	change_animated_sprites_to_tiles();
+    mode = LEVEL_EDITOR_MODE.EDITING;
 	instance_create_layer(-16, -16, layer, oPause);
 	
 	// Reset day/night state
@@ -982,9 +1034,9 @@ end_level_and_return_to_editor = function() {
 	
 	// Destroy gimmicks that would persist on level editor after playtest
 	instance_destroy(oNeutralFlag);
-	instance_destroy(oKeyFollow);
-	instance_destroy(oKeyFollow2);
-	instance_destroy(oKeyFollow3);
+	instance_destroy(oKeyFollow, false);
+	instance_destroy(oKeyFollow2, false);
+	instance_destroy(oKeyFollow3, false);
 	
 	audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
@@ -1018,3 +1070,6 @@ place_object_in_object_grid(16, 12, get_lmobject_from_list(oPlayer));
 
 // star
 place_object_in_object_grid(22, 12, get_lmobject_from_list(oStar));
+
+update_selected_object();
+update_selected_tile();
