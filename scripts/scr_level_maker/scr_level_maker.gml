@@ -1,4 +1,4 @@
-enum LEVEL_CURRENT_LAYER { FOREGROUND, OBJECTS, BACKGROUND_1, BACKGROUND_2, BACKGROUND_3 }
+enum LEVEL_CURRENT_LAYER { FOREGROUND, OBJECTS, BACKGROUND_1, BACKGROUND_2, BACKGROUND_3, BACKGROUND_4 }
 enum LEVEL_CURSOR_TYPE { NOTHING, CURSOR, FINGER, ERASER, CANCEL }
 enum LEVEL_STYLE { GRASS, CLOUDS, FLOWERS, SPACE, DUNGEON,LENGTH }
 enum LEVEL_EDITOR_MODE { EDITING, TESTING }
@@ -222,7 +222,8 @@ function level_maker_get_tileset_layers() {
 		layer_get_id("Tiles_Foreground"),
 		layer_get_id("Tiles_Background1"),
 		layer_get_id("Tiles_Background2"),
-		layer_get_id("Tiles_Background3")
+		layer_get_id("Tiles_Background3"),
+		layer_get_id("Tiles_Background4")
 	];
 }
 
@@ -231,7 +232,8 @@ function level_maker_get_asset_layers() {
 		layer_get_id("Assets_Foreground"),
 		layer_get_id("Assets_Background1"),
 		layer_get_id("Assets_Background2"),
-		layer_get_id("Assets_Background3")
+		layer_get_id("Assets_Background3"),
+		layer_get_id("Assets_Background4")
 	];
 }
 
@@ -241,7 +243,8 @@ function level_maker_get_instances_layers() {
 		layer_get_id("Instances_Foreground"),
 		layer_get_id("Instances_Background1"),
 		layer_get_id("Instances_Background2"),
-		layer_get_id("Instances_Background3")
+		layer_get_id("Instances_Background3"),
+		layer_get_id("Instances_Background4")
 	];
 }
 
@@ -300,53 +303,6 @@ function level_maker_get_objects_list() {
 	_obj[2, 15] =	undefined;
 
 	return _obj;
-}
-
-function level_maker_get_background_tile_layer_name() {
-	switch(oLevelMaker.current_layer) {
-		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			return "Tiles_Foreground";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "Tiles_Background1";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "Tiles_Background2";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Tiles_Background3";
-		default:
-			return -1;
-	}
-}
-
-function level_maker_get_background_instances_layer_name() {
-	switch(oLevelMaker.current_layer) {
-		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			return "Instances_Foreground";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "Instances_Background1";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "Instances_Background2";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Instances_Background3";
-		default:
-			return -1;
-	}
-}
-
-function level_maker_get_layer_hover_text() {
-	switch(oLevelMaker.current_layer) {
-		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			return "Foreground";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "Background 1";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "Background 2";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Background 3";
-		case LEVEL_CURRENT_LAYER.OBJECTS:
-			return "Objects";
-		default:
-			return "Unknown";
-	}
 }
 
 function level_maker_get_tiles_list() {
@@ -448,4 +404,57 @@ function level_maker_get_tiles_list() {
 	}
 	
 	return _tiles_list;
+}
+
+function level_maker_get_background_tile_layer_name() {
+	switch(oLevelMaker.current_layer) {
+		case LEVEL_CURRENT_LAYER.FOREGROUND:
+			return "Tiles_Foreground";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
+			return "Tiles_Background1";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
+			return "Tiles_Background2";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
+			return "Tiles_Background3";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_4:
+			return "Tiles_Background4";
+		default:
+			return -1;
+	}
+}
+
+function level_maker_get_background_instances_layer_name() {
+	switch(oLevelMaker.current_layer) {
+		case LEVEL_CURRENT_LAYER.FOREGROUND:
+			return "Instances_Foreground";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
+			return "Instances_Background1";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
+			return "Instances_Background2";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
+			return "Instances_Background3";
+        case LEVEL_CURRENT_LAYER.BACKGROUND_4:
+			return "Instances_Background4";
+		default:
+			return -1;
+	}
+}
+
+function level_maker_get_layer_hover_text() {
+	switch(oLevelMaker.current_layer) {
+		case LEVEL_CURRENT_LAYER.FOREGROUND:
+			return "Foreground";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
+			return "Background 1";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
+			return "Background 2";
+		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
+			return "Background 3";
+        case LEVEL_CURRENT_LAYER.BACKGROUND_4:
+			return "Background 4";
+		case LEVEL_CURRENT_LAYER.OBJECTS:
+			return "Objects";
+		default:
+			return "Unknown";
+	}
 }

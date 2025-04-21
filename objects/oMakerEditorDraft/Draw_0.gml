@@ -8,9 +8,10 @@ if not is_in_editor() {
 switch(type) {
     case DRAFT_TYPE.TILE:
         var _tile = get_tile_transformed();
+        var _alpha = 1;
         
         draw_set_color(c_white);
-        draw_set_alpha(1);
+        draw_set_alpha(_alpha);
         draw_tile(tileset, _tile, 0, x, y);
         draw_set_color(-1);
         break;

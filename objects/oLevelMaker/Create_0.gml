@@ -335,21 +335,6 @@ cursor_remove_tile_from_grid = function() {
         repeat(2) {
             instance_create_layer(x, y, "Instances_2", oBigSmoke);
         }
-
-		//for (var i = 0; i < array_length(tiles_grid) and _tile_grid_index == -1; i++) {
-			//var _tile_grid = array_get(tiles_grid, i);
-			//
-			//if _x == _tile_grid.x and _y == _tile_grid.y {
-				//_tile_grid_index = i;
-			//}
-		//}
-		
-		//if _tile_grid_index >= 0 {
-			//array_delete(tiles_grid, i, 1);
-			//tilemap_set_at_pixel(tilemap_id, 0, _x, _y);
-			//
-			//
-		//}
 	}
 }
 
