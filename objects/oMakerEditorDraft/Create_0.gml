@@ -65,12 +65,12 @@ set_in_room = function() {
 
         case DRAFT_TYPE.ANIMATED_TILE:
             animated_tile_instance = instance_create_layer(x + 8, y + 8, layer_id, oMakerAnimatedTile);
-            animated_tile_instance.sprite_day = sprite_day;
-            animated_tile_instance.sprite_night = sprite_night;
             animated_tile_instance.sprite_index = sprite_day;
             animated_tile_instance.image_angle = angle;
             animated_tile_instance.image_xscale = xscale;
             animated_tile_instance.image_yscale = yscale;
+            animated_tile_instance.sprite_day = sprite_day;
+            animated_tile_instance.sprite_night = sprite_night;
             break;
 
         case DRAFT_TYPE.OBJECT:

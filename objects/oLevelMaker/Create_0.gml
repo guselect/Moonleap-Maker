@@ -983,8 +983,12 @@ start_level = function() {
 	// EFFECTS ENABLING
 	// =========================
     var _fx_dust = layer_get_id("FX_Dust");
+    var _fx_background_fog = layer_get_id("FX_Background_Fog");
 
     layer_set_visible(_fx_dust, true);
+
+    if selected_style == LEVEL_STYLE.DUNGEON then
+        layer_set_visible(_fx_background_fog, true);
 	
     level_maker_change_fx();
 
@@ -1033,8 +1037,10 @@ end_level_and_return_to_editor = function() {
 	
     // Disable layer effects
     var _fx_dust = layer_get_id("FX_Dust");
+    var _fx_background_fog = layer_get_id("FX_Background_Fog");
 
     layer_set_visible(_fx_dust, false);
+    layer_set_visible(_fx_background_fog, false);
 
     level_maker_change_fx();
     audio_play_sfx(snd_bump, false, 1, 1);

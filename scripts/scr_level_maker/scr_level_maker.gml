@@ -167,6 +167,9 @@ function LMTile(_tile_id) constructor {
 	
 	sprite_day = -1;
 	sprite_night = -1;
+
+    xscale = 1;
+    yscale = 1;
 	
 	set_original_tile_id = function(_original_tile_id) {
 		original_tile_id = _original_tile_id;
@@ -203,18 +206,6 @@ function LMTile(_tile_id) constructor {
 	draw_sprite_cursor = function(_x, _y, _show_indicator = true) {
 		draw_tile(tileset, tile_id, 0, _x, _y);
 	}
-}
-
-function LMTileGrid(_x, _y, _tile_id, _original_tile_id, _layer_name) constructor {
-	x = _x;
-	y = _y;
-	tile_id = _tile_id;
-	original_tile_id = _original_tile_id;
-	layer_name = _layer_name;
-}
-
-function tile_get_transformed(_tile) {
-    
 }
 
 function level_maker_get_tileset_layers() {
@@ -336,16 +327,16 @@ function level_maker_get_tiles_list() {
 					sprite_night: sAnimTileCloudCloudCenterNight,
 				},
 				"_59": {
-					sprite_day: sAnimTileCloudStarDay1,
-					sprite_night: sAnimTileCloudStarNight1,
+					sprite_day: sAnimTileCloudStar1Day,
+					sprite_night: sAnimTileCloudStar1Night,
 				},
 				"_60": {
-					sprite_day: sAnimTileCloudStarDay2,
-					sprite_night: sAnimTileCloudStarNight2,
+					sprite_day: sAnimTileCloudStar2Day,
+					sprite_night: sAnimTileCloudStar2Night,
 				},
 				"_61": {
-					sprite_day: sAnimTileCloudStarDay3,
-					sprite_night: sAnimTileCloudStarNight3,
+					sprite_day: sAnimTileCloudStar3Day,
+					sprite_night: sAnimTileCloudStar3Night,
 				}
 			};
 			break;
@@ -360,12 +351,40 @@ function level_maker_get_tiles_list() {
 			_pages = 4;
 			_tiles_amount = 53;
 			_tile_changes_starts_from = 34;
+            _animated_tiles = {
+                "_37": {
+                    sprite_day: sAnimTileSpaceCloudCenterDay,
+					sprite_night: sAnimTileSpaceCloudCenterNight,
+                },
+                "_38": {
+                    sprite_day: sAnimTileSpaceCloudEdgeDay,
+					sprite_night: sAnimTileSpaceCloudEdgeNight,
+                },
+                "_50": {
+                    sprite_day: sAnimTileSpaceStar1Day,
+					sprite_night: sAnimTileSpaceStar1Night,
+                },
+                "_51": {
+                    sprite_day: sAnimTileSpaceStar2Day,
+					sprite_night: sAnimTileSpaceStar2Night,
+                },
+                "_52": {
+                    sprite_day: sAnimTileSpaceStar3Day,
+					sprite_night: sAnimTileSpaceStar3Night,
+                },
+            }
 			break;
 		case LEVEL_STYLE.DUNGEON:
 			_tileset = tMakerDungeonDay;
 			_pages = 4;
 			_tiles_amount = 57;
 			_tile_changes_starts_from = 45;
+            _animated_tiles = {
+                "_56": {
+                    sprite_day: sAnimTileDunTochaDay,
+					sprite_night: sAnimTileDunTochaNight,
+                },
+            }
 			break;
 	}
 	
@@ -382,19 +401,15 @@ function level_maker_get_tiles_list() {
 				continue;
 			}
 			
-			var _tile_id = _c_tile_id;
-			_tile_id = tile_set_rotate(_tile_id, false);
-			_tile_id = tile_set_mirror(_tile_id, false);
-			_tile_id = tile_set_flip(_tile_id, false);
-			
-			var _lmtile = new LMTile(_tile_id);
-			var _struct_tile_name = "_" + string(_c_tile_id);
+			var _lmtile = new LMTile(_c_tile_id);
+			var _struct_tile_name = $"_{_c_tile_id}";
 			var _animated_tile = struct_read(_animated_tiles, _struct_tile_name, -1);
 			
 			if _animated_tile != -1 {
 				_lmtile.set_is_animated(true);
 				_lmtile.set_animated_sprites(_animated_tile.sprite_day, _animated_tile.sprite_night)
 			}
+
 			_lmtile.set_original_tile_id(_c_tile_id);
 			_lmtile.set_tileset(_tileset);
 			_lmtile.set_can_change(_c_tile_id >= _tile_changes_starts_from);
