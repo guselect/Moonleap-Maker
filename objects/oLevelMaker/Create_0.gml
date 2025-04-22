@@ -21,7 +21,7 @@ mode = LEVEL_EDITOR_MODE.EDITING;
 // User Level Config
 level_name = "";
 level_author_name = "";
-use_night_music = true;
+use_night_music = false;
 use_ranking_system = false;
 rank_S_change_max = 0;
 

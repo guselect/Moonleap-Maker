@@ -289,7 +289,7 @@ function level_maker_get_objects_list() {
 	_obj[2, 10] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
 	_obj[2, 11] =	new LMObject(oStarFly,			16, 16);
 	_obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
-	_obj[2, 13] =	new LMObject(oNope,             16, 16).add_tag("grid_16", "is_holdable");
+	_obj[2, 13] =	undefined; //new LMObject(oNope,             16, 16).add_tag("grid_16", "is_holdable");
 	_obj[2, 14] =	undefined;
 	_obj[2, 15] =	undefined;
 
