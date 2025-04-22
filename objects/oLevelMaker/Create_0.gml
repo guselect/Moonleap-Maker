@@ -24,9 +24,6 @@ level_author_name = "";
 use_night_music = true;
 use_ranking_system = false;
 rank_S_change_max = 0;
-rank_A_change_max = 0;
-rank_B_change_max = 0;
-rank_C_change_max = 0;
 
 // Grid-related
 tile_size = 8;
@@ -72,12 +69,10 @@ current_layer = LEVEL_CURRENT_LAYER.OBJECTS;
 list_positions_length = 16;
 
 // Tileset-related
-tiles = level_maker_get_tiles_list();
+tiles = level_maker_get_tiles_list(selected_style);
 selected_tile = undefined;
 cursor_tile_hovering = undefined;
 tileset_size = 16;
-tiles_grid = [];
-animated_sprites_in_room = [];
 
 // Objects-related
 obj = level_maker_get_objects_list();
@@ -738,103 +733,6 @@ object_of_type_exists_in_editor = function(_object_index) {
 	}
 	
 	return false;
-}
-
-change_tiles_to_animated_sprites = function() {
-	var _tilesets_layers =  level_maker_get_tileset_layers();
-	//var _assets_layers = level_maker_get_asset_layers();
-	var _instances_layers = level_maker_get_instances_layers();
-	
-	for(var _x = 0; _x < room_width; _x += 16) {
-		for(var _y = 0; _y < room_height; _y += 16) {
-			for(var i = 0; i < array_length(_tilesets_layers); i++) {
-				var _tileset_layer = _tilesets_layers[i];
-				
-				if _tileset_layer == -1 then continue;
-				
-				var _tilemap = layer_tilemap_get_id(_tileset_layer);
-				
-				if _tilemap == -1 then continue;
-				
-				var _tile = tilemap_get_at_pixel(_tilemap, _x, _y);
-				
-				if _tile <= 0 then continue;
-				
-				var _original_tile = _tile;
-				_original_tile = tile_set_flip(_tile, false);
-				_original_tile = tile_set_mirror(_tile, false);
-				_original_tile = tile_set_rotate(_tile, false);
-				
-				var _tile_on_list = get_tile_from_list(_original_tile);
-				
-				if _tile_on_list == -1 then continue;
-				if not _tile_on_list.is_animated then continue;
-				
-				var _instance_layer = _instances_layers[i];
-				
-				if _instance_layer == -1 then continue;
-
-				tilemap_set_at_pixel(_tilemap, 0, _x, _y);
-				
-				var _tile_rotate = tile_get_rotate(_tile);
-				var _tile_mirror = tile_get_mirror(_tile);
-				var _tile_flip = tile_get_flip(_tile);
-				var _angle = 0;
-				var _xscale = 1;
-				var _yscale = 1;
-				var _x_add = 8;
-				var _y_add = 8;
-				
-				if _tile_rotate {
-					_angle = 270;
-				}
-				
-				if _tile_mirror {
-					_xscale = -1;
-				}
-				
-				if _tile_flip {
-					_yscale = -1;
-				}
-				
-				var _sprite_instance = instance_create_layer(_x + _x_add, _y + _y_add, _instance_layer, oMakerAnimatedTile);
-				_sprite_instance.image_angle = _angle;
-				_sprite_instance.image_xscale = _xscale;
-				_sprite_instance.image_yscale = _yscale;
-				_sprite_instance.sprite_index = _tile_on_list.sprite_day;
-				_sprite_instance.sprite_day = _tile_on_list.sprite_day;
-				_sprite_instance.sprite_night = _tile_on_list.sprite_night;
-				
-				array_push(animated_sprites_in_room, {
-					//asset_layer: _asset_layer,
-					instance_layer: _instance_layer,
-					tileset_layer: _tileset_layer,
-					instance: _sprite_instance.id,
-					//sprite_element: _sprite_element,
-					tile_id: _tile_on_list.tile_id,
-					original_tile_id: _tile_on_list.original_tile_id,
-					x: _x,
-					y: _y,
-				});
-			}
-		}
-	}
-}
-
-change_animated_sprites_to_tiles = function() {
-	repeat(array_length(animated_sprites_in_room)) {
-		var _animated_sprite = array_pop(animated_sprites_in_room);
-		var _tilemap = layer_tilemap_get_id(_animated_sprite.tileset_layer);
-		//var _sprite_element = _animated_sprite.sprite_element;
-		var _instance = _animated_sprite.instance;
-		var _tile_id = _animated_sprite.tile_id;
-		var _x = _animated_sprite.x;
-		var _y = _animated_sprite.y;
-		
-		instance_destroy(_instance, false);
-		//layer_sprite_destroy(_sprite_element);
-		tilemap_set_at_pixel(_tilemap, _tile_id, _x, _y);
-	}
 }
 
 start_level = function() {

@@ -18,10 +18,6 @@ switch(type) {
         if sprite_index != -1 then
             draw_sprite_ext(sprite_index, image_index, x + 8, y + 8, xscale, yscale, angle, image_blend, image_alpha);
         break;
-    case DRAFT_TYPE.OBJECT:
-        var _sprite = object_get_sprite(object_asset);
-        draw_sprite_ext(_sprite, image_index, x, y, xscale, yscale, angle, image_blend, image_alpha);
-        break
 }
 
 //draw_set_color(-1);

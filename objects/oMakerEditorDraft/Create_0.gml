@@ -1,4 +1,4 @@
-enum DRAFT_TYPE { TILE, ANIMATED_TILE, OBJECT }
+enum DRAFT_TYPE { TILE, ANIMATED_TILE }
 
 type = DRAFT_TYPE.TILE;
 
@@ -16,17 +16,13 @@ is_rotated = false;
 is_mirrored = false;
 is_flipped = false;
 
-// Layer config for objects and animated tiles
+// Layer config for animated tiles
 layer_id = undefined;
 
 // Animated tile config
 sprite_day = -1;
 sprite_night = -1;
 animated_tile_instance = noone;
-
-// Object config
-object_asset = undefined;
-object_instance = noone;
 
 is_in_editor = function() {
     return instance_exists(oLevelMaker) and oLevelMaker.mode == LEVEL_EDITOR_MODE.EDITING;
@@ -72,13 +68,6 @@ set_in_room = function() {
             animated_tile_instance.sprite_day = sprite_day;
             animated_tile_instance.sprite_night = sprite_night;
             break;
-
-        case DRAFT_TYPE.OBJECT:
-            object_instance = instance_create_layer(x, y, layer_id, object_asset);
-            object_instance.image_angle = angle;
-            object_instance.image_xscale = xscale;
-            object_instance.image_yscale = yscale;
-            break;
     }
 }
 
@@ -89,9 +78,6 @@ remove_from_room = function() {
             break;
         case DRAFT_TYPE.ANIMATED_TILE:
             instance_destroy(animated_tile_instance, false);
-            break;
-        case DRAFT_TYPE.OBJECT:
-            instance_destroy(object_instance, false);
             break;
     }
 }

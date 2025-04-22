@@ -126,14 +126,14 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) and keyboard_check_pressed(ord("S")))) {
 	play_sound_on_press();
 	d_levelName = get_save_filename("*.moonlevel","mylevel");
-	if (d_levelName != "") then save_level(d_levelName);
+	if (d_levelName != "") then level_maker_save(d_levelName);
 }
 
 // Load level
  if image_index == 5 and is_mouse_left_pressing {
 	play_sound_on_press();
 	d_loadLevel = get_open_filename("*.moonlevel","mylevel");
-	if (d_loadLevel != "") then load_level(d_loadLevel);
+	if (d_loadLevel != "") then level_maker_load(d_loadLevel);
 }
 
 // Test
@@ -189,7 +189,7 @@ if image_index == 8 and is_mouse_left_pressing {
 		if selected_style >= LEVEL_STYLE.LENGTH then 
 			selected_style = 0;
 			
-		tiles = level_maker_get_tiles_list();
+		tiles = level_maker_get_tiles_list(selected_style);
 
 		scr_update_style();
         update_current_item();

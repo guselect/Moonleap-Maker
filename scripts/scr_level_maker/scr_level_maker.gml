@@ -296,7 +296,7 @@ function level_maker_get_objects_list() {
 	return _obj;
 }
 
-function level_maker_get_tiles_list() {
+function level_maker_get_tiles_list(_style) {
 	var _tiles_list = []; // result of the list
 	var _tileset = undefined;
 	var _tiles_amount = 0; // the amount of tiles the matching tileset has
@@ -305,7 +305,7 @@ function level_maker_get_tiles_list() {
 	var _pages = 1;
 	var _c_tile_id = 0;
 	
-	switch(oLevelMaker.selected_style) {
+	switch(_style) {
 		case LEVEL_STYLE.GRASS:
 			_tileset = tMakerGrassDay;
 			_pages = 4;
@@ -419,6 +419,10 @@ function level_maker_get_tiles_list() {
 	}
 	
 	return _tiles_list;
+}
+
+function level_maker_get_layers_at() {
+
 }
 
 function level_maker_get_background_tile_layer_name() {
