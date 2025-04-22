@@ -837,6 +837,18 @@ start_level = function() {
 					case oMagicOrb:
 					case oGrayOrb:
 					case oBird:
+					case oSnail:
+					case oSnailNight:
+					case oSnailGray:
+					case oBat:
+					case oBatGiant:
+					case oBatSuperGiant:
+					case oBatVer:
+					case oLady:
+					case oLadyGiant:
+					case oLadyGiant4:
+					case oLadyVer:
+					case oLadyGray:
 						_priority = 1;
 						break;
 						

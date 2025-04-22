@@ -203,7 +203,9 @@ function level_maker_load(_level_name) {
     		}
         }
 
-        if array_length(_level_tiles) > 0 {
+        if array_length(_level_tiles) > 0 { 
+            instance_destroy(oMakerEditorDraft);
+            
             for(var i = 0; i < array_length(_level_tiles); i++) {
                 var _loaded_tile = array_get(_level_tiles, i);
 
