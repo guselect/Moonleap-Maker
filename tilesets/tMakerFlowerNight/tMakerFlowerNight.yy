@@ -18,8 +18,8 @@
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"sMakerFlowerTileDay",
-    "path":"sprites/sMakerFlowerTileDay/sMakerFlowerTileDay.yy",
+    "name":"sMakerFlowerTileNight",
+    "path":"sprites/sMakerFlowerTileNight/sMakerFlowerTileNight.yy",
   },
   "spriteNoExport":true,
   "textureGroupId":{

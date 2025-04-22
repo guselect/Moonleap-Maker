@@ -701,6 +701,8 @@
     {"id":{"name":"sBackDun","path":"sprites/sBackDun/sBackDun.yy",},},
     {"id":{"name":"sBackFlower","path":"sprites/sBackFlower/sBackFlower.yy",},},
     {"id":{"name":"sBackGray","path":"sprites/sBackGray/sBackGray.yy",},},
+    {"id":{"name":"sBackLightDay","path":"sprites/sBackLightDay/sBackLightDay.yy",},},
+    {"id":{"name":"sBackLightNight","path":"sprites/sBackLightNight/sBackLightNight.yy",},},
     {"id":{"name":"sBackNight","path":"sprites/sBackNight/sBackNight.yy",},},
     {"id":{"name":"sBackSpace","path":"sprites/sBackSpace/sBackSpace.yy",},},
     {"id":{"name":"sBat","path":"sprites/sBat/sBat.yy",},},

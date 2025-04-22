@@ -201,169 +201,78 @@ function level_maker_change_tilesets() {
 	var _level_maker = instance_exists(oLevelMaker);
 	var _style = oLevelMaker.selected_style;
 	var _is_night = oCamera.night;
-	
+	var tilemap_id = -1;
+    var tileset = _is_night ? tMakerGrassNight : tMakerGrassDay;
 	var layer_foreground = layer_get_id("Tiles_Foreground");
 	var layer_background1 = layer_get_id("Tiles_Background1");
 	var layer_background2 = layer_get_id("Tiles_Background2");
 	var layer_background3 = layer_get_id("Tiles_Background3");
+	var layer_background4 = layer_get_id("Tiles_Background4");
 	
 	if instance_exists(oGrassDay) or _style == LEVEL_STYLE.GRASS {
-		var tilemap_id = -1;
-		var tileset = _is_night ? tMakerGrassNight : tMakerGrassDay;
-		
-		if layer_foreground != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_foreground);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background1 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background1);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background2 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background2);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background3 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background3);
-			tilemap_tileset(tilemap_id, tileset)
-		}
+		tileset = _is_night ? tMakerGrassNight : tMakerGrassDay;
 	} else if instance_exists(oCloudDay) or _style == LEVEL_STYLE.CLOUDS {
-		var tilemap_id = -1;
-		var tileset = _is_night ? tMakerCloudNight : tMakerCloudDay;
-		
-		if layer_foreground != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_foreground);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background1 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background1);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background2 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background2);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background3 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background3);
-			tilemap_tileset(tilemap_id, tileset)
-		}
+		tileset = _is_night ? tMakerCloudNight : tMakerCloudDay;
 	} else if instance_exists(oFlowerDay) or _style == LEVEL_STYLE.FLOWERS {
-		var tilemap_id = -1;
-		var tileset = _is_night ? tMakerFlowerNight : tMakerFlowerDay;
-		
-		if layer_foreground != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_foreground);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background1 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background1);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background2 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background2);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background3 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background3);
-			tilemap_tileset(tilemap_id, tileset)
-		}
+		tileset = _is_night ? tMakerFlowerNight : tMakerFlowerDay;
 	} else if instance_exists(oSpaceDay) or _style == LEVEL_STYLE.SPACE {
-		var tilemap_id = -1;
-		var tileset = _is_night ? tMakerSpaceNight : tMakerSpaceDay;
-		
-		if layer_foreground != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_foreground);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background1 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background1);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background2 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background2);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background3 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background3);
-			tilemap_tileset(tilemap_id, tileset)
-		}
+		tileset = _is_night ? tMakerSpaceNight : tMakerSpaceDay;
 	} else if instance_exists(oDunDay) or _style == LEVEL_STYLE.DUNGEON {
-		var tilemap_id = -1;
-		var tileset = _is_night ? tMakerDungeonNight : tMakerDungeonDay;
-		
-		if layer_foreground != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_foreground);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background1 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background1);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background2 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background2);
-			tilemap_tileset(tilemap_id, tileset)
-		}
-			
-		if layer_background3 != -1 {
-			tilemap_id = layer_tilemap_get_id(layer_background3);
-			tilemap_tileset(tilemap_id, tileset)
-		}
+		tileset = _is_night ? tMakerDungeonNight : tMakerDungeonDay;
 	}
+
+    if layer_foreground != -1 {
+        tilemap_id = layer_tilemap_get_id(layer_foreground);
+        tilemap_tileset(tilemap_id, tileset)
+    }
+        
+    if layer_background1 != -1 {
+        tilemap_id = layer_tilemap_get_id(layer_background1);
+        tilemap_tileset(tilemap_id, tileset)
+    }
+        
+    if layer_background2 != -1 {
+        tilemap_id = layer_tilemap_get_id(layer_background2);
+        tilemap_tileset(tilemap_id, tileset)
+    }
+        
+    if layer_background3 != -1 {
+        tilemap_id = layer_tilemap_get_id(layer_background3);
+        tilemap_tileset(tilemap_id, tileset)
+    }
+    
+    if layer_background4 != -1 {
+        tilemap_id = layer_tilemap_get_id(layer_background4);
+        tilemap_tileset(tilemap_id, tileset)
+    }
 }
 	
 function scr_change_orb(){ 
 
-		if instance_exists(oBat) {oBat.change=true}
-		if instance_exists(oKey) {oKey.change=true}
-		if instance_exists(oKeyDoor) {oKeyDoor.change=true}
-		if instance_exists(oBatVer) {oBatVer.change=true}
-		if instance_exists(oSpecial1) {oSpecial1.change=true}
+    if instance_exists(oBat) {oBat.change=true}
+    if instance_exists(oKey) {oKey.change=true}
+    if instance_exists(oKeyDoor) {oKeyDoor.change=true}
+    if instance_exists(oBatVer) {oBatVer.change=true}
+    if instance_exists(oSpecial1) {oSpecial1.change=true}
 
-
-//music_align()
-audio_play_sfx(snd_switch,false,-20.4,13)
-//if instance_exists(oBat) or instance_exists(oBatVer) {container_play( "SfxBatMove")}
+    audio_play_sfx(snd_switch,false,-20.4,13)
+    
 	if instance_exists(oPlayer) {oPlayer.glow=true}
 		
-		if oCamera.night=true
-		{
+		if oCamera.night=true {
 			oReactParent.night=false
-			
-			//oDust.sprite_index=sDUST
 
 			with (oParentDay)   {ani=2 image_index=0 night=false}
 			with (oSnail)		{ani=3}
 			with (oSnailNight)  {ani=3}
 			with (oParentNight) {ani=2 image_index=2 night=false}
-		}
-		else
-		{
-			
+		} else {
 			oReactParent.night=true
-			//oDust.sprite_index=sDustNight
 
 			with (oParentDay)   {ani=2 image_index=2 night=false}
 			with (oSnail)		{ani=3}
 			with (oSnailNight)  {ani=3}
 			with (oParentNight) {ani=2 image_index=0 night=false}
-			
-			
-			
-		
 			//if levelnumb<10 { oDust.sprite_index=sDustNight } else { oDust.sprite_index=sDustNightClouds }
 		}
 		

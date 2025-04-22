@@ -492,6 +492,8 @@
     {"name":"sBackDun","order":29,"path":"sprites/sBackDun/sBackDun.yy",},
     {"name":"sBackFlower","order":2,"path":"sprites/sBackFlower/sBackFlower.yy",},
     {"name":"sBackGray","order":29,"path":"sprites/sBackGray/sBackGray.yy",},
+    {"name":"sBackLightDay","order":36,"path":"sprites/sBackLightDay/sBackLightDay.yy",},
+    {"name":"sBackLightNight","order":37,"path":"sprites/sBackLightNight/sBackLightNight.yy",},
     {"name":"sBackNight","order":35,"path":"sprites/sBackNight/sBackNight.yy",},
     {"name":"sBackSpace","order":22,"path":"sprites/sBackSpace/sBackSpace.yy",},
     {"name":"sBat","order":2,"path":"sprites/sBat/sBat.yy",},
