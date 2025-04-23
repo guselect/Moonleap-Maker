@@ -634,4 +634,36 @@ if instance_exists(oMush) {
 			dust.vsp = vsp / random_range(5, 10);
 		}
 	}
+
+	if (abs(nearmush.image_angle) == 180)
+	and place_meeting(x,y,nearmush)
+    and vsp < 0 {
+		if not nearmush.gray {
+			scr_change();
+		}
+		
+		y = nearmush.y;
+		nearmush.image_speed = 1;
+		grace_time = 0;
+		
+		if instance_exists(oMagicOrb)
+        and not nearmush.gray {
+			oMagicOrb.vsp = (jumpspeed + 0.65)
+		} else {
+			vsp = (jumpspeed + 0.65)
+		}
+		
+		image_index = 0;
+		
+		var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
+		audio_play_sfx(sfxcogu, false, -16, 2);
+	
+		//Partículas
+		shake_gamepad(0.4, 2);
+		repeat(random_range(3, 5)) {
+			var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
+			dust.hsp = hsp / random_range(5,10);
+			dust.vsp = vsp / random_range(5,10);
+		}
+	}
 }
