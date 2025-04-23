@@ -1,5 +1,11 @@
 {
   "FolderOrderSettings":[
+    {"name":"GooglePlayServices Demo","order":1,"path":"folders/Libraries/GooglePlayServices Demo.yy",},
+    {"name":"GooglePlayServices","order":2,"path":"folders/Libraries/GooglePlayServices.yy",},
+    {"name":"SnowState","order":8,"path":"folders/Libraries/SnowState.yy",},
+    {"name":"Steamworks","order":3,"path":"folders/Libraries/Steamworks.yy",},
+    {"name":"TweenGMX","order":4,"path":"folders/Libraries/TweenGMX.yy",},
+    {"name":"YoYo Extensions Assets","order":5,"path":"folders/Libraries/YoYo Extensions Assets.yy",},
     {"name":"AnimatedTiles","order":1,"path":"folders/Sprites/LevelMaker/AnimatedTiles.yy",},
     {"name":"Dungeon","order":2,"path":"folders/Sprites/LevelMaker/AnimatedTiles/Dungeon.yy",},
     {"name":"Space","order":1,"path":"folders/Sprites/LevelMaker/AnimatedTiles/Space.yy",},
@@ -9,7 +15,7 @@
   "ResourceOrderSettings":[
     {"name":"EaseHeartbeat","order":1,"path":"animcurves/EaseHeartbeat/EaseHeartbeat.yy",},
     {"name":"EaseMidSlow","order":2,"path":"animcurves/EaseMidSlow/EaseMidSlow.yy",},
-    {"name":"window_command_hook","order":9,"path":"extensions/window_command_hook/window_command_hook.yy",},
+    {"name":"window_command_hook","order":7,"path":"extensions/window_command_hook/window_command_hook.yy",},
     {"name":"fntSmall","order":1,"path":"fonts/fntSmall/fntSmall.yy",},
     {"name":"font_console","order":2,"path":"fonts/font_console/font_console.yy",},
     {"name":"Font_YoYo_20","order":1,"path":"fonts/Font_YoYo_20/Font_YoYo_20.yy",},
@@ -386,6 +392,7 @@
     {"name":"Script6","order":10,"path":"scripts/Script6/Script6.yy",},
     {"name":"shake_gamepad","order":17,"path":"scripts/shake_gamepad/shake_gamepad.yy",},
     {"name":"smooth_approach","order":18,"path":"scripts/smooth_approach/smooth_approach.yy",},
+    {"name":"SnowState","order":1,"path":"scripts/SnowState/SnowState.yy",},
     {"name":"TGMX_0_MainTweens","order":2,"path":"scripts/TGMX_0_MainTweens/TGMX_0_MainTweens.yy",},
     {"name":"TGMX_1_EasyTweens","order":3,"path":"scripts/TGMX_1_EasyTweens/TGMX_1_EasyTweens.yy",},
     {"name":"TGMX_2_EaseFunctions","order":4,"path":"scripts/TGMX_2_EaseFunctions/TGMX_2_EaseFunctions.yy",},
@@ -400,7 +407,7 @@
     {"name":"TGMX_System","order":1,"path":"scripts/TGMX_System/TGMX_System.yy",},
     {"name":"wave","order":21,"path":"scripts/wave/wave.yy",},
     {"name":"shd_pal_swapper","order":3,"path":"shaders/shd_pal_swapper/shd_pal_swapper.yy",},
-    {"name":"bgm_carma_de_setembro","order":8,"path":"sounds/bgm_carma_de_setembro/bgm_carma_de_setembro.yy",},
+    {"name":"bgm_carma_de_setembro","order":6,"path":"sounds/bgm_carma_de_setembro/bgm_carma_de_setembro.yy",},
     {"name":"bgm_clouds_night","order":2,"path":"sounds/bgm_clouds_night/bgm_clouds_night.yy",},
     {"name":"bgm_dungeon_night","order":14,"path":"sounds/bgm_dungeon_night/bgm_dungeon_night.yy",},
     {"name":"bgm_dungeon","order":13,"path":"sounds/bgm_dungeon/bgm_dungeon.yy",},

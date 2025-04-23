@@ -35,7 +35,7 @@ if debug {
 
 if instance_exists(oPlayer)
 and instance_exists(oTransition)
-and oPlayer.state == PLAYER_STATE.WIN {
+and oPlayer.state.state_is("win") {
     smoothnight = approach(smoothnight, 0, 20);
 }
 

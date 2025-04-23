@@ -47,4 +47,4 @@ if sprite_index == PlayerClimb and cape {
 
 pal_swap_reset()
 
-//draw_text(bbox_right, bbox_bottom, $"{x},{y}");
+draw_text(bbox_right, bbox_bottom, $"{image_speed},{image_index}");

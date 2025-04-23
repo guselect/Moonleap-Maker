@@ -1,1 +1,0 @@
-//draw_text_shadow(10, 10, string(stars_collected) + "/" + string(stars_to_collect), 2, 1, make_color_rgb(0, 0, 72));

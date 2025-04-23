@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":1,
   "conversionMode":0,
-  "duration":0.144833,
+  "duration":0.14485261,
   "name":"sfx_cloud_02",
   "parent":{
     "name":"Lipinho (gamefile)",

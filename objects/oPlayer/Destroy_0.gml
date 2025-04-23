@@ -1,5 +1,3 @@
-
-
 var sfxdeath = choose(
     sfx_luano_death_pause_01,
     sfx_luano_death_pause_02,

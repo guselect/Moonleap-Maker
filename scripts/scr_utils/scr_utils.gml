@@ -28,19 +28,45 @@ function struct_clone(_struct) {
     return _new_struct;
 }
 
-function current_room_is(_room) {
-    if not is_array(_room) {
-        return room == _room;
+function room_is(_room_or_room_array) {
+    if not is_array(_room_or_room_array) {
+        return room == _room_or_room_array;
     }
 
-    var _is_room = false;
-
-    for (var i = 0; i < array_length(_room) and not _is_room; i++) {
-        var __room = array_get(_room, i);
+    for (var i = 0; i < array_length(_room_or_room_array); i++) {
+        var _current_room = array_get(_room_or_room_array, i);
     
-        _is_room = room == __room;
+        if room == _current_room then return true;
     }
-    return _is_room;
+
+    return false;
+}
+
+function audio_is_playing_any(_audio_array) {
+    for (var i = 0; i < array_length(_audio_array); i++) {
+        var _audio = array_get(_audio_array, i);
+    
+        if audio_is_playing(_audio) then return true;
+    }
+
+    return false;
+}
+
+function instance_exists_any(_instance_array) {
+    for (var i = 0; i < array_length(_instance_array); i++) {
+        var _instance = array_get(_instance_array, i);
+    
+        if instance_exists(_instance) then return true;
+    }
+
+    return false;
+}
+
+function object_set_room_wrapping() {
+    if x < 0 then x += room_width; 
+    if x > room_width then x -= room_width;
+    if y < 0 then y += room_height;
+    if y > room_height then y -= room_height;
 }
 
 function in_hub_view() {
