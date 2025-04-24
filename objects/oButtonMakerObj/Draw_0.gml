@@ -27,10 +27,10 @@ switch (oLevelMaker.current_layer) {
 		break;
 	default:
 		if not is_undefined(tile) and tile != 0
-			tile.draw_sprite_preview(x, y + drawplus);
+			tile.draw_sprite_preview(x - 8, y - 8 + drawplus);
 		
 		if global.settings.filter and tile.can_change then
-			draw_sprite(sColorBlind, 0, xstart, ystart + drawplus);
+			draw_sprite(sColorBlind, 0, x - 8, y - 8 + drawplus);
 		break;
 }
 
