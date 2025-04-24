@@ -122,6 +122,11 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 	}
 }
 
+if image_index == 3 and is_mouse_left_pressing {
+	play_sound_on_press();
+	global.settings.filter = not global.settings.filter;
+}
+
 // Save level
 if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) and keyboard_check_pressed(ord("S")))) {
 	play_sound_on_press();

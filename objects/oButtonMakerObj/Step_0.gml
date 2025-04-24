@@ -23,20 +23,15 @@ if oLevelMaker.current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	sprite_index = -1;
 }
 
-mask_index = sButtonsMakerObj;
-
 xx = round(xstart - 8)
 yy = round(ystart - 8)
 
-x = xx;
-y = yy;
-
 if sprite_xoffset > 6 {
-	x = xx + 8;
+	xx += 8;
 }
 
 if sprite_yoffset > 6 {
-	y = yy + 8;
+	yy += 8;
 }
 
 if is_active and point_in_rectangle(global.level_maker_mouse_x,global.level_maker_mouse_y,xstart-12,ystart-32,xstart+12,ystart+32) {
@@ -58,16 +53,15 @@ scale = 1;
 switch(sprite_index) {
 	case sGemFly:
 	case sGemGrayUI:
-		y = yy + 3;
+		yy += 3;
 		break;
 	case sBird:
-		y = yy + 16;
+		yy += 8;
 		break;
 	case sTestDay:
 	case sTestNight:
-		y = yy;
-		x = xx;
-		scale = 1;
+		xx -= 8;
+		yy -= 8;
 		break;
 }
 

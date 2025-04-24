@@ -176,7 +176,9 @@ cursor_get_object_from_grid = function() {
 }
 
 cursor_create_object_in_grid = function(_tile_x, _tile_y) {
-	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
+	or is_undefined(selected_object) then
 		return;
 	
 	if (mouse_check_button_released(mb_left) 
@@ -218,7 +220,8 @@ cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 }
 
 cursor_remove_object_from_grid = function() {
-	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
 		return;
 	
 	if (mouse_check_button(mb_right) 

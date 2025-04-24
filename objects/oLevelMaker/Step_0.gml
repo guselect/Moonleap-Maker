@@ -103,7 +103,8 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	
 	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS
 	and object_grid_hovering != -1 {
-		_cursor = selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
+		_cursor = not is_undefined(selected_object) 
+					and selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
 	}
 	
 	cursor = _cursor;
