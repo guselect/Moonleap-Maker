@@ -155,23 +155,24 @@ cursor_set_position = function() {
 }
 
 cursor_get_object_from_grid = function() {
-	if not is_cursor_inside_level or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
+	or not mouse_check_button_pressed(mb_left)
+	or cursor != LEVEL_CURSOR_TYPE.FINGER
+	or not is_struct(object_grid_hovering)
+	or selected_object.has_tag("is_holdable") then
 		return;
 	
-	if mouse_check_button_pressed(mb_left) 
-		and cursor == LEVEL_CURSOR_TYPE.FINGER 
-		and is_struct(object_grid_hovering)
-	{
-		var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
+	var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
 				
-		selected_object_type = _obj_pos[0];
-		selected_object_position = _obj_pos[1];
-		image_xscale = object_grid_hovering.xscale;
-		image_yscale = object_grid_hovering.yscale;
-		image_angle = object_grid_hovering.angle;
+	selected_object_type = _obj_pos[0];
+	selected_object_position = _obj_pos[1];
+	image_xscale = object_grid_hovering.xscale;
+	image_yscale = object_grid_hovering.yscale;
+	image_angle = object_grid_hovering.angle;
 		
-		remove_object_from_grid(object_grid_hovering);
-	}
+	remove_object_from_grid(object_grid_hovering);
+	update_selected_object();
 }
 
 cursor_create_object_in_grid = function(_tile_x, _tile_y) {
