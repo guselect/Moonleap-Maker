@@ -9,7 +9,6 @@
 // -----------------------------------------------------------------------------------------
 
 enum PLAYER_MODE { LEAP, DIRECTION, NEUTRAL }
-enum PLAYER_STATE { IDLE = 10, RUN = 11, JUMP = 12, WIN = 13 }
 
 scr_inputcreate()
 changecount = 0;
@@ -25,7 +24,6 @@ birdstuck = false;
 godmode = false;
 neutral = false;
 jump_trigger = false;
-down_time = 0;
 
 trueblack = false;
 
@@ -47,7 +45,14 @@ if instance_exists(oNeutralFlag) {
 }
 
 levelnumb = 0;
+
+// Timer to perform the sit animation.
 idletime = 0;
+idletime_max = 20;
+
+// Timer to perform the skin changing.
+skin_change_timer = 0;
+skin_change_timer_max = 30;
 
 night = false;
 
@@ -68,8 +73,6 @@ grav = 0.125; // Gravidade
 
 numb = 0;
 
-inv = 0 //tempo de invencibil,diasdeda
-inv = true;
 cling_time = 4.0;
 move = 1;
 sticking = true; 
@@ -78,25 +81,14 @@ flash = 0;
 squash = false;
 ghost = false;
 
-jumped = false;
-landed = false;
-//wall_target = 0;
 was_on_ground = has_collided(0, 1);
 
-// Used for sub-pixel movement
 cx = 0;
 cy = 0;
 
 sticking = false
 
-// States
-//IDLE      = 10;
-//RUN       = 11;
-//JUMP      = 12;
-//WIN     = 13;
-
 mode = PLAYER_MODE.LEAP;
-//state = PLAYER_STATE.IDLE;
 
 roomw = room_width;
 roomh = room_height;
@@ -121,12 +113,7 @@ if room == Room58 {
 	stars_to_collect = 1;
 }
 
-idletime = 0;
-
-//timee = 0;
 glow = false;
-
-//mypar = self;
 
 ladder_list = ds_list_create();
 
@@ -153,85 +140,81 @@ if room == RoomFinal {
 mask_index = sPlayerIdle;
 visible = not instance_exists(oRoomTransition);
 
-state = new SnowState("idle");
+// -------------------------------------
+// PLAYER STATES CONFIGURATION
+// -------------------------------------
 
+state = new SnowState("idle");
 // Idle state
 state.add("idle", {
-    enter: function() {
-        idletime = 0;
-        sprite_index = PlayerIdle;
-    },
-    step: function() {
-        idletime += 0.01;
-    
-        if idletime >= 20 {
-				image_index = 0;
-            sprite_index = PlayerSit;
-        }
+	enter: function() {
+		sprite_index = PlayerIdle;
+	},
+	step: function() {
+		set_idle_timer();
 
-        check_change_by_direction();
-        set_movement_and_gravity();
-        set_jump();
-        set_animation_speed();
-        //set_footstep_sound();
-        set_game_paused();
-        set_rope_swinging();
-        
-        check_collected_stars();
-        check_destroy_itself();
+		check_change_by_direction();
+		set_movement_and_gravity();
+		set_jump();
+		set_animation_speed();
+		set_game_paused();
+		set_rope_swinging();
+		
+		check_destroy_itself();
 
-        check_ceiling_collision();
-        check_ladder_collision();
-        check_day_night_spikes_collision();
-        check_snail_spike_collision();
-        check_wall_squash_collision();
-        check_star_collision();
-        check_perma_spike_collision();
-        check_mushroom_collision();
-    }
+		check_ceiling_collision();
+		check_ladder_collision();
+		check_day_night_spikes_collision();
+		check_snail_spike_collision();
+		check_wall_squash_collision();
+		check_star_collision();
+		check_perma_spike_collision();
+		check_mushroom_collision();
+	},
+	leave: function() {
+		idletime = 0;
+	}
 });
 
 // Run state
 state.add("run", {
-    enter: function() {
-        sprite_index = PlayerRun;
-    },
-    step: function() {
-        check_change_by_direction();
-        set_movement_and_gravity();
-        set_jump();
-        set_animation_speed();
-        set_footstep_sound();
-        set_rope_swinging();
+	enter: function() {
+		sprite_index = PlayerRun;
+	},
+	step: function() {
+		check_change_by_direction();
+		
+		set_movement_and_gravity();
+		set_jump();
+		set_animation_speed();
+		set_footstep_sound();
+		set_rope_swinging();
         
-        check_collected_stars();
-        check_destroy_itself();
+		check_destroy_itself();
 
-        check_ceiling_collision();
-        check_ladder_collision();
-        check_day_night_spikes_collision();
-        check_snail_spike_collision();
-        check_wall_squash_collision();
-        check_star_collision();
-        check_perma_spike_collision();
-        check_mushroom_collision();
-    }
+		check_ceiling_collision();
+		check_ladder_collision();
+		check_day_night_spikes_collision();
+		check_snail_spike_collision();
+		check_wall_squash_collision();
+		check_star_collision();
+		check_perma_spike_collision();
+		check_mushroom_collision();
+	}
 });
 
 // Jump state
 state.add("jump", {
-   enter: function() {
-      sprite_index = on_ladder ? PlayerClimb : PlayerJump;
-   },
+	enter: function() {
+	   sprite_index = on_ladder ? PlayerClimb : PlayerJump;
+	},
 	step: function() {
 		check_change_by_direction();
 		set_movement_and_gravity();
 		set_jump();
 		set_animation_speed();
-		//set_footstep_sound();
 		set_rope_swinging();
-        
-		check_collected_stars();
+
 		check_destroy_itself();
 
 		sprite_index = on_ladder ? PlayerClimb : PlayerJump;
@@ -249,27 +232,38 @@ state.add("jump", {
 
 // Win state
 state.add("win", {
-    enter: function() {
-			sprite_index = PlayerHappy;
-    },
-    step: function() {
-			set_movement_and_gravity();
-			set_animation_speed();
-			set_game_paused();
-			set_rope_swinging();
-		  
-			check_collected_stars();
+	enter: function() {
+		sprite_index = PlayerHappy;
+		with (oPermaSpike) {
+		   var _solid = instance_create_layer(x, y, layer, oSolid);
+		   _solid.x = x;
+		   _solid.image_xscale = image_xscale;
+		   _solid.image_yscale = image_yscale;
+		   _solid.visible = false;
+		}
+	},
+	step: function() {
+		set_movement_and_gravity();
+		set_animation_speed();
+		set_game_paused();
+		set_rope_swinging();
 
-			check_ceiling_collision();
-			check_ladder_collision();
-			check_day_night_spikes_collision();
-			check_snail_spike_collision();
-			check_wall_squash_collision();
-			check_star_collision();
-			check_perma_spike_collision();
-			check_mushroom_collision();
-	 }
+		perform_win();
+
+		check_ceiling_collision();
+		check_ladder_collision();
+		check_day_night_spikes_collision();
+		check_snail_spike_collision();
+		check_wall_squash_collision();
+		check_star_collision();
+		check_perma_spike_collision();
+		check_mushroom_collision();
+	}
 });
+
+// ---- State transitions ----
+// Transitions help making one or more states changing to another even easier.
+// They will be executed if their function's returned value is true.
 
 state.add_transition("t_tr", ["idle", "jump"], "run", function() {
 	return has_collided(0, 1) and (key_right or key_left)
@@ -282,6 +276,21 @@ state.add_transition("t_tr", ["idle", "run"], "jump", function() {
 state.add_transition("t_tr", ["run", "jump"], "idle", function() {
 	return has_collided(0, 1) and not (key_right or key_left);
 });
+
+state.add_transition("t_tr", ["idle", "run", "jump"], "win", function() {
+	return stars_collected == stars_to_collect;
+});
+
+// -------------------------------------
+// PLAYER METHOD FUNCTIONS
+// -------------------------------------
+
+set_idle_timer = function() {
+	idletime = min(idletime + 0.01, idletime_max);
+	if idletime >= idletime_max {
+		sprite_index = PlayerSit;
+	}
+}
 
 set_movement_and_gravity = function() {
 	// Wall cling to avoid accidental push-off
@@ -308,9 +317,6 @@ set_movement_and_gravity = function() {
 	// Left 
 	if key_left and not key_right and not sticking {
 	   move = -1;
-	   //state = PLAYER_STATE.RUN;
-		state.change("run");
-      
 	   if hsp > -v_max {
 	      hsp = approach(hsp, -v_max, v_ace);
 	   }
@@ -318,9 +324,6 @@ set_movement_and_gravity = function() {
 	// Right
 	} else if key_right and not key_left and not sticking {
 	   move = 1;
-	   //state = PLAYER_STATE.RUN;
-		state.change("run");        
-        
 		if hsp < v_max { 
 	      hsp = approach(hsp, v_max, v_ace);
 	   }
@@ -331,8 +334,6 @@ set_movement_and_gravity = function() {
 	// Friction
 	if not key_right and not key_left {
 	   hsp = approach(hsp, 0, v_fric);
-	   //state = PLAYER_STATE.IDLE;
-		state.change("idle");
 	}
     
     // Vertical movement
@@ -379,206 +380,218 @@ set_godmode_movement = function() {
 }
 
 set_jump = function() {
-    if not key_jump_pressed
-    or key_down
-    or place_meeting(x, y, oLadderParent)
-    or has_collided(0, -2) {
-        return;
-    }
+	if not key_jump_pressed
+	or key_down
+	or place_meeting(x, y, oLadderParent)
+	or has_collided(0, -2) {
+	   return;
+	}
 
-    if vsp > -1 {
-        // Go up a bit higher from oParentDay & oParentNight
-        // to not collide with spikes while jumping and changing.
-        // day/night state.
-        if not night {
-            var _parent_night = instance_place(x, y + 6, oParentNight);
-            if _parent_night != noone {
-                y += _parent_night.bbox_top - (y + 10); //é 10 porque sprite_height/2=9
+	if vsp > -1 {
+	   // Go up a bit higher from oParentDay & oParentNight
+	   // to not collide with spikes while jumping and changing.
+	   // day/night state.
+	   if not night {
+	      var _parent_night = instance_place(x, y + 6, oParentNight);
+	      if _parent_night != noone {
+	            y += _parent_night.bbox_top - (y + 10); //é 10 porque sprite_height/2=9
                 
-                if not place_meeting(x, y, oNope) 
-                and not state.state_is("win")
-                and not godmode {
-                    instance_destroy();
-                } 
-            }
-        } else {
-            var _parent_day = instance_place(x, y + 6, oParentDay);
-            if _parent_day != noone { 
-                y += _parent_day.bbox_top - (y + 10);
+	            if not place_meeting(x, y, oNope) 
+	            and not state.state_is("win")
+	            and not godmode {
+	               instance_destroy();
+	            } 
+	      }
+	   } else {
+	      var _parent_day = instance_place(x, y + 6, oParentDay);
+	      if _parent_day != noone { 
+	            y += _parent_day.bbox_top - (y + 10);
 
-                if not place_meeting(x, y, oNope) 
-                and not state.state_is("win")
-                and not godmode {
-                    instance_destroy();
-                } 
-            }
-        }
+	            if not place_meeting(x, y, oNope) 
+	            and not state.state_is("win")
+	            and not godmode {
+	               instance_destroy();
+	            } 
+	      }
+	   }
     
-        var _solid = instance_place(x, y + 6, oSolid);
+	   var _solid = instance_place(x, y + 6, oSolid);
     
-        if place_meeting(x, y + 8, oPlatGhost) and not place_meeting(x, y, oPlatGhost) {
-            _solid = instance_place(x, y + 6, oPlatGhost);
-        }
+	   if place_meeting(x, y + 8, oPlatGhost) and not place_meeting(x, y, oPlatGhost) {
+	      _solid = instance_place(x, y + 6, oPlatGhost);
+	   }
 
-        if _solid != noone {
-            if not place_meeting(x, y + 6, oRamp) {
-                grace_time = 2;
-                y += _solid.bbox_top - (y + 10)
-            }
+	   if _solid != noone {
+	      if not place_meeting(x, y + 6, oRamp) {
+	            grace_time = 2;
+	            y += _solid.bbox_top - (y + 10)
+	      }
             
-            // Don't jump but stick to the floor, this prevents a gamebreaker bug
-            if key > 0 and (place_meeting(x,y + 6, oKeyDoor) 
-                or place_meeting(x,y + 6,oKeyDoorTall) 
-                or place_meeting(x,y + 6,oKeyDoorWide) 
-                or place_meeting(x,y + 6,oKeyDoorWide)) {
-                grace_time = 0;
-                y += _solid.bbox_top - (y + 10);
-            } 
-        }
+	      // Don't jump but stick to the floor, this prevents a gamebreaker bug
+	      if key > 0 and (place_meeting(x,y + 6, oKeyDoor) 
+	            or place_meeting(x,y + 6,oKeyDoorTall) 
+	            or place_meeting(x,y + 6,oKeyDoorWide) 
+	            or place_meeting(x,y + 6,oKeyDoorWide)) {
+	            grace_time = 0;
+	            y += _solid.bbox_top - (y + 10);
+	      } 
+	   }
 
-        var _broken_stone_below = instance_place(x, y + 6, oBrokenStone);
+	   var _broken_stone_below = instance_place(x, y + 6, oBrokenStone);
 
-        if _broken_stone_below != noone then 
-            instance_destroy(_broken_stone_below);
-    }
+	   if _broken_stone_below != noone then 
+	      instance_destroy(_broken_stone_below);
+	}
     
     
-    if grace_time <= 0 then return;
+	if grace_time <= 0 then return;
 
-    // Change day/night state
-    if mode == PLAYER_MODE.LEAP then
-        scr_change();
+	// Change day/night state
+	if mode == PLAYER_MODE.LEAP then
+	   scr_change();
 
-    if last_plat != noone then
-        instance_destroy(last_plat);
+	if last_plat != noone then
+	   instance_destroy(last_plat);
 
-    grace_time = 0;
-    vsp = -jumpspeed;
-    image_index = 0;
-    audio_play_sfx(snd_jump_player, false, -1.46, 5);
+	grace_time = 0;
+	vsp = -jumpspeed;
+	image_index = 0;
+	audio_play_sfx(snd_jump_player, false, -1.46, 5);
 
-    //Partículas
-    if godmode or ghost then return;
+	// Spawn cloud particles on jump
+	if godmode or ghost then return;
 
-    shake_gamepad(0.4, 2);
-    repeat(irandom_range(3, 5)) {
-        var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
+	shake_gamepad(0.4, 2);
+	repeat(irandom_range(3, 5)) {
+	   var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
 
-        dust.hsp = hsp / random_range(5, 10);
-        dust.vsp = vsp / random_range(5, 10);
-    }
-}
-
-set_game_paused = function() {
-    if not key_start
-    or vsp != 0 
-    or hsp != 0
-    or instance_exists(oPauseMenu)
-    or room_is([RoomMenu, RoomMenu2]) {
-			return;
-    }
-
-    instance_create_layer(0, 0, layer, oPauseMenu);
-}
-
-set_footstep_sound = function() {
-    if floor(image_index) != 3 and floor(image_index) != 7 {
-			return;
-    }
-
-    // Walking on grass/flowers
-    if not audio_is_playing(sndWalkGrass)
-    and (place_meeting(x, y + 1, oGrassDay) 
-        or place_meeting(x, y + 1, oGrassNight)
-        or place_meeting(x, y + 1, oFlowerDay)
-        or place_meeting(x, y + 1, oFlowerNight)
-        or (instance_exists(oLevelMaker) 
-            and (oLevelMaker.selected_style == LEVEL_STYLE.GRASS
-                or oLevelMaker.selected_style == LEVEL_STYLE.FLOWERS
-            ) and (place_meeting(x, y + 1, oSolidDay) 
-                or place_meeting(x, y + 1, oSolidNight)
-            )
-        )
-    ) {
-        audio_play_sfx(sndWalkGrass, false, -3.11, 25);
-    }
-
-    // Walking on clouds
-    if not audio_is_playing_any([sfx_cloud_01, sfx_cloud_02, sfx_cloud_03, sfx_cloud_04]) 
-    and (place_meeting(x, y + 1,oCloudDay) 
-        or place_meeting(x, y + 1,oCloudNight)
-        or (instance_exists(oLevelMaker) 
-            and oLevelMaker.selected_style == LEVEL_STYLE.CLOUDS 
-            and (place_meeting(x, y + 1, oSolidDay) 
-                or place_meeting(x, y + 1, oSolidNight)
-            )
-        )
-    ) {	
-        var sfxwalkcloud = choose(sfx_cloud_01, sfx_cloud_02, sfx_cloud_03, sfx_cloud_04);
-        audio_play_sfx(sfxwalkcloud, false, -9.2, 5);
-                
-        var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
-        dust.hsp = hsp / random_range(5, 10);
-        dust.vsp = vsp / random_range(5, 10);
-        dust.image_index = 1;
-    }
-
-    // Walking on stone
-    if not audio_is_playing_any([sndWalkStone, sndWalkGrass, sndWalkCloud])
-    and (place_meeting(x, y + 1, oSolid) 
-        or place_meeting(x ,y + 1, oPlatGhost)
-    ) {  
-        audio_play_sfx(sndWalkStone, false, -11.7, 8);
-    }
-}
-
-set_rope_swinging = function() {
-    with (instance_place(x, y, oRopeSegment)) {
-    	phy_linear_velocity_x = other.hsp * 25;
-    	phy_linear_velocity_y = other.vsp * 25;
-    }
-}
-
-check_destroy_itself = function() {
-    if debug_mode
-    or state.state_is("win")
-    or instance_exists_any([oMenu, oPauseMenu, oIntro, oTransition])
-    or room_is([RoomMenu, RoomMenu2, RoomFinal, RoomCredits, RoomCreditsAlves, RoomProgress]) {
-        return;
-    }
-
-    if room == Room100
-    and place_meeting(x, y, oSpecial5Trigger) 
-    and instance_exists(oSpecial5)
-    and key_reset { 
-        oSpecial5.done = true;
-        instance_destroy();
-        return;
-    } else if key_reset {
-        instance_destroy();
-    }
-}
-
-set_animation_speed = function() {
-	if global.settings.gamespd != 100 {
-		image_speed = global.settings.gamespd / 100;	
-	} else {
-		image_speed = 1;
+	   dust.hsp = hsp / random_range(5, 10);
+	   dust.vsp = vsp / random_range(5, 10);
+	}
+	 
+	// Spawn leaf particles on jump from grass ground.
+	if place_meeting(x, y + 1, oGrassDay)
+	or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS and place_meeting(x, y + 1, oSolidDay)) {
+		repeat (irandom_range(1, 2)) {
+			instance_create_layer(x, y + (sprite_height / 3), "Instances_2", oLeafDay);
+		}
+	}
+		
+	if place_meeting(x, y + 1, oGrassNight)
+	or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS and place_meeting(x, y + 1, oSolidNight)) {
+		repeat (irandom_range(1, 2)) {
+			instance_create_layer(x, y + (sprite_height / 3), "Instances_2", oLeafNight);
+		}
 	}
 }
 
+set_game_paused = function() {
+	if not key_start
+	or vsp != 0 
+	or hsp != 0
+	or instance_exists(oPauseMenu)
+	or room_is([RoomMenu, RoomMenu2]) {
+		return;
+	}
+
+	instance_create_layer(0, 0, layer, oPauseMenu);
+}
+
+set_footstep_sound = function() {
+	if floor(image_index) != 3 and floor(image_index) != 7 {
+		return;
+	}
+
+	// Walking on grass/flowers
+	if not audio_is_playing(sndWalkGrass)
+	and (place_meeting(x, y + 1, oGrassDay) 
+	   or place_meeting(x, y + 1, oGrassNight)
+	   or place_meeting(x, y + 1, oFlowerDay)
+	   or place_meeting(x, y + 1, oFlowerNight)
+	   or (instance_exists(oLevelMaker) 
+	      and (oLevelMaker.selected_style == LEVEL_STYLE.GRASS
+	            or oLevelMaker.selected_style == LEVEL_STYLE.FLOWERS
+	      ) and (place_meeting(x, y + 1, oSolidDay) 
+	            or place_meeting(x, y + 1, oSolidNight)
+	      )
+	   )
+	) {
+	   audio_play_sfx(sndWalkGrass, false, -3.11, 25);
+	}
+
+	// Walking on clouds
+	if not audio_is_playing_any([sfx_cloud_01, sfx_cloud_02, sfx_cloud_03, sfx_cloud_04]) 
+	and (place_meeting(x, y + 1,oCloudDay) 
+	   or place_meeting(x, y + 1,oCloudNight)
+	   or (instance_exists(oLevelMaker) 
+	      and oLevelMaker.selected_style == LEVEL_STYLE.CLOUDS 
+	      and (place_meeting(x, y + 1, oSolidDay) 
+	            or place_meeting(x, y + 1, oSolidNight)
+	      )
+	   )
+	) {	
+	   var sfxwalkcloud = choose(sfx_cloud_01, sfx_cloud_02, sfx_cloud_03, sfx_cloud_04);
+	   audio_play_sfx(sfxwalkcloud, false, -9.2, 5);
+                
+	   var dust = instance_create_layer(x, y + (sprite_height / 2), "Instances_2", oBigDust);
+	   dust.hsp = hsp / random_range(5, 10);
+	   dust.vsp = vsp / random_range(5, 10);
+	   dust.image_index = 1;
+	}
+
+	// Walking on stone
+	if not audio_is_playing_any([sndWalkStone, sndWalkGrass, sndWalkCloud])
+	and (place_meeting(x, y + 1, oSolid) 
+	   or place_meeting(x ,y + 1, oPlatGhost)
+	) {  
+	   audio_play_sfx(sndWalkStone, false, -11.7, 8);
+	}
+}
+
+set_rope_swinging = function() {
+	with (instance_place(x, y, oRopeSegment)) {
+		phy_linear_velocity_x = other.hsp * 25;
+		phy_linear_velocity_y = other.vsp * 25;
+	}
+}
+
+check_destroy_itself = function() {
+	if debug_mode
+	or state.state_is("win")
+	or instance_exists_any([oMenu, oPauseMenu, oIntro, oTransition])
+	or room_is([RoomMenu, RoomMenu2, RoomFinal, RoomCredits, RoomCreditsAlves, RoomProgress]) {
+	   return;
+	}
+
+	if room == Room100
+	and place_meeting(x, y, oSpecial5Trigger) 
+	and instance_exists(oSpecial5)
+	and key_reset { 
+	   oSpecial5.done = true;
+	   instance_destroy();
+	   return;
+	} else if key_reset {
+	   instance_destroy();
+	}
+}
+
+set_animation_speed = function() {
+	image_speed = global.settings.gamespd / 100;
+}
+
 set_skin_changing = function() {
-    //not pressing, holding, star only exists ingame
-    if key_down_notpressed and was_on_ground {
-    	down_time += 1;
-    } else {
-    	down_time = 0;
-    }
+	//not pressing, holding, star only exists ingame
+	if not key_down_notpressed or not was_on_ground {
+		skin_change_timer = 0;
+		return;
+	}
+	
+	skin_change_timer = min(skin_change_timer + 1, skin_change_timer_max);
     
-    if down_time >= 30 {
-    	idletime = 0;
-    	scr_changeskin();
-    }
+	if skin_change_timer >= skin_change_timer_max {
+		idletime = 0;
+		scr_changeskin();
+	}
 }
 
 check_change_by_direction = function() {
@@ -591,22 +604,7 @@ check_change_by_direction = function() {
     scr_change();
 }
 
-check_collected_stars = function() {
-    if stars_collected < stars_to_collect then return;
-
-    with (oPermaSpike) {
-        var _solid = instance_create_layer(x, y, layer, oSolid);
-        _solid.x = x;
-        _solid.image_xscale = image_xscale;
-        _solid.image_yscale = image_yscale;
-        _solid.visible = false;
-    }
-
-	 
-    //state = PLAYER_STATE.WIN;
-    if not state.state_is("win") {
-		 state.change("win");
-	 }
+perform_win = function() {
 	 winwait -= 1;
 
     if winwait >= 0

@@ -47,4 +47,9 @@ if sprite_index == PlayerClimb and cape {
 
 pal_swap_reset()
 
-draw_text(bbox_right, bbox_bottom, $"{image_speed},{image_index}");
+//draw_set_halign(fa_left);
+//if x >= room_width / 2 {
+//	draw_set_halign(fa_right);
+//}
+//draw_text(bbox_right, bbox_bottom, $"si:{sprite_get_name(sprite_index)}\nis:{image_speed}\nii:{image_index}\nit:{idletime}");
+//draw_set_halign(-1);

@@ -80,11 +80,6 @@ function scr_change() {
 			else
 			{tilemap_tileset(tile_id,tGrassDay)}
 		}
-			
-		//Partículas
-		shake_gamepad(0.4,2)
-		repeat (choose(1,2)) {if place_meeting(x,y+1,oGrassDay) {instance_create_layer(x,y+(sprite_height/3),"Instances_2",oLeafDay)}} //folha		
-		repeat (choose(1,2)) {if place_meeting(x,y+1,oGrassNight) {instance_create_layer(x,y+(sprite_height/3),"Instances_2",oLeafNight)}} //folha
 	}
 		
 	if instance_exists(oSpaceDay)

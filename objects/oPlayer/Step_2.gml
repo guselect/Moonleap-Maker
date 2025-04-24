@@ -5,9 +5,6 @@ var vsp_new = floor(cy);
 cx -= hsp_new;
 cy -= vsp_new;
 
-jumped = false;
-landed = false;
-
 // Vertical collision
 repeat(abs(vsp_new)) {
 	if has_collided(0, sign(vsp)) {
