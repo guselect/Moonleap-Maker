@@ -140,33 +140,13 @@ if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) 
 if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)) {
 	play_sound_on_press();
 	
-	if instance_exists(oPause) //editor is opened 
-	{
-		with(oLevelMaker) {
-			var has_player_in_level =
-				object_of_type_exists_in_editor(oPlayer) 
-				or object_of_type_exists_in_editor(oPlayerDir) 
-				or object_of_type_exists_in_editor(oPlayerNeutral) 
-				or object_of_type_exists_in_editor(oPlayerEnding);
-			
-			var has_star_in_level = 
-				object_of_type_exists_in_editor(oStar) 
-				or object_of_type_exists_in_editor(oStarColor) 
-				or object_of_type_exists_in_editor(oStarRunning) 
-				or object_of_type_exists_in_editor(oStarRunningColor) 
-				or object_of_type_exists_in_editor(oStarFly) 
-				or object_of_type_exists_in_editor(oStarColorNight);
-		
-			if has_player_in_level and has_star_in_level {
-				start_level();
-			} else {
-				if not has_player_in_level then show_message_async(LANG.maker_noplayer);
-				if not has_star_in_level then show_message_async(LANG.maker_noestar);
-			}
+	with(oLevelMaker) {
+		if instance_exists(oPause) {
+			start_level();
+		} else {
+			oLevelMaker.reset_test_button_cooldown();
+			oLevelMaker.end_level_and_return_to_editor();
 		}
-	} else {
-		oLevelMaker.reset_test_button_cooldown();
-		oLevelMaker.end_level_and_return_to_editor();
 	}
 }
 

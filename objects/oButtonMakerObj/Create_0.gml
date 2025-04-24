@@ -9,5 +9,3 @@ drawtarget = 0;
 xx = 0;
 yy = 0;
 scale = 1;
-
-mask_index = sButtonsMakerObj;

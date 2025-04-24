@@ -671,6 +671,7 @@
     {"name":"sLogo","order":9,"path":"sprites/sLogo/sLogo.yy",},
     {"name":"sMagnet","order":1,"path":"sprites/sMagnet/sMagnet.yy",},
     {"name":"sMakerChangeIcon","order":1,"path":"sprites/sMakerChangeIcon/sMakerChangeIcon.yy",},
+    {"name":"sMakerChangeMoonIcon","order":2,"path":"sprites/sMakerChangeMoonIcon/sMakerChangeMoonIcon.yy",},
     {"name":"sMakerCloudTileNight","order":1,"path":"sprites/sMakerCloudTileNight/sMakerCloudTileNight.yy",},
     {"name":"sMakerDungeonTileDay","order":2,"path":"sprites/sMakerDungeonTileDay/sMakerDungeonTileDay.yy",},
     {"name":"sMakerDungeonTileNight","order":3,"path":"sprites/sMakerDungeonTileNight/sMakerDungeonTileNight.yy",},

@@ -23,6 +23,8 @@ if oLevelMaker.current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	sprite_index = -1;
 }
 
+mask_index = sButtonsMakerObj;
+
 xx = round(xstart - 8)
 yy = round(ystart - 8)
 

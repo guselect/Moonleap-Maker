@@ -87,26 +87,33 @@ if current_layer != LEVEL_CURRENT_LAYER.OBJECTS {
 // ------------------------------------
 // MOUSE ACTIONS
 // ------------------------------------
-if cursor != LEVEL_CURSOR_TYPE.ERASER then
-	cursor = LEVEL_CURSOR_TYPE.CURSOR;
+var _hover_button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
 
-var _button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
-var _button_object = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMakerObj, false, true);
-
-if (_button != noone or _button_object != noone) and cursor != LEVEL_CURSOR_TYPE.ERASER {
-    cursor = LEVEL_CURSOR_TYPE.FINGER;
+if cursor != LEVEL_CURSOR_TYPE.ERASER {
+	var _cursor = LEVEL_CURSOR_TYPE.CURSOR;
+	
+	var _hover_button_object = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMakerObj, false, true);
+	
+	_cursor = LEVEL_CURSOR_TYPE.CURSOR;
+	
+	if _hover_button
+	or _hover_button_object {
+		_cursor = LEVEL_CURSOR_TYPE.FINGER;
+	}
+	
+	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS
+	and object_grid_hovering != -1 {
+		_cursor = selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
+	}
+	
+	cursor = _cursor;
 }
 
-if _button != noone {
-    set_hover_text(_button.hover_text);
+if _hover_button != noone {
+    set_hover_text(_hover_button.hover_text);
 } else {
     set_hover_text("");
 }
-
-if cursor != LEVEL_CURSOR_TYPE.ERASER
-	and current_layer == LEVEL_CURRENT_LAYER.OBJECTS
-    and object_grid_hovering != -1
-	cursor = LEVEL_CURSOR_TYPE.FINGER;
 
 if test_button_cooldown > 0 {
 	test_button_cooldown -= 1;

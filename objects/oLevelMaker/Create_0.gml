@@ -159,9 +159,9 @@ cursor_get_object_from_grid = function() {
 	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
 	or not mouse_check_button_pressed(mb_left)
 	or cursor != LEVEL_CURSOR_TYPE.FINGER
-	or not is_struct(object_grid_hovering)
-	or selected_object.has_tag("is_holdable") then
+	or not is_struct(object_grid_hovering) {
 		return;
+	}
 	
 	var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
 				
@@ -737,7 +737,30 @@ object_of_type_exists_in_editor = function(_object_index) {
 }
 
 start_level = function() {
-    mode = LEVEL_EDITOR_MODE.TESTING;
+	var has_player_in_level =
+		object_of_type_exists_in_editor(oPlayer) 
+		or object_of_type_exists_in_editor(oPlayerDir) 
+		or object_of_type_exists_in_editor(oPlayerNeutral);
+			
+	var has_star_in_level = 
+		object_of_type_exists_in_editor(oStar) 
+		or object_of_type_exists_in_editor(oStarColor) 
+		or object_of_type_exists_in_editor(oStarRunning) 
+		or object_of_type_exists_in_editor(oStarRunningColor) 
+		or object_of_type_exists_in_editor(oStarFly) 
+		or object_of_type_exists_in_editor(oStarColorNight);
+	
+	if not (has_player_in_level and has_star_in_level) {
+		var _msg = "";
+		
+		if not has_player_in_level then _msg += $"- {LANG.maker_noplayer}\n";
+		if not has_star_in_level then _msg += $"- {LANG.maker_noestar}\n";
+		
+		show_message_async(_msg);
+		return;
+	}
+	
+   mode = LEVEL_EDITOR_MODE.TESTING;
 	instance_destroy(oPause);
 	audio_play_sfx(sndStarGame, false, -18.3, 1);
 	

@@ -903,6 +903,7 @@
     {"id":{"name":"sLogo","path":"sprites/sLogo/sLogo.yy",},},
     {"id":{"name":"sMagnet","path":"sprites/sMagnet/sMagnet.yy",},},
     {"id":{"name":"sMakerChangeIcon","path":"sprites/sMakerChangeIcon/sMakerChangeIcon.yy",},},
+    {"id":{"name":"sMakerChangeMoonIcon","path":"sprites/sMakerChangeMoonIcon/sMakerChangeMoonIcon.yy",},},
     {"id":{"name":"sMakerCloudTileDay","path":"sprites/sMakerCloudTileDay/sMakerCloudTileDay.yy",},},
     {"id":{"name":"sMakerCloudTileNight","path":"sprites/sMakerCloudTileNight/sMakerCloudTileNight.yy",},},
     {"id":{"name":"sMakerDungeonTileDay","path":"sprites/sMakerDungeonTileDay/sMakerDungeonTileDay.yy",},},

@@ -12,7 +12,6 @@ closekey[1] = 220 // § Qwertz/Apple
 closekey[2] = 112 // F1
 closekey[3] = 27  // Esc
 
-
 open_me_key_count = array_length_1d(displaykey)
 close_me_key_count = array_length_1d(closekey)
 #endregion
