@@ -30,7 +30,7 @@ switch (oLevelMaker.current_layer) {
 			tile.draw_sprite_preview(x - 8, y - 8 + drawplus);
 		
 		if global.settings.filter and tile.can_change then
-			draw_sprite(sColorBlind, 0, x - 8, y - 8 + drawplus);
+			draw_sprite(sColorBlind, 0, x, y + drawplus);
 		break;
 }
 
