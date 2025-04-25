@@ -1,8 +1,41 @@
 item_preview_offset_y = smooth_approach(item_preview_offset_y, 0, 0.25);
 item_preview_offset_x = smooth_approach(item_preview_offset_x, 0, 0.25);
 
+var _hover_button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
+
+if cursor != LEVEL_CURSOR_TYPE.ERASER {
+	var _cursor = LEVEL_CURSOR_TYPE.CURSOR;
+	
+	var _hover_button_object = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMakerObj, false, true);
+	
+	_cursor = LEVEL_CURSOR_TYPE.CURSOR;
+	
+	if _hover_button
+	or _hover_button_object {
+		_cursor = LEVEL_CURSOR_TYPE.FINGER;
+	}
+	
+	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS
+	and object_grid_hovering != -1 {
+		_cursor = not is_undefined(selected_object) 
+					and selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
+	}
+	
+	cursor = _cursor;
+}
+
+if _hover_button != noone {
+    set_hover_text(_hover_button.hover_text);
+} else {
+    set_hover_text("");
+}
+
+if test_button_cooldown > 0 {
+	test_button_cooldown -= 1;
+}
+
 // If the level editor is not in use don't run any more code
-if !instance_exists(oPause) then exit;
+if not instance_exists(oPause) then exit;
 
 
 
@@ -87,39 +120,6 @@ if current_layer != LEVEL_CURRENT_LAYER.OBJECTS {
 // ------------------------------------
 // MOUSE ACTIONS
 // ------------------------------------
-var _hover_button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
-
-if cursor != LEVEL_CURSOR_TYPE.ERASER {
-	var _cursor = LEVEL_CURSOR_TYPE.CURSOR;
-	
-	var _hover_button_object = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMakerObj, false, true);
-	
-	_cursor = LEVEL_CURSOR_TYPE.CURSOR;
-	
-	if _hover_button
-	or _hover_button_object {
-		_cursor = LEVEL_CURSOR_TYPE.FINGER;
-	}
-	
-	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS
-	and object_grid_hovering != -1 {
-		_cursor = not is_undefined(selected_object) 
-					and selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
-	}
-	
-	cursor = _cursor;
-}
-
-if _hover_button != noone {
-    set_hover_text(_hover_button.hover_text);
-} else {
-    set_hover_text("");
-}
-
-if test_button_cooldown > 0 {
-	test_button_cooldown -= 1;
-}
-
 has_object_below_cursor = check_for_objects_in_grid_position(_selected_object_mouse_tile_x, _selected_object_mouse_tile_y, selected_object);
 
 cursor_get_object_from_grid();

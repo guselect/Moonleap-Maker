@@ -6,7 +6,6 @@ drawtarget=0
 
 //lerp play button position to be visible in play state
 if image_index == 6 { //play button
-	
     //editor is opened
 	if instance_exists(oPause) { 
 		x = lerp(x,start_pos_x,.2);
@@ -47,7 +46,7 @@ switch (image_index) {
         break;
     case 9:  hover_text = LANG.maker_eraser; break;
     case 10: hover_text = LANG.maker_erase_level; break;
-    case 11: hover_text = $"Change Layer:\n{level_maker_get_layer_hover_text()}"; break;
+    case 11: hover_text = $"Mudar camada\n{level_maker_get_layer_hover_text()}"; break;
 }
 
 var is_mouse_left_pressing = mouse_check_button_pressed(mb_left);
@@ -130,18 +129,18 @@ if image_index == 3 and is_mouse_left_pressing {
 // Save level
 if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) and keyboard_check_pressed(ord("S")))) {
 	play_sound_on_press();
-	d_levelName = get_save_filename("*.moonlevel","mylevel");
+	d_levelName = get_save_filename("*.moonlevel", "Nome do nivel - Nome do autor do nivel");
 	if (d_levelName != "") then level_maker_save(d_levelName);
 }
 
 // Load level
  if image_index == 5 and is_mouse_left_pressing {
 	play_sound_on_press();
-	d_loadLevel = get_open_filename("*.moonlevel","mylevel");
+	d_loadLevel = get_open_filename("*.moonlevel", "Meu nivel");
 	if (d_loadLevel != "") then level_maker_load(d_loadLevel);
 }
 
-// Test
+// Test level
 if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)) {
 	play_sound_on_press();
 	

@@ -475,18 +475,18 @@ function level_maker_get_background_instances_layer_name() {
 function level_maker_get_layer_hover_text() {
 	switch(oLevelMaker.current_layer) {
 		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			return "Foreground";
+			return "Camada 1: Em frente aos objetos";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "Background 1";
+			return "Camada 3: Fundo menos distante";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "Background 2";
+			return "Camada 4: Fundo distante";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Background 3";
+			return "Camada 5: Fundo mais distante";
         case LEVEL_CURRENT_LAYER.BACKGROUND_4:
-			return "Background 4";
+			return "Camada 6: Fundo muito mais distante";
 		case LEVEL_CURRENT_LAYER.OBJECTS:
-			return "Objects";
+			return "Camada 2: Objetos";
 		default:
-			return "Unknown";
+			return "Camada desconhecida";
 	}
 }
