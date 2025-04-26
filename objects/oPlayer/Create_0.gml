@@ -849,7 +849,10 @@ check_mushroom_collision = function() {
     var nearmush = instance_place(x, y, oMush);
 
     if nearmush == noone then return;
+	 
     var _mush_angle = nearmush.image_angle;
+    var _mush_xscale = nearmush.image_xscale;
+    var _mush_yscale = nearmush.image_yscale;
 
     if nearmush.image_speed != 0 then return;
 
@@ -865,7 +868,8 @@ check_mushroom_collision = function() {
         }
     }
 
-    if _mush_angle == 0 and vsp >= 0 { // Mush is facing up
+    if (_mush_angle == 0 or _mush_yscale == 1) 
+	 and vsp >= 0 { // Mush is facing up
         if not nearmush.gray {
             scr_change();
         }
@@ -885,7 +889,8 @@ check_mushroom_collision = function() {
         _play_mush_sound()
         _spawn_mush_particles();
         shake_gamepad(0.4, 2);
-    } else if (_mush_angle == -90 or _mush_angle == 270) and numb == 0 { // Mush is facing right
+    } else if (_mush_angle == -90 or _mush_angle == 270)
+	 and numb == 0 { // Mush is facing right
         if not nearmush.gray {
             scr_change();
         }
@@ -928,7 +933,8 @@ check_mushroom_collision = function() {
         _play_mush_sound()
         _spawn_mush_particles();
         shake_gamepad(0.4, 2);
-    } else if abs(nearmush.image_angle) == 180 and vsp < 0 { // Mush is facing down
+    } else if abs(nearmush.image_angle) == 180 or _mush_yscale == -1
+	 and vsp < 0 { // Mush is facing down
         if not nearmush.gray {
             scr_change();
         }
