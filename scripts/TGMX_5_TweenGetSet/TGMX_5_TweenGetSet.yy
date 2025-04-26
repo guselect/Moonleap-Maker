@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "TGMX_5_TweenGetSet",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "User",
-    "path": "folders/Libraries/TweenGMX/User.yy",
+  "$GMScript":"v1",
+  "%Name":"TGMX_5_TweenGetSet",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TGMX_5_TweenGetSet",
+  "parent":{
+    "name":"User",
+    "path":"folders/Libraries/TweenGMX/User.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

@@ -1,9 +1,11 @@
 {
-  "resourceType": "GMNotes",
-  "resourceVersion": "1.1",
-  "name": "TGMX_Documentation",
-  "parent": {
-    "name": "Docs",
-    "path": "folders/Libraries/TweenGMX/Docs.yy",
+  "$GMNotes":"",
+  "%Name":"TGMX_Documentation",
+  "name":"TGMX_Documentation",
+  "parent":{
+    "name":"Docs",
+    "path":"folders/Libraries/TweenGMX/Docs.yy",
   },
+  "resourceType":"GMNotes",
+  "resourceVersion":"2.0",
 }

@@ -1,5 +1,6 @@
-/// @description Insert description here
-// You can write your code in this editor
-instance_destroy()
-instance_create_layer(x,y,layer,oNeutralFlag)
-instance_create_layer(x,y,layer,oPlayer)
+
+//instance_create_layer(x, y, layer, oNeutralFlag);
+var _player = instance_create_layer(x, y, layer, oPlayer);
+_player.mode = PLAYER_MODE.NEUTRAL;
+
+instance_destroy();

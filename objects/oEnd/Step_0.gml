@@ -20,7 +20,7 @@ key_start= keyboard_check_pressed(ord("M")) or keyboard_check_pressed(ord("B")) 
 
 
 if instance_exists(oPlayer)
-{if oPlayer.state=13 {ydraw=smooth_approach(ydraw,y,0.025)}}
+{if oPlayer.state.state_is("win") {ydraw=smooth_approach(ydraw,y,0.025)}}
 
 if round(ydraw)=y and key_start=true
 {

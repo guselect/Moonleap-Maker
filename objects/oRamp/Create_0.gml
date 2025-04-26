@@ -1,12 +1,18 @@
-/// @description Insert description here
-// You can write your code in this editor
-startindex=image_index
-night=false
+startindex = image_index;
+night = false;
 
-sindex=sBlockRampMask
-if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {sindex=sBlockRampMaskDark}
+sindex = sBlockRampMask;
+
+if instance_exists(oFlowerDay)
+or instance_exists(oSpaceDay)
+or instance_exists(oDunDay) {
+	sindex = sBlockRampMaskDark;
+}
 
 
-if room=Room100
-{if y<room_height/2 {sindex=sBlockRampMaskDark}
-if x<1180 and y<540 { sindex=sBlockRampMaskDark}}
+if room == Room100 {
+	if y < room_height / 2
+	or (x < 1180 and y < 540) {
+		sindex = sBlockRampMaskDark;
+	}
+}

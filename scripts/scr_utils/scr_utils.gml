@@ -4,6 +4,71 @@ function struct_read(_struct, _property, _default) {
 	return is_undefined(_val) ? _default : _val;
 }
 
+function struct_clone(_struct) {
+	if not is_struct(_struct) then return undefined;
+	
+	var _new_struct = {};
+	var _names = variable_struct_get_names(_struct);
+	
+	for (var i = 0; i < array_length(_names); i++) {
+		var _name = array_get(_names, i);
+		var _value = variable_struct_get(_struct, _name);
+		
+		// If value is struct, apply recursion
+		if is_struct(_value) {
+			_value = struct_clone(_value);
+		} else if is_method(_value) {
+			// If value is method, set method reference to the new struct and return it.
+			_value = method(_new_struct, _value);
+		}
+		
+		variable_struct_set(_new_struct, _name, _value);
+	}
+	
+    return _new_struct;
+}
+
+function room_is(_room_or_room_array) {
+    if not is_array(_room_or_room_array) {
+        return room == _room_or_room_array;
+    }
+
+    for (var i = 0; i < array_length(_room_or_room_array); i++) {
+        var _current_room = array_get(_room_or_room_array, i);
+    
+        if room == _current_room then return true;
+    }
+
+    return false;
+}
+
+function audio_is_playing_any(_audio_array) {
+    for (var i = 0; i < array_length(_audio_array); i++) {
+        var _audio = array_get(_audio_array, i);
+    
+        if audio_is_playing(_audio) then return true;
+    }
+
+    return false;
+}
+
+function instance_exists_any(_instance_array) {
+    for (var i = 0; i < array_length(_instance_array); i++) {
+        var _instance = array_get(_instance_array, i);
+    
+        if instance_exists(_instance) then return true;
+    }
+
+    return false;
+}
+
+function object_set_room_wrapping() {
+    if x < 0 then x += room_width; 
+    if x > room_width then x -= room_width;
+    if y < 0 then y += room_height;
+    if y > room_height then y -= room_height;
+}
+
 function in_hub_view() {
 	var _x1 = min(oCamera.hubx,oCamera.hubx_prev);
 	var _y1 = min(oCamera.huby,oCamera.huby_prev);

@@ -17,24 +17,29 @@ if (on_desktop()) {
 
 //audio_param_set("NightParameter", smoothnight)
 
-if debug=true
-{
-	arcade=false
-if !surface_exists(surfdebug) {surfdebug=-1}
-	}
+if debug {
+	arcade = false;
+    if !surface_exists(surfdebug) {
+        surfdebug=-1
+    } 
+}
 
-if global.settings.enable_sfx=true
-	{
-		//smoothnight=approach(smoothnight,night*100,10)
-	}
-else
-	{
-		//smoothnight=approach(smoothnight,night*100,1)
-	}
+//if global.settings.enable_sfx=true
+	//{
+		////smoothnight=approach(smoothnight,night*100,10)
+	//}
+//else
+	//{
+		////smoothnight=approach(smoothnight,night*100,1)
+	//}
 
-if instance_exists(oPlayer) and instance_exists(oTransition) {if oPlayer.state=oPlayer.WIN {smoothnight=approach(smoothnight,0,20)}}
+if instance_exists(oPlayer)
+and instance_exists(oTransition)
+and oPlayer.state.state_is("win") {
+    smoothnight = approach(smoothnight, 0, 20);
+}
 
-shaketime=approach(shaketime,0,1);
+shaketime = approach(shaketime, 0, 1);
 
 if (shaketime == 0) {
 	if (os_type == os_switch) {

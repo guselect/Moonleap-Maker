@@ -1,0 +1,38 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tMakerDungeonNight",
+  "autoTileSets":[],
+  "macroPageTiles":{
+    "SerialiseHeight":0,
+    "SerialiseWidth":0,
+    "TileSerialiseData":[],
+  },
+  "name":"tMakerDungeonNight",
+  "out_columns":8,
+  "out_tilehborder":2,
+  "out_tilevborder":2,
+  "parent":{
+    "name":"LevelMaker",
+    "path":"folders/Tile Sets/LevelMaker.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"sMakerDungeonTileNight",
+    "path":"sprites/sMakerDungeonTileNight/sMakerDungeonTileNight.yy",
+  },
+  "spriteNoExport":true,
+  "textureGroupId":{
+    "name":"Default",
+    "path":"texturegroups/Default",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":16,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":16,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":64,
+}

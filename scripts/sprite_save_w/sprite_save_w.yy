@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "sprite_save_w",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Scripts",
-    "path": "folders/Libraries/GooglePlayServices Demo/Scripts.yy",
+  "$GMScript":"v1",
+  "%Name":"sprite_save_w",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"sprite_save_w",
+  "parent":{
+    "name":"Scripts",
+    "path":"folders/Libraries/GooglePlayServices Demo/Scripts.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

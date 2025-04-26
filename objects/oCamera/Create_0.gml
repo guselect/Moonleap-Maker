@@ -1,5 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
 //instance_create_layer(x,y,layer,obj_projector)
 nice_black=make_color_rgb(0,0,72)
 fancyeffects=true

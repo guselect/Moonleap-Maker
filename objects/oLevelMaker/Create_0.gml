@@ -4,27 +4,26 @@
 - Rooms 60 to 63 were kept only as examples of how the levels in Moonleap were originally built.
 - The maker_mode=true setting in the oIntro causes the game go straight to the RoomMaker0
 
-- Some objects just didnt pause when oPause exists, thats a bug
-- oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
+- [DIDN'T FIND ANY OF THEM] Some objects just didnt pause when oPause exists, thats a bug
+- [OKAY!] oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
 - [DONE!] the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
-- Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
+- [DONE!] Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
 based on that they update their colors
-- oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
-- The plan is to eventually integrate Moonleap Maker into the Steam version of Moonleap, making it available as an option in the game menu
-
+- [FIXED] oPlatGhost dont really rotate, in the game i use oPlatGhostL, oPlatGhostR and oPlatGhostInv...
+- [NICE!] The plan is to eventually integrate Moonleap Maker into the Steam version of Moonleap, making it available as an option in the game menu
 */
 
 // Input variables
 scr_inputcreate()
 
+mode = LEVEL_EDITOR_MODE.EDITING;
+
+// User Level Config
 level_name = "";
 level_author_name = "";
-
+use_night_music = false;
 use_ranking_system = false;
 rank_S_change_max = 0;
-rank_A_change_max = 0;
-rank_B_change_max = 0;
-rank_C_change_max = 0;
 
 // Grid-related
 tile_size = 8;
@@ -34,7 +33,7 @@ objects_grid = []; // Grid where the objects inserted by player are.
 
 for(var _x = 0; _x < room_tile_width; _x++) {
 	for(var _y = 0; _y < room_tile_height; _y++) {
-		objects_grid[_x,_y] = -1;
+		objects_grid[_x, _y] = -1;
 	}	
 }
 
@@ -65,103 +64,401 @@ color = {
 	nice_blue: $FFFFAA55,
 };
 
+// List-related
+current_layer = LEVEL_CURRENT_LAYER.OBJECTS;
+list_positions_length = 16;
+
+// Tileset-related
+tiles = level_maker_get_tiles_list(selected_style);
+selected_tile = undefined;
+cursor_tile_hovering = undefined;
+tileset_size = 16;
+
 // Objects-related
+obj = level_maker_get_objects_list();
 selected_object = 0;
 selected_object_type = 0;
 selected_object_position = 0;
 default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
-object_positions_length = 16;
 object_grid_hovering = -1; // Object where cursor is above at.
-
-// Objects List
-obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[0, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
-obj[0, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
-obj[0, 03] =	new LMObject(oPermaSpike,		16, 16).add_tag("is_holdable");
-obj[0, 04] =	new LMObject(oStar,				16, 16).add_tag("can_spin");
-obj[0, 05] =	new LMObject(oStarRunning,		16, 16);
-obj[0, 06] =	new LMObject(oSolidDay,			16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
-obj[0, 07] =	new LMObject(oSolidNight,		16, 16, SPRITE_ORIGIN.OFFSET5).add_tag("grid_16", "is_holdable");
-obj[0, 08] =	new LMObject(oLadderDay,		16, 16);
-obj[0, 09] =	new LMObject(oLadderNight,		16, 16);
-obj[0, 10] =	new LMObject(oSnail,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailWalk, 0, 0, 2, -9, 0);
-obj[0, 11] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18);
-obj[0, 12] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
-obj[0, 13] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
-obj[0, 14] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
-obj[0, 15] =	new LMObject(oSolidRamp,		32, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBlockRampEditor, 0, 16, 0, -8, -8);
-
-obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
-obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
-obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
-obj[1, 03] =	new LMObject(oStarColor,		16, 16);
-obj[1, 04] =	new LMObject(oStarRunningColor,	16, 16);
-obj[1, 05] =	new LMObject(oLadderNeutral,	16, 16);
-obj[1, 06] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
-obj[1, 07] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGrayUI, 0, 3, 0, -8, -8);
-obj[1, 08] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_preview_index_vertical(1).set_sprite_button_part(sBatDown, 0, 10, 4, -7, -8);
-obj[1, 09] =	new LMObject(oMush,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin");
-obj[1, 10] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(sMushGrayUI, 0, 0, 0, 0, 0);
-obj[1, 11] =	new LMObject(oLadyVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_sprite_button_part(sLadyVerUI, 0, 3, 1, -8, -8);
-obj[1, 12] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
-obj[1, 13] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
-obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8);
-obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);
-
-obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[2, 01] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
-obj[2, 02] =	new LMObject(oStarFly,			16, 16);
-obj[2, 03] =	new LMObject(oKey,				16, 16);
-obj[2, 04] =	new LMObject(oKeyDoor,			16, 16);
-obj[2, 05] =	new LMObject(oKeyTall,			32, 16).set_sprite_button_part(sKeyDoorTallUI, 0, 0, 8, -8, -8);
-obj[2, 06] =	new LMObject(oKeyDoorTall,		32, 16).set_sprite_button_part(sKeyDoorTall, 0, 0, 8, -8, -8);
-obj[2, 07] =	new LMObject(oKeyWide,			32, 16).set_sprite_button_part(sKeyDoorWideUI, 0, 8, 0, -8, -8);
-obj[2, 08] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
-obj[2, 09] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
-obj[2, 10] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-obj[2, 11] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
-obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 13] =	new LMObject(oBlack,			16, 16).add_tag("grid_16", "is_holdable");
-obj[2, 14] =	undefined;
-obj[2, 15] =	undefined;
-
-//obj[3, 00] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable");
-//obj[3, 01] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 1, 0, 0, 0, 0).set_object_config(1);
-//obj[3, 02] =	new LMObject(oSolid,			16, 16).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGray, 2, 0, 0, 0, 0).set_object_config(2);
-//obj[3, 03] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
-//obj[3, 04] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 1, 0, 0, 0, 0).set_object_config(1);
-//obj[3, 05] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 2, 0, 0, 0, 0).set_object_config(2);
-//obj[3, 06] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
-//obj[3, 07] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
-//obj[3, 08] =	undefined;
-//obj[3, 09] =	undefined;
-//obj[3, 10] =	undefined;
-//obj[3, 11] =	undefined;
-//obj[3, 12] =	undefined;
-//obj[3, 13] =	undefined;
-//obj[3, 14] =	undefined;
-//obj[3, 15] =	undefined;
 
 object_types_length = array_length(obj);
 
-////x0 mostly neutral	//x1 mostly day				//x2 mostly night			//x3								//x4 unused, i plan to make stars fly with they werent colliding
-//obj[0,0]=oPlayer		obj[1,0]=oPlayerDir			obj[2,0]=oPlayerNeutral		obj[3,0]=oUndefined				obj[4,0]=oUndefined
-//obj[0,1]=oSolid			obj[1,1]=oSolidDay			obj[2,1]=oSolidNight		obj[3,1]=oBigSolid				obj[4,1]=oUndefined
-//obj[0,2]=oPlatGhost		obj[1,2]=oBrokenStone		obj[2,2]=oBrokenStoneBig	obj[3,2]=oSolidRamp/**/			obj[4,2]=oUndefined
-//obj[0,3]=oPermaSpike	obj[1,3]=oUndefined			obj[2,3]=oUndefined			obj[3,3]=oUndefined/**/			obj[4,3]=oUndefined
-//obj[0,4]=oStar			obj[1,4]=oStarColor			obj[2,4]=oStarRunning		obj[3,4]=oStarRunningColor		obj[4,4]=oStarFly
-//obj[0,5]=oLadderNeutral obj[1,5]=oLadderDay			obj[2,5]=oLadderNight		obj[3,5]=oUndefined/**/			obj[4,5]=oPlatGhostL
-//obj[0,6]=oSnailGray		obj[1,6]=oSnail				obj[2,6]=oSnailNight		obj[3,6]=oUndefined/**/			obj[4,6]=oPlatGhostR
-//obj[0,7]=oLadyGray		obj[1,7]=oLady				obj[2,7]=oLadyGiant			obj[3,7]=oLadyGiant4			obj[4,7]=oPlatGhostInv
-//obj[0,8]=oBat			obj[1,8]=oBatGiant			obj[2,8]=oUndefined			obj[3,8]=oUndefined/*baixo*/	obj[4,8]=oNeutralFlag
-//obj[0,9]=oMushGray		obj[1,9]=oMush				obj[2,9]=oMushGray			obj[3,9]=oUndefined				obj[4,9]=oUndefined
-////obj[0,10]=oUndefined	obj[1,10]=oUndefined		obj[2,10]=oUndefined		obj[3,10]=oUndefined			obj[4,10]=oUndefined
-//obj[0,10]=oKey			obj[1,10]=oKeyTall			obj[2,10]=oKeyWide			obj[3,10]=oKeyTallWide			obj[4,10]=oUndefined //make different spr to differentiate the keys
-//obj[0,11]=oKeyDoor		obj[1,11]=oKeyDoorTall		obj[2,11]=oKeyDoorWide		obj[3,11]=oKeyDoorTallWide		obj[4,11]=oUndefined
-//obj[0,12]=oGrayOrb		obj[1,12]=oMagicOrb			obj[2,12]=oUndefined		obj[3,12]=oUndefined			obj[4,12]=oUndefined
-//obj[0,13]=oBird			obj[1,13]=oUndefined		obj[2,13]=oUndefined		obj[3,13]=oUndefined			obj[4,13]=oUndefined
-//obj[0,14]=oBlack		obj[1,14]=oUndefined		obj[2,14]=oUndefined		obj[3,14]=oUndefined			obj[4,14]=oUndefined
-//obj[0,15]=oUndefined	obj[1,15]=oUndefined		obj[2,15]=oUndefined		obj[3,15]=oUndefined			obj[4,15]=oUndefined
+set_hover_text = function(_hover_text) {
+    hover_text = _hover_text;
+}
+
+set_list_navigation = function() {
+	var ui_nav_x = key_right_pressed - key_left_pressed;
+	
+	if ui_nav_x == 0 then return;
+
+	item_preview_offset_x = 2 * sign(ui_nav_x);
+	selected_object_position += sign(ui_nav_x);
+	
+	while selected_object_position < 0 
+		or selected_object_position > list_positions_length - 1 
+		or is_undefined(obj[selected_object_type, selected_object_position])
+	{
+		selected_object_position += sign(ui_nav_x);
+		
+		if selected_object_position < 0 then 
+			selected_object_position = list_positions_length - 1;
+		else if selected_object_position > list_positions_length - 1 then 
+			selected_object_position = 0;
+	}
+	
+	audio_play_sfx(snd_bump, false, -5, 13);
+
+	selected_object = obj[selected_object_type, selected_object_position];
+}
+
+update_selected_object = function() {
+    selected_object = array_get(obj[selected_object_type], selected_object_position);
+}
+
+update_selected_tile = function() {
+    selected_tile = variable_clone(array_get(tiles[selected_object_type], selected_object_position));
+}
+
+update_current_item = function() {
+    if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+        update_selected_object();
+    } else {
+        update_selected_tile();
+    }
+}
+
+cursor_set_position = function() {
+	var _in_level_editor = instance_exists(oPause);
+
+	camera_current_interpolation += _in_level_editor ? -0.07 : 0.07;
+	camera_current_interpolation = clamp(camera_current_interpolation, 0, 1);
+
+	// Recalculate the mouse position since I'm using oAppSurfaceManager to resize the application surface to keep it pixel perfect
+	// this is instead of using the actual camera cause then it would look ugly zoomed in
+
+	var _cam_offset_x = camera_get_view_x(view_camera[0]);
+	var _cam_offset_y = camera_get_view_y(view_camera[0]);
+	
+	var _cam_width = camera_get_view_width(view_camera[0]);
+	var _cam_height = camera_get_view_height(view_camera[0]);
+	
+	var _app_surface_x = lerp(0, _cam_offset_x, camera_current_interpolation);
+	var _app_surface_y = lerp(0, _cam_offset_y, camera_current_interpolation);
+	
+	var _gui_scale_x = lerp(1,  _cam_width/room_width, camera_current_interpolation);
+	var _gui_scale_y = lerp(1,  _cam_height/room_height, camera_current_interpolation);
+
+	global.level_maker_mouse_x = (mouse_x - _app_surface_x) / _gui_scale_x;
+	global.level_maker_mouse_y = (mouse_y - _app_surface_y) / _gui_scale_y;
+}
+
+cursor_get_object_from_grid = function() {
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
+	or not mouse_check_button_pressed(mb_left)
+	or cursor != LEVEL_CURSOR_TYPE.FINGER
+	or not is_struct(object_grid_hovering) {
+		return;
+	}
+	
+	var _obj_pos = get_x_y_from_object_index(object_grid_hovering.object);
+				
+	selected_object_type = _obj_pos[0];
+	selected_object_position = _obj_pos[1];
+	image_xscale = object_grid_hovering.xscale;
+	image_yscale = object_grid_hovering.yscale;
+	image_angle = object_grid_hovering.angle;
+		
+	remove_object_from_grid(object_grid_hovering);
+	update_selected_object();
+}
+
+cursor_create_object_in_grid = function(_tile_x, _tile_y) {
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
+	or is_undefined(selected_object) then
+		return;
+	
+	if (mouse_check_button_released(mb_left) 
+			or (mouse_check_button(mb_left) and selected_object.has_tag("is_holdable"))
+		) and cursor == LEVEL_CURSOR_TYPE.CURSOR 
+		and not is_undefined(selected_object)
+		and not has_object_below_cursor
+		and test_button_cooldown == 0
+	{
+		if selected_object.has_tag("is_unique") {
+			remove_all_specific_objects_from_grid(selected_object.index);
+		}
+		
+		if selected_object.index == oMagicOrb 
+		or selected_object.index == oGrayOrb {
+			remove_orb_from_grid();
+		}
+		
+		place_object_in_object_grid(
+			_tile_x,
+			_tile_y,
+			selected_object,
+			oLevelMaker.image_xscale,
+			oLevelMaker.image_yscale,
+			oLevelMaker.image_angle
+		);
+		
+		if instance_exists(oSolidDay) then oSolidDay.update = true;
+		if instance_exists(oSolidNight) then oSolidNight.update = true;
+		audio_play_sfx(snd_key2, false, -18.3, 20);
+		
+		repeat(3) {
+			var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+			
+			sm.image_xscale=0.5;
+			sm.image_yscale=0.5;
+		}
+	}
+}
+
+cursor_remove_object_from_grid = function() {
+	if not is_cursor_inside_level
+	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+	
+	if (mouse_check_button(mb_right) 
+		or (mouse_check_button(mb_left) 
+			and cursor == LEVEL_CURSOR_TYPE.ERASER))
+		and is_struct(object_grid_hovering) 
+	{
+		remove_object_from_grid(object_grid_hovering);
+		
+		audio_play_sfx(snd_brokestone,false,-5,15);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+		instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+	}
+}
+
+cursor_create_tile_in_grid = function() {
+	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+
+    if not mouse_check_button(mb_left)
+    or cursor != LEVEL_CURSOR_TYPE.CURSOR
+    or is_undefined(selected_tile)
+    or test_button_cooldown > 0 {
+        return;
+    }
+
+    var _instance_layer_name = level_maker_get_background_instances_layer_name();
+    var _tileset_layer_name = level_maker_get_background_tile_layer_name();
+    var _tilemap_id = layer_tilemap_get_id(_tileset_layer_name);
+
+    if _tilemap_id == -1 then return;
+
+    var _x = floor(x / tileset_size) * tileset_size;
+    var _y = floor(y / tileset_size) * tileset_size;
+
+    var _existing_tile_draft_list = ds_list_create();
+    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _existing_tile_draft_list, true);
+
+    for (var i = 0; i < _existing_tile_draft_amount; i++) {
+        var _current_draft = ds_list_find_value(_existing_tile_draft_list, i);
+
+        if layer_get_name(_current_draft.layer) == _instance_layer_name {
+            ds_list_destroy(_existing_tile_draft_list);
+            return;
+        }
+    }
+
+    ds_list_destroy(_existing_tile_draft_list);
+
+    var _is_animated_sprite = selected_tile.is_animated;
+
+    // Cria um objeto de rascunho que será responsável por desenhar o tile na room
+    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorDraft);
+    _tile_draft.angle = image_angle;
+    _tile_draft.xscale = image_xscale;
+    _tile_draft.yscale = image_yscale;
+    _tile_draft.type = _is_animated_sprite ? DRAFT_TYPE.ANIMATED_TILE : DRAFT_TYPE.TILE;
+    _tile_draft.tile_id = selected_tile.original_tile_id;
+    _tile_draft.tileset = selected_tile.tileset;
+    _tile_draft.tilemap_id = _tilemap_id;
+    _tile_draft.is_rotated = tile_get_rotate(selected_tile.tile_id);
+    _tile_draft.is_mirrored = tile_get_mirror(selected_tile.tile_id);
+    _tile_draft.is_flipped = tile_get_flip(selected_tile.tile_id);
+
+    if _is_animated_sprite {
+        _tile_draft.layer_id = layer_get_id(_instance_layer_name);
+        _tile_draft.sprite_day = selected_tile.sprite_day;
+        _tile_draft.sprite_night = selected_tile.sprite_night;
+    }
+    
+    audio_play_sfx(snd_key2, false, -18.3, 20);
+    
+    repeat(3) {
+        var sm = instance_create_layer(x + 8, y + 8, "Instances_2", oBigSmoke);
+        sm.image_xscale = 0.5;
+        sm.image_yscale = 0.5;
+    }
+}
+
+cursor_remove_tile_from_grid = function() {
+	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+		return;
+		
+	if (not mouse_check_button(mb_left) and mouse_check_button(mb_right)) 
+    or (mouse_check_button(mb_left) and cursor == LEVEL_CURSOR_TYPE.ERASER) {
+		var _instance_layer_name = level_maker_get_background_instances_layer_name();
+		var _x = floor(x / tileset_size) * tileset_size;
+		var _y = floor(y / tileset_size) * tileset_size;
+        var _tile_draft_list = ds_list_create();
+        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _tile_draft_list, true);
+        var _tile_draft_to_remove = noone;
+
+        for (var i = 0; i < _tile_draft_amount and _tile_draft_to_remove == noone; i++) {
+            var _current_draft = ds_list_find_value(_tile_draft_list, i);
+    
+            if layer_get_name(_current_draft.layer) == _instance_layer_name {
+                _tile_draft_to_remove = _current_draft;
+            }
+        }
+
+        ds_list_destroy(_tile_draft_list);
+        
+        if _tile_draft_to_remove == noone {
+            return;
+        }
+
+        instance_destroy(_tile_draft_to_remove);
+
+        audio_play_sfx(snd_brokestone, false, -5, 15); 
+        repeat(2) {
+            instance_create_layer(x, y, "Instances_2", oBigSmoke);
+        }
+	}
+}
+
+update_tilesets_by_style = function() {
+	if not instance_exists(oPause) then return;
+	
+	var _layers = level_maker_get_tileset_layers();
+	
+	var _tilemaps = [];
+	var _tileset = undefined;
+	
+	for (var i = 0; i < array_length(_layers); i++) {
+		var _layer = _layers[i];
+		
+		if _layer == -1 then continue;
+		
+		var _tilemap = layer_tilemap_get_id(_layer);
+		
+		if _tilemap == -1 then continue;
+		
+		switch(selected_style) {
+			case LEVEL_STYLE.GRASS:
+				_tileset = tMakerGrassDay;
+				break;
+			case LEVEL_STYLE.CLOUDS:
+				_tileset = tMakerCloudDay;
+				break;
+			case LEVEL_STYLE.FLOWERS:
+				_tileset = tMakerFlowerDay;
+				break;
+			case LEVEL_STYLE.SPACE:
+				_tileset = tMakerSpaceDay;
+				break;
+			case LEVEL_STYLE.DUNGEON:
+				_tileset = tMakerDungeonDay;
+				break;
+		}
+		
+		tilemap_tileset(_tilemap, _tileset);
+	}
+}
+
+set_tile_manipulation = function() {
+	if is_undefined(selected_tile) or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then 
+		return;
+		
+	var _tile = selected_tile.tile_id;
+	
+	// Rotate tile
+	if keyboard_check_pressed(ord("Z")) {
+		audio_play_sfx(sndPress, false, -5, 13);
+		
+		image_angle += 90;
+		if image_angle >= 360 then 
+			image_angle = 0;
+		
+		var _rotated_tile = _tile;
+		switch(image_angle) {
+			case 0:
+				_rotated_tile = tile_set_rotate(_rotated_tile, false);
+				_rotated_tile = tile_set_flip(_rotated_tile, false);
+				_rotated_tile = tile_set_mirror(_rotated_tile, false);
+				break;
+			case 90:
+				_rotated_tile = tile_set_rotate(_rotated_tile, true);
+				_rotated_tile = tile_set_flip(_rotated_tile, true);
+				_rotated_tile = tile_set_mirror(_rotated_tile, true);
+				break;
+			case 180:
+				_rotated_tile = tile_set_rotate(_rotated_tile, false);
+				_rotated_tile = tile_set_flip(_rotated_tile, true);
+				_rotated_tile = tile_set_mirror(_rotated_tile, true);
+				break;
+			case 270:
+				_rotated_tile = tile_set_rotate(_rotated_tile, true);
+				_rotated_tile = tile_set_flip(_rotated_tile, false);
+				_rotated_tile = tile_set_mirror(_rotated_tile, false);
+				break;
+		}
+		
+		_tile = _rotated_tile;
+	}
+	
+	// Flip/Mirror tile
+	if keyboard_check_pressed(ord("X")) {
+		audio_play_sfx(sndPress, false, -5, 13);
+		var _new_tile = _tile;
+		
+		image_xscale *= -1;
+		_new_tile = tile_set_mirror(_new_tile, not tile_get_mirror(_tile));
+		
+		_tile = _new_tile;
+	}
+	
+	selected_tile.tile_id = _tile;
+}
+
+set_object_rotation_and_scaling = function() {
+	if is_undefined(selected_object) or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then 
+		return;
+	
+	if selected_object.has_tag("can_flip") {
+		if keyboard_check_pressed(ord("X")) {
+			if selected_object.has_tag("is_vertical") {
+				image_yscale *= -1;
+			} else {
+				image_xscale *= -1;
+			}
+			
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
+	} else {
+		image_xscale = 1;
+	}
+	
+	if selected_object.has_tag("can_spin") {
+		if keyboard_check_pressed(ord("Z")) {
+			image_angle += 90;
+			if image_angle >= 360 then image_angle = 0;
+			audio_play_sfx(sndPress, false, -5, 13);
+		}
+	} else {
+		image_angle = 0;
+	}
+}
 
 get_lmobject_from_list = function(_object_index) {
 	for(var t = 0; t < array_length(obj); t++) {
@@ -173,8 +470,23 @@ get_lmobject_from_list = function(_object_index) {
 	}
 }
 
+get_tile_from_list = function(_tile_id) {
+	for (var t = 0; t < array_length(tiles); t++) {
+		var type = tiles[t];
+		
+		for(var p = 0; p < array_length(type); p++) {
+			var _tile = type[p];
+			if is_undefined(_tile) then continue;
+			
+			if _tile.original_tile_id == _tile_id then 
+				return _tile;
+		} 
+	}
+	return -1;
+}
+
 get_x_y_from_object_index = function(_object) {
-	for (var yy = object_positions_length - 1; yy >= 0; yy--) {
+	for (var yy = list_positions_length - 1; yy >= 0; yy--) {
 		for (var xx = object_types_length - 1; xx >= 0; xx--) {
 			var object_from_list = obj[xx, yy];
 			
@@ -428,18 +740,65 @@ object_of_type_exists_in_editor = function(_object_index) {
 }
 
 start_level = function() {
-	audio_play_sfx(sndStarGame,false,-18.3,1)
-	hover_text = "";
+	var has_player_in_level =
+		object_of_type_exists_in_editor(oPlayer) 
+		or object_of_type_exists_in_editor(oPlayerDir) 
+		or object_of_type_exists_in_editor(oPlayerNeutral);
+			
+	var has_star_in_level = 
+		object_of_type_exists_in_editor(oStar) 
+		or object_of_type_exists_in_editor(oStarColor) 
+		or object_of_type_exists_in_editor(oStarRunning) 
+		or object_of_type_exists_in_editor(oStarRunningColor) 
+		or object_of_type_exists_in_editor(oStarFly) 
+		or object_of_type_exists_in_editor(oStarColorNight);
 	
-	instance_destroy(oPause);
-	
-	switch (selected_style) {
-		case LEVEL_STYLE.GRASS:		instance_create_layer(0, 0,"Instances", o_grass_song);		break;
-		case LEVEL_STYLE.CLOUDS:	instance_create_layer(0, 0,"Instances", o_cloud_song);		break;
-		case LEVEL_STYLE.FLOWERS:	instance_create_layer(0, 0,"Instances", o_flower_song);		break;
-		case LEVEL_STYLE.SPACE:		instance_create_layer(0, 0,"Instances", o_space_song);		break;
-		case LEVEL_STYLE.DUNGEON:	instance_create_layer(0, 0,"Instances", o_dungeon_song);	break;
+	if not (has_player_in_level and has_star_in_level) {
+		var _msg = "";
+		
+		if not has_player_in_level then _msg += $"- {LANG.maker_noplayer}\n";
+		if not has_star_in_level then _msg += $"- {LANG.maker_noestar}\n";
+		
+		show_message_async(_msg);
+		return;
 	}
+	
+   mode = LEVEL_EDITOR_MODE.TESTING;
+	instance_destroy(oPause);
+	audio_play_sfx(sndStarGame, false, -18.3, 1);
+	
+	// =========================
+	// MUSIC SETTING
+	// =========================
+	switch (selected_style) {
+		case LEVEL_STYLE.GRASS:	
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_grass_song_night : o_grass_song);
+			break;
+		case LEVEL_STYLE.CLOUDS:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_cloud_song_night : o_cloud_song);
+			break;
+		case LEVEL_STYLE.FLOWERS:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_flower_song_night : o_flower_song);
+			break;
+		case LEVEL_STYLE.SPACE:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_space_song_night : o_space_song);
+			break;
+		case LEVEL_STYLE.DUNGEON:
+			instance_create_layer(0, 0, "Instances", use_night_music ? o_dungeon_song_night : o_dungeon_song);
+			break;
+	}
+	
+	// =========================
+	// ANIMATED TILES PLACEMENT
+	// =========================
+	//change_tiles_to_animated_sprites();
+    with(oMakerEditorDraft) {
+        set_in_room();
+    }
+	
+	// =========================
+	// OBJECTS PLACEMENT
+	// =========================
 	
 	// This will be used to determine which objects will be
 	// created first.
@@ -488,15 +847,14 @@ start_level = function() {
 				_in_world_y = round(_in_world_y);
 				
 				var _priority = 0;
-				var _layer_name = "";
+				var _layer_name = "Player_Instances";
 				
 				switch(_object.index) {
-					// THEY MUST BE THE LAST TO NOT BREAK THE STAR COUNTING.
+					// THEY MUST BE THE LAST TO BE CREATED IN ROOM TO NOT BREAK THE STAR COUNTING.
 					case oPlayer:
 					case oPlayerDir:
 					case oPlayerNeutral:
 						_priority = 0;
-						_layer_name = "Player_Instances";
 						break;
 						
 					case oStar:
@@ -506,7 +864,18 @@ start_level = function() {
 					case oMagicOrb:
 					case oGrayOrb:
 					case oBird:
-						_layer_name = "Player_Instances";
+					case oSnail:
+					case oSnailNight:
+					case oSnailGray:
+					case oBat:
+					case oBatGiant:
+					case oBatSuperGiant:
+					case oBatVer:
+					case oLady:
+					case oLadyGiant:
+					case oLadyGiant4:
+					case oLadyVer:
+					case oLadyGray:
 						_priority = 1;
 						break;
 						
@@ -533,8 +902,6 @@ start_level = function() {
 					},
 					_priority
 				);
-				
-				//instance_create_layer(_in_world_x, _in_world_y, "Instances", _object.index, _object_var_struct);
 			}
 		}
 	}
@@ -548,9 +915,21 @@ start_level = function() {
 	with(oLevelMaker) {
 		scr_update_style();
 	}
+
+	// =========================
+	// EFFECTS ENABLING
+	// =========================
+    var _fx_dust = layer_get_id("FX_Dust");
+    var _fx_background_fog = layer_get_id("FX_Background_Fog");
+
+    layer_set_visible(_fx_dust, true);
+
+    if selected_style == LEVEL_STYLE.DUNGEON then
+        layer_set_visible(_fx_background_fog, true);
 	
-	with (oBrokenStone)
-	{
+    level_maker_change_fx();
+
+	with(oBrokenStone) {
 		brokenright = instance_place(x+1,y,oBrokenStone)
 		brokenleft = instance_place(x-1,y,oBrokenStone)
 		brokenup = instance_place(x,y-1,oBrokenStone)
@@ -559,7 +938,7 @@ start_level = function() {
 }
 
 delete_all_objects_from_level = function() {
-	for (var yy = object_positions_length - 1; yy>=0; yy-=1) {
+	for (var yy = list_positions_length - 1; yy>=0; yy-=1) {
 		for (var xx = object_types_length - 1; xx>=0; xx-=1) {
 			var object = obj[xx, yy];
 			
@@ -569,17 +948,19 @@ delete_all_objects_from_level = function() {
 	}
 }
 
-end_level_and_return_to_editor = function(){
+end_level_and_return_to_editor = function() {
 	//destroy the "song"
-	instance_destroy(o_grass_song);
-	instance_destroy(o_cloud_song);
-	instance_destroy(o_flower_song);
-	instance_destroy(o_space_song);
-	instance_destroy(o_dungeon_song);
+    
+	instance_destroy(o_music);
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
-	instance_create_layer(x,y,layer,oPause);
+    with(oMakerEditorDraft) {
+        remove_from_room();
+    }
+
+    mode = LEVEL_EDITOR_MODE.EDITING;
+	instance_create_layer(-16, -16, layer, oPause);
 	
 	// Reset day/night state
 	if instance_exists(oCamera) then
@@ -587,17 +968,25 @@ end_level_and_return_to_editor = function(){
 	
 	// Destroy gimmicks that would persist on level editor after playtest
 	instance_destroy(oNeutralFlag);
-	instance_destroy(oKeyFollow);
-	instance_destroy(oKeyFollow2);
-	instance_destroy(oKeyFollow3);
+	instance_destroy(oKeyFollow, false);
+	instance_destroy(oKeyFollow2, false);
+	instance_destroy(oKeyFollow3, false);
 	
-	audio_play_sfx(snd_bump, false, 1, 1);
+    // Disable layer effects
+    var _fx_dust = layer_get_id("FX_Dust");
+    var _fx_background_fog = layer_get_id("FX_Background_Fog");
+
+    layer_set_visible(_fx_dust, false);
+    layer_set_visible(_fx_background_fog, false);
+
+    level_maker_change_fx();
+    audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
 }
 
 //CAMERA CODE
 
-oCamera.fancyeffects = false;
+oCamera.fancyeffects = true;
 
 camera_current_interpolation = 0;
 
@@ -623,3 +1012,6 @@ place_object_in_object_grid(16, 12, get_lmobject_from_list(oPlayer));
 
 // star
 place_object_in_object_grid(22, 12, get_lmobject_from_list(oStar));
+
+update_selected_object();
+update_selected_tile();

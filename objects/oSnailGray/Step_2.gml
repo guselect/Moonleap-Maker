@@ -1,7 +1,7 @@
 if instance_exists(oPauseMenu) 
 or instance_exists(oDead)
 or (instance_exists(oTransition) and oTransition.wait != 0)
-or (instance_exists(oPlayer) and oPlayer.state == oPlayer.WIN) {
+or (instance_exists(oPlayer) and oPlayer.state.state_is("win")) {
 	image_speed = 0; 
 	exit;
 }

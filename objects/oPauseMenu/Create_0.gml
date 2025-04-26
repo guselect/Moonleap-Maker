@@ -132,7 +132,7 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 				},
 				action: function() {
 					var _langs = ["EN","PT-BR","JA","ES","IT","ZH"]; //set language order
-					var _lang_index = array_find_index(_langs,lang_get()); //find position of current
+					var _lang_index = array_find_index_of_value(_langs,lang_get()); //find position of current
 					_lang_index++; //go to next
 					if (_lang_index >= array_length(_langs)) { _lang_index = 0; } //wrap around
 				
@@ -326,7 +326,7 @@ if os_type= os_switch {  //switch, adnroid, IOS... remove stuff like windows sca
 				},
 				action: function() {
 				var _langs = ["EN","PT-BR","JA","ES","IT","ZH"]; //set language order
-					var _lang_index = array_find_index(_langs,lang_get()); //find position of current
+					var _lang_index = array_find_index_of_value(_langs,lang_get()); //find position of current
 					_lang_index++; //go to next
 					if (_lang_index >= array_length(_langs)) { _lang_index = 0; } //wrap around
 				
@@ -481,7 +481,7 @@ if os_type= os_ios or os_type= os_android {  //switch, adnroid, IOS... remove st
 				},
 				action: function() {
 				var _langs = ["EN","PT-BR","JA","ES","IT","ZH"]; //set language order
-					var _lang_index = array_find_index(_langs,lang_get()); //find position of current
+					var _lang_index = array_find_index_of_value(_langs,lang_get()); //find position of current
 					_lang_index++; //go to next
 					if (_lang_index >= array_length(_langs)) { _lang_index = 0; } //wrap around
 				

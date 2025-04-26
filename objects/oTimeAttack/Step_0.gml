@@ -2,7 +2,7 @@
 // You can write your code in this editor
 if instance_exists(oPlayer)
 {
-if oPlayer.state!=13 {time-=0.016666666666666}
+if not oPlayer.state.state_is("win") {time-=0.016666666666666}
 }
 
 

@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "TGMX_3_EventCallbacks",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "User",
-    "path": "folders/Libraries/TweenGMX/User.yy",
+  "$GMScript":"v1",
+  "%Name":"TGMX_3_EventCallbacks",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TGMX_3_EventCallbacks",
+  "parent":{
+    "name":"User",
+    "path":"folders/Libraries/TweenGMX/User.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
