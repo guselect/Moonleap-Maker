@@ -119,11 +119,11 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 		} 
 		
 		// Se não colidir com terreno, mova os seguintes objetos acima dele.
-	    if (not has_collided(sign(hsp_new), 0, true, [oPermaSpike])) {
+	   if (not has_collided(sign(hsp_new), 0, true, [oPermaSpike])) {
 			// Movimento do player
-			with (oPlayer) { 
-				// place_meeting(x - sign(hsp_new), y, other.id)
-				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
+			with (oPlayer) {
+				if (place_meeting(x - sign(hsp_new), y, other.id) and not place_meeting(x - sign(hsp_new), y, [oSnail, oSnailNight, oSnailGray]))
+				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -156,7 +156,6 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 				//place_meeting(x - sign(hsp_new), y, other.id)
 				if not place_meeting(x - sign(hsp_new), y, other.id)
 				and not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id) {
-					show_debug_message($"[{current_time}] Moving star...")
 					x += sign(hsp_new);
 				}
 		    }
