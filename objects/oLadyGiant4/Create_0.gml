@@ -1,5 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
 mask_index=sprite_index
 
 maxspd = 0.55;
@@ -10,17 +8,13 @@ sturn_day=sLadyTurn
 smove_dayB=sLadyDay
 sturn_dayB=sLadyTurnNight
 
-if image_index == 1 {
-	hsp = 0.55;
-} else {
-	hsp = -0.55;
-}
-
 startindex = image_index;
 
-if sign(sign(image_xscale) == 1) {
-	hsp = -0.55;
-	startindex = 1;
+hsp = startindex == 1 ? -maxspd : maxspd;
+
+// Moonleap Maker flips the object changing image_xscale instead of image_index
+if sign(image_xscale) == -1 {
+	hsp = -maxspd;
 }
 
 image_xscale = sign(hsp);

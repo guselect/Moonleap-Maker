@@ -1,23 +1,12 @@
 if startindex == 0 {
 	prehsp += (oCamera.night ? 0.05 : -0.05);
 } else {
-	prehsp += (not oCamera.night ? 0.05 : -0.05);
+	prehsp += (oCamera.night ? -0.05 : 0.05);
 }
 
 prehsp = clamp(prehsp, -maxspd, maxspd);
 
-if y > room_height {
-	y -= 180;
-}
-if x > room_width {
-	x -= 320;
-}
-if y < 0 {
-	y += 180;
-}
-if x < 0 {
-	x += 320;
-}
+object_set_room_wrapping();
 
 if not place_meeting(x, y - 2, oPlayer) {
 	drawy = y - 2;

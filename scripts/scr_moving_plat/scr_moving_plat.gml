@@ -123,14 +123,14 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento do player
 			with (oPlayer) { 
 				// place_meeting(x - sign(hsp_new), y, other.id)
-				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
 			// Movimento do caracol do dia
 			with (oSnail) { 
 				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -138,7 +138,7 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento do caracol da noite
 			with (oSnailNight) { 
 				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -146,7 +146,7 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento do caracol neutro
 			with (oSnailGray) { 
 				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -154,7 +154,7 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento da estrela
 			with (oStar) { 
 				//place_meeting(x - sign(hsp_new), y, other.id)
-				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -162,7 +162,7 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento do orbe mágico
 			with (oMagicOrb) { 
 				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
