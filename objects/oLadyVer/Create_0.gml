@@ -1,5 +1,3 @@
-event_inherited();
-
 levelnumb = 0;
 night = false;
 hsp = 0;
@@ -10,6 +8,7 @@ cy = 0;
 xx = 0;
 yy = 0;
 maxspd = 0.55;
+drawy = y;
 
 smove_day=sLadyNight
 sturn_day=sLadyTurn
@@ -22,13 +21,12 @@ vsp = startindex == 1 ? maxspd : -maxspd;
 
 // Moonleap Maker flips the object changing image_xscale instead of image_index
 if sign(image_yscale) == -1 {
-	vsp = -maxspd;
+	vsp = maxspd;
 }
 
-sprite_index = startindex == 0 ? sLadyNight : sLadyDay;
-
-image_yscale = 1;
 image_angle = -90;
+
+sprite_index = startindex == 0 ? sLadyNight : sLadyDay;
 
 if instance_exists(oGrassDay)
 or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS) {

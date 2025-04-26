@@ -27,7 +27,7 @@ image_xscale = sign(hsp);
 sprite_index = startindex == 0 ? smove_day : smove_dayB;
 
 layer=layer_get_id("Instances_2")
-drawy=y
+drawy = y;
 
 prehsp = hsp;
 
