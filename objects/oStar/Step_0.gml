@@ -42,7 +42,7 @@ object_set_room_wrapping();
 //}
 
 if place_meeting(x, y, oSolid) 
-and not place_meeting(x, y, [oSnail, oSnailNight, oSnailGray, oLady, oLadyGiant, oLadyGiant4, oLadyVer]) {
+and not place_meeting(x, y, [oSnail, oSnailNight, oSnailGray, oBat, oBatGiant, oBatSuperGiant, oBatVer, oLady, oLadyGiant, oLadyGiant4, oLadyVer]) {
 	repeat(irandom_range(2, 4)) {
 		instance_create_layer(x,y,"Instances_2",oBigSmoke);
 	}

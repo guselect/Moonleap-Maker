@@ -1,19 +1,10 @@
 hsp = 0;
 vsp = 0;
 wing = 2;
-
-dir = image_yscale;
-vsp = image_index == 1 ? 0.5 : -0.5;
-mask_index = sprite_index;
-image_yscale = 1;
-
-//if image_index == 1 or sign(image_yscale) == -1 {
-//	dir = -1;
-//}
-
 startindex = image_index;
-
+dir = image_yscale;
 night = false;
+change = false;
 early_night = false;
 
 cx = 0;
@@ -22,11 +13,13 @@ cy = 0;
 layer = layer_get_id("Instances_2");
 drawy = y;
 
+vsp = image_index == 1 ? 0.5 : -0.5;
+
 xx = x;
 yy = y;
 
-change = false;
-
+mask_index = sprite_index;
+image_yscale = 1;
 image_index = 0;
 
 if instance_exists(oGrassDay) {
@@ -48,11 +41,3 @@ if place_meeting(x+1,y,oBatVer) or place_meeting(x+1,y,oMush) {
 } else if place_meeting(x+1,y,oBatVer) and place_meeting(x - 1, y, oBatVer) {
 	wing = 0;
 }
-
-change_dir_on_collide = function() {
-	if not has_collided(0, sign(vsp), true, [oPermaSpike]) then return;
-	
-	dir *= -1;
-}
-
-change_dir_on_collide();

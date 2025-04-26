@@ -16,16 +16,6 @@ if x < 0 {
 	xx += room_width;
 }
 
-change_dir_on_collide();
-
-if instance_exists(oMush) {
-	if place_meeting(x + sign(hsp), y, oMush) {
-		dir *= -1;
-		scr_change();
-		if !(audio_is_playing(snd_cogumelo_01) or audio_is_playing(snd_cogumelo_02) or audio_is_playing(snd_cogumelo_03) or audio_is_playing(snd_cogumelo_04)) {var sfxcogu=choose(snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04) audio_play_sfx(sfxcogu,false,-16,2)} 
-	}
-}
-
 if dir == 1 {
 	if x < xx {
 		hsp += 0.1;
@@ -45,4 +35,17 @@ if dir == -1 {
 }
 
 hsp = clamp(hsp, -1, 1);
+
+if hsp == 0 and has_collided(sign(dir), 0, true, [oPermaSpike]) {
+	dir *= -1;
+}
+
+if instance_exists(oMush) {
+	if place_meeting(x + sign(hsp), y, oMush) {
+		dir *= -1;
+		scr_change();
+		if !(audio_is_playing(snd_cogumelo_01) or audio_is_playing(snd_cogumelo_02) or audio_is_playing(snd_cogumelo_03) or audio_is_playing(snd_cogumelo_04)) {var sfxcogu=choose(snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04) audio_play_sfx(sfxcogu,false,-16,2)} 
+	}
+}
+
 image_speed = x == xx ? 1 : 3;

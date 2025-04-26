@@ -38,11 +38,3 @@ if instance_exists(oGrassDay) {
 } else if instance_exists(oDunDay) {
 	palette_index = 4;
 }
-
-change_dir_on_collide = function() {
-	if not has_collided(sign(hsp), 0, true, [oPermaSpike]) then return;
-	
-	dir *= -1;
-}
-
-change_dir_on_collide();
