@@ -154,7 +154,9 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			// Movimento da estrela
 			with (oStar) { 
 				//place_meeting(x - sign(hsp_new), y, other.id)
-				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id)) {
+				if not place_meeting(x - sign(hsp_new), y, other.id)
+				and not has_collided(sign(hsp_new), 0) and place_meeting(x, y + 1, other.id) {
+					show_debug_message($"[{current_time}] Moving star...")
 					x += sign(hsp_new);
 				}
 		    }
