@@ -1,1 +1,0 @@
-text=LANG.text_slower

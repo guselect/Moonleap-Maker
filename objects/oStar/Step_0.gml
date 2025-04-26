@@ -40,7 +40,7 @@ if x<0{x+=320}
 //	}
 //}
 
-if place_meeting(x, y, oSolid) {
+if place_meeting(x, y, oSolid) and not place_meeting(x, y, [oSnail, oSnailNight, oSnailGray]) {
 	repeat(irandom_range(2, 4)) {
 		instance_create_layer(x,y,"Instances_2",oBigSmoke);
 	}

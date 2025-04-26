@@ -122,8 +122,8 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 	    if (not has_collided(sign(hsp_new), 0, true, [oPermaSpike])) {
 			// Movimento do player
 			with (oPlayer) { 
-				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				// place_meeting(x - sign(hsp_new), y, other.id)
+				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }
@@ -153,8 +153,8 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 			
 			// Movimento da estrela
 			with (oStar) { 
-				if place_meeting(x - sign(hsp_new), y, other.id)
-				or (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
+				//place_meeting(x - sign(hsp_new), y, other.id)
+				if (not has_collided(sign(hsp_new), 0) and place_meeting(x, bbox_bottom + 1, other.id)) {
 					x += sign(hsp_new);
 				}
 		    }

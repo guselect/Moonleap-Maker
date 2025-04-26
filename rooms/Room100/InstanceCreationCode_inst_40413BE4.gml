@@ -1,1 +1,0 @@
-hubpar=25+12.5 //base only

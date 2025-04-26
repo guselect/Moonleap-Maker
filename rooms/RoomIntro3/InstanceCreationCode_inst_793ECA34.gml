@@ -1,1 +1,0 @@
-parallax=0.2
