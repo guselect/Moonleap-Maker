@@ -9,8 +9,8 @@ displaykey[2] = 112	// F1
 // keys used to hide the console
 closekey[0] = 223 // ` Qwerty
 closekey[1] = 220 // § Qwertz/Apple
-closekey[2] = 112 // F1
-closekey[3] = 27  // Esc
+closekey[2] = vk_f1 // F1
+closekey[3] = vk_escape  // Esc
 
 open_me_key_count = array_length_1d(displaykey)
 close_me_key_count = array_length_1d(closekey)

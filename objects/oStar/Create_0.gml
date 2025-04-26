@@ -1,6 +1,6 @@
-//snail=instance_place(x,y+2,oSnailGray)
+snail = instance_place(x, y + 2, oSnailGray);
 //bat=instance_place(x,y+2,oBat)
-//batver=instance_place(x,y+1,oBatVer)
+//batver = instance_place(x, y + 1, oBatVer);
 
 image_index=random_range(0,2)
 neww=true

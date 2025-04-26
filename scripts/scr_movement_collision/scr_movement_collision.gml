@@ -4,19 +4,24 @@
 /// If false, they are relative to the room position. Default: true
 /// @param {Array<Asset.GMObject>} included_objects An array of objects to be also checked as collision. Default: empty array
 
-function has_collided(xx, yy, is_position_relative = true, included_objects = []) {
+function has_collided(xx, yy, is_position_relative = true, included_objects = [], excluded_objects = []) {
 	xx = (is_position_relative * x) + xx;
 	yy = (is_position_relative * y) + yy;
 
-    if xx < 0 then xx += room_width;
-    if xx > room_width then xx -= room_width;
-    if yy < 0 then yy += room_height;
-    if yy > room_height then yy += room_height;
+   if xx < 0 then xx += room_width;
+   if xx > room_width then xx -= room_width;
+   if yy < 0 then yy += room_height;
+   if yy > room_height then yy += room_height;
 	
 	// Included objects collision checking
 	if place_meeting(xx, yy, included_objects) {
-        return true;
-    }
+      return true;
+   }
+	
+	// Excluded objects collision checking
+	if place_meeting(xx, yy, excluded_objects) {
+		return false;
+	}
 	
 	// Platforms collision checking
 	var platform_list = ds_list_create();
@@ -30,13 +35,13 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 			
 			switch(platform.image_angle) {
 				case 90:
-					collided = bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top;
+					collided = bbox_right <= platform.bbox_left;
 					break;
 				case 180:
 					collided = bbox_top >= platform.bbox_bottom;
 					break;
 				case 270:
-					collided = bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top;
+					collided = bbox_left >= platform.bbox_right;
 					break;
 				default:
 					collided = bbox_bottom <= platform.bbox_top;
@@ -58,7 +63,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top {
+			if bbox_right <= platform.bbox_left {
 				ds_list_destroy(platform_list);
 				return true;
 			}
@@ -72,7 +77,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top {
+			if bbox_left >= platform.bbox_right {
 				ds_list_destroy(platform_list);
 				return true;
 			}

@@ -36,7 +36,7 @@ if dir == -1 {
 
 vsp = clamp(vsp, -1, 1);
 
-if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike]) {
+if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike], [oSnail, oSnailNight, oSnailGray]) {
 	dir *= -1;
 }
 

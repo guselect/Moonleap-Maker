@@ -10,7 +10,7 @@ hsp=-(image_xscale*0.55)
 vsp=0
 hsp_plus=0
 grav=0.08
-
+yprev = y;
 
 // new movement code
 
@@ -31,3 +31,7 @@ c_right   = place_meeting(x + 1, y, oSolid);
 sticking = false
 
 palette_index=5
+
+is_stuck = function() {
+	return has_collided(2, 0) and has_collided(-2, 0);
+}

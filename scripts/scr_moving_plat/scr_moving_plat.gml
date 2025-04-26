@@ -17,82 +17,81 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 	cy -= vsp_new;
 
 	// Movimento vertical
-	if vsp != 0 {
-		repeat(abs(vsp_new)) {
-			// Se colidir com o oBounce, para de ler o código daqui pra baixo
-			if (place_meeting(x, y + sign(vsp_new), oBounce)) {
-				vsp = 0;
-				break;
-			} 
+	//if vsp != 0 {
+	repeat(abs(vsp_new)) {
+		// Se colidir com o oBounce, para de ler o código daqui pra baixo
+		if (place_meeting(x, y + sign(vsp_new), oBounce)) {
+			vsp = 0;
+			break;
+		} 
 			
-			// Se não colidir com terreno verticalmente
-			if (not has_collided(0, sign(vsp_new))) {
-		        with (oPlayer) {
-					if (place_meeting(x, y + 1, other.id)
-						and not (sign(vsp) == -1 and sign(vsp_new) == 1)
-						and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
-					) or (place_meeting(x, y - 1, other.id) 
-						and sign(vsp_new) == 1
-					) {
-						y += sign(vsp_new);
-					}
-		        }
+		// Se não colidir com terreno verticalmente
+		if not has_collided(0, sign(vsp_new), true, [], [oSnail, oSnailNight, oSnailGray]) {
+		   with (oPlayer) {
+				if (place_meeting(x, y + 1, other.id)
+					and sign(vsp) >= 0
+					and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
+				) or (place_meeting(x, y - 1, other.id) 
+					and sign(vsp_new) == 1
+				) {
+					y += sign(vsp_new);
+				}
+		   }
 				
-				// Movimento do caracol do dia
-				with (oSnail) { 
-					if (place_meeting(x, y + 1, other.id)
-						and not (sign(vsp) == -1 and sign(vsp_new) == 1)
-						and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
-					) or (place_meeting(x, y - 1, other.id) 
-						and sign(vsp_new) == 1
-					) {
-						y += sign(vsp_new);
-					}
-		        }
+			// Movimento do caracol do dia
+			with (oSnail) { 
+				if (place_meeting(x, y + 1, other.id)
+					and sign(vsp) >= 0
+					and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
+				) or (place_meeting(x, y - 1, other.id) and sign(vsp_new) == 1) {
+					y += sign(vsp_new);
+				}
+		   }
 				
-				with (oSnailNight) { // Movimento do caracol da noite
-					if (place_meeting(x, y + 1, other.id)
-						and not (sign(vsp) == -1 and sign(vsp_new) == 1)
-						and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
-					) or (place_meeting(x, y - 1, other.id) 
-						and sign(vsp_new) == 1
-					) {
-						y += sign(vsp_new);
-					}
-		        }
+			// Movimento do caracol da noite
+			with (oSnailNight) {
+				if (place_meeting(x, y + 1, other.id)
+					and sign(vsp) >= 0
+					and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
+				) or (place_meeting(x, y - 1, other.id) 
+					and sign(vsp_new) == 1
+				) {
+					y += sign(vsp_new);
+				}
+		   }
 				
-				// Movimento do orbe mágico
-				with (oMagicOrb) { 
-					if (place_meeting(x, y + 1, other.id)
-						and not (sign(vsp) == -1 and sign(vsp_new) == 1)
-						and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
-					) or (place_meeting(x, y - 1, other.id) 
-						and sign(vsp_new) == 1
-					) {
-						y += sign(vsp_new);
-					}
-		        }
+			// Movimento do caracol neutro
+			with (oSnailGray) { 
+				if (place_meeting(x, y + 1, other.id)
+					and sign(vsp) >= 0
+					and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
+				) or (place_meeting(x, y - 1, other.id) 
+					and sign(vsp_new) == 1
+				) {
+					y += sign(vsp_new);
+				}
+		   }
+				
+			// Movimento do orbe mágico na plataforma
+			with (oMagicOrb) { 
+				if (place_meeting(x, y + 1, other.id)
+					and sign(vsp) >= 0
+					and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
+				) or (place_meeting(x, y - 1, other.id) 
+					and sign(vsp_new) == 1
+				) {
+					y += sign(vsp_new);
+				}
+		   }
 			
-				// Movimento do caracol neutro
-				with (oSnailGray) { 
-					if (place_meeting(x, y + 1, other.id)
-						and not (sign(vsp) == -1 and sign(vsp_new) == 1)
-						and not place_meeting_exception(x, y + sign(vsp_new), oSolid, other.id)
-					) or (place_meeting(x, y - 1, other.id) 
-						and sign(vsp_new) == 1
-					) {
-						y += sign(vsp_new);
-					}
-		        }
-				
-				y += sign(vsp_new) //código relacionado ao próprio movimento
-		    }
-		    else { //caso ele colida com o terreno, ele para e para de ler o código
-		        vsp = 0;
-		        break;
-		    }
+			y += sign(vsp_new) //código relacionado ao próprio movimento
+		}
+		else { //caso ele colida com o terreno, ele para e para de ler o código
+		   vsp = 0;
+		   break;
 		}
 	}
+	//}
 
 	// Movimento horizontal
 	repeat(abs(hsp_new)) {

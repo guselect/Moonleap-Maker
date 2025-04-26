@@ -1,36 +1,45 @@
 /// @description Insert description here
 // You can write your code in this editor
 on_ground_var = has_collided(0, 1, true, [oPermaSpike]);
+
 if not on_ground_var {
-	vsp += grav
+	vsp = min(vsp + grav, 3);
 }
-if vsp>3 {vsp=3}
 
+object_set_room_wrapping();
+//if y>room_height{y-=180}
+//if x>room_width{x-=320}
+//if y<0{y+=180}
+//if x<0{x+=320}
 
+var _y_diff = yprev - y;
 
-if y>room_height{y-=180}
-if x>room_width{x-=320}
-if y<0{y+=180}
-if x<0{x+=320}
+if place_meeting(x, y, oSolid)
+or (sign(_y_diff) == 1 and place_meeting(x, y - 1, oPlatGhostInv)) {
+	instance_destroy();
+}
 
-	if (place_meeting(x, y, oSolid))
-	 {instance_destroy()}
-	 
-//if (place_meeting(x, y + 1, oPlatGhostInv) && !place_meeting(x, y, oPlatGhostInv)) and vsp<0
- //{instance_destroy()}
- 
+yprev = y;
 
-sprite_index=sSnailWalk
+sprite_index = sSnailWalk;
 
-if vsp == 0 and
-abs(image_xscale) == 1
-and (not has_collided(-(sprite_width / 1.3), 2, true, [oPermaSpike]) 
+if vsp == 0
+and abs(image_xscale) == 1
+and not (has_collided(2, 0) and has_collided(-2, 0))
+and (not has_collided(-(sprite_width / 1.6), 2, true, [oPermaSpike]) 
 	or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
 ) {
 	image_xscale *= -1;
 }
-	
-hsp -= image_xscale * 0.075;
+
+if is_stuck() {
+	hsp = 0;
+	if sign(image_xscale) != 0 {
+		image_xscale = sign(image_xscale);
+	}
+} else {
+	hsp -= image_xscale * 0.075;	
+}
 hsp = clamp(hsp,-0.55,0.55);
 
 var nearmush = instance_place(x,y,oMush)
@@ -118,8 +127,11 @@ if nearmush != noone {
 sindex=sprite_index
 iindex=image_index
 xindex=image_xscale
- 
- 	if hsp>=0.125 and hsp<=0.5
+
+if is_stuck() {
+	sprite_index = sSnailWalk;
+} else {
+	if hsp>=0.125 and hsp<=0.5
 	{sindex=sSnailTurn iindex=0 xindex=1}
 	
 	if hsp>=-0.125 and hsp<=0.125
@@ -127,3 +139,5 @@ xindex=image_xscale
 	
 	if hsp>=-0.5 and hsp<=-0.125
 	{sindex=sSnailTurn iindex=2 xindex=1}
+}
+
