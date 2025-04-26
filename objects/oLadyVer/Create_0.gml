@@ -1,59 +1,48 @@
-/// @description Insert description here
-// You can write your code in this editor
+event_inherited();
+
+levelnumb = 0;
+night = false;
+hsp = 0;
+vsp = 0;
+prevsp = 0;
+cx = 0;
+cy = 0;
+xx = 0;
+yy = 0;
+maxspd = 0.55;
+
 smove_day=sLadyNight
 sturn_day=sLadyTurn
-maxspd=0.55
 smove_dayB=sLadyDay
 sturn_dayB=sLadyTurnNight
 
-if image_index == 1 {
-	vsp = 0.55;
-} else {
-	vsp = -0.55;
-}
-
 startindex = image_index;
 
-if sign(image_yscale) == 1 {
-	vsp = -0.55;
-	startindex = 1;
+vsp = startindex == 1 ? maxspd : -maxspd;
+
+// Moonleap Maker flips the object changing image_xscale instead of image_index
+if sign(image_yscale) == -1 {
+	vsp = -maxspd;
 }
 
-if startindex == 0 {
-	sprite_index = sLadyNight;
-} else {
-	sprite_index = sLadyDay;
-}
+sprite_index = startindex == 0 ? sLadyNight : sLadyDay;
 
 image_yscale = 1;
 image_angle = -90;
 
-levelnumb=0
-night=false
-
-hsp=0
-vsp=0
-prevsp=0
-
-cx = 0;
-cy = 0;
-
-xx=0
-yy=0
-
 if instance_exists(oGrassDay)
-{palette_index=0 exit;}
-
-if instance_exists(oCloudDay)
-{palette_index=1 exit;}
-
-if instance_exists(oFlowerDay)
-{palette_index=2 exit;}
-
-if instance_exists(oSpaceDay)
-{palette_index=3 exit;}
-
-if instance_exists(oDunDay)
-{palette_index=4 exit;}
-
-mask_index=sLadyVerMask
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS) {
+	palette_index = 0;
+} else if instance_exists(oCloudDay)
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.CLOUDS) {
+	palette_index = 1;
+} else if instance_exists(oFlowerDay)
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.FLOWERS) {
+	palette_index = 2;
+} else if instance_exists(oSpaceDay)
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.SPACE) {
+	palette_index = 3
+} else if instance_exists(oDunDay)
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.DUNGEON) {
+	palette_index = 4;
+}

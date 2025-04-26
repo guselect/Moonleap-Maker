@@ -39,6 +39,9 @@
     "name":"sLadyVerUI",
     "path":"sprites/sLadyVerUI/sLadyVerUI.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sLadyVerMask",
+    "path":"sprites/sLadyVerMask/sLadyVerMask.yy",
+  },
   "visible":true,
 }

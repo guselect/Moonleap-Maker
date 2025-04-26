@@ -8,10 +8,11 @@ if vsp > 4 {
 	vsp = 4;
 }
 
-if y>room_height{y-=180}
-if x>room_width{x-=320}
-if y<0{y+=180}
-if x<0{x+=320}
+object_set_room_wrapping();
+//if y>room_height{y-=180}
+//if x>room_width{x-=320}
+//if y<0{y+=180}
+//if x<0{x+=320}
 
 //if instance_exists(snail)
 //{
@@ -40,7 +41,8 @@ if x<0{x+=320}
 //	}
 //}
 
-if place_meeting(x, y, oSolid) and not place_meeting(x, y, [oSnail, oSnailNight, oSnailGray]) {
+if place_meeting(x, y, oSolid) 
+and not place_meeting(x, y, [oSnail, oSnailNight, oSnailGray, oLady, oLadyGiant, oLadyGiant4, oLadyVer]) {
 	repeat(irandom_range(2, 4)) {
 		instance_create_layer(x,y,"Instances_2",oBigSmoke);
 	}
