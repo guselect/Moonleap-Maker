@@ -41,10 +41,11 @@ if hsp == 0 and has_collided(sign(dir), 0, true, [oPermaSpike]) {
 }
 
 if instance_exists(oMush) {
-	if place_meeting(x + sign(hsp), y, oMush) {
+	if (place_meeting(x + 1, y, oMush) and dir == 1)
+	or (place_meeting(x - 1, y, oMush) and dir == -1){
 		dir *= -1;
 		scr_change();
-		if !(audio_is_playing(snd_cogumelo_01) or audio_is_playing(snd_cogumelo_02) or audio_is_playing(snd_cogumelo_03) or audio_is_playing(snd_cogumelo_04)) {var sfxcogu=choose(snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04) audio_play_sfx(sfxcogu,false,-16,2)} 
+		play_mushroom_sound();
 	}
 }
 

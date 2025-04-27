@@ -1,54 +1,32 @@
-/// @description Insert description here
-// You can write your code in this editor
+night = false;
 
-
-
-dir=image_xscale
-if dir=-1 {x-=16}
-image_xscale=1
-
-if image_index=1 {hsp=0.5} else {hsp=-0.5}
-
-startindex=image_index
-//if image_index=0 {sprite_index=sLadyNight} else {sprite_index=sLadyDay}
-
-mask_index=sprite_index
-sprite_index=sBat
-
-
-night=false
-
-hsp=0
-vsp=0
+hsp = 0;
+vsp = 0;
 
 cx = 0;
 cy = 0;
 
-drawhsp=hsp
+drawhsp = hsp;
 
-layer=layer_get_id("Instances_2")
-drawy=y
+dir = image_xscale;
 
-prehsp=hsp
+change = false;
 
+startindex = image_index;
+palette_index = 0;
+drawy = y;
 
-xx=x
-yy=y
+xx = x;
+yy = y;
 
-change=false
-palette_index=4
+prehsp = hsp;
 
-if instance_exists(oGrassDay)
-{palette_index=0 exit;}
+if dir == -1 then x -= 16;
 
-if instance_exists(oCloudDay)
-{palette_index=1 exit;}
+hsp = image_index == 1 ? 0.5 : -0.5;
 
-if instance_exists(oFlowerDay)
-{palette_index=2 exit;}
+set_pallete_index();
 
-if instance_exists(oSpaceDay)
-{palette_index=3 exit;}
-
-if instance_exists(oDunDay)
-{palette_index=4 exit;}
+sprite_index = sBat;
+layer = layer_get_id("Instances_2");
+image_xscale = 1;

@@ -41,13 +41,11 @@ if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike], [oSnail, oSnailN
 }
 
 if instance_exists(oMush) {
-	if place_meeting(x, y + sign(vsp), oMush) {
+	if (place_meeting(x, y + 1, oMush) and dir == 1)
+	or (place_meeting(x, y - 1, oMush) and dir == -1) {
 		dir *= -1;
 		scr_change();
-		if not audio_is_playing_any([snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04]) {
-			var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
-			audio_play_sfx(sfxcogu, false, -16, 2);
-		}
+		play_mushroom_sound();
 	}
 }
 

@@ -32,3 +32,11 @@ image_xscale = 1;
 image_yscale = 1;
 image_index = 0;
 layer = layer_get_id("Instances_2");
+
+play_mushroom_sound = function() {
+	if audio_is_playing_any([snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04]) then return;
+	
+	var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
+				
+	audio_play_sfx(sfxcogu, false, -16, 2);
+}
