@@ -147,10 +147,8 @@ visible = not instance_exists(oRoomTransition);
 state = new SnowState("idle");
 // Idle state
 state.add("idle", {
-	enter: function() {
-		sprite_index = PlayerIdle;
-	},
 	step: function() {
+		sprite_index = PlayerIdle;
 		set_idle_timer();
 
 		check_change_by_direction();
@@ -178,10 +176,8 @@ state.add("idle", {
 
 // Run state
 state.add("run", {
-	enter: function() {
-		sprite_index = PlayerRun;
-	},
 	step: function() {
+		sprite_index = PlayerRun;
 		check_change_by_direction();
 		
 		set_movement_and_gravity();
@@ -205,9 +201,6 @@ state.add("run", {
 
 // Jump state
 state.add("jump", {
-	enter: function() {
-	   sprite_index = on_ladder ? PlayerClimb : PlayerJump;
-	},
 	step: function() {
 		check_change_by_direction();
 		set_movement_and_gravity();
@@ -233,7 +226,6 @@ state.add("jump", {
 // Win state
 state.add("win", {
 	enter: function() {
-		sprite_index = PlayerHappy;
 		with (oPermaSpike) {
 		   var _solid = instance_create_layer(x, y, layer, oSolid);
 		   _solid.x = x;
@@ -243,6 +235,7 @@ state.add("win", {
 		}
 	},
 	step: function() {
+		sprite_index = PlayerHappy;
 		set_movement_and_gravity();
 		set_animation_speed();
 		set_game_paused();
@@ -586,9 +579,9 @@ set_skin_changing = function() {
 		return;
 	}
 	
-	skin_change_timer = min(skin_change_timer + 1, skin_change_timer_max);
+	skin_change_timer = min(skin_change_timer + 1, skin_change_timer_max + 1);
     
-	if skin_change_timer >= skin_change_timer_max {
+	if skin_change_timer == skin_change_timer_max {
 		idletime = 0;
 		scr_changeskin();
 	}

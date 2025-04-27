@@ -9,3 +9,4 @@ check_controls_disabling();
 set_godmode_toggling();
 set_godmode_movement();
 set_skin_changing();
+scr_checkskin();
