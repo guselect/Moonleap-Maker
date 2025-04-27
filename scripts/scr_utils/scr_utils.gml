@@ -77,6 +77,10 @@ function in_hub_view() {
 	return rectangle_in_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, _x1, _y1, _x2, _y2);
 }
 
+function is_at_hub() {
+	return room == Room100;
+}
+
 function on_desktop() {
 	return ((os_type == os_windows) or (os_type == os_linux) or (os_type == os_macosx));
 }

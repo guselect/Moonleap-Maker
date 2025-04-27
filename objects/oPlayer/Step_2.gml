@@ -67,7 +67,7 @@ if oCamera.current_skin=5
 }
 
 
-if room == Room100 {
+if is_at_hub() {
     trueblack = not (y > 360 and y < 720);
 	//if y>360 and y<720 {
         //trueblack = false;

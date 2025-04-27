@@ -308,7 +308,7 @@ set_movement_and_gravity = function() {
 		alarm[11] = game_get_speed(gamespeed_fps) * 30;
 	}
     
-	if room == Room100 or instance_exists(oPauseMenu) {
+	if is_at_hub() or instance_exists(oPauseMenu) {
 		alarm[11] += 1;
 	}
     
@@ -563,14 +563,14 @@ check_destroy_itself = function() {
 	   return;
 	}
 
-	if room == Room100
+	if is_at_hub()
 	and place_meeting(x, y, oSpecial5Trigger) 
 	and instance_exists(oSpecial5)
 	and key_reset { 
 	   oSpecial5.done = true;
 	   instance_destroy();
 	   return;
-	} else if key_reset {
+	} else if key_reset and not is_at_hub() {
 	   instance_destroy();
 	}
 }
@@ -678,7 +678,7 @@ check_controls_disabling = function() {
     if not state.state_is("win")
     and not instance_exists(oPauseMenu) 
     and numb <= 0
-    and not (instance_exists(oTransition) and (oTransition.wait != 0 or room == Room100)) {
+    and not (instance_exists(oTransition) and (oTransition.wait != 0 or is_at_hub())) {
     	return;
     }
 
