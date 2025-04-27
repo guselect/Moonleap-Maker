@@ -40,7 +40,7 @@ cy -= vsp_new;
 //somente executa o código de movimento vertical se ele de fato tiver um
 if vsp != 0 {
 	repeat (abs(vsp_new)) {
-		if not has_collided(0, sign(vsp_new), true, [oPermaSpike]) { 
+		if not has_collided(0, sign(vsp_new)) { 
 			y += sign(vsp_new);
 		} else {
 		   vsp = 0;
@@ -50,12 +50,6 @@ if vsp != 0 {
 }
 
 repeat(abs(hsp_new)) {
-	//if (sign(hsp_new) == 1 and place_meeting(x + 1, y, oPlatGhostL) and not place_meeting(x, y, oPlatGhostL))
-   // or (sign(hsp_new) == -1 and place_meeting(x - 1, y, oPlatGhostR) and not place_meeting(x, y, oPlatGhostR)) {
-   //     hsp = 0;
-   //     break;
-   // }
-
 	// Going up slopes
 	if has_collided(sign(hsp), 0)
 	and not has_collided(sign(hsp), -1) {
@@ -70,15 +64,9 @@ repeat(abs(hsp_new)) {
 		y += 1;
 	}
 	
-    // Se colodir com o oBounce, para de ler o código daqui pra baixo
-	//if (place_meeting(x + sign(hsp_new), y, oBounce)) {
-   //     hsp = 0 
-   //     break;
-   // } 
-	
    //se não colidir com obj terreno
 	 
-	if not has_collided(sign(hsp_new), 0, true, [oPermaSpike]) {
+	if not has_collided(sign(hsp_new), 0) {
 		x += sign(hsp_new);
     	
 	   var ran = irandom_range(1, 3);

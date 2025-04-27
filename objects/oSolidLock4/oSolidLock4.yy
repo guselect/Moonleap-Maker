@@ -34,7 +34,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"sSolidLock4",
+    "path":"sprites/sSolidLock4/sSolidLock4.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
