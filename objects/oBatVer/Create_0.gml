@@ -17,17 +17,7 @@ vsp = image_index == 1 ? 0.5 : -0.5;
 xx = x;
 yy = y;
 
-if instance_exists(oGrassDay) {
-	palette_index = 0;
-} else if instance_exists(oCloudDay) {
-	palette_index = 1;
-} else if instance_exists(oFlowerDay) {
-	palette_index = 2;
-} else if instance_exists(oSpaceDay) {
-	palette_index = 3;
-} else if instance_exists(oDunDay) {
-	palette_index = 4;
-}
+set_pallete_index();
 
 if place_meeting(x + 1, y, oBatVer) or place_meeting(x + 1, y, oMush) {
 	wing = 1;

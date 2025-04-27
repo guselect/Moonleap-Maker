@@ -73,6 +73,20 @@ function object_is_outside_room() {
 	return x < 0 or x >= room_width or y < 0 or y >= room_height;
 }
 
+function set_pallete_index() {
+	if instance_exists(oGrassDay) {
+		palette_index = 0;
+	} else if instance_exists(oCloudDay) {
+		palette_index = 1;
+	} else if instance_exists(oFlowerDay) {
+		palette_index = 2;
+	} else if instance_exists(oSpaceDay) {
+		palette_index = 3;
+	} else if instance_exists(oDunDay) {
+		palette_index = 4;
+	}
+}
+
 function in_hub_view() {
 	var _x1 = min(oCamera.hubx,oCamera.hubx_prev);
 	var _y1 = min(oCamera.huby,oCamera.huby_prev);

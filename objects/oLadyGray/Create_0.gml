@@ -1,23 +1,32 @@
-levelnumb=0
+hsp = 0.55;
+levelnumb = 0;
 maxspd = 0.55;
 
-if room!=RoomMenu and room!=RoomMenu2
-{
-levelnumb=real(string_digits(room_get_name(room)))
-if levelnumb=16 {levelnumb=0}
+mynight=true
 
-//if levelnumb<10 {oDust.sprite_index=sDUST}
-}
+hsp = 0;
+vsp = 0;
 
+cx = 0;
+cy = 0;
 
-smove_day=sLadyNight
-sturn_day=sLadyTurn
+xx = 0;
+yy = 0;
 
-smove_dayB=sLadyDay
-sturn_dayB=sLadyTurnNight
+smove_day = sLadyNight;
+sturn_day = sLadyTurn;
+smove_dayB = sLadyDay;
+sturn_dayB = sLadyTurnNight;
 
-hsp = 0.55;
 startindex = image_index;
+
+if room != RoomMenu and room != RoomMenu2 {
+	levelnumb = real(string_digits(room_get_name(room)))
+	if levelnumb == 16 {
+		levelnumb = 0;
+	}
+	//if levelnumb<10 {oDust.sprite_index=sDUST}
+}
 
 if image_index == 1 {
 	hsp = -0.55;
@@ -36,34 +45,29 @@ if startindex == 0 {
 	sprite_index = smove_dayB;
 }
 
-
-mynight=true
-
-hsp=0
-vsp=0
-
-cx = 0;
-cy = 0;
-
-xx=0
-yy=0
-
 layer=layer_get_id("Instances_2")
 drawy=y
 
 prehsp=hsp
 
-if instance_exists(oGrassDay)
-{palette_index=0 exit;}
+set_pallete_index();
 
-if instance_exists(oCloudDay)
-{palette_index=1 exit;}
+is_stuck = function() {
+	return has_collided(2, 0) and has_collided(-2, 0);
+}
 
-if instance_exists(oFlowerDay)
-{palette_index=2 exit;}
+play_mushroom_sound = function() {
+	if audio_is_playing_any([snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04]) then return;
+	
+	var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
+				
+	audio_play_sfx(sfxcogu, false, -16, 2);
+}
 
-if instance_exists(oSpaceDay)
-{palette_index=3 exit;}
-
-if instance_exists(oDunDay)
-{palette_index=4 exit;}
+spawn_dust_particles = function() {
+	repeat(irandom_range(3, 5)) {
+		var dust = instance_create_layer(x - (sprite_width / 2), y + (sprite_width / 2), "Instances_2", oBigDust);
+		dust.hsp = hsp / random_range(5, 10);
+		dust.vsp = vsp / random_range(5, 10);
+	}
+}
