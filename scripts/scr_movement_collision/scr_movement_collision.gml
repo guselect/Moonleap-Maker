@@ -105,11 +105,55 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_top >= platform.bbox_bottom {
+			if bbox_left >= platform.bbox_right {
 				ds_list_destroy(platform_list);
 				return true;
 			}
 			p++;
+		}
+	}
+	
+	if _will_wrap {
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostL, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_right <= platform.bbox_left {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
+		}
+	
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostR, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_left >= platform.bbox_right {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
+		}
+	
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostInv, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_left >= platform.bbox_right {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
 		}
 	}
 	
