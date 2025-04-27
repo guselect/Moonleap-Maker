@@ -1,6 +1,6 @@
-hsp = 0.55;
+
 levelnumb = 0;
-maxspd = 0.55;
+maxspd = 0.45;
 
 mynight=true
 
@@ -19,6 +19,8 @@ smove_dayB = sLadyDay;
 sturn_dayB = sLadyTurnNight;
 
 startindex = image_index;
+
+hsp = 0.45;
 
 if room != RoomMenu and room != RoomMenu2 {
 	levelnumb = real(string_digits(room_get_name(room)))

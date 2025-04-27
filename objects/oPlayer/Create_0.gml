@@ -88,7 +88,7 @@ cy = 0;
 
 sticking = false
 
-mode = PLAYER_MODE.LEAP;
+mode = instance_exists(oNeutralFlag) ? PLAYER_MODE.NEUTRAL : PLAYER_MODE.LEAP;
 
 roomw = room_width;
 roomh = room_height;
