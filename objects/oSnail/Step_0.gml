@@ -3,7 +3,7 @@ numb = approach(numb, 0, 1);
 on_ground_var = has_collided(0, 1, true, [oPermaSpike]);
 
 if not on_ground_var {
-	vsp += min(vsp + grav, 3);
+	vsp = min(vsp + grav, 3);
 }
 
 object_set_room_wrapping();

@@ -35,6 +35,7 @@ if (display_frame <= 0) { // can be opened
 	if (closeme) {
 		show_debug_message("close console")
 		display_direction = -display_close_speed
+		instance_destroy();
 	}
 	
 }

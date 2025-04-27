@@ -10,3 +10,6 @@ set_godmode_toggling();
 set_godmode_movement();
 set_skin_changing();
 scr_checkskin();
+
+//if debug_mode and keyboard_check_pressed(ord("L")) then 
+//	room_goto(Room48);
