@@ -19,12 +19,6 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 	// Movimento vertical
 	//if vsp != 0 {
 	repeat(abs(vsp_new)) {
-		// Se colidir com o oBounce, para de ler o código daqui pra baixo
-		if (place_meeting(x, y + sign(vsp_new), oBounce)) {
-			vsp = 0;
-			break;
-		} 
-			
 		// Se não colidir com terreno verticalmente
 		if not has_collided(0, sign(vsp_new), true, [], [oSnail, oSnailNight, oSnailGray]) {
 		   with (oPlayer) {
@@ -110,13 +104,6 @@ function scr_moving_plat(_cx = hsp, _cy = vsp) {
 		}
 	
 		///Normal Terrain
-	
-		//se colidir com o oBounce, para de ler o código daqui pra baixo
-		if (place_meeting(x + sign(hsp_new), y, oBounce)) {
-			hsp = 0; 
-			break;
-		} 
-		
 		// Se não colidir com terreno, mova os seguintes objetos acima dele.
 	   if (not has_collided(sign(hsp_new), 0, true, [oPermaSpike])) {
 			// Movimento do player
