@@ -63,10 +63,14 @@ function instance_exists_any(_instance_array) {
 }
 
 function object_set_room_wrapping() {
-    if x < 0 then x += room_width; 
-    if x > room_width then x -= room_width;
-    if y < 0 then y += room_height;
-    if y > room_height then y -= room_height;
+   if x < 0 then x += room_width; 
+   if x > room_width then x -= room_width;
+   if y < 0 then y += room_height;
+   if y > room_height then y -= room_height;
+}
+
+function object_is_outside_room() {
+	return x < 0 or x >= room_width or y < 0 or y >= room_height;
 }
 
 function in_hub_view() {

@@ -792,14 +792,16 @@ check_snail_spike_collision = function() {
 }
 
 check_wall_squash_collision = function() {
-    if not place_meeting(x, y, oSolid)
-    or state.state_is("win")
-    or godmode {
-    	return;
-    }
+   if not place_meeting(x, y, oSolid)
+	or object_is_outside_room()
+   or state.state_is("win")
+   or godmode {
+		return;
+   }
 
-    instance_destroy(); 
-    squash = true;
+	show_debug_message("THE PLAYER WAS SQUASHED!!!");
+   instance_destroy(); 
+   squash = true;
 }
 
 check_star_collision = function() {
