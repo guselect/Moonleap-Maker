@@ -1,30 +1,35 @@
 pal_swap_set(sSnailPal, palette_index, 0);
 
 var _xx = 0, _yy = 0;
-if wing == 2 {
-	draw_self_perfect()
+
+switch(wing) {
+	case -1:
+		_xx = x - 17;
+		_yy = y - 12;
+		draw_sprite_part_ext(sprite_index, image_index + 2, 9, 0, sprite_width, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
+		break;
+		
+	case 0:
+		_xx = x - 17;
+		_yy = y - 12;
+		draw_sprite_part_ext(sprite_index, image_index + 1, 9, 0, sprite_width - 18, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
+		break;
+		
+	case 1:
+		_xx = x - 17;
+		_yy = y - 12;
+		draw_sprite_part_ext(sprite_index, image_index, 0, 0, sprite_width - 9, sprite_height, _xx, _yy, image_xscale, image_yscale, c_white, 1);
+		break;
+		
+	default:
+		draw_self_perfect();
+		break;
 }
 
-if wing == 0 {
-	_xx = x - 17;
-	_yy = y - 12;
-	draw_sprite_part_ext(sprite_index,image_index+1,9,0,sprite_width-18,sprite_height,_xx+9,_yy,image_xscale,image_yscale,c_white,1)
-}
+pal_swap_reset();
 
-if wing == 1 {
-	_xx = x - 17;
-	_yy = y - 12;
-	draw_sprite_part_ext(sprite_index,image_index+0,0,0,sprite_width-9,sprite_height,_xx,_yy,image_xscale,image_yscale,c_white,1)
-}
-
-if wing == -1 {
-	_xx = x - 17;
-	_yy = y - 12;
-	draw_sprite_part_ext(sprite_index,image_index+2,9,0,sprite_width,sprite_height,_xx+9,_yy,image_xscale,image_yscale,c_white,1)
-}
-
-pal_swap_reset()
-
+//draw_set_color(-1);
+//draw_text(bbox_right, bbox_bottom, $"spr:{sprite_get_name(sprite_index)}\nind:{image_index}\nx:{x}\ny:{y}\nxscale:{image_xscale}\nyscale:{image_yscale}\nalpha:{image_alpha}");
 //var _bbox_width = bbox_right - bbox_left;
 //var _bbox_height = bbox_bottom - bbox_top;
 //var _xx_diff = (xx - x);

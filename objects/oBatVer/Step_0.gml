@@ -46,7 +46,7 @@ if instance_exists(oMush) {
 		scr_change();
 		if not audio_is_playing_any([snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04]) {
 			var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
-			audio_play_sfx(sfxcogu, false, -16, 2)
+			audio_play_sfx(sfxcogu, false, -16, 2);
 		}
 	}
 }

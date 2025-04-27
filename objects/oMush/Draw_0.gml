@@ -1,23 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
+var pallete_index = flash ? 4 : night + 2;
 
-if flash=true {pal_swap_set(sPlayerPal,4,0)} else {pal_swap_set(sPlayerPal,night+2,0)}
-
-
-
-draw_self_perfect()
-
-pal_swap_reset()
-
-
-
-
-
-
-
-
-
-
-
-
-
+pal_swap_set(sPlayerPal, pallete_index, 0);
+draw_self_perfect();
+pal_swap_reset();
