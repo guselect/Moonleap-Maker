@@ -31,12 +31,6 @@ room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
 objects_grid = []; // Grid where the objects inserted by player are.
 
-for(var _x = 0; _x < room_tile_width; _x++) {
-	for(var _y = 0; _y < room_tile_height; _y++) {
-		objects_grid[_x, _y] = -1;
-	}	
-}
-
 // Cursor-related
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
 cursor_object_hovering = undefined;
@@ -83,6 +77,14 @@ default_sprite_origin = SPRITE_ORIGIN.TOP_LEFT;
 object_grid_hovering = -1; // Object where cursor is above at.
 
 object_types_length = array_length(obj);
+
+reset_level_objects_grid = function() {
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			objects_grid[_x, _y] = -1;
+		}	
+	}
+}
 
 set_hover_text = function(_hover_text) {
     hover_text = _hover_text;
@@ -993,6 +995,8 @@ global.level_maker_mouse_x = mouse_x;
 global.level_maker_mouse_y = mouse_y;
 
 just_entered_level_editor = false;
+
+reset_level_objects_grid();
 
 instance_create_layer(x,y,layer,oPause);
 

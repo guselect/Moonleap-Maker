@@ -156,11 +156,12 @@ function level_maker_load(_level_name) {
 	
 	with(oLevelMaker) {
 		var _level_style = struct_read(_level_data, "style", LEVEL_STYLE.GRASS);
-        var _level_objects = struct_read(_level_data, "objects", []);
-        var _level_tiles = struct_read(_level_data, "tiles", []);
+      var _level_objects = struct_read(_level_data, "objects", []);
+      var _level_tiles = struct_read(_level_data, "tiles", []);
 
 		selected_style = _level_style;
-        update_tilesets_by_style();
+      update_tilesets_by_style();
+		reset_level_objects_grid();
 		
         if array_length(_level_objects) > 0 {
             for(var _x = 0; _x < room_tile_width; _x++) {
