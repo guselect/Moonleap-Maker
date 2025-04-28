@@ -482,6 +482,8 @@ function level_maker_get_layer_hover_text() {
 	switch(oLevelMaker.current_layer) {
 		case LEVEL_CURRENT_LAYER.FOREGROUND:
 			return "Camada 1: Em frente aos objetos";
+		case LEVEL_CURRENT_LAYER.OBJECTS:
+			return "Camada 2: Objetos";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
 			return "Camada 3: Fundo menos distante";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
@@ -490,9 +492,15 @@ function level_maker_get_layer_hover_text() {
 			return "Camada 5: Fundo mais distante";
         case LEVEL_CURRENT_LAYER.BACKGROUND_4:
 			return "Camada 6: Fundo muito mais distante";
-		case LEVEL_CURRENT_LAYER.OBJECTS:
-			return "Camada 2: Objetos";
 		default:
 			return "Camada desconhecida";
 	}
+}
+
+function level_maker_is_editing() {
+	return instance_exists(oLevelMaker) and oLevelMaker.mode == LEVEL_EDITOR_MODE.EDITING;
+}
+
+function is_level_maker_room() {
+	return room == RoomMaker0;
 }

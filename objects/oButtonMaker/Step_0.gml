@@ -7,7 +7,7 @@ drawtarget=0
 //lerp play button position to be visible in play state
 if image_index == 6 { //play button
     //editor is opened
-	if instance_exists(oPause) { 
+	if level_maker_is_editing() {
 		x = lerp(x,start_pos_x,.2);
 		y = lerp(y,start_pos_y,.2);
 		
@@ -22,7 +22,7 @@ if image_index == 6 { //play button
 	}
 
 } else {
-	if not instance_exists(oPause) then exit
+	if not level_maker_is_editing() or instance_exists(oPauseMenu) then exit
 }
 
 var stext = "";
@@ -121,9 +121,10 @@ if image_index == 2 and (is_mouse_left_pressing or key_up or mouse_wheel_down())
 	}
 }
 
+// Creator menu
 if image_index == 3 and is_mouse_left_pressing {
 	play_sound_on_press();
-	global.settings.filter = not global.settings.filter;
+	instance_create_layer(-16, -16, "Instances_2", oPauseMenu);
 }
 
 // Save level
@@ -145,7 +146,7 @@ if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)
 	play_sound_on_press();
 	
 	with(oLevelMaker) {
-		if instance_exists(oPause) {
+		if level_maker_is_editing() {
 			start_level();
 		} else {
 			oLevelMaker.reset_test_button_cooldown();

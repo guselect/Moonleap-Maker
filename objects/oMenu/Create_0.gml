@@ -46,6 +46,17 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 				}
 			},
 			{
+				name: "level maker",
+				text: function() { return "editor de níveis"; },
+				action: function() {
+					if (!instance_exists(oTransition)) {
+						audio_play_sfx(sndStarGame,false,-6,0)
+						var _trans = instance_create_layer(0,0,layer,oTransition);
+						_trans.target_room = RoomMaker0;
+					}
+				}
+			},
+			{
 				name: "exit",
 				text: function() { return LANG.text_exit; },
 				action: function() {

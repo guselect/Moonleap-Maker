@@ -132,7 +132,7 @@ update_current_item = function() {
 }
 
 cursor_set_position = function() {
-	var _in_level_editor = instance_exists(oPause);
+	var _in_level_editor = level_maker_is_editing();
 
 	camera_current_interpolation += _in_level_editor ? -0.07 : 0.07;
 	camera_current_interpolation = clamp(camera_current_interpolation, 0, 1);
@@ -340,7 +340,7 @@ cursor_remove_tile_from_grid = function() {
 }
 
 update_tilesets_by_style = function() {
-	if not instance_exists(oPause) then return;
+	if not level_maker_is_editing() then return;
 	
 	var _layers = level_maker_get_tileset_layers();
 	
@@ -766,7 +766,7 @@ start_level = function() {
 	}
 	
    mode = LEVEL_EDITOR_MODE.TESTING;
-	instance_destroy(oPause);
+	//instance_destroy(oPause);
 	audio_play_sfx(sndStarGame, false, -18.3, 1);
 	
 	// =========================
@@ -961,7 +961,7 @@ end_level_and_return_to_editor = function() {
     }
 
     mode = LEVEL_EDITOR_MODE.EDITING;
-	instance_create_layer(-16, -16, layer, oPause);
+	//instance_create_layer(-16, -16, layer, oPause);
 	
 	// Reset day/night state
 	if instance_exists(oCamera) then
@@ -998,7 +998,7 @@ just_entered_level_editor = false;
 
 reset_level_objects_grid();
 
-instance_create_layer(x,y,layer,oPause);
+//instance_create_layer(x,y,layer,oPause);
 
 //----------------------
 // DEFAULT LEVEL

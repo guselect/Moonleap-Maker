@@ -1,5 +1,5 @@
 // Draw every tile on the level maker
-if(instance_exists(oPause)) {
+if level_maker_is_editing() and not instance_exists(oPauseMenu) {
 	for(var _x = 0; _x < room_tile_width; _x++) {
 		for(var _y = 0; _y < room_tile_height; _y++) {
 			var _xx = _x * 8;
@@ -71,7 +71,8 @@ draw_sprite(sPauseMaker, 0, 0, 0);
 if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	if cursor != LEVEL_CURSOR_TYPE.ERASER
 	and is_cursor_inside_level 
-	and instance_exists(oPause)
+	and level_maker_is_editing()
+	and not instance_exists(oPauseMenu)
 	and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
 	and not has_object_below_cursor {
 		var _new_image_index = 0;
@@ -97,8 +98,9 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 } else {
 	if cursor != LEVEL_CURSOR_TYPE.ERASER
 	and is_cursor_inside_level 
-    and not is_undefined(selected_tile)
-	and instance_exists(oPause) {
+   and not is_undefined(selected_tile)
+	and level_maker_is_editing() 
+	and not instance_exists(oPauseMenu) {
 		var _x = floor(x / tileset_size) * tileset_size;
 		var _y = floor(y / tileset_size) * tileset_size;
 
