@@ -13,4 +13,4 @@ set_skin_changing();
 scr_checkskin();
 
 if debug_mode and keyboard_check_pressed(ord("L")) then 
-	room_goto(Room46);
+	room_goto(Room40);

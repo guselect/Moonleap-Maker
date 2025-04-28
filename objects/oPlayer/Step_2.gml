@@ -39,10 +39,18 @@ repeat(abs(hsp_new)) {
 	x += sign(hsp);
 }
 
-if oCamera.current_skin=5
-{
-	if oCamera.night=false
-	{
+
+if is_at_hub() {
+    trueblack = not (y > 360 and y < 720);
+	//if y>360 and y<720 {
+        //trueblack = false;
+    //} else {
+        //trueblack = true;
+    //} 
+}
+
+if oCamera.current_skin == 5 {
+	if not oCamera.night {
 		PlayerIdle=		sPlayerIdle5
 		PlayerRun=		sPlayerRun5
 		PlayerJump=		sPlayerJump5
@@ -51,10 +59,7 @@ if oCamera.current_skin=5
 		PlayerDead=		sPlayerDead5
 		PlayerEnding=	sPlayerEnding5
 		PlayerHappy=	sPlayerHappy5
-	}
-	else
-	{
-		
+	} else {
 		PlayerIdle=		sPlayerIdle6
 		PlayerRun=		sPlayerRun6
 		PlayerJump=		sPlayerJump6
@@ -64,16 +69,6 @@ if oCamera.current_skin=5
 		PlayerEnding=	sPlayerEnding6
 		PlayerHappy=	sPlayerHappy6		
 	}
-}
-
-
-if is_at_hub() {
-    trueblack = not (y > 360 and y < 720);
-	//if y>360 and y<720 {
-        //trueblack = false;
-    //} else {
-        //trueblack = true;
-    //} 
 }
 
 

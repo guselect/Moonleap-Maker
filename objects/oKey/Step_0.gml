@@ -1,6 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
-
 wavevar=round(wave(-2,1,current_time/1000));
 
 if change=true
