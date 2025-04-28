@@ -1,7 +1,7 @@
-/// @description Insert description here
-// You can write your code in this editor
+y -= 1;
+
 maxspd=0.55
-y-=1
+
 mask_index=sprite_index
 smove_day=sLadyNight
 sturn_day=sLadyTurn
@@ -9,34 +9,17 @@ sturn_day=sLadyTurn
 smove_dayB=sLadyDay
 sturn_dayB=sLadyTurnNight
 
-if image_index == 1 {
-	hsp = 0.55;
-} else {
-	hsp = -0.55;
-}
-
 startindex = image_index;
 
-if sign(image_xscale) == 1 {
-	hsp = -0.55;
+// Moonleap Maker flips the object changing image_xscale instead of image_index
+if sign(image_xscale) == -1 {
+	hsp = -maxspd;
 	startindex = 1;
 }
 
+hsp = startindex == 1 ? -maxspd : maxspd;
 image_xscale = sign(hsp);
-
-if startindex == 0 {
-	sprite_index = sLadyNight;
-} else {
-	sprite_index = sLadyDay;
-}
-
-
-
-//if image_index=1 {hsp=0.55} else {hsp=-0.55}
-//image_xscale=sign(hsp)
-//startindex=image_index
-//if image_index=0 {sprite_index=sLadyNight} else {sprite_index=sLadyDay}
-
+sprite_index = startindex == 0 ? sLadyNight : sLadyDay;
 
 night=false
 
@@ -53,7 +36,7 @@ layer=layer_get_id("Instances_2")
 drawy=y
 
 prehsp=hsp
-drawhsp=image_xscale
+drawhsp = image_xscale;
 
 if instance_exists(oGrassDay)
 or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS) {

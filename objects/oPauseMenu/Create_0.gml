@@ -1,20 +1,22 @@
-if (instance_number(oPauseMenu)>1)  {instance_destroy(); exit; }
+if (instance_number(oPauseMenu) > 1) {
+	instance_destroy();
+	exit;
+}
 
 scr_inputcreate()
 
-if (room=RoomMenu or room=RoomMenu2 or room=RoomCredits or room=RoomCreditsAlves  or room=Room100 or room=rm_blank0)
-{
+if room_is([RoomMenu, RoomMenu2, RoomCredits, RoomCreditsAlves, Room100, rm_blank0]) {
 	roomname=" "
 	_yy = 64;//104-ceil(_menu_ops/2)*_menu_y_gap;
-}
-else
-{
+} else if is_level_maker_room() {
+	roomname="Editor de níveis"
+	_yy = 73;
+} else {
 	var name=LANG[$ room_get_name(room)]
-	if is_string(name)=false {name=" "}
-	//if !(room=Room60 or room=Room61 or room=Room62 or room=Room63)
-	//{roomname=string_delete(name,1,4)}//remove the level number
-	//else
-	{roomname=name}
+	if not is_string(name) {
+		name=" "
+	}
+	roomname=name
 		
 	_yy = 73;//104-ceil(_menu_ops/2)*_menu_y_gap;
 }
@@ -39,65 +41,98 @@ if (room==Room100){
 }
 
 //SETUP MENUS
-
-
-
-//SETUP MENUS
 if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
+	var _main_options = [];
+	
+	if is_level_maker_room() {
+		_main_options = [
+			{
+				name: "resume",
+				text: function() { return LANG.text_resume; },
+				action: function() {
+					instance_destroy();
+				}
+			},
+			{
+				name: "options",
+				text: function() { return LANG.text_options; },
+				action: function() {
+					menu = menus.options;
+					option_index = 0;
+				}
+			},
+			{
+				name: "giveup",
+				text: function() { return LANG.text_giveup; },
+				action: function() {
+					if (!instance_exists(oTransition)) {
+						audio_sound_gain(bgm_hub   ,0,1000)
+						audio_sound_gain(bgm_hub_01,0,1000)
+						audio_sound_gain(bgm_hub_02,0,1000)
+						audio_sound_gain(bgm_hub_03,0,1000)
+						audio_sound_gain(bgm_hub_04,0,1000)
+					
+					
+					
+						var _trans=instance_create_layer(0,0,layer,oTransition);
+						audio_play_sfx(sndStarGame,false,-6.2,0)
+						_trans.target_room=RoomMenu;
+					}
+				}
+			},
+		];
+	} else {
+		_main_options = [
+			{
+				name: "resume",
+				text: function() { return LANG.text_resume; },
+				action: function() {
+					instance_destroy();
+				}
+			},
+			{
+				name: "options",
+				text: function() { return LANG.text_options; },
+				action: function() {
+					menu = menus.options;
+					option_index = 0;
+				}
+			},
+			{
+				name: "changelevel",
+				text: function() { return LANG.text_changelevel; },
+				action: function() {
+					if (!instance_exists(oTransition)) {
+						var _trans = instance_create_layer(0,0,layer,oTransition);
+						_trans.target_room = Room100;
+						audio_play_sfx(sndStarGame,false,-6.2,0)
+					}
+				}
+			},
+			{
+				name: "giveup",
+				text: function() { return LANG.text_giveup; },
+				action: function() {
+					if (!instance_exists(oTransition)) {
+						audio_sound_gain(bgm_hub   ,0,1000)
+						audio_sound_gain(bgm_hub_01,0,1000)
+						audio_sound_gain(bgm_hub_02,0,1000)
+						audio_sound_gain(bgm_hub_03,0,1000)
+						audio_sound_gain(bgm_hub_04,0,1000)
+					
+					
+					
+						var _trans=instance_create_layer(0,0,layer,oTransition);
+						audio_play_sfx(sndStarGame,false,-6.2,0)
+						_trans.target_room=RoomMenu;
+					}
+				}
+			},
+		];
+	}
+	
 	menus = {
-	main: [
-		{
-			name: "resume",
-			text: function() { return LANG.text_resume; },
-			action: function() {
-				instance_destroy();
-			}
-		},
-		{
-			name: "options",
-			text: function() { return LANG.text_options; },
-			action: function() {
-				menu = menus.options;
-				option_index = 0;
-			}
-		},
-		{
-			name: "changelevel",
-			text: function() { return LANG.text_changelevel; },
-			action: function() {
-				if (!instance_exists(oTransition)) {
-					var _trans = instance_create_layer(0,0,layer,oTransition);
-					_trans.target_room = Room100;
-					audio_play_sfx(sndStarGame,false,-6.2,0)
-				}
-			}
-		},
-		{
-			name: "giveup",
-			text: function() { return LANG.text_giveup; },
-			action: function() {
-				if (!instance_exists(oTransition)) {
-					audio_sound_gain(bgm_hub   ,0,1000)
-					audio_sound_gain(bgm_hub_01,0,1000)
-					audio_sound_gain(bgm_hub_02,0,1000)
-					audio_sound_gain(bgm_hub_03,0,1000)
-					audio_sound_gain(bgm_hub_04,0,1000)
-					
-					
-					
-					var _trans=instance_create_layer(0,0,layer,oTransition);
-					audio_play_sfx(sndStarGame,false,-6.2,0)
-					_trans.target_room=RoomMenu;
-				}
-		
-			//	if (oCamera.arcade==true)
-			//	{	
-			//		if (file_exists("save.moon"))	
-			//		file_delete("save.moon")
-			//	}
-			}
-		},
-	],
+		main: _main_options,
 		options: [
 			{
 				name: "vibrate",

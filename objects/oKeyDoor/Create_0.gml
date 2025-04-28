@@ -4,3 +4,7 @@
 change=false
 tall=false
 wide=false
+
+palette_index = 0;
+
+set_pallete_index();

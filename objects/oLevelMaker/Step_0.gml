@@ -35,9 +35,7 @@ if test_button_cooldown > 0 {
 }
 
 // If the level editor is not in use don't run any more code
-if not instance_exists(oPause) then exit;
-
-
+if not level_maker_is_editing() or instance_exists(oPauseMenu) then exit;
 
 // This code is to prevent random misfiring clicks after you press the button to play the level again
 if just_entered_level_editor and mouse_check_button_released(mb_left) {

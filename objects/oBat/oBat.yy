@@ -42,6 +42,9 @@
     "name":"sBat",
     "path":"sprites/sBat/sBat.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sBat",
+    "path":"sprites/sBat/sBat.yy",
+  },
   "visible":true,
 }

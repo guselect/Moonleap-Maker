@@ -51,5 +51,6 @@ pal_swap_reset()
 //if x >= room_width / 2 {
 //	draw_set_halign(fa_right);
 //}
-//draw_text(bbox_right, bbox_bottom, $"si:{sprite_get_name(sprite_index)}\nis:{image_speed}\nii:{image_index}\nit:{idletime}");
+//draw_set_color(-1);
+//draw_text(bbox_right, bbox_bottom, $"x:{x}\ny:{y}\nhsp:{hsp}\nvsp:{vsp}");
 //draw_set_halign(-1);

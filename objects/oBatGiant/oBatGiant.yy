@@ -36,6 +36,9 @@
     "name":"sBatGiant",
     "path":"sprites/sBatGiant/sBatGiant.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sBatGiant",
+    "path":"sprites/sBatGiant/sBatGiant.yy",
+  },
   "visible":true,
 }

@@ -51,19 +51,16 @@ function platform_check() {
 	return false;
 }
 
-function place_meeting_exception(argument0, argument1, argument2, argument3) {
-	var exception = argument3;
-
-	with (argument2) {
+function place_meeting_exception(_x, _y, _obj, _obj_except) {
+	with (_obj) {
 		// Allow 'other' access
 		var this = id;
     
-		if (id == exception)
+		if (id == _obj_except)
 		    continue;
 		else
 		    with (other)
-		        if (place_meeting(argument0, argument1, this))
-		            return true;
+		        if (place_meeting(_x, _y, this)) then return true;
 	}
 
 	// Collision with a different object

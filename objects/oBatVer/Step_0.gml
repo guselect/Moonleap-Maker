@@ -1,40 +1,23 @@
-if y > room_height {
-	y -= 180;
-	yy -= 176;
+if x < 0 {
+	x += room_width;
 }
 
 if x > room_width {
-	x -= 320;
+	x -= room_width;
 }
 
 if y < 0 {
-	y += 180;
-	yy += 176;
+	y += room_width;
+	yy += room_width - 4;
 }
 
-if x < 0 {
-	x += 320;
-}
-
-change_dir_on_collide();
-
-if instance_exists(oMush) {
-	if place_meeting(x, y + sign(vsp), oMush) {
-		dir *= -1;
-		scr_change();
-		if not (audio_is_playing(snd_cogumelo_01)
-			or audio_is_playing(snd_cogumelo_02) 
-			or audio_is_playing(snd_cogumelo_03)
-			or audio_is_playing(snd_cogumelo_04)
-		) {
-			var sfxcogu = choose(snd_cogumelo_01, snd_cogumelo_02, snd_cogumelo_03, snd_cogumelo_04);
-			audio_play_sfx(sfxcogu,false,-16,2)
-		}
-	}
+if y > room_height {
+	y -= room_height;
+	yy -= room_height - 4;
 }
 
 if dir == 1 {
-	if y < yy {
+	if y < yy and not has_collided(0, sign(dir)) {
 		vsp += 0.1;
 	} else {
 		vsp = 0;
@@ -43,7 +26,7 @@ if dir == 1 {
 }
 
 if dir == -1 {
-	if y > yy {
+	if y > yy and not has_collided(0, sign(dir)) {
 		vsp -= 0.1;
 	} else {
 		vsp = 0;
@@ -52,4 +35,18 @@ if dir == -1 {
 }
 
 vsp = clamp(vsp, -1, 1);
+
+if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike], [oSnail, oSnailNight, oSnailGray]) {
+	dir *= -1;
+}
+
+if instance_exists(oMush) {
+	if (place_meeting(x, y + 1, oMush) and dir == 1)
+	or (place_meeting(x, y - 1, oMush) and dir == -1) {
+		dir *= -1;
+		scr_change();
+		play_mushroom_sound();
+	}
+}
+
 image_speed = vsp == 0 ? 1 : 3;

@@ -2,21 +2,40 @@
 /// @param {real} yy The vertical position.
 /// @param {bool} is_position_relative If true, the xx and yy positions are relative to the object position.
 /// If false, they are relative to the room position. Default: true
-/// @param {Array<Asset.GMObject>} included_objects An array of objects to be also checked as collision. Default: empty array
+/// @param {Array<Asset.GMObject>} included_objects An array of objects to included on collision check. Default: empty array
+/// @param {Array<Asset.GMObject>} excluded_objects An array of objects to be excluded from collision check. Default: empty array
 
-function has_collided(xx, yy, is_position_relative = true, included_objects = []) {
+function has_collided(xx, yy, is_position_relative = true, included_objects = [], excluded_objects = []) {
 	xx = (is_position_relative * x) + xx;
 	yy = (is_position_relative * y) + yy;
 
-    if xx < 0 then xx += room_width;
-    if xx > room_width then xx -= room_width;
-    if yy < 0 then yy += room_height;
-    if yy > room_height then yy += room_height;
+	var _will_wrap = false;
+	var _xx_wrap = xx;
+	var _yy_wrap = yy;
+	
+	if xx < 0 or xx > room_width or yy < 0 or yy > room_height {
+		_will_wrap = true;
+		if xx < 0 then _xx_wrap = xx + room_width;
+	   if xx > room_width then _xx_wrap = xx - room_width;
+	   if yy < 0 then _yy_wrap = yy + room_height;
+	   if yy > room_height then _yy_wrap = yy - room_height;
+	}
+   //if xx < 0 then xx += room_width;
+   //if xx > room_width then xx -= room_width;
+   //if yy < 0 then yy += room_height;
+   //if yy > room_height then yy += room_height;
 	
 	// Included objects collision checking
-	if place_meeting(xx, yy, included_objects) {
-        return true;
-    }
+	if place_meeting(xx, yy, included_objects)
+	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, included_objects)) {
+      return true;
+   }
+	
+	// Excluded objects collision checking
+	if place_meeting(xx, yy, excluded_objects)
+	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, excluded_objects)) {
+		return false;
+	}
 	
 	// Platforms collision checking
 	var platform_list = ds_list_create();
@@ -30,13 +49,13 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 			
 			switch(platform.image_angle) {
 				case 90:
-					collided = bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top;
+					collided = bbox_right <= platform.bbox_left;
 					break;
 				case 180:
 					collided = bbox_top >= platform.bbox_bottom;
 					break;
 				case 270:
-					collided = bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top;
+					collided = bbox_left >= platform.bbox_right;
 					break;
 				default:
 					collided = bbox_bottom <= platform.bbox_top;
@@ -58,7 +77,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_right <= platform.bbox_left or bbox_bottom <= platform.bbox_top {
+			if bbox_right <= platform.bbox_left {
 				ds_list_destroy(platform_list);
 				return true;
 			}
@@ -72,7 +91,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_left >= platform.bbox_right or bbox_bottom <= platform.bbox_top {
+			if bbox_left >= platform.bbox_right {
 				ds_list_destroy(platform_list);
 				return true;
 			}
@@ -86,7 +105,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_top >= platform.bbox_bottom {
+			if bbox_left >= platform.bbox_right {
 				ds_list_destroy(platform_list);
 				return true;
 			}
@@ -94,9 +113,54 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		}
 	}
 	
+	if _will_wrap {
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostL, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_right <= platform.bbox_left {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
+		}
+	
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostR, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_left >= platform.bbox_right {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
+		}
+	
+		ds_list_clear(platform_list);
+		platform_count = instance_place_list(_xx_wrap, _yy_wrap, oPlatGhostInv, platform_list, true);
+		if (platform_count > 0) {
+			var p = 0;
+			repeat(platform_count) {
+				var platform = ds_list_find_value(platform_list, p);
+				if bbox_left >= platform.bbox_right {
+					ds_list_destroy(platform_list);
+					return true;
+				}
+				p++;
+			}
+		}
+	}
+	
 	ds_list_destroy(platform_list);
 	
-	if place_meeting(xx, yy, oSolid) {
+	if place_meeting(xx, yy, oSolid)
+	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, oSolid)) {
 		return true;
 	}
 	

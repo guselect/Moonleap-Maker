@@ -13,4 +13,4 @@ text_color=c_branco2
 nice_white=make_color_rgb(170,255,255)
 go=true
 
-maker_mode=true
+maker_mode=false

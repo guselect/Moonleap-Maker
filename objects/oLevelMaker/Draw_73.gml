@@ -1,27 +1,27 @@
 // Sprite placeholders for oSolid day and night
-var sday = undefined, snight = undefined;
+//var sday = undefined, snight = undefined;
 
-switch(selected_style) {
-	case LEVEL_STYLE.GRASS:
-		sday = sGrassGre; snight = sGrassOre;
-		break;
-	case LEVEL_STYLE.CLOUDS:	
-		sday = sCloudDay; snight = sCloudNight;
-		break;
-	case LEVEL_STYLE.FLOWERS:	
-		sday = sFlowerDay; snight = sFlowerNight;
-		break;
-	case LEVEL_STYLE.SPACE:	
-		sday = sSpaceGre; snight = sSpacePurple;
-		break;
-	case LEVEL_STYLE.DUNGEON:
-		sday = sDunDay; snight = sDunNight;
-		break;
-}
+//switch(selected_style) {
+//	case LEVEL_STYLE.GRASS:
+//		sday = sGrassGre; snight = sGrassOre;
+//		break;
+//	case LEVEL_STYLE.CLOUDS:	
+//		sday = sCloudDay; snight = sCloudNight;
+//		break;
+//	case LEVEL_STYLE.FLOWERS:	
+//		sday = sFlowerDay; snight = sFlowerNight;
+//		break;
+//	case LEVEL_STYLE.SPACE:	
+//		sday = sSpaceGre; snight = sSpacePurple;
+//		break;
+//	case LEVEL_STYLE.DUNGEON:
+//		sday = sDunDay; snight = sDunNight;
+//		break;
+//}
 
-draw_set_color(color.nice_white)
+draw_set_color(color.nice_white);
 
-if not instance_exists(oPause) {
+if not level_maker_is_editing() or instance_exists(oPauseMenu) {
 	draw_sprite_ext(sPauseMaker,0,0,0,1,1,0,c_white,0.5)
 }
 

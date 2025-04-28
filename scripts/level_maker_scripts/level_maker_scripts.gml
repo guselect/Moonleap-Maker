@@ -57,7 +57,7 @@ function level_maker_save(_level_name) {
                 for(var yy = 0; yy < room_height; yy += 16) {
                     ds_list_clear(_draft_list);
 
-                    var _draft_amount = collision_rectangle_list(xx, yy, xx + 16, yy + 16, oMakerEditorDraft, false, true, _draft_list, true);
+                    var _draft_amount = collision_rectangle_list(xx, yy, xx + 16, yy + 16, oMakerEditorTileDraft, false, true, _draft_list, true);
                     var _draft_to_save = noone;
 
                     for (var i = 0; i < _draft_amount and _draft_to_save == noone; i++) {
@@ -156,11 +156,12 @@ function level_maker_load(_level_name) {
 	
 	with(oLevelMaker) {
 		var _level_style = struct_read(_level_data, "style", LEVEL_STYLE.GRASS);
-        var _level_objects = struct_read(_level_data, "objects", []);
-        var _level_tiles = struct_read(_level_data, "tiles", []);
+      var _level_objects = struct_read(_level_data, "objects", []);
+      var _level_tiles = struct_read(_level_data, "tiles", []);
 
 		selected_style = _level_style;
-        update_tilesets_by_style();
+      update_tilesets_by_style();
+		reset_level_objects_grid();
 		
         if array_length(_level_objects) > 0 {
             for(var _x = 0; _x < room_tile_width; _x++) {
@@ -204,7 +205,7 @@ function level_maker_load(_level_name) {
         }
 
         if array_length(_level_tiles) > 0 { 
-            instance_destroy(oMakerEditorDraft);
+            instance_destroy(oMakerEditorTileDraft);
             
             for(var i = 0; i < array_length(_level_tiles); i++) {
                 var _loaded_tile = array_get(_level_tiles, i);
@@ -241,7 +242,7 @@ function level_maker_load(_level_name) {
                 var _layer_id = layer_get_id(_tlayer_name);
                 var _tilemap_id = layer_tilemap_get_id(_ttilemaplayername);
 
-                var _draft = instance_create_layer(_tx, _ty, _layer_id, oMakerEditorDraft);
+                var _draft = instance_create_layer(_tx, _ty, _layer_id, oMakerEditorTileDraft);
                 _draft.type = _tile.is_animated ? DRAFT_TYPE.ANIMATED_TILE : DRAFT_TYPE.TILE;
                 _draft.tile_id = _tid;
                 _draft.layer_id = _layer_id;

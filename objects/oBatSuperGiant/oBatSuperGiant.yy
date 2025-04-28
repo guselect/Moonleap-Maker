@@ -37,6 +37,9 @@
     "name":"sBatGiant4",
     "path":"sprites/sBatGiant4/sBatGiant4.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sBatGiant4",
+    "path":"sprites/sBatGiant4/sBatGiant4.yy",
+  },
   "visible":true,
 }

@@ -1,6 +1,6 @@
 drawtarget = 0;
 
-if not instance_exists(oPause) {
+if not level_maker_is_editing() or instance_exists(oPauseMenu) {
 	exit;
 }
 

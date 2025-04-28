@@ -1,6 +1,4 @@
-if palette_index != 2 {
-	pal_swap_set(sSnailPal, palette_index, 0);
-}
+pal_swap_set(sSnailPal, palette_index, 0);
 
 if round(hsp)!=0 {
 	drawhsp = hsp

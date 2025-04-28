@@ -31,12 +31,6 @@ room_tile_width =  room_width div tile_size;
 room_tile_height = (room_height div tile_size) + tile_size;
 objects_grid = []; // Grid where the objects inserted by player are.
 
-for(var _x = 0; _x < room_tile_width; _x++) {
-	for(var _y = 0; _y < room_tile_height; _y++) {
-		objects_grid[_x, _y] = -1;
-	}	
-}
-
 // Cursor-related
 cursor = LEVEL_CURSOR_TYPE.NOTHING;
 cursor_object_hovering = undefined;
@@ -84,6 +78,14 @@ object_grid_hovering = -1; // Object where cursor is above at.
 
 object_types_length = array_length(obj);
 
+reset_level_objects_grid = function() {
+	for(var _x = 0; _x < room_tile_width; _x++) {
+		for(var _y = 0; _y < room_tile_height; _y++) {
+			objects_grid[_x, _y] = -1;
+		}	
+	}
+}
+
 set_hover_text = function(_hover_text) {
     hover_text = _hover_text;
 }
@@ -130,7 +132,7 @@ update_current_item = function() {
 }
 
 cursor_set_position = function() {
-	var _in_level_editor = instance_exists(oPause);
+	var _in_level_editor = level_maker_is_editing();
 
 	camera_current_interpolation += _in_level_editor ? -0.07 : 0.07;
 	camera_current_interpolation = clamp(camera_current_interpolation, 0, 1);
@@ -258,7 +260,7 @@ cursor_create_tile_in_grid = function() {
     var _y = floor(y / tileset_size) * tileset_size;
 
     var _existing_tile_draft_list = ds_list_create();
-    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _existing_tile_draft_list, true);
+    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorTileDraft, false, true, _existing_tile_draft_list, true);
 
     for (var i = 0; i < _existing_tile_draft_amount; i++) {
         var _current_draft = ds_list_find_value(_existing_tile_draft_list, i);
@@ -274,7 +276,7 @@ cursor_create_tile_in_grid = function() {
     var _is_animated_sprite = selected_tile.is_animated;
 
     // Cria um objeto de rascunho que será responsável por desenhar o tile na room
-    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorDraft);
+    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorTileDraft);
     _tile_draft.angle = image_angle;
     _tile_draft.xscale = image_xscale;
     _tile_draft.yscale = image_yscale;
@@ -311,7 +313,7 @@ cursor_remove_tile_from_grid = function() {
 		var _x = floor(x / tileset_size) * tileset_size;
 		var _y = floor(y / tileset_size) * tileset_size;
         var _tile_draft_list = ds_list_create();
-        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _tile_draft_list, true);
+        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorTileDraft, false, true, _tile_draft_list, true);
         var _tile_draft_to_remove = noone;
 
         for (var i = 0; i < _tile_draft_amount and _tile_draft_to_remove == noone; i++) {
@@ -338,7 +340,7 @@ cursor_remove_tile_from_grid = function() {
 }
 
 update_tilesets_by_style = function() {
-	if not instance_exists(oPause) then return;
+	if not level_maker_is_editing() then return;
 	
 	var _layers = level_maker_get_tileset_layers();
 	
@@ -764,7 +766,7 @@ start_level = function() {
 	}
 	
    mode = LEVEL_EDITOR_MODE.TESTING;
-	instance_destroy(oPause);
+	//instance_destroy(oPause);
 	audio_play_sfx(sndStarGame, false, -18.3, 1);
 	
 	// =========================
@@ -792,7 +794,7 @@ start_level = function() {
 	// ANIMATED TILES PLACEMENT
 	// =========================
 	//change_tiles_to_animated_sprites();
-    with(oMakerEditorDraft) {
+    with(oMakerEditorTileDraft) {
         set_in_room();
     }
 	
@@ -920,12 +922,11 @@ start_level = function() {
 	// EFFECTS ENABLING
 	// =========================
     var _fx_dust = layer_get_id("FX_Dust");
-    var _fx_background_fog = layer_get_id("FX_Background_Fog");
-
+    
     layer_set_visible(_fx_dust, true);
 
-    if selected_style == LEVEL_STYLE.DUNGEON then
-        layer_set_visible(_fx_background_fog, true);
+    //if selected_style == LEVEL_STYLE.DUNGEON then
+    //    instance_create_layer(0, 0, "Instances_2", oFog);
 	
     level_maker_change_fx();
 
@@ -955,12 +956,12 @@ end_level_and_return_to_editor = function() {
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
-    with(oMakerEditorDraft) {
+    with(oMakerEditorTileDraft) {
         remove_from_room();
     }
 
     mode = LEVEL_EDITOR_MODE.EDITING;
-	instance_create_layer(-16, -16, layer, oPause);
+	//instance_create_layer(-16, -16, layer, oPause);
 	
 	// Reset day/night state
 	if instance_exists(oCamera) then
@@ -971,13 +972,13 @@ end_level_and_return_to_editor = function() {
 	instance_destroy(oKeyFollow, false);
 	instance_destroy(oKeyFollow2, false);
 	instance_destroy(oKeyFollow3, false);
+	//instance_destroy(oFog);
 	
     // Disable layer effects
     var _fx_dust = layer_get_id("FX_Dust");
-    var _fx_background_fog = layer_get_id("FX_Background_Fog");
 
     layer_set_visible(_fx_dust, false);
-    layer_set_visible(_fx_background_fog, false);
+    
 
     level_maker_change_fx();
     audio_play_sfx(snd_bump, false, 1, 1);
@@ -995,7 +996,9 @@ global.level_maker_mouse_y = mouse_y;
 
 just_entered_level_editor = false;
 
-instance_create_layer(x,y,layer,oPause);
+reset_level_objects_grid();
+
+//instance_create_layer(x,y,layer,oPause);
 
 //----------------------
 // DEFAULT LEVEL

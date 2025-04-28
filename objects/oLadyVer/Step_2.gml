@@ -1,1 +1,1 @@
-scr_moving_plat()
+scr_moving_plat();
