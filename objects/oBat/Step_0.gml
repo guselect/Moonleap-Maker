@@ -17,16 +17,17 @@ if x < 0 {
 }
 
 if dir == 1 {
-	if x < xx {
+	if x < xx and not has_collided(sign(dir), 0) {
 		hsp += 0.1;
 	} else {
 		hsp = 0;
+		xx = x;
 	}
 	sprite_index = sBat;
 }
 
 if dir == -1 {
-	if x > xx {
+	if x > xx and not has_collided(sign(dir), 0) {
 		hsp -= 0.1;
 	} else {
 		hsp = 0;

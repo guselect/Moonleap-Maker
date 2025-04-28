@@ -17,15 +17,16 @@ sturn_dayB=sLadyTurnNight
 
 startindex = image_index;
 
-vsp = startindex == 1 ? maxspd : -maxspd;
+
 
 // Moonleap Maker flips the object changing image_xscale instead of image_index
 if sign(image_yscale) == -1 {
 	vsp = maxspd;
+	startindex = 1;
 }
 
+vsp = startindex == 1 ? maxspd : -maxspd;
 image_angle = -90;
-
 sprite_index = startindex == 0 ? sLadyNight : sLadyDay;
 
 if instance_exists(oGrassDay)

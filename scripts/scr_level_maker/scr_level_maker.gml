@@ -23,6 +23,7 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	can_change = false;
 	is_moon_variant = false;
 	
+	preview_image_index_horizontal = undefined;
 	preview_image_index_vertical = undefined;
 	
 	sprite_button_sprite_index = undefined;
@@ -33,7 +34,7 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	sprite_button_part_top = 0;
 	sprite_button_part_width = 16;
 	sprite_button_part_height = 16;
-	
+
 	set_can_change = function(_can_change) {
 		can_change = _can_change;
 		return self;
@@ -41,6 +42,11 @@ function LMObject(_object_index, _object_size_x, _object_size_y, _origin_type = 
 	
 	set_is_moon_variant = function(_is_moon_variant) {
 		is_moon_variant = _is_moon_variant;
+		return self;
+	}
+	
+	set_preview_index_horizontal = function(_image_index_flipped = 0) {
+		preview_image_index_horizontal = _image_index_flipped;
 		return self;
 	}
 	
@@ -269,7 +275,7 @@ function level_maker_get_objects_list() {
 	_obj[0, 11] =	new LMObject(oStarRunning,		16, 16);
 	_obj[0, 12] =	new LMObject(oSnail,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailWalk, 0, 0, 2, -9, 0).set_can_change(true);
 	_obj[0, 13] =	new LMObject(oSnailNight,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip").set_sprite_button_part(sSnailIdleNight, 0, 0, 2, -11, 0, 18).set_can_change(true).set_is_moon_variant(true);
-	_obj[0, 14] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip");
+	_obj[0, 14] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_preview_index_horizontal(1);
 	_obj[0, 15] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
 	
 	_obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
@@ -282,9 +288,9 @@ function level_maker_get_objects_list() {
 	_obj[1, 07] =	new LMObject(oMushGray,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_spin").set_sprite_button_part(sMushGrayUI, 0, 0, 0, 0, 0);
 	_obj[1, 08] =	new LMObject(oSnailGray,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip");
 	_obj[1, 09] =	new LMObject(oLadyGray,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGrayUI, 0, 3, 0, -8, -8);
-	_obj[1, 10] =	new LMObject(oLadyVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_sprite_button_part(sLadyVerUI, 0, 3, 1, -8, -8);
-	_obj[1, 11] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
-	_obj[1, 12] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
+	_obj[1, 10] =	new LMObject(oLadyVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "is_vertical").set_preview_index_vertical(1).set_sprite_button_part(sLadyVerUI, 0, 3, 1, -8, -8);
+	_obj[1, 11] =	new LMObject(oLadyGiant,		48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_preview_index_horizontal(1).set_sprite_button_part(sLadyGiant, 0, 19, 1, -8, -8);
+	_obj[1, 12] =	new LMObject(oLadyGiant4,		64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_preview_index_horizontal(1).set_sprite_button_part(sLadyGiant4, 0, 14, 1, -8, -8);
 	_obj[1, 13] =	new LMObject(oBatVer,			16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16", "is_vertical").set_preview_index_vertical(1).set_sprite_button_part(sBatDown, 0, 10, 4, -7, -8);
 	_obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8)
 	_obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);

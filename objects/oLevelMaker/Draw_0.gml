@@ -41,15 +41,20 @@ if(instance_exists(oPause)) {
 				_sprite_offset_y = _new_offset[1];
 				
 				var _new_image_index = 0;
+				var _new_x_scale = _xscale;
 				var _new_y_scale = _yscale;
+				var _preview_index_horizontal = _object.preview_image_index_horizontal;
 				var _preview_index_vertical = _object.preview_image_index_vertical;
 				
-				if not is_undefined(_preview_index_vertical) {
+				if not is_undefined(_preview_index_horizontal) {
+					_new_image_index = _xscale == -1 ? _preview_index_horizontal : 0;
+					_new_x_scale = 1;
+				} else if not is_undefined(_preview_index_vertical) {
 					_new_image_index = _yscale == -1 ? _preview_index_vertical : 0;
 					_new_y_scale = 1;
 				}
 
-				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y , _xscale, _new_y_scale, _obj_angle, c_white, 1);
+				draw_sprite_ext(_sprite, _new_image_index, _xx + _sprite_offset_x,_yy + _sprite_offset_y, _new_x_scale, _new_y_scale, _obj_angle, c_white, 1);
 			}
 		}	
 	}
@@ -70,9 +75,16 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	and not is_undefined(cursor_object_hovering) //sprite_exists(sprite_index)
 	and not has_object_below_cursor {
 		var _new_image_index = 0;
+		var _new_x_scale = image_xscale;
 		var _new_y_scale = image_yscale;
 		var sprite = object_get_sprite(cursor_object_hovering.index);
-		var _preview_index_vertical = cursor_object_hovering.preview_image_index_vertical
+		var _preview_index_horizontal = cursor_object_hovering.preview_image_index_horizontal;
+		var _preview_index_vertical = cursor_object_hovering.preview_image_index_vertical;
+				
+		if not is_undefined(_preview_index_horizontal) {
+			_new_image_index = image_xscale == -1 ? _preview_index_horizontal : 0;
+			_new_x_scale = 1;
+		}
 				
 		if not is_undefined(_preview_index_vertical) {
 			_new_image_index = image_yscale == -1 ? _preview_index_vertical : 0;
@@ -80,7 +92,7 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 		}
 	
 		var alpha = 0.6;
-		draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, image_xscale, _new_y_scale, image_angle, c_white, alpha);
+		draw_sprite_ext(sprite_index, _new_image_index, x + item_preview_offset_x, y + item_preview_offset_y, _new_x_scale, _new_y_scale, image_angle, c_white, alpha);
 	}
 } else {
 	if cursor != LEVEL_CURSOR_TYPE.ERASER

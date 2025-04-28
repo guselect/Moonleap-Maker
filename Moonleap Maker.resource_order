@@ -164,7 +164,7 @@
     {"name":"oMagnet","order":5,"path":"objects/oMagnet/oMagnet.yy",},
     {"name":"oMakerAnimatedTile","order":10,"path":"objects/oMakerAnimatedTile/oMakerAnimatedTile.yy",},
     {"name":"oMakerBack","order":26,"path":"objects/oMakerBack/oMakerBack.yy",},
-    {"name":"oMakerEditorDraft","order":11,"path":"objects/oMakerEditorDraft/oMakerEditorDraft.yy",},
+    {"name":"oMakerEditorTileDraft","order":11,"path":"objects/oMakerEditorTileDraft/oMakerEditorTileDraft.yy",},
     {"name":"oMakerWarn","order":4,"path":"objects/oMakerWarn/oMakerWarn.yy",},
     {"name":"oMb2","order":1,"path":"objects/oMb2/oMb2.yy",},
     {"name":"oMenu","order":11,"path":"objects/oMenu/oMenu.yy",},

@@ -258,7 +258,7 @@ cursor_create_tile_in_grid = function() {
     var _y = floor(y / tileset_size) * tileset_size;
 
     var _existing_tile_draft_list = ds_list_create();
-    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _existing_tile_draft_list, true);
+    var _existing_tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorTileDraft, false, true, _existing_tile_draft_list, true);
 
     for (var i = 0; i < _existing_tile_draft_amount; i++) {
         var _current_draft = ds_list_find_value(_existing_tile_draft_list, i);
@@ -274,7 +274,7 @@ cursor_create_tile_in_grid = function() {
     var _is_animated_sprite = selected_tile.is_animated;
 
     // Cria um objeto de rascunho que será responsável por desenhar o tile na room
-    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorDraft);
+    var _tile_draft = instance_create_layer(_x, _y, _instance_layer_name, oMakerEditorTileDraft);
     _tile_draft.angle = image_angle;
     _tile_draft.xscale = image_xscale;
     _tile_draft.yscale = image_yscale;
@@ -311,7 +311,7 @@ cursor_remove_tile_from_grid = function() {
 		var _x = floor(x / tileset_size) * tileset_size;
 		var _y = floor(y / tileset_size) * tileset_size;
         var _tile_draft_list = ds_list_create();
-        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorDraft, false, true, _tile_draft_list, true);
+        var _tile_draft_amount = collision_rectangle_list(_x, _y, _x + tileset_size, _y + tileset_size, oMakerEditorTileDraft, false, true, _tile_draft_list, true);
         var _tile_draft_to_remove = noone;
 
         for (var i = 0; i < _tile_draft_amount and _tile_draft_to_remove == noone; i++) {
@@ -792,7 +792,7 @@ start_level = function() {
 	// ANIMATED TILES PLACEMENT
 	// =========================
 	//change_tiles_to_animated_sprites();
-    with(oMakerEditorDraft) {
+    with(oMakerEditorTileDraft) {
         set_in_room();
     }
 	
@@ -920,12 +920,11 @@ start_level = function() {
 	// EFFECTS ENABLING
 	// =========================
     var _fx_dust = layer_get_id("FX_Dust");
-    var _fx_background_fog = layer_get_id("FX_Background_Fog");
-
+    
     layer_set_visible(_fx_dust, true);
 
-    if selected_style == LEVEL_STYLE.DUNGEON then
-        layer_set_visible(_fx_background_fog, true);
+    //if selected_style == LEVEL_STYLE.DUNGEON then
+    //    instance_create_layer(0, 0, "Instances_2", oFog);
 	
     level_maker_change_fx();
 
@@ -955,7 +954,7 @@ end_level_and_return_to_editor = function() {
 	audio_stop_all()
 	
 	delete_all_objects_from_level();
-    with(oMakerEditorDraft) {
+    with(oMakerEditorTileDraft) {
         remove_from_room();
     }
 
@@ -971,13 +970,13 @@ end_level_and_return_to_editor = function() {
 	instance_destroy(oKeyFollow, false);
 	instance_destroy(oKeyFollow2, false);
 	instance_destroy(oKeyFollow3, false);
+	//instance_destroy(oFog);
 	
     // Disable layer effects
     var _fx_dust = layer_get_id("FX_Dust");
-    var _fx_background_fog = layer_get_id("FX_Background_Fog");
 
     layer_set_visible(_fx_dust, false);
-    layer_set_visible(_fx_background_fog, false);
+    
 
     level_maker_change_fx();
     audio_play_sfx(snd_bump, false, 1, 1);

@@ -11,17 +11,17 @@ set_godmode_toggling();
 set_godmode_movement();
 set_skin_changing();
 
-//if debug_mode {
-//	if keyboard_check_pressed(ord("L")) then 
-//	room_goto(Room40);
+if debug_mode {
+	if keyboard_check_pressed(ord("L")) then 
+	room_goto(Room40);
 
-//	if keyboard_check_pressed(ord("O")) {
-//		var skin = 1;
-//		repeat(7) {
-//			if skin != 6 {
-//				struct_set(oSaveManager.struct_main, $"s{skin}", 1);
-//			}
-//			skin++;
-//		}
-//	}
-//}
+	if keyboard_check_pressed(ord("O")) {
+		var skin = 1;
+		repeat(7) {
+			if skin != 6 {
+				struct_set(oSaveManager.struct_main, $"s{skin}", 1);
+			}
+			skin++;
+		}
+	}
+}

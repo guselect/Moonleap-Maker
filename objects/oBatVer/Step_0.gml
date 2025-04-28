@@ -17,7 +17,7 @@ if y > room_height {
 }
 
 if dir == 1 {
-	if y < yy {
+	if y < yy and not has_collided(0, sign(dir)) {
 		vsp += 0.1;
 	} else {
 		vsp = 0;
@@ -26,7 +26,7 @@ if dir == 1 {
 }
 
 if dir == -1 {
-	if y > yy {
+	if y > yy and not has_collided(0, sign(dir)) {
 		vsp -= 0.1;
 	} else {
 		vsp = 0;
