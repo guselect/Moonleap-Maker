@@ -5,10 +5,11 @@ function scr_changeskin() {
 	
 	scr_checkskin();
 	
+	//only flash if the player changes the skin
 	if oldskin != oCamera.current_skin {
 		flash = 1
 		audio_play_sfx(snd_morcego_move_02, false, -20, 15);
-	} //only flash if the player changes the skin
+	} 
 }
 
 function scr_checkskin() { 

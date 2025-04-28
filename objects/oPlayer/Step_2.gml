@@ -42,11 +42,6 @@ repeat(abs(hsp_new)) {
 
 if is_at_hub() {
     trueblack = not (y > 360 and y < 720);
-	//if y>360 and y<720 {
-        //trueblack = false;
-    //} else {
-        //trueblack = true;
-    //} 
 }
 
 if oCamera.current_skin == 5 {
@@ -70,7 +65,6 @@ if oCamera.current_skin == 5 {
 		PlayerHappy=	sPlayerHappy6		
 	}
 }
-
 
 //PORTAL STUFF
 if gowhite {
