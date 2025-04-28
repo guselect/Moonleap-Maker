@@ -21,7 +21,6 @@ if dir == 1 {
 		hsp += 0.1;
 	} else {
 		hsp = 0;
-		xx = x;
 	}
 	sprite_index = sBat;
 }

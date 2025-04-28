@@ -3,7 +3,6 @@ vsp = 0;
 
 dir = image_xscale;
 drawhsp = image_xscale;
-mask_index = sprite_index;
 image_xscale = 1;
 
 hsp = image_index == 1 ? 0.5 : -0.5;
