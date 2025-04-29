@@ -194,6 +194,10 @@ cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 			remove_all_specific_objects_from_grid(selected_object.index);
 		}
 		
+		if selected_object.has_tag("is_player") {
+			remove_all_player_objects_from_grid();
+		}
+		
 		if selected_object.index == oMagicOrb 
 		or selected_object.index == oGrayOrb {
 			remove_orb_from_grid();
