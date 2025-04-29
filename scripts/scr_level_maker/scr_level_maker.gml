@@ -261,7 +261,7 @@ function level_maker_get_instances_layers() {
 function level_maker_get_objects_list() {
 	var _obj = [];
 	
-	_obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
+	_obj[0, 00] =	new LMObject(oPlayer,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique", "is_player");
 	_obj[0, 01] =	new LMObject(oSolid,				16, 16).add_tag("grid_16", "is_holdable");
 	_obj[0, 02] =	new LMObject(oBrokenStone,		16, 16).add_tag("grid_16", "is_holdable");
 	_obj[0, 03] =	new LMObject(oPlatGhost,		16, 16).add_tag("can_spin");
@@ -278,7 +278,7 @@ function level_maker_get_objects_list() {
 	_obj[0, 14] =	new LMObject(oLady,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_preview_index_horizontal(1);
 	_obj[0, 15] =	new LMObject(oBat,				16, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip", "grid_16").set_sprite_button_part(sBat, 0, 10, 4, -7, -8);
 	
-	_obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_player");
+	_obj[1, 00] =	new LMObject(oPlayerDir,		16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique", "is_player");
 	_obj[1, 01] =	new LMObject(oBigSolid,			32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBlockGrayGiant, 0, 0, 0, 0, 0);
 	_obj[1, 02] =	new LMObject(oBrokenStoneBig,	32, 32).add_tag("grid_16", "is_holdable").set_sprite_button_part(sBrokenStoneBig, 0, 0, 0, 0, 0);
 	_obj[1, 03] =	new LMObject(oLadderNeutral,	16, 16);
@@ -295,7 +295,7 @@ function level_maker_get_objects_list() {
 	_obj[1, 14] =	new LMObject(oBatGiant,			48, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant, 0, 21, 1, -8, -8)
 	_obj[1, 15] =	new LMObject(oBatSuperGiant,	64, 16, SPRITE_ORIGIN.CENTER).add_tag("can_flip").set_sprite_button_part(sBatGiant4, 0, 12, 1, -8, -8);
 	
-	_obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
+	_obj[2, 00] =	new LMObject(oPlayerNeutral,	16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique", "is_player");
 	_obj[2, 01] =	new LMObject(oBird,				16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("can_flip", "is_unique");
 	_obj[2, 02] =	new LMObject(oKey,				16, 16);
 	_obj[2, 03] =	new LMObject(oKeyDoor,			16, 16);
@@ -305,7 +305,7 @@ function level_maker_get_objects_list() {
 	_obj[2, 07] =	new LMObject(oKeyDoorWide,		32, 16).set_sprite_button_part(sKeyDoorWide, 0, 8, 0, -8, -8);
 	_obj[2, 08] =	new LMObject(oKeyTallWide,		32, 32).set_sprite_button_part(sKeyDoorTallWideUI, 0, 0, 0, -8, -8);
 	_obj[2, 09] =	new LMObject(oKeyDoorTallWide,	32, 32).set_sprite_button_part(sKeyDoorWideTall, 0, 0, 0, -8, -8);
-	_obj[2, 10] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique");
+	_obj[2, 10] =	new LMObject(oMagicOrb,			16, 16, SPRITE_ORIGIN.BOTTOM).add_tag("is_unique", "is_orb");
 	_obj[2, 11] =	new LMObject(oStarFly,			16, 16);
 	_obj[2, 12] =	new LMObject(oSolidInv,			16, 16).add_tag("grid_16", "is_holdable");
 	_obj[2, 13] =	undefined; //new LMObject(oNope,             16, 16).add_tag("grid_16", "is_holdable");
