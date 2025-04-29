@@ -1,8 +1,15 @@
 scr_inputget();
 // You can write your code in this editor
-drawx=random_range(-(holding),(holding))
-drawy=random_range(-(holding),(holding))
-drawtarget=0
+
+drawx = random_range(-holding, holding);
+drawy = random_range(-holding, holding);
+
+if cleared_level {
+	drawx = 0;
+	drawy = 0;
+}
+
+drawtarget = 0;
 
 //lerp play button position to be visible in play state
 if image_index == 6 { //play button
@@ -55,6 +62,7 @@ if is_mouse_hover and mouse_check_button(mb_left) {
     drawplus = 2;
 } else {
 	holding = 0; 
+	cleared_level = false;
 	is_mouse_left_pressing = false;
 }
 // =============================
@@ -190,13 +198,22 @@ if image_index == 9 and is_mouse_left_pressing {
 // Clear level
 if image_index == 10 {
 	if mouse_check_button(mb_left) {
-		holding += 0.05
-		if holding == 4 {
-			audio_play_sfx(sfx_luano_death_pause_01, false, -8.79, 5);
-			room_restart();
+		if not cleared_level {
+			holding = min(holding + 0.05, 4);
+		
+			if holding == 4 {
+				cleared_level = true;
+				audio_play_sfx(sfx_luano_death_pause_01, false, -8.79, 5);
+				with(oLevelMaker) {
+					clear_level();
+					set_sample_level();
+				}
+			
+			}
 		}
 	} else {
 		holding = 0;
+		cleared_level = false;
 	}
 }
 

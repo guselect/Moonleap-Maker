@@ -10,6 +10,7 @@ holding=0
 drawy=0
 drawx=0
 scale=1
+cleared_level = false;
 
 start_pos_x = x;
 start_pos_y = y;

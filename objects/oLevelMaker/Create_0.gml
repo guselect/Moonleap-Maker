@@ -86,6 +86,10 @@ reset_level_objects_grid = function() {
 	}
 }
 
+reset_level_tiles_grid = function() {
+	instance_destroy(oMakerEditorTileDraft);
+}
+
 set_hover_text = function(_hover_text) {
     hover_text = _hover_text;
 }
@@ -989,6 +993,31 @@ end_level_and_return_to_editor = function() {
 	just_entered_level_editor = true;
 }
 
+clear_level = function() {
+	reset_level_objects_grid();
+	reset_level_tiles_grid();
+}
+
+set_sample_level = function() {
+	// floor
+	var fi = 0;
+	repeat(6) {
+		place_object_in_object_grid(14 + 2 * fi, 14, get_lmobject_from_list(oSolid));
+		fi++;
+	}
+
+	// player
+	place_object_in_object_grid(16, 12, get_lmobject_from_list(oPlayer));
+
+	// star
+	place_object_in_object_grid(22, 12, get_lmobject_from_list(oStar));
+
+	selected_style = LEVEL_STYLE.GRASS;
+
+	update_selected_object();
+	update_selected_tile();
+}
+
 //CAMERA CODE
 
 oCamera.fancyeffects = true;
@@ -1002,23 +1031,6 @@ just_entered_level_editor = false;
 
 reset_level_objects_grid();
 
-//instance_create_layer(x,y,layer,oPause);
-
 //----------------------
 // DEFAULT LEVEL
-
-// floor
-var fi = 0;
-repeat(6) {
-	place_object_in_object_grid(14 + 2 * fi, 14, get_lmobject_from_list(oSolid));
-	fi++;
-}
-
-// player
-place_object_in_object_grid(16, 12, get_lmobject_from_list(oPlayer));
-
-// star
-place_object_in_object_grid(22, 12, get_lmobject_from_list(oStar));
-
-update_selected_object();
-update_selected_tile();
+set_sample_level();
