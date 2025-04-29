@@ -226,9 +226,9 @@ if image_index == 11 and is_mouse_left_pressing {
 		selected_object_type = 0;
 		selected_object_position = 0;
 		
-		current_layer -= 1;
-		if current_layer < 0 then
-			current_layer = LEVEL_CURRENT_LAYER.BACKGROUND_4;
+		current_layer += 1;
+		if current_layer > 3 then
+			current_layer = LEVEL_CURRENT_LAYER.FOREGROUND;
 
         update_current_item();
 	}

@@ -1,4 +1,4 @@
-enum LEVEL_CURRENT_LAYER { FOREGROUND, OBJECTS, BACKGROUND_1, BACKGROUND_2, BACKGROUND_3, BACKGROUND_4 }
+enum LEVEL_CURRENT_LAYER { FOREGROUND, OBJECTS, BACKGROUND_1, BACKGROUND_2}
 enum LEVEL_CURSOR_TYPE { NOTHING, CURSOR, FINGER, ERASER, CANCEL }
 enum LEVEL_STYLE { GRASS, CLOUDS, FLOWERS, SPACE, DUNGEON,LENGTH }
 enum LEVEL_EDITOR_MODE { EDITING, TESTING }
@@ -452,10 +452,6 @@ function level_maker_get_background_tile_layer_name() {
 			return "Tiles_Background1";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
 			return "Tiles_Background2";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Tiles_Background3";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_4:
-			return "Tiles_Background4";
 		default:
 			return -1;
 	}
@@ -469,10 +465,6 @@ function level_maker_get_background_instances_layer_name() {
 			return "Instances_Background1";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
 			return "Instances_Background2";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Instances_Background3";
-        case LEVEL_CURRENT_LAYER.BACKGROUND_4:
-			return "Instances_Background4";
 		default:
 			return -1;
 	}
@@ -485,13 +477,9 @@ function level_maker_get_layer_hover_text() {
 		case LEVEL_CURRENT_LAYER.OBJECTS:
 			return "Camada 2: Objetos";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "Camada 3: Fundo menos distante";
+			return "Camada 3: Fundo";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "Camada 4: Fundo distante";
-		case LEVEL_CURRENT_LAYER.BACKGROUND_3:
-			return "Camada 5: Fundo mais distante";
-        case LEVEL_CURRENT_LAYER.BACKGROUND_4:
-			return "Camada 6: Fundo muito mais distante";
+			return "Camada 4: Fundo Distante";
 		default:
 			return "Camada desconhecida";
 	}

@@ -4,7 +4,6 @@
 - Rooms 60 to 63 were kept only as examples of how the levels in Moonleap were originally built.
 - The maker_mode=true setting in the oIntro causes the game go straight to the RoomMaker0
 
-- [DIDN'T FIND ANY OF THEM] Some objects just didnt pause when oPause exists, thats a bug
 - [OKAY!] oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
 - [DONE!] the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
 - [DONE!] Style stuff isn't done yet but the way enemies check what style of phase they are in is by checking if there is a GrassDay, CloudDay, FlowerDay and so on
@@ -50,8 +49,8 @@ selected_style = LEVEL_STYLE.GRASS;
 
 // UI-related
 hover_text = "";
-text_shadow_x = 2;
-text_shadow_y = 1;
+text_shadow_x = 0;
+text_shadow_y = 2;
 color = {
 	nice_black: make_color_rgb(0,0,72),
 	nice_white: make_color_rgb(170,255,255),
