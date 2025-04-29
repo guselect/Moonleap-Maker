@@ -1,0 +1,2 @@
+portal=3
+sprite_index=sSolidLock4hide

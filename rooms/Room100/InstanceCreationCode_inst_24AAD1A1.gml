@@ -1,0 +1,1 @@
+hubpar=75-12.5 //base only

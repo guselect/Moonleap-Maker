@@ -1,0 +1,1 @@
+ROPE_LENGTH = 5
