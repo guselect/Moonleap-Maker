@@ -1,0 +1,1 @@
+hubpar=50 //first world

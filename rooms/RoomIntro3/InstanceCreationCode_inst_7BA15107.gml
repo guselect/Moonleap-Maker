@@ -1,0 +1,1 @@
+parallax=0
