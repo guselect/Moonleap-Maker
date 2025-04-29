@@ -7,8 +7,8 @@ if x > room_width {
 }
 
 if y < 0 {
-	y += room_width;
-	yy += room_width - 4;
+	y += room_height;
+	yy += room_height - 4;
 }
 
 if y > room_height {
