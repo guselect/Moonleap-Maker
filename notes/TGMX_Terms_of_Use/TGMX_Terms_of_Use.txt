@@ -1,5 +1,5 @@
 
-[TweenGMX 1.0.0 RC1]
+[TweenGMX]
 
 - By using this asset, you assume all risk and responsibility of damages which could occur to [Yourself] and your [End Users]. 
   You've been warned! ^.^

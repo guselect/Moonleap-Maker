@@ -1,66 +1,39 @@
 
-[1.0.0 RC1]
-	
-	- Documentation improvements
-	
-	- Added normalized duration 'dist' (distance) which is now the default normalized duration when using shorthand [dur] array
-		* WARNING! Please review and update any existing timings!!
-		* 'dist' works by calculating property changes as a distance between points
-		* Default when passing durations as a "shorthand" array (e.g. [pixels_per_second])
-		* e.g. 
-			TweenFire(self, "io", 0, true, 0, [100], "x>", 300); // 100 pixels per second (3 seconds)
-			
-	- Normalized duration "weight" has been reimplemented with an improved calculation
-		* WARNING! Please review and update any existing timings!!
-		* should now work as intended
-		* fixes single-property tweens being 2x longer in duration than they should be
-	
-	- Normalized duration "rate" changed to "sum"
-		* Better represents all property change values being summed before duration calculation
-	
-	- Normalized duration "split" changed to "avg"
-		* Better represents all property change values being averaged before duration calculation
-	
-	- Documented and fixed "min"/"max" normalized durations
-		* min and max use only the property with a minimum or maximum change
-		* e.g.
-			TweenFire(self, "io", 0, true, 0, {min: 100}, "x", 0, 200, "y", 0, 900); // Only 'x' will be used
-			
-	- Removed need for "score!" and "health!" special tags
-	
-	- Added property tag "scale!" for easing both image_xscale and image_yscale together
-		* The existing "image_scale" tag, which does the same thing, is now considered deprecated
-		
-	- Removed TweenCalcTime and TweenCalcAmount
-		* Please update to use TweenCalc
-		
-	- HTML5: Fixed built-in functions not working for in-line tween callbacks
-	* e.g. 
-		TweenFire(self, "io", 0, true, 0, 1, "x", 0, 10, "@finish", [show_message, "Done!"]);
-	
-	- TPTarget Improvements
-		* now uses built getters
-		* now performs faster and supports custom properties
-		* no longer errors if instance or struct target is destroyed
-		* now supports normalized properties (e.g. image_blend)
+[TweenGMX]
 
-	- TP Modifiers have been extended to support built properties for explicit self/other targets
-		* e.g. TPRound("other.x")
+[v1.0.6]
 
-	- Properties using dot notation will no longer error for non-existent instances or structs
-		*e.g. "obj_Player.x"
+- Fix for Advanced Properties when using To/From (">", "<") in a tween played more than once
+  (e.g.)
+	tween = TweenCreate(self, "outSine", 0, true, 0, 1, TPCol("color1>"), targetColor);
+	TweenPlay(tween);
+	TweenPlay(tween); // ERROR would occur here
 
-	- Advanced Property call optimisation
-		* Removed need for explicit TPTarget check
-		
-	- Added TGMX_SUPPORT_LTS flag in TGMX_9_Settings
-		* Setting as [false] allows callbacks to take unlimited arguments and potentially perform faster 
-		
-	- Removed support for "0>" user event strings
-		*TPUser() is now required
-		
-		
-		
-		
-		
-		
+
+[v1.0.5]
+
+- Fix for inline callbacks involving built-in functions with passed arguments
+	* e.g.
+		TweenFire(..., "@finish", [show_message, "Done!"]);
+
+- Added "soft" and "softer" variations for EaseBack* types
+	* e.g.
+		EaseOutBackSoft
+		"ioBackSofter"
+	
+
+[v1.0.4]
+
+- Fixes for recent GameMaker changes
+
+- Fixed "rawstart" returning improper value
+	e.g.
+		tween = TweenFire(self, "io", 0, true, 0, 1, "x", "mouse_x", "mouse_x+100"); 
+		raw_start = TweenGet("rawstart", tween); // Returns "mouse_x"
+
+- Officially removed deprecated multi-tween "array support" for TweenIsActive(), TweenIsPlaying(), etc...
+  Instead of TweenIsActive([tween1, tween2]) use the Tweens Selection convention.
+  (Please read about "Tween Selection" in the Script Reference Guide)
+	e.g.
+		isActive = TweenIsActive({list: [tween1, tween2]});
+

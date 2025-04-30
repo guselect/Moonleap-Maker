@@ -1,19 +1,19 @@
 
-[TweenGMX 1.0.0 RC1]
+[TweenGMX 1.0.5+]
 		
 
 ===================
 == Starter Guide ==
 ===================
 
-	https://stephenloney.com/_/TweenGMX/RC1/TweenGMX%20Starter%20Guide.html
+	https://stephenloney.com/_/TweenGMX/105/TGMX_Starter_Guide.html
 
 
 =====================
 == Reference Guide ==
 =====================
 
-	https://stephenloney.com/_/TweenGMX/RC1/TweenGMX%20Reference%20Guide.html
+	https://stephenloney.com/_/TweenGMX/105/TGMX_Reference_Guide.html
 	
 	
 =====================
@@ -27,7 +27,14 @@
 == Demo Project ==
 ==================
 	
-	https://stephenloney.com/_/TweenGMX/RC1/TweenGMX_Examples.yyz
+	https://stephenloney.com/_/TweenGMX/105/TGMX_Examples.yyz
+
+
+==================
+== Example Game ==
+==================
+	
+	https://stephenloney.com/_/TweenGMX/105/TGMX_Alien_Odds.yyz
 	
 	
 ====================
@@ -45,13 +52,6 @@
 	You can find visual examples of standard easing functions at:
 	https://easings.net/
 	(Andrey Sitnik | Ivan Solovev)
-	
-	
-=========================
-== GameMaker Community ==
-=========================
-
-	https://forum.yoyogames.com/index.php?threads/tweengms-tweening-engine.15740/
 	
 	
 =============

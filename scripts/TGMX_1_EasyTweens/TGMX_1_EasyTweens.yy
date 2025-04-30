@@ -6,7 +6,7 @@
   "name":"TGMX_1_EasyTweens",
   "parent":{
     "name":"User",
-    "path":"folders/Libraries/TweenGMX/User.yy",
+    "path":"folders/TweenGMX/User.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

@@ -4,14 +4,21 @@
 //===================
 // CLEAR EVENT MAPS -- USED BY TweenJust*() FUNCTIONS
 //===================
-var i = -1;
-repeat(TWEEN_EV_TOTAL_EVENTS)
-{
-	if (!ds_map_empty(global.TGMX.EventMaps[++i])) 
-	{
-		ds_map_clear(global.TGMX.EventMaps[i]);
-	}
-}
+var _ = global.TGMX.EventMaps;
+if (!ds_map_empty(_[0]))  ds_map_clear(_[0]);
+if (!ds_map_empty(_[1]))  ds_map_clear(_[1]);
+if (!ds_map_empty(_[2]))  ds_map_clear(_[2]);
+if (!ds_map_empty(_[3]))  ds_map_clear(_[3]);
+if (!ds_map_empty(_[4]))  ds_map_clear(_[4]);
+if (!ds_map_empty(_[5]))  ds_map_clear(_[5]);
+if (!ds_map_empty(_[6]))  ds_map_clear(_[6]);
+if (!ds_map_empty(_[7]))  ds_map_clear(_[7]);
+if (!ds_map_empty(_[8]))  ds_map_clear(_[8]);
+if (!ds_map_empty(_[9]))  ds_map_clear(_[9]);
+if (!ds_map_empty(_[10])) ds_map_clear(_[10]);
+if (!ds_map_empty(_[11])) ds_map_clear(_[11]);
+if (!ds_map_empty(_[12])) ds_map_clear(_[12]);
+
 
 //=======================
 // MANAGE DELTA TIMING
@@ -32,7 +39,6 @@ else
 }
 
 deltaTime += addDelta; // ADJUST FOR UPDATE INTERVAL DIFFERENCE -- ONLY RELEVANT IF UPDATE INTERVAL NOT REACHED IN PREVIOUS STEP
-
 
 //=================================
 // PROCESS MAIN UPDATE LOOP
@@ -75,23 +81,21 @@ if (isEnabled)
 				// DON'T PROCESS TWEEN IF TARGET DOESN'T EXIST -- COMPILER WILL STRIP OUT UNUSED SETTINGS
 				if (TGMX_USE_TARGETS == TGMX_TARGETS_INSTANCE) // FORCE ONLY INSTANCE TARGET SUPPORT
 				{
-					if (!instance_exists(_target)) { continue; } // CONTINUE LOOP IF INSTANCE TARGET DOESN'T EXIST
+					if (instance_exists(_target)) {} else { continue; } // CONTINUE LOOP IF INSTANCE TARGET DOESN'T EXIST
 				}
 				if (TGMX_USE_TARGETS == TGMX_TARGETS_STRUCT) // FORCE ONLY STRUCT TARGET SUPPORT
 				{
-					if (!weak_ref_alive(_target)) { continue; } // CONTINUE LOOP IF STRUCT TARGET DOESN'T EXIST
-					_target = _target.ref; // GET STRUCT REFERENCE
+					if (weak_ref_alive(_target)) { _target = _target.ref; } else { continue; } // CONTINUE LOOP IF STRUCT TARGET DOESN'T EXIST
 				}
 				if (TGMX_USE_TARGETS == TGMX_TARGETS_DYNAMIC) // USE DYNAMIC INSTANCE/STRUCT TARGET SUPPORT
 				{
 					if (is_struct(_target)) // IF STRUCT TARGET
 					{
-						if (!weak_ref_alive(_target)) { continue; } // CONTINUE LOOP IF STRUCT TARGET DOESN'T EXIST
-						_target = _target.ref; // GET STRUCT REFERENCE
+						if (weak_ref_alive(_target)) { _target = _target.ref; } else { continue; } // CONTINUE LOOP IF STRUCT TARGET DOESN'T EXIST
 					}
 					else
 					{
-						if (!instance_exists(_target)) { continue; } // CONTINUE LOOP IF INSTANCE TARGET DOESN'T EXIST
+						if (instance_exists(_target)) {} else { continue; } // CONTINUE LOOP IF INSTANCE TARGET DOESN'T EXIST
 					}
 				}
 
@@ -120,7 +124,7 @@ if (isEnabled)
 					
 					// ***** INLINE VERSION OF TGMX_TweenProcess() FOR IMPROVED PERFORMANCE *****
 					var _d = _t[TGMX_T_PROPERTY_DATA]; // CACHE TWEEN PROPERTY DATA
-					
+
 					switch(_d[0]) // PROPERTY COUNT
 					{
 					case 1:
@@ -230,8 +234,20 @@ if (isEnabled)
 					
 					default: // Handle "unlimited" property count
 						_time = is_method(_t[TGMX_T_EASE]) ? _t[TGMX_T_EASE](_time, 0, 1, _t[TGMX_T_DURATION], _t) : animcurve_channel_evaluate(_t[TGMX_T_EASE], _time/_t[TGMX_T_DURATION]);
-						i = 1;
-						repeat(_d[0])
+						_d[1](_time*_d[3]+_d[2], _target, _d[4], _t);
+					    _d[5](_time*_d[7]+_d[6], _target, _d[8], _t);
+					    _d[9](_time*_d[11]+_d[10], _target, _d[12], _t);
+					    _d[13](_time*_d[15]+_d[14], _target, _d[16], _t);
+					    _d[17](_time*_d[19]+_d[18], _target, _d[20], _t);
+					    _d[21](_time*_d[23]+_d[22], _target, _d[24], _t);
+					    _d[25](_time*_d[27]+_d[26], _target, _d[28], _t);
+						_d[29](_time*_d[31]+_d[30], _target, _d[32], _t);
+						_d[33](_time*_d[35]+_d[34], _target, _d[36], _t);
+						_d[37](_time*_d[39]+_d[38], _target, _d[40], _t);
+						_d[41](_time*_d[43]+_d[42], _target, _d[44], _t);
+						
+						i = 45;
+						repeat(_d[0]-11)
 						{
 							_d[i](_time*_d[i+2]+_d[i+1], _target, _d[i+3], _t);
 							i += 4;
@@ -241,7 +257,7 @@ if (isEnabled)
 				}
                 else // Tween has reached start or destination
 				{
-					TweenHasReachedBounds(_t, _target, _time, _timeScaleDelta);
+					TGMX_TweenHasReachedBounds(_t, _target, _time, _timeScaleDelta);
 				}
             }
 			
@@ -278,7 +294,7 @@ if (isEnabled)
                         _t[@ TGMX_T_STATE] = _t[TGMX_T_TARGET];  
 						// Process tween data
 						TGMX_TweenPreprocess(_t);
-                        // Update property with start value                 
+                        // Update property with start value    
 						TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], is_struct(_t[TGMX_T_TARGET]) ? _t[TGMX_T_TARGET].ref : _t[TGMX_T_TARGET]); // TODO: Verify that overflow is working
 						// Execute PLAY event callbacks
 						TGMX_ExecuteEvent(_t, TWEEN_EV_PLAY);

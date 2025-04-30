@@ -87,6 +87,13 @@ function TPFuncSharedNormal(_name, _setter)
 //============================
 // Property Modifiers
 //============================
+
+/// @function TPModify( property, func, [args] )
+/// @param {Any} property
+/// @param {Any} func
+/// @param {Any} args	MUST BE AN ARRAY
+//function TPModify(_property, _func, _args) { return [TPModify, _property, undefined, undefined, undefined, undefined, undefined, [_func,_args]]; }
+
 /// @function TPCeil( property )
 /// @param {Any} property
 function TPCeil(_property) { return [TPCeil, _property, undefined, undefined, undefined, undefined, undefined]; }
@@ -108,6 +115,9 @@ function TPSnap(_property, _snap) { return [TPSnap, _property, undefined, undefi
 /// @param {Any} property
 /// @param {Any} amount
 function TPShake(_property, _amount) { return [TPShake, _property, undefined, undefined, undefined, undefined, undefined, _amount]; }
+
+
+
 
 
 //============================
@@ -206,7 +216,7 @@ function TPUser(_user_event)
 }
 
 /// @ignore
-function TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
+function TGMX_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
 {	
 	// data array
 	// 0 property
@@ -216,6 +226,12 @@ function TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
 	// 4 target
 	// 5 execution type
 	// 6 modifier data
+	
+	static STR_DOT = ".";
+	static STR_GLOBAL_DOT = "global.";
+	static STR_SELF_DOT = "self.";
+	static STR_OTHER_DOT = "other.";
+	static STR_DOLLAR = "$";
 	
 	if (_data[5] == undefined)
 	{
@@ -231,9 +247,9 @@ function TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
 			return; // RETURN EARLY
 		}
 	
-		if (string_pos(".", _prop))
+		if (string_pos(STR_DOT, _prop))
 		{
-			if (string_pos("global.", _prop))
+			if (string_pos(STR_GLOBAL_DOT, _prop))
 			{
 				if (ds_map_exists(global.TGMX.PropertySetters, _prop)) // SHARED BUILT SETTER (TPFuncShared)
 				{
@@ -242,26 +258,46 @@ function TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
 				else
 				{
 					_data[@ 0] = global.TGMX.Variable_Global_Set;
-					_data[@ 3] = string_replace(_prop, "global.", ""); // SET EXTENDED DATA
+					_data[@ 3] = string_replace(_prop, STR_GLOBAL_DOT, ""); // SET EXTENDED DATA
 				}
 			
 				return; // RETURN EARLY
 			}
 
-			if (string_pos("self.", _prop))
+			if (string_pos(STR_SELF_DOT, _prop))
 			{
-				_prop = string_replace(_prop, "self.", "");
+				_prop = string_replace(_prop, STR_SELF_DOT, "");
 				_target = self;				
 			}
 			else // other
-			if (string_pos("other.", _prop))
+			if (string_pos(STR_OTHER_DOT, _prop))
 			{
-				_prop = string_replace(_prop, "other.", "");
+				_prop = string_replace(_prop, STR_OTHER_DOT, "");
 				_target = other;
 			}
-			else
+			else // EXPLICIT TARGET
 			{
-				show_error("Instance or Struct string referencing  (e.g. o_Player.x) is not yet supported by this function!", false);
+				var _prefix = string_copy( _prop, 1, string_pos(STR_DOT, _prop)-1 );
+				var _prop = string_copy(_prop, 1+string_pos(STR_DOT, _prop), 100);
+				
+				if (object_exists(asset_get_index(_prefix)))
+				{
+					_target = asset_get_index(_prefix).id;
+				}
+				else
+				if (_target[$ _prefix] != undefined) // 
+				{
+					_target = _target[$ _prefix];
+				}
+				else
+				if (_tween[TGMX_T_CALLER][$ _prefix] != undefined)
+				{
+					_target = _tween[TGMX_T_CALLER][$ _prefix];
+				}
+				else
+				{
+					_target = variable_global_get(_prefix);
+				}
 			}
 			
 			// FINALIZE EXPLICIT TARGET
@@ -277,9 +313,9 @@ function TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween)
 			}
 		}		
 			
-		if (_target[$ "$"+_prop] != undefined) // LOCAL BUILT SETTER
+		if (_target[$ STR_DOLLAR+_prop] != undefined) // LOCAL BUILT SETTER
 		{
-			_data[@ 0] = _target[$ "$"+_prop]
+			_data[@ 0] = _target[$ STR_DOLLAR+_prop]
 		}
 		else 
 		if (ds_map_exists(global.TGMX.PropertySetters, _prop)) // SHARED BUILT SETTER (TPFuncShared)
@@ -307,7 +343,7 @@ function TGMX_7_Properties()
 {
 	// MAKE SURE THIS ONLY FIRES ONCE
 	static __initialized = false;
-	if (__initialized == true) { return 0; }
+	if (__initialized) { return 0; }
 	__initialized = true;
 	
 	// DEFAULT INSTANCE PROPERTIES
@@ -364,24 +400,29 @@ function TGMX_7_Properties()
 
 	#region PROPERTY MODIFIERS -------------------------------
 	
+	//TPFuncShared(TPModify, function(_value, _target, _data, _tween) 
+	//{	
+	//	TGMX_PROCESS_PROPERTY_MODIFIER(_data[6][0](_value,_data[6][1]), _target, _data, _tween);
+	//});
+	
 	TPFuncShared(TPCeil, function(_value, _target, _data, _tween)
 	{	
-		TGMS_PROCESS_PROPERTY_MODIFIER(ceil(_value), _target, _data, _tween);
+		TGMX_PROCESS_PROPERTY_MODIFIER(ceil(_value), _target, _data, _tween);
 	});
 
 	TPFuncShared(TPFloor, function(_value, _target, _data, _tween) 
 	{	
-		TGMS_PROCESS_PROPERTY_MODIFIER(floor(_value), _target, _data, _tween);
+		TGMX_PROCESS_PROPERTY_MODIFIER(floor(_value), _target, _data, _tween);
 	});
 
 	TPFuncShared(TPRound, function(_value, _target, _data, _tween) 
 	{	
-		TGMS_PROCESS_PROPERTY_MODIFIER(round(_value), _target, _data, _tween);
+		TGMX_PROCESS_PROPERTY_MODIFIER(round(_value), _target, _data, _tween);
 	});
 	
 	TPFuncShared(TPSnap, function(_value, _target, _data, _tween) 
 	{	
-		TGMS_PROCESS_PROPERTY_MODIFIER(10000 * _value div (10000*_data[6]) * (10000*_data[6]) / 10000, _target, _data, _tween);
+		TGMX_PROCESS_PROPERTY_MODIFIER(10000 * _value div (10000*_data[6]) * (10000*_data[6]) / 10000, _target, _data, _tween);
 	});
 	
 	TPFuncShared(TPShake, function(_value, _target, _data, _tween) 
@@ -392,8 +433,9 @@ function TGMX_7_Properties()
 			_value += random_range(-_data[6], _data[6]);
 		}
 
-		TGMS_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween);
+		TGMX_PROCESS_PROPERTY_MODIFIER(_value, _target, _data, _tween);
 	});
+	
 
 	#endregion ----------------------------------
 	
@@ -601,7 +643,7 @@ function TGMX_7_Properties()
 	TPFuncSharedNormal(TPCol, 
 	function(_value, _target, _data, _tween)
 	{
-		TGMS_PROCESS_PROPERTY_MODIFIER(merge_colour(_data[1], _data[2], _value), _target, _data, _tween)
+		TGMX_PROCESS_PROPERTY_MODIFIER(merge_colour(_data[1], _data[2], _value), _target, _data, _tween)
 	});
 
 	TPFuncShared(TPPath,
@@ -609,16 +651,8 @@ function TGMX_7_Properties()
 	{
 		var _path, _xstart, _ystart, _xrelative, _yrelative;
 		
-		if (is_real(_path_data))
-		{	// ABSOLUTE
-			_path = _path_data;
-			_xstart = path_get_x(_path, 0);
-			_ystart = path_get_y(_path, 0);
-			_xrelative = 0;
-			_yrelative = 0;
-		}
-		else
-		{
+		if (is_array(_path_data))
+		{	
 			_path = _path_data[0];
 			_xstart = path_get_x(_path, 0);
 			_ystart = path_get_y(_path, 0);
@@ -641,6 +675,15 @@ function TGMX_7_Properties()
 				_path_data[@ 1] = _target.x; // Right... if I don't do this, it'll always use the update x/y position to offset.. which is wrong!
 				_path_data[@ 2] = _target.y;
 			}
+		}
+		else
+		{
+			// ABSOLUTE
+			_path = _path_data;
+			_xstart = path_get_x(_path, 0);
+			_ystart = path_get_y(_path, 0);
+			_xrelative = 0;
+			_yrelative = 0;
 		}
 	
 		if (_tween[TGMX_T_MODE] == TWEEN_MODE_REPEAT)
@@ -726,6 +769,10 @@ function TGMX_7_Properties()
 	global.TGMX.Variable_Instance_Set = function(_value, _target, _variable) 
 	{
 		_target[$ _variable] = _value;
+		
+		// ---- FUTURE UPDATE OPTIMISATION ----
+		//if (TGMX_SUPPORT_LTS) { _target[$ _variable] = _value; }
+		//else				  { struct_set_from_hash(_target, _variable, _value); }
 	}
 
 	// This is used for dot . syntax
@@ -796,11 +843,15 @@ function TGMX_Variable_Get(_target, _variable, _caller, _caller_other)
 
 		// Get _variable string from advanced _data and keep executing below...
 		_variable = _variable[1];
-		// Get _variable string from inner array if WE MUST GO DEEPER! Muhahaha (I'm ok)
-		if (is_array(_variable)) { _variable = _variable[0]; }
+		
+		// Get _variable string name from inner array if WE MUST GO DEEPER! Muhahaha (I'm ok)
+		// Note: _variable[0] becomes a method after property optmisation, otherwise grab [0] index on initial call
+		if (is_array(_variable)) 
+		{ 
+			_variable = is_method(_variable[0]) ? _variable[3] : _variable[0];
+		}
 	}
-
-	// METHOD (TPFunc)
+	
 	if (_target[$ STR_AMPERSAND+_variable] != undefined)
 	{	
 		return _target[$ STR_AMPERSAND+_variable](_target, _variable);

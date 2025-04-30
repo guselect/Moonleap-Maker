@@ -5,6 +5,8 @@
 	or to delete the whole script entirely
 */
 
+var _; // USED FOR HIDING NON-FEATHER SYNTAX "ERRORS"
+
 /// @function TweensIncludeDeactivated( include? )
 /// @description Include tweens with deactivated targets? Used by Tweens() function. Default: false
 /// @param {Any} include
@@ -31,7 +33,7 @@ function TweenCalc(_t)
         
 	    EXAMPLES:
 	        // Create defined tween
-	        tween = TweenFire(id, EaseInOutQuint, 0, true, 0.0, 10, "", x, mouse_x);
+	        tween = TweenFire(self, EaseInOutQuint, 0, true, 0.0, 10, "", x, mouse_x);
         
 	        // Calculate value of tween at its current state
 	        x = TweenCalc(tween);
@@ -43,7 +45,7 @@ function TweenCalc(_t)
 			value = TweenCalc(tween, [5]);
 			
 			// Create multi-property tween --> Get array holding values for each calculated property
-			tweenXY = TweenFire(id, EaseOutQuad, 0, false, 0, 30, "", x, mouse_x, "", y, mouse_y);
+			tweenXY = TweenFire(self, EaseOutQuad, 0, false, 0, 30, "", x, mouse_x, "", y, mouse_y);
 			midPoints = TweenCalc(tweenXY, 0.5);
 			var _x = midPoints[0];
 			var _y = midPoints[1];
@@ -52,7 +54,7 @@ function TweenCalc(_t)
 	static _ = SharedTweener();
 
 	_t = TGMX_FetchTween(_t);
-	if (is_undefined(_t)) { return 0; }
+	if (_t == undefined) { return 0; }
 	
 	var _amount;
 	
@@ -98,11 +100,11 @@ function TweenCalc(_t)
     
 	return _return;
 }
-var _ = TweenCalc; // HIDE SYNTAX ERROR
+_= TweenCalc; // HIDE SYNTAX ERROR
 
-/// @function TweenStep( tween, amount )
+/// @function TweenStep( tween[s], amount )
 /// @description Steps a paused tween forward or backward by a set amount
-/// @param {Any} tween
+/// @param {Any} tween[s]
 /// @param {Real} amount
 function TweenStep(_t, _amount=1)
 {
@@ -145,7 +147,7 @@ function TweenStep(_t, _amount=1)
 				}
 		        else // Tween has reached start or destination
 				{
-					_sharedTweener.TweenHasReachedBounds(_t, _target, _time, _timeScaleDelta);
+					TGMX_TweenHasReachedBounds(_t, _target, _time, _timeScaleDelta);
 				}
 			}
 			else
@@ -188,5 +190,161 @@ function TweenStep(_t, _amount=1)
 }
 
 
-
+/// @function TweensFetch( tweens )
+/// @param {Any} tweens
+/// @description Returns an array of selected tweens
+function TweensFetch(_tStruct=all)
+{
+	var _tweens = SharedTweener().tweens;
+	var _t_queue = ds_queue_create();
+	var _tIndex = -1;
+	
+	_tStruct = TGMX_FetchTween(_tStruct);
+	
+	// TARGET SELECT
+	static STR_Target = "target";
+	if (variable_struct_exists(_tStruct, STR_Target))
+	{	
+		if (is_array(_tStruct.target)) // ARRAY
+		{
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+			    var _t = _tweens[| _tIndex];
+			    var _target = _t[TGMX_T_TARGET];
+						
+				if (TGMX_TargetExists(_target)) 
+				{
+					var i = -1;
+					repeat(array_length(_tStruct.target))
+					{
+						i += 1;
+						var _selectionData = _tStruct.target[i];
+						
+						if (_selectionData == _tStruct) 
+						{ 
+							_selectionData = self; 
+						}
+						
+						if (is_struct(_target)) // STRUCT
+						{
+							if (is_struct(_selectionData) && _target.ref == _selectionData)
+							{
+								ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+							}
+						}
+						else // INSTANCE
+						if (!is_struct(_selectionData) && instance_exists(_selectionData)) 
+						{ 
+							if (_target == _selectionData.id || _target.object_index == _selectionData || object_is_ancestor(_target.object_index, _selectionData))
+							{
+								ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+							}
+						}	
+					}
+				}
+			}
+		}
+		else
+		if (_tStruct.target == all) // All Targets
+		{	
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+				var _t = _tweens[| _tIndex];
+	            
+				if (TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+				}
+			}
+		}
+		else // Specific Target
+		{
+			var _selectionData = (_tStruct == _tStruct.target) ? self : _tStruct.target;
+			
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+				var _t = _tweens[| _tIndex];
+		        var _target = _t[TGMX_T_TARGET];
+	
+				if (TGMX_TargetExists(_target))
+				{
+					if (is_struct(_target)) // STRUCT TARGET
+					{
+						if (_target.ref == _selectionData)
+						{
+							ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+						}
+					}
+					else // INSTANCE | OBJECT | CHILD
+					{
+						if (_target == _selectionData.id || _target.object_index == _selectionData || object_is_ancestor(_target.object_index, _selectionData))
+						{
+							ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	// GROUP
+	static STR_Group = "group";
+	var _select_group = _tStruct[$ STR_Group];
+	if (_select_group != undefined)
+	{	
+		// SINGLE
+		if (is_real(_select_group))
+		{
+			var _tIndex = -1;
+			var _selectionData = _select_group;
+        
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+		        var _t = _tweens[| _tIndex];
+		        if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+				}
+		    }
+		}
+		else // MULTI
+		{
+			var _tIndex = -1;
+			
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+		        var _t = _tweens[| _tIndex];
+				var i = -1;
+				repeat(array_length(_select_group))
+				{	
+					i += 1;
+					var _selectionData = _select_group[i];
+					if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+					{
+						ds_queue_enqueue(_t_queue, _t[TGMX_T_ID]);
+					}
+				}
+		    }
+		}
+	}
+	
+	var _ret_array = array_create(ds_queue_size(_t_queue));
+	
+	var i = -1;
+	repeat(ds_queue_size(_t_queue))
+	{
+		i += 1;
+		_ret_array[i] = ds_queue_dequeue(_t_queue);
+	}
+	
+	// DESTROY TEMPORARY TWEEN QUEUE
+	ds_queue_destroy(_t_queue);
+	// MAKE SURE TO RETURN FALSE IF WE HAVE NO TRUE CONDITION ABOVE ^^
+	return _ret_array;
+}_=TweensFetch;
 

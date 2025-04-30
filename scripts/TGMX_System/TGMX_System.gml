@@ -1,5 +1,5 @@
 
-// [TweenGMX 1.0.0 RC1]
+// [TweenGMX 1.0.6]
 
 // Feather ignore all
 
@@ -112,10 +112,10 @@ function TGMX_Begin()
 	
 	// MAKE SURE THIS IS FIRED ONLY ONCE
 	static __initialized = false;
-	if (__initialized == true) { return 0; }
+	if (__initialized) { return 0; }
 	__initialized = true;
 	
-	// TEMPORARY WORKAROUND
+	// TEMPORARY WORKAROUND (FOR HTML5 BUG? IS THIS STILL NEEDED??)
 	method_get_index(function(){}); 
 	
 	global.TGMX = {}; 
@@ -130,7 +130,7 @@ function TGMX_Begin()
 	global.TGMX.TweenDefault = array_create(TGMX_T_DATA_SIZE);
 	
 	//-----------------------------------------------
-	// Declare Default Global System-Wide Settings
+	// DECLARE DEFAULT GLOBAL SYSTEM-WIDE SETTINGS
 	//-----------------------------------------------
 	global.TGMX.IsEnabled = true;         // SYSTEM'S ACTIVE STATE BOOLEAN
 	global.TGMX.TimeScale = 1.0;          // EFFECTS OVERALL SPEED OF HOW FAST SYSTEM PLAYS TWEENS/DELAYS
@@ -160,59 +160,64 @@ function TGMX_Begin()
 	// TWEEN DATA LABEL INDEXING --> SOUNDS FANCIER THAN IT REALLY IS!
 	//-----------------------------
 	global.TGMX.TweenDataLabelMap = ds_map_create();
-	global.TGMX.TweenDataLabelMap[? "target"] = TGMX_T_TARGET;
-	global.TGMX.TweenDataLabelMap[? "?"] = TGMX_T_TARGET;
-	global.TGMX.TweenDataLabelMap[? "time"] = TGMX_T_TIME;
-	global.TGMX.TweenDataLabelMap[? "="] = TGMX_T_TIME;
-	global.TGMX.TweenDataLabelMap[? "scale"] = TGMX_T_SCALE;
-	global.TGMX.TweenDataLabelMap[? "timescale"] = TGMX_T_SCALE;
-	global.TGMX.TweenDataLabelMap[? "*"] = TGMX_T_SCALE;
-	global.TGMX.TweenDataLabelMap[? "amount"] = TGMX_T_AMOUNT;
-	global.TGMX.TweenDataLabelMap[? "timeamount"] = TGMX_T_AMOUNT;
-	global.TGMX.TweenDataLabelMap[? "%"] = TGMX_T_AMOUNT;
-	global.TGMX.TweenDataLabelMap[? "ease"] = TGMX_T_EASE;
-	global.TGMX.TweenDataLabelMap[? "~"] = TGMX_T_EASE;
-	global.TGMX.TweenDataLabelMap[? "start"] = TGMX_T_START;
-	global.TGMX.TweenDataLabelMap[? "destination"] = TGMX_T_DESTINATION;
-	global.TGMX.TweenDataLabelMap[? "dest"] = TGMX_T_DESTINATION;
-	global.TGMX.TweenDataLabelMap[? "rawstart"] = TGMX_T_RAW_START;
-	global.TGMX.TweenDataLabelMap[? "rawdestination"] = TGMX_T_RAW_DESTINATION;
-	global.TGMX.TweenDataLabelMap[? "rawdest"] = TGMX_T_RAW_DESTINATION;
-	global.TGMX.TweenDataLabelMap[? "duration"] = TGMX_T_DURATION;
-	global.TGMX.TweenDataLabelMap[? "$"] = TGMX_T_DURATION;
-	global.TGMX.TweenDataLabelMap[? "dur"] = TGMX_T_DURATION;
-	global.TGMX.TweenDataLabelMap[? "rest"] = TGMX_T_REST;
-	global.TGMX.TweenDataLabelMap[? "|"] = TGMX_T_REST;
-	global.TGMX.TweenDataLabelMap[? "delay"] = TGMX_T_DELAY;
-	global.TGMX.TweenDataLabelMap[? "delaystart"] = TGMX_T_DELAY_START;
-	global.TGMX.TweenDataLabelMap[? "group"] = TGMX_T_GROUP;
-	global.TGMX.TweenDataLabelMap[? "&"] = TGMX_T_GROUP;
-	global.TGMX.TweenDataLabelMap[? "state"] = TGMX_T_STATE;
-	global.TGMX.TweenDataLabelMap[? "mode"] = TGMX_T_MODE;
-	global.TGMX.TweenDataLabelMap[? "#"] = TGMX_T_MODE;
-	global.TGMX.TweenDataLabelMap[? "delta"] = TGMX_T_DELTA;
-	global.TGMX.TweenDataLabelMap[? "^"] = TGMX_T_DELTA;
-	global.TGMX.TweenDataLabelMap[? "property"] = TGMX_T_PROPERTY;
-	global.TGMX.TweenDataLabelMap[? "properties"] = TGMX_T_PROPERTY;
-	global.TGMX.TweenDataLabelMap[? "prop"] = TGMX_T_PROPERTY;
-	global.TGMX.TweenDataLabelMap[? "continuecount"] = TGMX_T_CONTINUE_COUNT;
-	global.TGMX.TweenDataLabelMap[? "count"] = TGMX_T_CONTINUE_COUNT;
-	global.TGMX.TweenDataLabelMap[? "cc"] = TGMX_T_CONTINUE_COUNT;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_TARGET] = TGMX_T_TARGET;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_PROPERTY_DATA_RAW] = TGMX_T_PROPERTY_DATA_RAW;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_TIME] = TGMX_T_TIME;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_SCALE] = TGMX_T_SCALE;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_AMOUNT] = TGMX_T_AMOUNT;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_EASE] = TGMX_T_EASE;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_START] = TGMX_T_START;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_DESTINATION] = TGMX_T_DESTINATION;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_DURATION] = TGMX_T_DURATION;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_DELAY] = TGMX_T_DELAY;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_DELAY_START] = TGMX_T_DELAY_START;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_GROUP] = TGMX_T_GROUP;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_STATE] = TGMX_T_STATE;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_MODE] = TGMX_T_MODE;
-	global.TGMX.TweenDataLabelMap[? TGMX_T_DELTA] = TGMX_T_DELTA;
+	var _ = global.TGMX.TweenDataLabelMap;
+	
+	_[? "target"] = TGMX_T_TARGET;
+	_[? "?"] = TGMX_T_TARGET;
+	_[? "time"] = TGMX_T_TIME;
+	_[? "="] = TGMX_T_TIME;
+	_[? "scale"] = TGMX_T_SCALE;
+	_[? "timescale"] = TGMX_T_SCALE;
+	_[? "*"] = TGMX_T_SCALE;
+	_[? "amount"] = TGMX_T_AMOUNT;
+	_[? "timeamount"] = TGMX_T_AMOUNT;
+	_[? "%"] = TGMX_T_AMOUNT;
+	_[? "ease"] = TGMX_T_EASE;
+	_[? "~"] = TGMX_T_EASE;
+	_[? "start"] = TGMX_T_START;
+	_[? "destination"] = TGMX_T_DESTINATION;
+	_[? "dest"] = TGMX_T_DESTINATION;
+	_[? "rawstart"] = TGMX_T_RAW_START;
+	_[? "rawdestination"] = TGMX_T_RAW_DESTINATION;
+	_[? "rawdest"] = TGMX_T_RAW_DESTINATION;
+	_[? "duration"] = TGMX_T_DURATION;
+	_[? "$"] = TGMX_T_DURATION;
+	_[? "dur"] = TGMX_T_DURATION;
+	_[? "rest"] = TGMX_T_REST;
+	_[? "|"] = TGMX_T_REST;
+	_[? "delay"] = TGMX_T_DELAY;
+	_[? "delaystart"] = TGMX_T_DELAY_START;
+	_[? "group"] = TGMX_T_GROUP;
+	_[? "&"] = TGMX_T_GROUP;
+	_[? "state"] = TGMX_T_STATE;
+	_[? "mode"] = TGMX_T_MODE;
+	_[? "#"] = TGMX_T_MODE;
+	_[? "delta"] = TGMX_T_DELTA;
+	_[? "^"] = TGMX_T_DELTA;
+	_[? "property"] = TGMX_T_PROPERTY;
+	_[? "properties"] = TGMX_T_PROPERTY;
+	_[? "prop"] = TGMX_T_PROPERTY;
+	_[? "continuecount"] = TGMX_T_CONTINUE_COUNT;
+	_[? "count"] = TGMX_T_CONTINUE_COUNT;
+	_[? "cc"] = TGMX_T_CONTINUE_COUNT;
+	_[? "caller"] = TGMX_T_CALLER;
+	
+	_[? TGMX_T_TARGET] = TGMX_T_TARGET;
+	_[? TGMX_T_PROPERTY_DATA_RAW] = TGMX_T_PROPERTY_DATA_RAW;
+	_[? TGMX_T_TIME] = TGMX_T_TIME;
+	_[? TGMX_T_SCALE] = TGMX_T_SCALE;
+	_[? TGMX_T_AMOUNT] = TGMX_T_AMOUNT;
+	_[? TGMX_T_EASE] = TGMX_T_EASE;
+	_[? TGMX_T_START] = TGMX_T_START;
+	_[? TGMX_T_DESTINATION] = TGMX_T_DESTINATION;
+	_[? TGMX_T_DURATION] = TGMX_T_DURATION;
+	_[? TGMX_T_DELAY] = TGMX_T_DELAY;
+	_[? TGMX_T_DELAY_START] = TGMX_T_DELAY_START;
+	_[? TGMX_T_GROUP] = TGMX_T_GROUP;
+	_[? TGMX_T_STATE] = TGMX_T_STATE;
+	_[? TGMX_T_MODE] = TGMX_T_MODE;
+	_[? TGMX_T_DELTA] = TGMX_T_DELTA;
+	_[? TGMX_T_CALLER] = TGMX_T_CALLER;
 
 	//------------------------------------------------------------------------------------------------
 	// SET SUPPORTED LABELS FOR TWEEN "TAGS".
@@ -221,7 +226,7 @@ function TGMX_Begin()
 	//------------------------------------------------------------------------------------------------
 
 	global.TGMX.ArgumentLabels = ds_map_create();
-	var _ = global.TGMX.ArgumentLabels;
+	_ = global.TGMX.ArgumentLabels;
 
 	// TWEEN CHAIN
 	_[? ">>"] = 0;
@@ -316,7 +321,8 @@ function TGMX_Begin()
 	_[? "@delaystopped"] = TWEEN_EV_STOP_DELAY;
 
 	// CREATE A SHORTHAND LOOKUP TABLE FOR SHORTHAND SYMBOLS
-	_ = array_create(128);
+	_ = array_create(128, false);
+	_[0]   = false;
 	_[33]  = TGMX_T_DESTROY;		// "!"
 	_[35]  = TGMX_T_MODE;			// "#"
 	_[36]  = TGMX_T_DURATION;		// "$"
@@ -324,13 +330,14 @@ function TGMX_Begin()
 	_[38]  = TGMX_T_GROUP;			// "&"
 	_[42]  = TGMX_T_SCALE;			// "*"
 	_[43]  = TGMX_T_DELAY;			// "+"
-	_[45] = undefined;				// "-" THIS IS AN EXCEPTION! This is used to check for off-rail tweens -- !! DOCUMENT THIS OR CREATE A NEW TABLE !!
+	_[45]  = true;					// "-" THIS IS AN EXCEPTION! This is used to check for off-rail tweens -- !! DOCUMENT THIS OR CREATE A NEW TABLE !!
 	_[61]  = TGMX_T_TIME;			// "="
 	_[62]  = TGMX_T_CONTINUE_COUNT;	// ">"
 	_[94]  = TGMX_T_DELTA;			// "^"
 	_[124] = TGMX_T_REST;			// "|"
 	_[126] = TGMX_T_EASE;			// "~"
 	global.TGMX.ShorthandTable = _;
+	
 
 	//====================//
 	// MODE "SHORT CODES" //
@@ -362,30 +369,31 @@ function TGMX_Begin()
 	//---------------------------
 	// SET DEFAULT TWEEN
 	//---------------------------
-	global.TGMX.TweenDefault[TGMX_T_ID] = TWEEN_DEFAULT;
-	global.TGMX.TweenDefault[TGMX_T_TARGET] = noone;
-	global.TGMX.TweenDefault[TGMX_T_EASE] = "linear";
-	global.TGMX.TweenDefault[TGMX_T_TIME] = 0;
-	global.TGMX.TweenDefault[TGMX_T_DURATION] = 1;
-	global.TGMX.TweenDefault[TGMX_T_PROPERTY_DATA_RAW] = -1;
-	global.TGMX.TweenDefault[TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
-	global.TGMX.TweenDefault[TGMX_T_SCALE] = 1;
-	global.TGMX.TweenDefault[TGMX_T_DELTA] = false;
-	global.TGMX.TweenDefault[TGMX_T_GROUP] = 0;
-	global.TGMX.TweenDefault[TGMX_T_GROUP_SCALE] = global.TGMX.GroupScales[? 0];
-	global.TGMX.TweenDefault[TGMX_T_EVENTS] = -1;
-	global.TGMX.TweenDefault[TGMX_T_DESTROY] = 1;
-	global.TGMX.TweenDefault[TGMX_T_DIRECTION] = 1;
-	global.TGMX.TweenDefault[TGMX_T_MODE] = TWEEN_MODE_ONCE;
-	global.TGMX.TweenDefault[TGMX_T_PROPERTY_DATA] = 0;
-	global.TGMX.TweenDefault[TGMX_T_DELAY] = 0;
-	global.TGMX.TweenDefault[TGMX_T_DELAY_START] = 0;
-	global.TGMX.TweenDefault[TGMX_T_AMOUNT] = 0;
-	global.TGMX.TweenDefault[TGMX_T_CALLER] = noone;
-	global.TGMX.TweenDefault[TGMX_T_OTHER] = noone;
-	global.TGMX.TweenDefault[TGMX_T_REST] = 0;
-	global.TGMX.TweenDefault[TGMX_T_CONTINUE_COUNT] = -1;
-	global.TGMX.TweenDefault[TGMX_T_EASE_RAW] = 0;
+	_ = global.TGMX.TweenDefault;
+	_[@ TGMX_T_ID] = TWEEN_DEFAULT;
+	_[@ TGMX_T_TARGET] = noone;
+	_[@ TGMX_T_EASE] = EaseLinear;
+	_[@ TGMX_T_TIME] = 0;
+	_[@ TGMX_T_DURATION] = 1;
+	_[@ TGMX_T_PROPERTY_DATA_RAW] = -1;
+	_[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
+	_[@ TGMX_T_SCALE] = 1;
+	_[@ TGMX_T_DELTA] = false;
+	_[@ TGMX_T_GROUP] = 0;
+	_[@ TGMX_T_GROUP_SCALE] = global.TGMX.GroupScales[? 0];
+	_[@ TGMX_T_EVENTS] = -1;
+	_[@ TGMX_T_DESTROY] = 1;
+	_[@ TGMX_T_DIRECTION] = 1;
+	_[@ TGMX_T_MODE] = TWEEN_MODE_ONCE;
+	_[@ TGMX_T_PROPERTY_DATA] = 0;
+	_[@ TGMX_T_DELAY] = 0;
+	_[@ TGMX_T_DELAY_START] = 0;
+	_[@ TGMX_T_AMOUNT] = 0;
+	_[@ TGMX_T_CALLER] = noone;
+	_[@ TGMX_T_OTHER] = noone;
+	_[@ TGMX_T_REST] = 0;
+	_[@ TGMX_T_CONTINUE_COUNT] = -1;
+	_[@ TGMX_T_EASE_RAW] = 0;
 	
 	//-------------------------------------------------
 	// ASSIGN DEFAULT TWEEN AS [1] IN INDEX MAP
@@ -481,15 +489,8 @@ function SharedTweener()
 	
 	// ATTEMPT TO REACTIVATE DEACTIVATED TWEENER
 	instance_activate_object(global.TGMX.SharedTweener);
-	
-	// RETURN TWEENER IF IT NOW EXISTS
-	if (instance_exists(global.TGMX.SharedTweener))
-	{
-		return global.TGMX.SharedTweener;	
-	}
-	
-	// CREATE A NEW TWEENER
-	return instance_create_depth(0,0,0,o_SharedTweener);
+	// RETURN SHARED TWEENER IF IT NOW EXISTS, ELSE CREATE AND RETURN A NEW SHARED TWEENER
+	return instance_exists(global.TGMX.SharedTweener) ? global.TGMX.SharedTweener : instance_create_depth(0,0,0,o_SharedTweener);
 }
 	
 	
@@ -516,10 +517,10 @@ function TGMX_FetchTween(_tID)
 		    return global.TGMX.TweenIndexMap[? _tID];
 		}
 		
-		// TWEEN OFFSECT SELECT
+		// TWEEN OFFSET SELECT
 		if (_tID != undefined && _tID <= 0)
 		{
-			return global.TGMX.TweenIndexMap[? global.TGMX.TweenIndex-_tID];	
+			return global.TGMX.TweenIndexMap[? global.TGMX.TweenIndex-_tID];
 		}
 		
 		return undefined;
@@ -531,7 +532,7 @@ function TGMX_FetchTween(_tID)
 		return _tID == self ? {target: _tID} : _tID;
 	}
 	
-	// ASSUME "self" IS PASSED FOR AN INSTANCE
+	// ASSUME 'self' IS PASSED FOR AN INSTANCE
 	if (_tID != undefined)
 	{
 		return { target: _tID.id };
@@ -588,12 +589,12 @@ function TGMX_TargetExists(_target)
 function TGMX_StringStrip(_string, _offset=0) 
 {
 	// REFERENCE GLOBAL STRING CACHE
-	static cache = global.TGMX.Cache;
+	static __cache = global.TGMX.Cache;
 	
 	// CHECK CACHE FOR EXISTING LOWERED STRING
-	if (ds_map_exists(cache, _string))
+	if (ds_map_exists(__cache, _string))
 	{
-		return cache[? _string];
+		return __cache[? _string];
 	}
 	
 	// STORE ORIGINAL STRING
@@ -613,7 +614,7 @@ function TGMX_StringStrip(_string, _offset=0)
 	}
 
 	// STORE NEW STRING INTO CACHE
-	cache[? _string_og] = _string;
+	__cache[? _string_og] = _string;
 	// RETURN NEW LOWER CASE STRING
 	return _string;
 }
@@ -625,39 +626,59 @@ function TGMX_StringStrip(_string, _offset=0)
 /// @param {Any} args
 /// @param {Any} tID
 function TGMX_Tween(_script, _args, _tID)
-{
-	// Feather ignore all
-	
+{	// Feather ignore all
 	// MAKE SURE GLOBAL SYSTEM IS INITIALIZED
 	static _ = TGMX_Begin();
-	
 	static STR_AT = "@"; // CACHE STRING POINTER TO IMPROVE PERFORMANCE
 	static TGMX_Cache = global.TGMX.Cache;
+	static TGMX_TweenDefault = global.TGMX.TweenDefault;
 	static TGMX_ArgumentLabels = global.TGMX.ArgumentLabels;
-	
-	var _sharedTweener = SharedTweener(); // MAKE SURE WE HAVE A SHARED TWEENER SINGLETON
 	
 	var TGMX = global.TGMX;
 	var _doStart = true;
-	var _qCallbacks = undefined;			// RESERVED FOR A QUEUE HOLDING CALLBACK DATA
-	var _paramCount = array_length(_args)-1; // NUMBER OF PARAMETERS SUPPLIED
+	var _qCallbacks = undefined;				// RESERVED FOR A QUEUE HOLDING CALLBACK DATA
+	var _paramCount = array_length(_args)-1;	// NUMBER OF PARAMETERS SUPPLIED --- TODO: This could be replaced by passing parameter count from the parenting tween call
+	var _t, _pData, _base_target;
+	var i = -1;									// THE MAIN LOOP ITERATOR... WILL BE SET BELOW BASED UPON WHERE WE NEED TO START WITHIN PASSED ARGUMENTS
 	
-	var _t, _pData;
-	var i = -1; // THE MAIN LOOP ITERATOR... WILL BE SET BELOW BASED UPON WHERE WE NEED TO START WITHIN PASSED ARGUMENTS
-	
-	var _base_target;
+	//var _sharedTweener = SharedTweener(); // MAKE SURE WE HAVE A SHARED TWEENER SINGLETON
+	// >> START OF INLINE CALL FOR SharedTweener()
+		var _sharedTweener;
+		// RETURN TWEENER IF IT ALREADY EXISTS
+		if (instance_exists(TGMX.SharedTweener)) { 
+			_sharedTweener = TGMX.SharedTweener; 
+		}
+		else 
+		{
+			instance_activate_object(TGMX.SharedTweener); // ATTEMPT TO REACTIVATE DEACTIVATED TWEENER
+			_sharedTweener = instance_exists(TGMX.SharedTweener) ? TGMX.SharedTweener : instance_create_depth(0,0,0,o_SharedTweener);
+		}
+	// << FINISH OF INLINE CALL FOR SharedTweener()
 	
 	switch(_script)
 	{
 	case TweenFire:
 		_tID = ++TGMX.TweenIndex;												 // GET NEW UNIQUE TWEEN ID
 		_pData = [];															 // CREATE ARRAY TO HOLD PROPERTY DATA
-		_t = array_create(TGMX_T_DATA_SIZE);									 // CREATE NEW TWEEN ARRAY
-		array_copy(_t, 0, TGMX.TweenDefault, 0, TGMX_T_DATA_SIZE);				 // COPY DEFAULT VALUES INTO TWEEN ARRAY
+
+		// CREATE NEW TWEEN ARRAY
+		// COPY DEFAULT VALUES INTO TWEEN ARRAY
+		if (TGMX_SUPPORT_LTS == true)
+		{
+			_t = array_create(TGMX_T_DATA_SIZE);									 
+			array_copy(_t, 0, TGMX_TweenDefault, 0, TGMX_T_DATA_SIZE);				 
+		}
+
+		if (TGMX_SUPPORT_LTS == false) // FASTER ALTERNATIVE TO ABOVE
+		{
+			static __array_empty = [];
+			_t = array_concat(__array_empty, TGMX_TweenDefault);
+		}
+		
 		_t[TGMX_T_ID] = _tID;													 // NEW TWEEN CREATED WITH UNIQUE ID
 		_t[TGMX_T_CALLER] = is_struct(self) ? weak_ref_create(self) : id;		 // STRUCT OR INSTANCE CALLING THE SCRIPT
 		_t[TGMX_T_OTHER] = is_struct(other) ? weak_ref_create(other) : other.id; // SET 'other' CALLING ENVIRONMENT
-		_t[TGMX_T_DESTROY] = true;												 // MAKE PERSISTENT?
+		_t[TGMX_T_DESTROY] = true;												 // DESTROY WHEN FINISHED?
 		
 		// WE HAVE AN "ON-RAIL" TWEEN -- WE CAN APPLY THE VALUES WE KNOW WE HAVE
 		if (_args[0] == undefined) 
@@ -665,7 +686,7 @@ function TGMX_Tween(_script, _args, _tID)
 			_t[TGMX_T_TARGET] = _args[1]; _t[TGMX_T_EASE] = _args[2]; _t[TGMX_T_MODE] = _args[3]; _t[TGMX_T_DELTA] = _args[4]; _t[TGMX_T_DELAY] = _args[5]; _t[TGMX_T_DURATION] = _args[6];
 			i = 6;
 		}
-		else
+		else // "OFF-RAIL" TWEEN
 		{
 			_t[TGMX_T_TARGET] = self; // SET DEFAULT TARGET TO CALLER ENVIRONMENT
 		}
@@ -682,11 +703,11 @@ function TGMX_Tween(_script, _args, _tID)
 		_tID = ++TGMX.TweenIndex;												 // GET NEW UNIQUE TWEEN ID
 		_pData = [];
 		_t = array_create(TGMX_T_DATA_SIZE);									 // CREATE NEW TWEEN ARRAY
-		array_copy(_t, 0, TGMX.TweenDefault, 0, TGMX_T_DATA_SIZE);				 // COPY DEFAULT VALUES INTO TWEEN ARRAY
+		array_copy(_t, 0, TGMX_TweenDefault, 0, TGMX_T_DATA_SIZE);				 // COPY DEFAULT VALUES INTO TWEEN ARRAY
 		_t[TGMX_T_ID] = _tID;													 // NEW TWEEN CREATED WITH UNIQUE ID
 		_t[TGMX_T_CALLER] = is_struct(self) ? weak_ref_create(self) : id;		 // STRUCT OR INSTANCE CALLING THE SCRIPT
 		_t[TGMX_T_OTHER] = is_struct(other) ? weak_ref_create(other) : other.id; // SET 'other' CALLING ENVIRONMENT
-		_t[TGMX_T_DESTROY] = false;												 // MAKE PERSISTENT
+		_t[TGMX_T_DESTROY] = false;												 // DESTROY WHEN FINISHED?
 
 		// WE HAVE AN "ON-RAIL" TWEEN -- WE CAN APPLY THE VALUES WE KNOW WE HAVE
 		if (_args[0] == undefined) 
@@ -721,7 +742,7 @@ function TGMX_Tween(_script, _args, _tID)
 			_tID = (_tID > 0) ? _tID : TGMX.TweenIndexMap[? TGMX.TweenIndex-_tID];
 		}
 		
-		if (!TweenExists(_tID)) { return 0; }
+		if (!TweenExists(_tID)) { return TWEEN_NULL; }
 		
 		_t = TGMX_FetchTween(_tID);  // FETCH RAW TWEEN DATA
 		_pData = _t[TGMX_T_PROPERTY_DATA_RAW]; // CACHE EXISTING VARIABLE DATA LIST
@@ -749,7 +770,7 @@ function TGMX_Tween(_script, _args, _tID)
 	case TweenDefine:
 		_tID = (_tID > 0) ? _tID : TGMX.TweenIndexMap[? TGMX.TweenIndex-_tID]; // CACHE TWEEN ID -- CHECK FOR "LAZY" TWEEN IDS
 
-		if (!TweenExists(_tID)) { return 0; }
+		if (!TweenExists(_tID)) { return TWEEN_NULL; }
 		
 		_t = TGMX_FetchTween(_tID);  // FETCH RAW TWEEN DATA
 		_pData = []; // SET NEW PROPRETY DATA ARRAY
@@ -835,7 +856,7 @@ function TGMX_Tween(_script, _args, _tID)
 		{	 // REGULAR PROPERTY
 			var _argLabel = ds_map_find_value(TGMX_ArgumentLabels, TGMX_Cache[? _tag] ?? TGMX_StringStrip(_tag));
 			
-			// TWEEN.ENUM TYPE
+			// TWEEN DATA, CALLBACK, OR CHAIN TYPE (e.g. "-ease" -> TGMX_T_EASE, "-mode" -> TGMX_T_MODE, "@finish" -> TWEEN_EV_FINISH)
 			if (is_numeric(_argLabel)) 
 			{
 				switch(string_byte_at(_tag, 1))
@@ -909,7 +930,6 @@ function TGMX_Tween(_script, _args, _tID)
 		}
 	}
 	
-	
 	// FINALIZE USED TARGET -- CREATE WEAK REFERENCE IF STRUCT AND GET ID IF INSTANCE
 	// THIS ONLY EXECUTES IF THE TARGET WAS CHANGED EXPLICITLY FROM ITS DEFAULT VALUE
 	if (_base_target != _t[TGMX_T_TARGET])
@@ -929,50 +949,100 @@ function TGMX_Tween(_script, _args, _tID)
 		_t[@ TGMX_T_GROUP_SCALE] = [1.0];
 		TGMX.GroupScales[? _t[TGMX_T_GROUP]] = _t[TGMX_T_GROUP_SCALE];
 	}
-	
+
 	// FINALIZE USED EASE TYPE
-	if (is_string(_t[TGMX_T_EASE])) // CONVERT EASE TYPE IF A STRING
+	// ASSIGN NEWLY CREATED VARIABLE DATA LIST
+	_t[@ TGMX_T_PROPERTY_DATA_RAW] = _pData;
+
+	// ASSIGN GROUP SCALE
+	_t[@ TGMX_T_GROUP_SCALE] = TGMX.GroupScales[? _t[TGMX_T_GROUP]];
+	
+	// CREATE NEW GROUP SCALE IF NOT SET
+	if (_t[TGMX_T_GROUP_SCALE] == undefined)
 	{
-		_t[@ TGMX_T_EASE] = TGMX.ShortCodesEase[? TGMX_Cache[? _t[TGMX_T_EASE]] ?? TGMX_StringStrip(_t[TGMX_T_EASE])];
+		_t[@ TGMX_T_GROUP_SCALE] = [1.0];
+		TGMX.GroupScales[? _t[TGMX_T_GROUP]] = _t[TGMX_T_GROUP_SCALE];
 	}
-	else
-	if (is_real(_t[TGMX_T_EASE])) // CONVERT REAL TYPE
-	{						// IS CURVE ID		   // GET CURVE CHANNEL						  // CONVERT FUNCTION ID TO METHOD
-		_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE], 0) : method(undefined, _t[TGMX_T_EASE]);
-	}
-	else
-	if (is_array(_t[TGMX_T_EASE])) // HANDLE MULTI-EASE-TYPE TWEEN
-	{	
-		if (is_string(_t[TGMX_T_EASE][0])) // CONVERT EASE STRINGS INTO EXISTING EASE METHODS
-		{
-			_t[TGMX_T_EASE][@ 0] = TGMX.ShortCodesEase[? TGMX_StringStrip(_t[TGMX_T_EASE][0])];
-		}
-		else
-		if (is_real(_t[TGMX_T_EASE][0]))	// CONVERT FUNCTION ID OR ANIMATION CURVE ID
-		{								// IS CURVE ID		   // GET CURVE CHANNEL						  // CONVERT FUNCTION ID TO METHOD
-			_t[@ TGMX_T_EASE][@ 0] = _t[TGMX_T_EASE][0] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE][0], 0) : method(undefined, _t[TGMX_T_EASE][0]);
-		}
+
+	// FINALIZE USED EASE TYPE
+	static __EaseTypes__ = {"string": 0, "number": 1, "struct": 2, "ref": 3, "array": 4, };
+	switch( __EaseTypes__[$ typeof(_t[TGMX_T_EASE])] )
+	{
+		case 0: // STRING
+			_t[@ TGMX_T_EASE] = TGMX.ShortCodesEase[? TGMX_Cache[? _t[TGMX_T_EASE]] ?? TGMX_StringStrip(_t[TGMX_T_EASE])];
+		break;
 		
-		if (is_string(_t[TGMX_T_EASE][1]))
+		case 1: // NUMBER
+			_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE], 0) : method(undefined, _t[TGMX_T_EASE]);
+		break;
+		
+		case 2: // STRUCT
+		if (variable_struct_exists(_t[TGMX_T_EASE], "channel"))
 		{
-			_t[TGMX_T_EASE][@ 1] = TGMX.ShortCodesEase[? TGMX_StringStrip(_t[TGMX_T_EASE][1])];
+			_t[@ TGMX_T_EASE] = animcurve_get_channel(_t[TGMX_T_EASE], 0);
 		}
-		else
-		if (is_real(_t[TGMX_T_EASE][1]))
-		{							// IS CURVE ID		       // GET CURVE CHANNEL						     // CONVERT FUNCTION ID TO METHOD
-			_t[@ TGMX_T_EASE][@ 1] = _t[TGMX_T_EASE][1] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE][1], 0) : method(undefined, _t[TGMX_T_EASE][1]);
-		}
+		break;
+		
+		case 3: // REF
+			_t[@ TGMX_T_EASE] = (real(_t[TGMX_T_EASE]) < 100000) ? animcurve_get_channel(_t[TGMX_T_EASE], 0) : method(undefined, _t[TGMX_T_EASE]); 
+		break;
+		
+		case 4: // ARRAY
+			switch( __EaseTypes__[$ typeof(_t[TGMX_T_EASE][0]) ])
+			{
+				case 0: // STRING
+					_t[TGMX_T_EASE][@ 0] = TGMX.ShortCodesEase[? TGMX_Cache[? _t[TGMX_T_EASE][0]] ?? TGMX_StringStrip(_t[TGMX_T_EASE][0])];
+				break;
+		
+				case 1: // NUMBER
+						_t[TGMX_T_EASE][@ 0] = _t[TGMX_T_EASE][0] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE][0], 0) : method(undefined, _t[TGMX_T_EASE][0]);
+				break;
+			
+				case 2: // STRUCT
+					if (variable_struct_exists(_t[TGMX_T_EASE][0], "channel"))
+					{
+						_t[TGMX_T_EASE][@ 0] = animcurve_get_channel(_t[TGMX_T_EASE][0], 0);
+					}
+				break;
+				
+				case 3: // REF
+					_t[TGMX_T_EASE][@ 0] = (real(_t[TGMX_T_EASE][0]) < 100000) ? animcurve_get_channel(_t[TGMX_T_EASE][0], 0) : method(undefined, _t[TGMX_T_EASE][0]); 
+				break;
+			}
+			
+			switch( __EaseTypes__[$ typeof(_t[TGMX_T_EASE][1]) ])
+			{
+				case 0: // STRING
+					_t[TGMX_T_EASE][@ 1] = TGMX.ShortCodesEase[? TGMX_Cache[? _t[TGMX_T_EASE][1]] ?? TGMX_StringStrip(_t[TGMX_T_EASE][1])];
+				break;
+		
+				case 1: // NUMBER
+						_t[TGMX_T_EASE][@ 1] = _t[TGMX_T_EASE][1] < 100000 ? animcurve_get_channel(_t[TGMX_T_EASE][1], 0) : method(undefined, _t[TGMX_T_EASE][1]);
+				break;
+			
+				case 2: // STRUCT
+					if (variable_struct_exists(_t[TGMX_T_EASE][1], "channel"))
+					{
+						_t[TGMX_T_EASE][@ 1] = animcurve_get_channel(_t[TGMX_T_EASE][1], 0);
+					}
+				break;	
+				
+				case 3: // REF
+					_t[TGMX_T_EASE][@ 1] = (real(_t[TGMX_T_EASE][1]) < 100000) ? animcurve_get_channel(_t[TGMX_T_EASE][1], 0) : method(undefined, _t[TGMX_T_EASE][1]); 
+				break;
+			}
 		
 		// STORE RAW TWEENS FOR SWAPPING
 		_t[@ TGMX_T_EASE_RAW] = _t[TGMX_T_EASE];
 		// SET ACTIVE EASE FUNCTION
 		_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE][0];
+		break;
 	}
 	
 	// CONVERT MODE TYPE IF A STRING
 	if (is_string(_t[TGMX_T_MODE]))
 	{
-		_t[@ TGMX_T_MODE] = TGMX.ShortCodesMode[? _t[TGMX_T_MODE]];
+		_t[@ TGMX_T_MODE] = TGMX.ShortCodesMode[? TGMX_Cache[? _t[TGMX_T_MODE]] ?? TGMX_StringStrip(_t[TGMX_T_MODE])];
 	}
 	else // TWEEN MODE WITH CONTINUE COUNT
 	if (is_array(_t[TGMX_T_MODE]))
@@ -1000,7 +1070,7 @@ function TGMX_Tween(_script, _args, _tID)
 	// TRACK DELAY START
 	_t[@ TGMX_T_DELAY_START] = _t[TGMX_T_DELAY];
 
-	// HANDLE QUEUED CALLBACK EVENTS
+		// HANDLE QUEUED CALLBACK EVENTS
 	if (_qCallbacks != undefined)
 	{
 		// WE NEED TO USE THIS FOR ASSUMED CALLBACK TARGETS -- WE DONT WANT TO CREATE A DOUBLE WEAK REFERENCES FOR STRUCT TARGETS
@@ -1017,25 +1087,26 @@ function TGMX_Tween(_script, _args, _tID)
 			}
 			else // HANDLE ADVANCED CALLBACK
 			{
+				var _cArgs; // Arguments to be passed to TweenAddCallback() later on
 				var _cbDataTarget = _cbData[0];
-				static TGMX_STR_method = "method";
+				static TGMX_STR_method = "method"; // Cache string for optimization
 				
-				// First argument is a method or function id -- _cbData[0] is first argument in array
-				if (is_method(_cbDataTarget) || is_real(_cbDataTarget) || typeof(_cbDataTarget) == TGMX_STR_method) // typeof() is used for HTML5 bug where built-in functions can change type
-				{
-					var _cArgs = [_tID, _event, _raw_tween_target];
-					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
-				}
-				else // Undefined -- use original method environment
+				// Undefined -- use original method environment
 				if (_cbDataTarget == undefined) 
 				{
-					var _cArgs = [_tID, _event, method_get_self(_cbData[1])];
+					_cArgs = [_tID, _event, method_get_self(_cbData[1])];
 					array_copy(_cArgs, 3, _cbData, 1, array_length(_cbData)-1);
+				}
+				else // First argument is a method or function id -- _cbData[0] is first argument in array
+				if (is_method(_cbDataTarget) || real(_cbDataTarget) >= 100000 || typeof(_cbDataTarget) == TGMX_STR_method) // typeof() is used for HTML5 bug where built-in functions can change type
+				{
+					_cArgs = [_tID, _event, _raw_tween_target];
+					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
 				}
 				else // Explicit target using {target: some_target} -- DON'T WORRY ABOUT WEAK REFERENCES HERE, AS _cArgs IS TEMPORARY
 				if (is_struct(_cbDataTarget))
 				{	
-					var _cArgs = array_create(array_length(_cbData) + 2);
+					_cArgs = array_create(array_length(_cbData) + 2);
 					_cArgs[0] = _tID;
 					_cArgs[1] = _event;
 					
@@ -1054,12 +1125,13 @@ function TGMX_Tween(_script, _args, _tID)
 				}
 				else // INSTANCE self | other TARGET -- NOTE -- THE FOLLOWING IS ONLY FOR INSTANCES AND NOT STRUCTS, WHICH ARE HANDLED ABOVE
 				{
-					var _cArgs = [_tID, _event, _cbDataTarget.id];
-					array_copy(_cArgs, 3, _cbData, 1, array_length(_cbData)-1);
+					_cArgs = [_tID, _event, _raw_tween_target];
+					array_copy(_cArgs, 3, _cbData, 0, array_length(_cbData));
 				}
 				
+				
 				// Execute TweenAddCallback() with defined arguments above
-				script_execute_ext(TweenAddCallback, _cArgs);	
+				script_execute_ext(TweenAddCallback, _cArgs);
 			}
 		}
 
@@ -1096,14 +1168,13 @@ function TGMX_Tween(_script, _args, _tID)
 	// CHECK IF WE ARE TO START THE TWEEN RIGHT AWAY
 	if (_doStart)
 	{		
-		// 1) MARK FOR CHANGE STATE LATER
-		// 2) ELSE SET TWEEN AS ACTIVE
+		// 1) MARK FOR CHANGING STATE LATER IF CURRENTLY IN UPDATE LOOP
+		// 2) ELSE SET TWEEN AS ACTIVE -- INDICATED BY ASSIGNING TARGET AS THE STATE
 		if (_sharedTweener.inUpdateLoop) { ds_queue_enqueue(_sharedTweener.stateChanger, _t, _t[TGMX_T_TARGET]); }
 		else							 { _t[@ TGMX_T_STATE] = _t[TGMX_T_TARGET]; } 
 		
-		// NOTE: I DONT THINK THE STATE CHANGER IS NEEDED ANYMORE BECAUSE OF EXPLICIT PROCESS COUNT
 		// SET TWEEN STATE AS TARGET
-		//_t[@ TGMX_T_STATE] = _t[TGMX_T_TARGET];
+		_t[@ TGMX_T_STATE] = _t[TGMX_T_TARGET];
 		
 		// Pre-process tween data
 		TGMX_TweenPreprocess(_t);
@@ -1144,7 +1215,7 @@ function TGMX_TweenPreprocess(_t)
 	var _data_length = array_length(_t[TGMX_T_PROPERTY_DATA_RAW]);
 	var _pData = array_create(_data_length);
 	array_copy(_pData, 0, _t[TGMX_T_PROPERTY_DATA_RAW], 0, _data_length);
-	
+
 	var _propCount = _data_length  div 3;
 	var _extIndex = -3; // Careful with this!
 	var _extData = array_create(1+_propCount*4, undefined); // Create array holding properties data
@@ -1207,7 +1278,7 @@ function TGMX_TweenPreprocess(_t)
 					}
 				}
 			
-				// UPDATE TWEEN_SELF MACRO
+				// UPDATE THE ACTIVE TWEEN SELF -- MACRO --> [TWEEN_SELF]
 				global.TGMX.tween_self = _t[TGMX_T_ID];
 			
 				if (_op) // HANDLE MATH OPERATION
@@ -1232,7 +1303,7 @@ function TGMX_TweenPreprocess(_t)
 					_pData[i] = _pValue == STR_AT ? _preOp*TGMX_Variable_Get(_target, _variable, _caller, _other) : _preOp*TGMX_Variable_Get(_target, _pValue, _caller, _other);
 				}
 				
-				// Clear TWEEN_SELF macro
+				// CLEAR [TWEEN_SELF] MACRO
 				global.TGMX.tween_self = undefined;
 			}
 		}
@@ -1269,7 +1340,7 @@ function TGMX_TweenPreprocess(_t)
 			_extData[2+_extIndex] = _pData[i] - _pData[i-1]; // change
 			_extData[3+_extIndex] = _variable; // data
 		}
-		else // OPTIMISED PROPERTY
+		else // FUNCTION PROPERTY
 		if (ds_map_exists(TGMX_PropertySetters, _variable))
 		{
 			_extData[_extIndex] = TGMX_PropertySetters[? _variable]; // Track raw property
@@ -1295,10 +1366,23 @@ function TGMX_TweenPreprocess(_t)
 			
 			if (!_dotPos) // Default Dynamic Property
 			{
+				// ---- FOR FUTURE OPTIMISATION ----
+				//if (_target[$ _variable] == undefined)
+				//{
+				//	_extData[_extIndex] = TGMX_Variable_Global_Set;
+				//	_extData[_extIndex+3] = _variable;
+				//}
+				//else
+				//{
+				//	_extData[_extIndex] = TGMX_Variable_Instance_Set;
+				//	if (TGMX_SUPPORT_LTS) { _extData[_extIndex+3] = _variable; }
+				//	else				  { _extData[_extIndex+3] = variable_get_hash(_variable); }
+				//}
+				
 				_extData[_extIndex] = _target[$ _variable] == undefined ? TGMX_Variable_Global_Set : TGMX_Variable_Instance_Set;
 				_extData[_extIndex+1] = _pData[i-1]; // start
 				_extData[_extIndex+2] = _pData[i] - _pData[i-1]; // change
-				_extData[_extIndex+3] = _variable; // data
+				_extData[_extIndex+3] = _variable;
 			}
 			else // HANDLE DOT NOTATION
 			{
@@ -1522,6 +1606,9 @@ function TGMX_TweenPreprocess(_t)
 	// Handle per-step/second [durations]
 	if (!is_real(_t[TGMX_T_DURATION]))
 	{
+		// HIDE SYNTAX WARNINGS FOR NON-FEATHER SETTING
+		if (false) { use = 1; weight = 1; sum = 1; avg = 1;}
+		
 		var _duration = _t[TGMX_T_DURATION];
 		
 		// Backwards array support for normalized [duration]
@@ -1531,27 +1618,35 @@ function TGMX_TweenPreprocess(_t)
 		} 
 		// DON'T PUT AN else BELOW HERE... IT NEEDS TO CARRY INTO THE STRUCT CHECK BELOW ON PURPOSE!
 		
-		// HIDE SYNTAX WARNINGS FOR NON-FEATHER SETTING
-		if (false) { use = 1; weight = 1; sum = 1; avg = 1;}
-		
 		if (is_struct(_duration))
 		{	
-			var _data = _t[TGMX_T_PROPERTY_DATA];
-			var _count;
+			var _count, _data = _t[TGMX_T_PROPERTY_DATA];
+			static TGMX_STR_use = "use";
+			static _str_map = function()
+			{
+				var _map = ds_map_create();
+				_map[? "dist"] = 1;
+				_map[? "avg"] = 2;
+				_map[? "weight"] = 3;
+				_map[? "sum"] = 4;
+				_map[? "max"] = 5;
+				_map[? "min"] = 6;
+				return _map;
+			}();
 			
-			if (variable_struct_exists(_duration, "use"))
+			if (variable_struct_exists(_duration, TGMX_STR_use))
 			{
 				_count = _duration.use;
-				variable_struct_remove(_duration, "use");
+				variable_struct_remove(_duration, TGMX_STR_use);
 			}
 			else
 			{
 				_count = array_length(_data) div 4
 			}
-			
-			switch(variable_struct_get_names(_duration)[0])
+		
+			switch(_str_map[? variable_struct_get_names(_duration)[0]])
 			{
-			case "dist":
+			case 1: // "dist"
 				switch(_count)
 				{
 				case 1: _t[@ TGMX_T_DURATION] = abs(_data[3] / _duration.dist); break;
@@ -1570,7 +1665,7 @@ function TGMX_TweenPreprocess(_t)
 				}
 			break;
 			
-			case "avg":
+			case 2: // "avg"
 				// Sum the absolute change values from each property
 				var _sumAbsChange = 0;
 				i = 3;	
@@ -1583,7 +1678,7 @@ function TGMX_TweenPreprocess(_t)
 				_t[@ TGMX_T_DURATION] = _sumAbsChange/_count/_duration.avg;
 			break;
 			
-			case "weight":
+			case 3: // "weight"
 				var _final_duration = 0;
 				var _sumAbsChange = 0;
 				
@@ -1604,7 +1699,7 @@ function TGMX_TweenPreprocess(_t)
 				_t[@ TGMX_T_DURATION] = _final_duration;
 			break;
 			
-			case "sum":
+			case 4: // "sum"
 				// Sum the absolute change values from each property
 				var _sumAbsChange = 0;
 				i = 3;	
@@ -1617,7 +1712,7 @@ function TGMX_TweenPreprocess(_t)
 				_t[@ TGMX_T_DURATION] = _sumAbsChange/_duration.sum;
 			break;
 			
-			case "max":
+			case 5: // "max"
 				var _max = abs(_data[3]); 
 				i = 7;
 				repeat(_count-1)
@@ -1633,7 +1728,7 @@ function TGMX_TweenPreprocess(_t)
 				_t[@ TGMX_T_DURATION] = _max / _duration.max;
 			break;
 			
-			case "min":
+			case 6: // "min"
 				var _min = min(_data[3]);
 				i = 7;
 				repeat(_count-1)
@@ -1650,7 +1745,7 @@ function TGMX_TweenPreprocess(_t)
 			break;
 			
 			default:
-				show_error("TweenGMX: Invalid duration supplied!", false);
+				show_error("TweenGMX: Invalid duration key supplied -> {" + variable_struct_get_names(_duration)[0] + ": }", false);
 			}
 		}
 	}
@@ -1786,8 +1881,20 @@ function TGMX_TweenProcess(_t, _time, _d, _target)
 	
 	default: // Handle "unlimited" properties
 		_time = is_method(_t[TGMX_T_EASE]) ? _t[TGMX_T_EASE](_time, 0, 1, _t[TGMX_T_DURATION], _t) : animcurve_channel_evaluate(_t[TGMX_T_EASE], _time/_t[TGMX_T_DURATION]);
-		var i = 1;
-		repeat(_d[0])
+		_d[1](_time*_d[3]+_d[2], _target, _d[4], _t);
+		_d[5](_time*_d[7]+_d[6], _target, _d[8], _t);
+		_d[9](_time*_d[11]+_d[10], _target, _d[12], _t);
+		_d[13](_time*_d[15]+_d[14], _target, _d[16], _t);
+		_d[17](_time*_d[19]+_d[18], _target, _d[20], _t);
+		_d[21](_time*_d[23]+_d[22], _target, _d[24], _t);
+		_d[25](_time*_d[27]+_d[26], _target, _d[28], _t);
+		_d[29](_time*_d[31]+_d[30], _target, _d[32], _t);
+		_d[33](_time*_d[35]+_d[34], _target, _d[36], _t);
+		_d[37](_time*_d[39]+_d[38], _target, _d[40], _t);
+		_d[41](_time*_d[43]+_d[42], _target, _d[44], _t);
+						
+		i = 45;
+		repeat(_d[0]-11)
 		{
 			_d[i](_time*_d[i+2]+_d[i+1], _target, _d[i+3], _t);
 			i += 4;
@@ -1805,37 +1912,35 @@ function TGMX_TweenProcess(_t, _time, _d, _target)
 function TGMX_ExecuteEvent(_t, _eventType) 
 {	
 	static _ = SharedTweener();
+	ds_map_set(global.TGMX.EventMaps[_eventType], _t[TGMX_T_ID], 0); // SET EVENTS MAP FOR TweenJust*() CHECKS
 	
-	// SET EVENTS MAP FOR TweenIs*() CHECKS
-	ds_map_set(global.TGMX.EventMaps[_eventType], _t[TGMX_T_ID], 0);
-
 	// IF EVENTS AND EVENT TYPE INITIALIZED...
 	if (_t[TGMX_T_EVENTS] != -1)
 	{
 	    if (ds_map_exists(_t[TGMX_T_EVENTS], _eventType))
 	    {
-	        // GET EVENT DATA
-	        _eventType = _t[TGMX_T_EVENTS][? _eventType];
 			// TRACK TWEEN SELF
 			global.TGMX.tween_self = _t[TGMX_T_ID];
+	        // GET EVENT DATA
+	        var _event = _t[TGMX_T_EVENTS][? _eventType];
 			// INITIATE INDEX FOR LOOPING THROUGH ADDED CALLBACKS
 			var _index = 0;
 			
 	        // Iterate through all event callbacks (isEnabled * event list size-1)
-	        repeat(_eventType[| 0] * (ds_list_size(_eventType)-1))
+	        repeat(_event[| 0] * (ds_list_size(_event)-1))
 	        {	
 				_index += 1;
-	            _t = _eventType[| _index]; // CACHE CALLBACK -- THIS IS ACTUALLY A CALLBACK... REUSING 'tween' to avoid local 'var' variable overhead!
+	            var _cb = _event[| _index]; // CACHE CALLBACK
    
 				// FIRST CHECK TO SEE IF CALLBACK IS TO BE REMOVED
-				if (_t[TGMX_CB_TWEEN] == TWEEN_NULL)
+				if (_cb[TGMX_CB_TWEEN] == TWEEN_NULL)
 				{
-					ds_list_delete(_eventType, _index--);	
+					ds_list_delete(_event, _index--);	
 				}
 				else // EXCEUTE CALLBACK SCRIPT WITH PROPER NUMBER OF ARGUMENTS
-				if (_t[TGMX_CB_ENABLED])
+				if (_cb[TGMX_CB_ENABLED])
 				{
-					var _target = _t[TGMX_CB_TARGET];
+					var _target = _cb[TGMX_CB_TARGET];
 					
 					// DO THIS PART AT CALLBACK EXECUTION
 					if (is_struct(_target))
@@ -1856,43 +1961,44 @@ function TGMX_ExecuteEvent(_t, _eventType)
 					}
 					
 					// UPDATE CALLBACK SELF REFERENCE MACRO
-					TWEEN_CALLBACK_SELF = _t;
+					TWEEN_CALLBACK_SELF = _cb;
 					
 					// EXECUTE CALLBACK
 					if (TGMX_SUPPORT_LTS == false)
 					{
-						method_call(method(_target, _t[TGMX_CB_SCRIPT]), _t, TGMX_CB_ARG, array_length(_t)-TGMX_CB_ARG);
+						method_call(method(_target, _cb[TGMX_CB_SCRIPT]), _cb, TGMX_CB_ARG, array_length(_cb)-TGMX_CB_ARG);
 					}
 
-					if (TGMX_SUPPORT_LTS)
+					if (TGMX_SUPPORT_LTS == true)
 					{
-						switch(array_length(_t)-TGMX_CB_ARG)
+						switch(array_length(_cb)-TGMX_CB_ARG)
 						{ 
-							case 0:  method(_target, _t[TGMX_CB_SCRIPT])(); break;
-							case 1:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG]); break;
-							case 2:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1]); break;
-							case 3:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2]); break;
-							case 4:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3]); break;
-							case 5:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4]); break;
-							case 6:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5]); break;
-							case 7:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6]); break;
-							case 8:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7]); break;
-							case 9:  method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8]); break;
-							case 10: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9]); break;
-							case 11: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10]); break;
-							case 12: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11]); break;
-							case 13: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12]); break;
-							case 14: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13]); break;
-							case 15: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14]); break;
-							case 16: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15]); break;
-							case 17: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16]); break;
-							case 18: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17]); break;
-							case 19: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18]); break;
-							case 20: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18], _t[TGMX_CB_ARG+19]); break;
-							case 21: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18], _t[TGMX_CB_ARG+19], _t[TGMX_CB_ARG+20]); break;
-							case 22: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18], _t[TGMX_CB_ARG+19], _t[TGMX_CB_ARG+20], _t[TGMX_CB_ARG+21]); break;
-							case 23: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18], _t[TGMX_CB_ARG+19], _t[TGMX_CB_ARG+20], _t[TGMX_CB_ARG+21], _t[TGMX_CB_ARG+22]); break;
-							case 24: method(_target, _t[TGMX_CB_SCRIPT])(_t[TGMX_CB_ARG], _t[TGMX_CB_ARG+1], _t[TGMX_CB_ARG+2], _t[TGMX_CB_ARG+3], _t[TGMX_CB_ARG+4], _t[TGMX_CB_ARG+5], _t[TGMX_CB_ARG+6], _t[TGMX_CB_ARG+7], _t[TGMX_CB_ARG+8], _t[TGMX_CB_ARG+9], _t[TGMX_CB_ARG+10], _t[TGMX_CB_ARG+11], _t[TGMX_CB_ARG+12], _t[TGMX_CB_ARG+13], _t[TGMX_CB_ARG+14], _t[TGMX_CB_ARG+15], _t[TGMX_CB_ARG+16], _t[TGMX_CB_ARG+17], _t[TGMX_CB_ARG+18], _t[TGMX_CB_ARG+19], _t[TGMX_CB_ARG+20], _t[TGMX_CB_ARG+21], _t[TGMX_CB_ARG+22], _t[TGMX_CB_ARG+23]); break;
+							case 0:  method(_target, _cb[TGMX_CB_SCRIPT])(); break;
+							case 1:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG]); break;
+							case 2:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1]); break;
+							case 3:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2]); break;
+							case 4:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3]); break;
+							case 5:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4]); break;
+							case 6:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5]); break;
+							case 7:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6]); break;
+							case 8:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7]); break;
+							case 9:  method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8]); break;
+							case 10: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9]); break;
+							case 11: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10]); break;
+							case 12: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11]); break;
+							case 13: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12]); break;
+							case 14: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13]); break;
+							case 15: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14]); break;
+							case 16: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15]); break;
+							case 17: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16]); break;
+							case 18: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17]); break;
+							case 19: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18]); break;
+							case 20: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18], _cb[TGMX_CB_ARG+19]); break;
+							case 21: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18], _cb[TGMX_CB_ARG+19], _cb[TGMX_CB_ARG+20]); break;
+							case 22: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18], _cb[TGMX_CB_ARG+19], _cb[TGMX_CB_ARG+20], _cb[TGMX_CB_ARG+21]); break;
+							case 23: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18], _cb[TGMX_CB_ARG+19], _cb[TGMX_CB_ARG+20], _cb[TGMX_CB_ARG+21], _cb[TGMX_CB_ARG+22]); break;
+							case 24: method(_target, _cb[TGMX_CB_SCRIPT])(_cb[TGMX_CB_ARG], _cb[TGMX_CB_ARG+1], _cb[TGMX_CB_ARG+2], _cb[TGMX_CB_ARG+3], _cb[TGMX_CB_ARG+4], _cb[TGMX_CB_ARG+5], _cb[TGMX_CB_ARG+6], _cb[TGMX_CB_ARG+7], _cb[TGMX_CB_ARG+8], _cb[TGMX_CB_ARG+9], _cb[TGMX_CB_ARG+10], _cb[TGMX_CB_ARG+11], _cb[TGMX_CB_ARG+12], _cb[TGMX_CB_ARG+13], _cb[TGMX_CB_ARG+14], _cb[TGMX_CB_ARG+15], _cb[TGMX_CB_ARG+16], _cb[TGMX_CB_ARG+17], _cb[TGMX_CB_ARG+18], _cb[TGMX_CB_ARG+19], _cb[TGMX_CB_ARG+20], _cb[TGMX_CB_ARG+21], _cb[TGMX_CB_ARG+22], _cb[TGMX_CB_ARG+23]); break;
+							default: show_error("Callback maximum argument count exceeded! In TGMX_9_Settings, please set ( #macro TGMX_SUPPORT_LTS false ) to allow unlimited callback arguments.", true);
 						}
 					}
 				}
@@ -1911,23 +2017,279 @@ function TGMX_ExecuteEvent(_t, _eventType)
 /// @param {Any} tweens
 /// @param {Any} script
 /// @param {Any} [args0,...]
-function TGMX_TweensExecute() 
+function TGMX_TweensExecute(_tStruct, _script) 
+{	
+	// Feather ignore all
+
+	var _tweens = SharedTweener().tweens;
+	var _args, _argCount = argument_count-2;
+	var _tIndex = -1;
+	
+	switch(_argCount)
+	{
+		case 0: _args = [undefined]; break;
+		case 1: _args = [undefined, argument[2]]; break;
+		case 2: _args = [undefined, argument[2], argument[3]]; break;
+		case 3: _args = [undefined, argument[2], argument[3], argument[4]]; break;
+		case 4: _args = [undefined, argument[2], argument[3], argument[4], argument[5]]; break;
+		case 5: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6]]; break;
+		case 6: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7]]; break;
+		case 7: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8]]; break;
+		case 8: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8], argument[9]]; break;
+		default: 
+		_args = array_create(1+_argCount);
+		var _argIndex = 0;
+		repeat(_argCount)
+		{
+			_argIndex += 1;
+			_args[_argIndex] = argument[_argIndex+1];
+		}
+	}
+	
+	// TARGET SELECT
+	static STR_Target = "target";
+	if (variable_struct_exists(_tStruct, STR_Target))
+	{	
+		if (is_array(_tStruct.target)) // ARRAY
+		{
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+			    var _t = _tweens[| _tIndex];
+			    var _target = _t[TGMX_T_TARGET];
+						
+				if (TGMX_TargetExists(_target)) 
+				{
+					var i = -1;
+					repeat(array_length(_tStruct.target))
+					{
+						i += 1;
+						var _selectionData = _tStruct.target[i];
+						
+						if (_selectionData == _tStruct) 
+						{ 
+							_selectionData = self;
+						}
+						
+						if (is_struct(_target)) // STRUCT
+						{
+							if (is_struct(_selectionData) && _target.ref == _selectionData)
+							{
+								_args[0] = _t;
+								script_execute_ext(_script, _args);
+							}
+						}
+						else // INSTANCE
+						if (!is_struct(_selectionData) && instance_exists(_selectionData)) 
+						{ 
+							if (_target == _selectionData.id || _target.object_index == _selectionData || object_is_ancestor(_target.object_index, _selectionData))
+							{
+								_args[0] = _t;
+								script_execute_ext(_script, _args);
+							}
+						}
+					}
+				}
+			}
+		}
+		else
+		if (_tStruct.target == all) // All Targets
+		{	
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+				var _t = _tweens[| _tIndex];
+	            
+				if (TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					_args[0] = _t;
+					script_execute_ext(_script, _args);
+				}
+			}
+		}
+		else // Specific Target
+		{
+			var _selectionData = (_tStruct == _tStruct.target) ? self : _tStruct.target;
+			
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+				var _t = _tweens[| _tIndex];
+		        var _target = _t[TGMX_T_TARGET];
+	
+				if (TGMX_TargetExists(_target))
+				{
+					if (!is_nan(real(_target)) && !is_struct(_selectionData)) //else // INSTANCE | OBJECT | CHILD
+					{
+						if (_target == _selectionData.id || _target.object_index == _selectionData || (is_struct(_selectionData) && object_is_ancestor(_target.object_index, _selectionData)))
+						{
+							_args[0] = _t;
+							script_execute_ext(_script, _args);
+						}
+					}
+					else
+					if (is_struct(_target)) // STRUCT TARGET
+					{
+						if (_target.ref == _selectionData)
+						{
+							_args[0] = _t;
+							script_execute_ext(_script, _args);
+						}
+					}
+					
+				}
+			}
+		}
+	}
+	
+	// GROUP
+	static STR_Group = "group";
+	var _select_group = _tStruct[$ STR_Group];
+	if (_select_group != undefined)
+	{	
+		// SINGLE
+		if (is_real(_select_group))
+		{
+			var _tIndex = -1;
+			var _selectionData = _select_group;
+        
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+		        var _t = _tweens[| _tIndex];
+		        if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					_args[0] = _t;
+					script_execute_ext(_script, _args);	
+				}
+		    }
+		}
+		else // MULTI
+		{
+			var _tIndex = -1;
+			
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+		        var _t = _tweens[| _tIndex];
+				var i = -1;
+				repeat(array_length(_select_group))
+				{	
+					i += 1;
+					var _selectionData = _select_group[i];
+					if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+					{
+						_args[0] = _t;
+						script_execute_ext(_script, _args);
+					}
+				}
+		    }
+		}
+	}
+	
+	// TWEEN STRUCT IDS
+	static STR_Tween = "tween";
+	var _tweens = _tStruct[$ STR_Tween];
+	if (_tweens != undefined)
+	{
+		var _tIndex = -1;
+		
+		// SINGLE
+		if (is_real(_tweens))
+		{
+			var _t = TGMX_FetchTween(_tweens);
+		    if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+			{
+				_args[0] = _t;
+				script_execute_ext(_script, _args);
+			}
+		}
+        else // ARRAY
+		{
+			repeat(array_length(_tweens))
+			{
+				_tIndex += 1;
+		        var _t = TGMX_FetchTween(_tweens[_tIndex]);
+		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					_args[0] = _t;
+					script_execute_ext(_script, _args);
+				}
+		    }
+		}
+	}
+	
+	// TWEEN LISTS OR ARRAYS
+	static STR_List = "list";
+	_tweens = _tStruct[$ STR_List];
+	if (_tweens != undefined)
+	{
+		var _tIndex = -1;
+		
+		if (is_array(_tweens)) // array
+		{
+			repeat(array_length(_tweens))
+			{
+				_tIndex += 1;
+				var _t = TGMX_FetchTween(_tweens[_tIndex]);
+		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					_args[0] = _t;
+					script_execute_ext(_script, _args);
+				}
+			}
+		}
+		else // ds_list
+		{
+			repeat(ds_list_size(_tweens))
+			{
+				_tIndex += 1;
+				var _t = TGMX_FetchTween(_tweens[| _tIndex]);
+		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
+				{
+					_args[0] = _t;
+					script_execute_ext(_script, _args);
+				}
+			}
+		}
+	}
+}
+
+
+/// @ignore
+/// @function TGMX_TweensExecuteBool( tweens, script, [args0, ...] )
+/// @description TGMX ADMIN: Iterates over selected tweens and returns true if any condition for tween is true
+/// @param {Any} tweens
+/// @param {Any} script
+/// @param {Any} [args0,...]
+function TGMX_TweensExecuteBool(_tStruct, _script) 
 {	
 	// Currently takes only a max of 3 optional arguments
 	// Feather ignore all
 
 	var _tweens = SharedTweener().tweens;
-	var _argCount = argument_count-2;
-	var _tStruct = argument[0];
-	var _script = argument[1];
+	var _args, _argCount = argument_count-2;
 	var _tIndex = -1;
-	var _args = array_create(1+_argCount);
 	
-	var _argIndex = 0;
-	repeat(_argCount)
+	switch(_argCount)
 	{
-		_argIndex += 1;
-		_args[_argIndex] = argument[_argIndex+1];
+		case 0: _args = [undefined]; break;
+		case 1: _args = [undefined, argument[2]]; break;
+		case 2: _args = [undefined, argument[2], argument[3]]; break;
+		case 3: _args = [undefined, argument[2], argument[3], argument[4]]; break;
+		case 4: _args = [undefined, argument[2], argument[3], argument[4], argument[5]]; break;
+		case 5: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6]]; break;
+		case 6: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7]]; break;
+		case 7: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8]]; break;
+		case 8: _args = [undefined, argument[2], argument[3], argument[4], argument[5], argument[6], argument[7], argument[8], argument[9]]; break;
+		default: 
+		_args = array_create(1+_argCount);
+		var _argIndex = 0;
+		repeat(_argCount)
+		{
+			_argIndex += 1;
+			_args[_argIndex] = argument[_argIndex+1];
+		}
 	}
 	
 	// TARGET SELECT
@@ -1960,7 +2322,10 @@ function TGMX_TweensExecute()
 							if (is_struct(_selectionData) && _target.ref == _selectionData)
 							{
 								_args[0] = _t;
-								script_execute_ext(_script, _args, 0, 1+_argCount);
+								if (script_execute_ext(_script, _args))
+								{
+									return true;	
+								}
 							}
 						}
 						else // INSTANCE
@@ -1969,7 +2334,10 @@ function TGMX_TweensExecute()
 							if (_target == _selectionData.id || _target.object_index == _selectionData || object_is_ancestor(_target.object_index, _selectionData))
 							{
 								_args[0] = _t;
-								script_execute_ext(_script, _args, 0, 1+_argCount);
+								if (script_execute_ext(_script, _args))
+								{
+									return true;	
+								}
 							}
 						}	
 					}
@@ -1987,7 +2355,10 @@ function TGMX_TweensExecute()
 				if (TGMX_TargetExists(_t[TGMX_T_TARGET]))
 				{
 					_args[0] = _t;
-					script_execute_ext(_script, _args, 0, 1+_argCount);
+					if (script_execute_ext(_script, _args))
+					{
+						return true;	
+					}
 				}
 			}
 		}
@@ -2008,7 +2379,10 @@ function TGMX_TweensExecute()
 						if (_target.ref == _selectionData)
 						{
 							_args[0] = _t;
-							script_execute_ext(_script, _args, 0, 1+_argCount);
+							if (script_execute_ext(_script, _args))
+							{
+								return true;	
+							}
 						}
 					}
 					else // INSTANCE | OBJECT | CHILD
@@ -2016,7 +2390,10 @@ function TGMX_TweensExecute()
 						if (_target == _selectionData.id || _target.object_index == _selectionData || object_is_ancestor(_target.object_index, _selectionData))
 						{
 							_args[0] = _t;
-							script_execute_ext(_script, _args, 0, 1+_argCount);
+							if (script_execute_ext(_script, _args))
+							{
+								return true;	
+							}
 						}
 					}
 				}
@@ -2042,7 +2419,10 @@ function TGMX_TweensExecute()
 		        if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 				{
 					_args[0] = _t;
-					script_execute_ext(_script, _args, 0, 1+_argCount);	
+					if (script_execute_ext(_script, _args))
+					{
+						return true;	
+					}
 				}
 		    }
 		}
@@ -2062,7 +2442,10 @@ function TGMX_TweensExecute()
 					if (_t[TGMX_T_GROUP] == _selectionData && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 					{
 						_args[0] = _t;
-						script_execute_ext(_script, _args, 0, 1+_argCount);
+						if (script_execute_ext(_script, _args))
+						{
+							return true;	
+						}
 					}
 				}
 		    }
@@ -2083,7 +2466,10 @@ function TGMX_TweensExecute()
 		    if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 			{
 				_args[0] = _t;
-				script_execute_ext(_script, _args, 0, 1+_argCount);
+				if (script_execute_ext(_script, _args))
+				{
+					return true;	
+				}
 			}
 		}
         else // ARRAY
@@ -2095,7 +2481,10 @@ function TGMX_TweensExecute()
 		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 				{
 					_args[0] = _t;
-					script_execute_ext(_script, _args, 0, 1+_argCount);
+					if (script_execute_ext(_script, _args))
+					{
+						return true;	
+					}
 				}
 		    }
 		}
@@ -2117,7 +2506,10 @@ function TGMX_TweensExecute()
 		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 				{
 					_args[0] = _t;
-					script_execute_ext(_script, _args, 0, 1+_argCount);
+					if (script_execute_ext(_script, _args))
+					{
+						return true;	
+					}
 				}
 			}
 		}
@@ -2130,15 +2522,371 @@ function TGMX_TweensExecute()
 		        if (is_array(_t) && TGMX_TargetExists(_t[TGMX_T_TARGET]))
 				{
 					_args[0] = _t;
-					script_execute_ext(_script, _args, 0, 1+_argCount);
+					if (script_execute_ext(_script, _args))
+					{
+						return true;	
+					}
+				}
+			}
+		}
+	}
+	
+	// MAKE SURE TO RETURN FALSE IF WE HAVE NO TRUE CONDITION ABOVE ^^
+	return false;
+}
+
+
+/// @ignore
+function TGMX_TweenBoundsSwap(_t)
+{
+	// SWAP DURATION //
+	if (is_array(_t[TGMX_T_DURATION_RAW]))
+	{
+		if (_t[TGMX_T_DURATION] == _t[TGMX_T_DURATION_RAW][0])
+		{
+			_t[@ TGMX_T_DURATION] = _t[TGMX_T_DURATION_RAW][1];
+			// NOTE: This silently updates the internal time value... be careful!
+			
+			if (_t[TGMX_T_MODE] <= TWEEN_MODE_PATROL)
+			{
+				_t[@ TGMX_T_TIME] += _t[TGMX_T_DURATION_RAW][1] - _t[TGMX_T_DURATION_RAW][0];
+			}
+		}
+		else
+		{
+			_t[@ TGMX_T_DURATION] = _t[TGMX_T_DURATION_RAW][0];
+		}
+	}
+	
+	// SWAP EASE ALGORITHM //
+	if (is_array(_t[TGMX_T_EASE_RAW]))
+	{
+		// Deal with method ease
+		if (is_method(_t[TGMX_T_EASE]))
+		{
+			if (is_method(_t[TGMX_T_EASE_RAW][0]))
+			{
+				if (method_get_index(_t[TGMX_T_EASE]) == method_get_index(_t[TGMX_T_EASE_RAW][0]))
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];
+				}
+				else
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][0];
+				}
+			}
+			else
+			{
+				if (method_get_index(_t[TGMX_T_EASE]) == _t[TGMX_T_EASE_RAW][0])
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];
+				}
+				else
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][0];
+				}
+			}
+		}
+		else // animation channel
+		{
+			if (is_method(_t[TGMX_T_EASE_RAW][0]))
+			{
+				if (_t[TGMX_T_EASE] == method_get_index(_t[TGMX_T_EASE_RAW][0]))
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];
+				}
+				else
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][0];
+				}
+			}
+			else
+			{
+				if (_t[TGMX_T_EASE] == _t[TGMX_T_EASE_RAW][0])
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][1];
+				}
+				else
+				{
+					_t[@ TGMX_T_EASE] = _t[TGMX_T_EASE_RAW][0];
 				}
 			}
 		}
 	}
 }
 
-
-
+/// @ignore
+function TGMX_TweenHasReachedBounds(_t, _target, _time, _timeScaleDelta)
+{
+	if (_t[TGMX_T_SCALE] != 0 && _t[TGMX_T_GROUP_SCALE][0] != 0 && (!_t[TGMX_T_DELTA] || _timeScaleDelta != 0)) // Make sure time scale isn't "paused"
+    {			
+        // Update tween based on its play mode -- Could put overflow wait time in here????
+        switch(_t[TGMX_T_MODE])
+        {
+	    case TWEEN_MODE_ONCE:
+			// Set tween's state as STOPPED
+	        _t[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;	 
+			// Update tween's time to duration or 0
+			_t[@ TGMX_T_TIME] = _time > 0 ? _t[TGMX_T_DURATION] : 0;
+	        // Update property
+			TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+	        // Execute FINISH event
+	        TGMX_ExecuteEvent(_t, TWEEN_EV_FINISH);
+			// Destroy tween if temporary
+	        if (_t[TGMX_T_DESTROY]) { TweenDestroy(_t); }
+	    break;
+                        
+		case TWEEN_MODE_BOUNCE:
+		    if (_time > 0)
+		    {	
+				// UPDATE TIME
+				_t[@ TGMX_T_TIME] = _time;
+								
+				// REST
+				if (_t[TGMX_T_REST] > 0)
+				{
+					// Mark as resting
+					_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+					// Update property
+					TGMX_TweenProcess(_t, _t[TGMX_T_DURATION], _t[TGMX_T_PROPERTY_DATA], _target);
+					// Execute Rest Event
+					TGMX_ExecuteEvent(_t, TWEEN_EV_REST);
+				}
+									
+				// CONTINUE
+				if (_time >= _t[TGMX_T_DURATION] - _t[TGMX_T_REST])
+				{
+					// Mark as no longer resting
+					_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+					// Assign raw time to tween -- adjust for overflow
+					_t[@ TGMX_T_TIME] = 2*_t[TGMX_T_DURATION] + _t[TGMX_T_REST] - _time;	
+					// NOTE: This can silently update tween's time
+					TGMX_TweenBoundsSwap(_t);
+					// Reverse direction
+				    _t[@ TGMX_T_DIRECTION] = -_t[TGMX_T_DIRECTION];  
+					// Reverse time scale
+				    _t[@ TGMX_T_SCALE] = -_t[TGMX_T_SCALE];
+				    // Update property
+				    TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+					// Execute CONTINUE event
+				    TGMX_ExecuteEvent(_t, TWEEN_EV_CONTINUE);
+				}
+				else
+				{	// Execute Resting Event
+					TGMX_ExecuteEvent(_t, TWEEN_EV_RESTING);	
+				}
+		    }
+		    else // FINISH
+		    {
+				// Update tween's time
+				_t[@ TGMX_T_TIME] = 0;		
+				// Reverse direction
+			    _t[@ TGMX_T_DIRECTION] = -_t[TGMX_T_DIRECTION];
+				// Reverse time scale
+			    _t[@ TGMX_T_SCALE] = -_t[TGMX_T_SCALE];
+				// Set tween state as STOPPED
+		        _t[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
+				// Update property
+		        TGMX_TweenProcess(_t, 0, _t[TGMX_T_PROPERTY_DATA], _target);
+		        // Execute FINISH event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_FINISH);
+				// Destroy tween if temporary
+		        if (_t[TGMX_T_DESTROY]) { TweenDestroy(_t); }    
+		    }
+		break;
+                        
+	    case TWEEN_MODE_PATROL:		
+			// FINISH
+			if (_t[TGMX_T_CONTINUE_COUNT] == 0) 
+			{
+				// Update tween's time
+				_t[@ TGMX_T_TIME] = _time > 0 ? _t[TGMX_T_DURATION] : 0;
+				// Reverse direction
+				_t[@ TGMX_T_DIRECTION] = -_t[TGMX_T_DIRECTION];  
+				// Reverse time scale
+				_t[@ TGMX_T_SCALE] = -_t[TGMX_T_SCALE];
+				// Set tween state as STOPPED
+				_t[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
+				// Update property
+				TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute FINISH event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_FINISH);
+				// Destroy tween if temporary
+				if (_t[TGMX_T_DESTROY]) { TweenDestroy(_t); }   
+								
+				break;
+			}
+						
+			// UPDATE TIME
+			_t[@ TGMX_T_TIME] = _time;
+							
+			if (is_real(_t[TGMX_T_REST]))
+			{
+				_t[@ TGMX_T_REST] = array_create(2, _t[TGMX_T_REST]);	
+			}
+							
+			var _rest = _t[TGMX_T_REST];
+			var _restIndex = _time > 0;
+							
+			// REST
+			if (_rest[_restIndex] > 0)
+			{
+				// Mark as resting by setting to negative value
+				_rest[@ _restIndex] = -_rest[_restIndex];
+				// Update property
+				TGMX_TweenProcess(_t, _time <= 0 ? 0 : _t[TGMX_T_DURATION], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute Rest Event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_REST);
+			}
+			
+			// CONTINUE
+			if (_time >= _t[TGMX_T_DURATION] - _rest[_restIndex] || _time <= _rest[_restIndex])
+			{
+				// Decrement continue counter
+				_t[@ TGMX_T_CONTINUE_COUNT] = _t[TGMX_T_CONTINUE_COUNT] - 1;
+				// Mark as no longer resting
+				_rest[@ _restIndex] = -_rest[_restIndex];
+				// Assign raw time to tween -- adjust for overflow
+				_t[@ TGMX_T_TIME] = _time > 0 ? 2*_t[TGMX_T_DURATION] + _rest[_restIndex] - _time : abs(_time)-_rest[_restIndex];
+				// NOTE: This can silently update tween's time
+				TGMX_TweenBoundsSwap(_t);
+				// Reverse direction
+				_t[@ TGMX_T_DIRECTION] = -_t[TGMX_T_DIRECTION];  
+				// Reverse time scale
+				_t[@ TGMX_T_SCALE] = -_t[TGMX_T_SCALE];
+				// Update property
+				TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute CONTINUE event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_CONTINUE);
+			}
+			else
+			{	// Execute Resting Event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_RESTING);
+			}
+	    break;
+                        
+	    case TWEEN_MODE_LOOP:		
+			// FINISH
+			if (_t[TGMX_T_CONTINUE_COUNT] == 0) 
+			{
+				// Update tween's time
+				_t[@ TGMX_T_TIME] = _t[TGMX_T_DURATION];		 
+				// Set tween state as STOPPED
+				_t[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
+				// Update property
+				TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute FINISH event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_FINISH);
+				// Destroy tween if temporary
+				if (_t[TGMX_T_DESTROY]) { TweenDestroy(_t); }   
+				// Break out of mode's switch case
+				break;
+			}
+						
+			// UPDATE TIME
+			_t[@ TGMX_T_TIME] = _time;
+						
+			// REST
+			if (_t[TGMX_T_REST] > 0)
+			{
+				// Mark as resting
+				_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+				// Update property
+				TGMX_TweenProcess(_t, _time <= 0 ? 0 : _t[TGMX_T_DURATION], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute Rest Event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_REST);
+			}
+								
+			// Check for continue
+			if (_time >= _t[TGMX_T_DURATION] - _t[TGMX_T_REST] || _time <= _t[TGMX_T_REST])
+			{
+				_t[@ TGMX_T_CONTINUE_COUNT] = _t[TGMX_T_CONTINUE_COUNT] - 1;
+				// Mark as no longer resting
+				_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+				// Assign raw time to tween
+				_t[@ TGMX_T_TIME] = _time > 0 ? _time-_t[TGMX_T_DURATION]-_t[TGMX_T_REST] : _time+_t[TGMX_T_DURATION]+_t[TGMX_T_REST];
+				// Swap eases or duration -- can silenty change tween's time
+				TGMX_TweenBoundsSwap(_t);
+		        // Update property
+		        TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+		        // Execute CONTINUE event
+		        TGMX_ExecuteEvent(_t, TWEEN_EV_CONTINUE);
+			}
+			else // Keep resting
+			{
+				TGMX_ExecuteEvent(_t, TWEEN_EV_RESTING);
+			}
+		break;
+                        
+	    case TWEEN_MODE_REPEAT:
+							
+			// FINISH
+			if (_t[TGMX_T_CONTINUE_COUNT] == 0) 
+			{
+				// Update tween's time
+				_t[@ TGMX_T_TIME] = _t[TGMX_T_DURATION];		 
+				// Set tween state as STOPPED
+				_t[@ TGMX_T_STATE] = TGMX_T_STATE_STOPPED;
+				// Update property
+				TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute FINISH event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_FINISH);
+				// Destroy tween if temporary
+				if (_t[TGMX_T_DESTROY]) { TweenDestroy(_t); }   
+				// Break out of switch case
+				break;
+			}
+							
+			// UPDATE TIME
+			_t[@ TGMX_T_TIME] = _time;
+							
+			// REST
+			if (_t[TGMX_T_REST] > 0)
+			{
+				// Mark as resting
+				_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+				// Update property
+				TGMX_TweenProcess(_t, _time <= 0 ? 0 : _t[TGMX_T_DURATION], _t[TGMX_T_PROPERTY_DATA], _target);
+				// Execute Rest Event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_REST);
+			}
+								
+			// CONTINUE
+			if (_time >= _t[TGMX_T_DURATION] - _t[TGMX_T_REST] || _time <= _t[TGMX_T_REST])
+			{
+				// Decrement countinue counter
+				_t[@ TGMX_T_CONTINUE_COUNT] = _t[TGMX_T_CONTINUE_COUNT] - 1;
+				// Mark as no longer resting
+				_t[@ TGMX_T_REST] = -_t[TGMX_T_REST];
+				// Update raw time with epsilon compensation
+				_t[@ TGMX_T_TIME] = _time > 0 ? _time-_t[TGMX_T_DURATION]-_t[TGMX_T_REST] : _time+_t[TGMX_T_DURATION]+_t[TGMX_T_REST];
+				// NOTE: This can silently update tween's time
+				TGMX_TweenBoundsSwap(_t);
+				// Update new relative start position
+				var _data = _t[TGMX_T_PROPERTY_DATA];
+				var i = 2;
+				repeat(array_length(_data) div 4)
+				{
+					_data[@ i] += _time > 0 ? _data[i+1] : -_data[i+1];
+					i += 4;
+				}
+		        // Update property
+		        TGMX_TweenProcess(_t, _t[TGMX_T_TIME], _t[TGMX_T_PROPERTY_DATA], _target);
+		        // Execute CONTINUE event
+				TGMX_ExecuteEvent(_t, TWEEN_EV_CONTINUE);
+			}
+			else
+			{
+				TGMX_ExecuteEvent(_t, TWEEN_EV_RESTING);
+			}
+	    break;
+                        
+	    default:
+	        show_error("Invalid Tween Mode! --> Forcing TWEEN_MODE_ONCE", false);
+	        _t[@ TGMX_T_MODE] = TWEEN_MODE_ONCE;
+        }
+    }
+}
 
 
 

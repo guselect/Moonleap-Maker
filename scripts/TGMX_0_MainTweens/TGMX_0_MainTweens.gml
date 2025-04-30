@@ -32,44 +32,71 @@ function TweenFire()
     
 		Examples:                                  
 		    // Ease "x" value from (x) to (mouse_x), over 1 second
-		    TweenFire(id, EaseInQuad, TWEEN_MODE_ONCE, true, 0.0, 1.0, "x", x, mouse_x);
+		    TweenFire(self, EaseInQuad, TWEEN_MODE_ONCE, true, 0.0, 1.0, "x", x, mouse_x);
         
 		    // Ease "x" and "y" values from (x, y) to (mouse_x, mouse_y) over 60 steps with a 30 step delay.
 		    // Tween will play back and forth, repeatedly.
 		    TweenFire(obj_Player, EaseOutCubic, TWEEN_MODE_PATROL, false, 30, 60, "x", x, mouse_x, "y", y, mouse_y);
 	*/
-	
+
 	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
 	
-	// "OFF-RAIL" TWEEN CALL
+	
+	
+	// CHECK FIRST ARGUMENT FOR "OFF-RAIL" TWEEN CALL
 	if (is_string(argument[0]) || is_array(argument[0]))
 	{		
-		var _args = array_create(argument_count);
-		_args[0] = argument[0]; // We already know the first argument...
-		
-		var i = 0;
-		repeat(argument_count-1)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i];
+		case  1: return TGMX_Tween(TweenFire, [argument[0]], 0);
+		case  2: return TGMX_Tween(TweenFire, [argument[0],argument[1]], 0);
+		case  3: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2]], 0);
+		case  4: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3]], 0);
+		case  5: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4]], 0);
+		case  6: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5]], 0);
+		case  7: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], 0);
+		case  8: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], 0);
+		case  9: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], 0);
+		case 10: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], 0);
+		case 11: return TGMX_Tween(TweenFire, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], 0);
+			
+		default:
+			var i = argument_count, _args = [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]];
+			repeat(argument_count-12)
+			{
+				i -= 1; 
+				_args[i] = argument[i];
+			}
+			
+			return TGMX_Tween(TweenFire, _args, 0);
 		}
+	}
+
+	// DEFAULT ON-RAIL
+	switch(argument_count)
+	{
+	case  6: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5]], 0);
+	case  7: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], 0);
+	case  8: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], 0);
+	case  9: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], 0);
+	case 10: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], 0);
+	case 11: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], 0);
+	case 12: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]], 0);
+	case 13: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]], 0);
+	case 14: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13]], 0);
+	case 15: return TGMX_Tween(TweenFire, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14]], 0);
 		
+	default: // TODO: VALIDATE THAT THE ARGUMENT LOOP ISN'T GOING TO LOW
+		var i = argument_count, _args = [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14],argument[15]];
+		repeat(argument_count-16)
+		{
+			_args[i] = argument[i-1];
+			i -= 1;
+		}
+
 		return TGMX_Tween(TweenFire, _args, 0);
 	}
-
-	// DEFAULT TWEEN CALL
-	var _args = [undefined, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5]];
-	array_resize(_args, argument_count+1);
-	
-	var i = 6;
-	repeat(argument_count-6)
-	{
-		i += 1;
-		_args[i] = argument[i-1];
-	}
-
-	return TGMX_Tween(TweenFire, _args, 0);
 }
 
 
@@ -95,8 +122,8 @@ function TweenCreate()
 		You can set them to auto-destroy with TweenDestroyWhenDone(tween, true):
 	
 		Defining a tween at creation is optional. Both of the following are valid:
-			tween1 = TweenCreate(id);
-			tween2 = TweenCreate(id, EaseLinear, TWEEN_MODE_ONCE, true, 0, 1, "x", 0, 100);
+			tween1 = TweenCreate(self);
+			tween2 = TweenCreate(self, EaseLinear, TWEEN_MODE_ONCE, true, 0, 1, "x", 0, 100);
 		
 			TweenDestroyWhenDone(tween2, true); // Have tween auto-destroy when finished
 	*/
@@ -113,35 +140,54 @@ function TweenCreate()
 	// HANDLE "OFF-RAIL" TWEEN CALL
 	if (is_string(argument[0]) || is_array(argument[0]))
 	{
-		var _args = array_create(argument_count);
-		var i = -1;
-		repeat(argument_count)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i];
+		case 1: return TGMX_Tween(TweenCreate, [argument[0]], 0);
+		case 2: return TGMX_Tween(TweenCreate, [argument[0],argument[1]], 0);
+		case 3: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2]], 0);
+		case 4: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3]], 0);
+		case 5: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4]], 0);
+		case 6: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5]], 0);
+		case 7: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], 0);
+		case 8: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], 0);
+		case 9: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], 0);
+		case 10: return TGMX_Tween(TweenCreate, [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], 0);
+			
+		default:
+			var i = argument_count, _args = [argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]];
+			repeat(argument_count-11)
+			{
+				i -= 1;
+				_args[i] = argument[i];
+			}
+			
+			return TGMX_Tween(TweenCreate, _args, 0);
+		}
+	}
+	
+	switch(argument_count)
+	{
+	case 1: return TGMX_Tween(TweenCreate, [undefined,argument[0]], 0); // UNDEFINED TWEEN
+	case 6: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5]], 0);
+	case 7: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], 0);
+	case 8: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], 0);
+	case 9: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], 0);
+	case 10: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], 0);
+	case 11: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], 0);
+	case 12: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]], 0);
+	case 13: return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]], 0);
+	case 14:  return TGMX_Tween(TweenCreate, [undefined,argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13]], 0);
+	
+	default:
+		var i = argument_count, _args = [undefined, argument[0],argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14]];
+		repeat(argument_count-15)
+		{
+			_args[i] = argument[i-1];
+			i -= 1;
 		}
 		
 		return TGMX_Tween(TweenCreate, _args, 0);
 	}
-	
-	// RETURN UNDEFINED TWEEN WITH EXPLICIT TARGET
-	if (argument_count == 1)
-	{
-		return TGMX_Tween(TweenCreate, [undefined, argument[0]], 0);
-	}
-
-	// DEFAULT TWEEN CALL
-	var _args = [undefined, argument[0], argument[1], argument[2], argument[3], argument[4], argument[5]];
-	array_resize(_args, argument_count+1);
-	
-	var i = 6;
-	repeat(argument_count-6)
-	{
-		i += 1;
-		_args[i] = argument[i-1];
-	}
-
-	return TGMX_Tween(TweenCreate, _args, 0);
 }
 
 
@@ -171,41 +217,76 @@ function TweenPlay()
 	
 	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
+	static __array_empty = [];
 	
 	var _tween = TGMX_FetchTween(argument[0]);
 	
 	// MULTI-TWEEN EXECUTION
-	if (is_struct(_tween)) { TGMX_TweensExecute(_tween, TweenPlay); return; }
+	if (is_struct(_tween)) 
+	{ 
+		TGMX_TweensExecute(_tween, TweenPlay); 
+		return; 
+	}
 
 	// PRE-DEFINED TWEEN CALL
-	if (argument_count == 1) { return TGMX_Tween(TweenPlay, [], argument[0]); }
+	if (argument_count == 1) 
+	{
+		return TGMX_Tween(TweenPlay, __array_empty, argument[0]); 
+	}
 
 	// OFF-RAIL TWEEN CALL
-	if ( (is_string(argument[1]) && global.TGMX.ShorthandTable[string_byte_at(argument[1], 1)]) || (is_array(argument[1]) && array_length(argument[1]) > 2) )
+	if ( (is_string(argument[1]) && string_length(argument[1]) && global.TGMX.ShorthandTable[string_byte_at(argument[1], 1)]) || (is_array(argument[1]) && array_length(argument[1]) > 2) )
 	{
-		var _args = array_create(argument_count-1);
-		var i = -1;
-		repeat(argument_count-1)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i+1];
-		}
+		case  2: return TGMX_Tween(TweenPlay, [argument[1]], argument[0]);
+		case  3: return TGMX_Tween(TweenPlay, [argument[1],argument[2]], argument[0]);
+		case  4: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3]], argument[0]);
+		case  5: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4]], argument[0]);
+		case  6: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5]], argument[0]);
+		case  7: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], argument[0]);
+		case  8: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], argument[0]);
+		case  9: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], argument[0]);
+		case 10: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], argument[0]);
+		case 11: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], argument[0]);
+		case 12: return TGMX_Tween(TweenPlay, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]], argument[0]);
+		default:
+			var _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]];
+			var i = argument_count;
 			
-		return TGMX_Tween(TweenPlay, _args, argument[0]);
+			repeat(argument_count-13)
+			{
+				i -= 1;
+				_args[i-1] = argument[i];
+			}
+			
+			return TGMX_Tween(TweenPlay, _args, argument[0]);
+		}
 	}
 	
 	// DEFAULT TWEEN CALL
-	var _args = [undefined, argument[1], argument[2], argument[3], argument[4], argument[5]];
-	array_resize(_args, argument_count);
-
-	var i = 5;
-	repeat(argument_count-6)
+	switch(argument_count)
 	{
-		i += 1;
-		_args[i] = argument[i];
-	}
+	case  6: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5]], argument[0]);
+	case  7: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], argument[0]);
+	case  8: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], argument[0]);
+	case  9: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], argument[0]);
+	case 10: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], argument[0]);
+	case 11: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], argument[0]);
+	case 12: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]], argument[0]);
+	case 13: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]], argument[0]);
+	case 14: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13]], argument[0]);
+	case 15: return TGMX_Tween(TweenPlay, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14]], argument[0]);
+	default:
+		var i = argument_count, _args = [undefined, argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14],argument[15]];
+		repeat(argument_count-16)
+		{
+			i -= 1;
+			_args[i] = argument[i];
+		}
 	
-	return TGMX_Tween(TweenPlay, _args, argument[0]);
+		return TGMX_Tween(TweenPlay, _args, argument[0]);
+	}
 }
 
 
@@ -215,15 +296,15 @@ function TweenPlay()
 /// @param {Any} delay			amount of time to delay start
 function TweenPlayDelay(_t, _delay)
 {
-	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
-	static _ = SharedTweener();
+	static _ = SharedTweener(); // MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
+	static __array_empty = [];
 	
-	_t = TGMX_FetchTween(_t);
-
+	_t = TGMX_FetchTween(_t); // FETCH RAW TWEEN DATA
+	
 	if (is_array(_t))
 	{
 	    _t[@ TGMX_T_DELAY] = _delay;
-		TGMX_Tween(TweenPlay, [], _t[TGMX_T_ID]); // NOTE: THIS COULD CAUSE AN ERROR BECAUSE OF THE EMPTY ARRAY???
+		TGMX_Tween(TweenPlay, __array_empty, _t[TGMX_T_ID]); // NOTE: THIS COULD CAUSE AN ERROR BECAUSE OF THE EMPTY ARRAY???
 	}
     else
 	if (is_struct(_t))
@@ -236,7 +317,7 @@ function TweenPlayDelay(_t, _delay)
 /// @function TweenMore( tween, target, ease, mode, delta, delay, dur, prop, start, dest, ... )
 /// @description Allows for chaining of tweens by adding a tween to be fired after the indicated tween finishes
 /// @param {Any} tween		tween id
-/// @param {Any} target		instance to associate with tween (id or object index)
+/// @param {Any} target		instance or struct to associate with tween
 /// @param {Any} ease		easing script index id (e.g. EaseInQuad, EaseLinear)
 /// @param {Any} mode		tween mode (0=ONCE, 1=BOUNCE, 2=PATROL, 3=LOOP, 4=REPEAT)
 /// @param {Any} delta		whether or not to use delta(seconds) timing -- false will use step timing
@@ -257,53 +338,87 @@ function TweenMore()
     
 	    Examples:
 	        // Chain various tweens to fire one after another
-			tween1 = TweenFire(id, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
-			tween2 = TweenMore(tween1, id, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
-			tween3 = TweenMore(tween2, id, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
-			tween4 = TweenMore(tween3, id, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
+			tween1 = TweenFire(self, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
+			tween2 = TweenMore(tween1, self, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
+			tween3 = TweenMore(tween2, self, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
+			tween4 = TweenMore(tween3, self, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
 		
-			t = TweenFire(id, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
-			TweenMore(t, id, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
-			TweenMore(t+1, id, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
-			TweenMore(t+2, id, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
+			t = TweenFire(self, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
+			TweenMore(t, self, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
+			TweenMore(t+1, self, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
+			TweenMore(t+2, self, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
 		
 			// 0 can be used to refer to the last created tween
-			TweenFire(id, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
-			TweenMore(0, id, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
-			TweenMore(0, id, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
-			TweenMore(0, id, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
+			TweenFire(self, EaseOutBounce, 0, true, 0, 1.0, "y", -100, y);
+			TweenMore(0, self, EaseInOutQuad, 0, true, 0, 0.5, "image_yscale", 1, 0.25);
+			TweenMore(0, self, EaseInOutSine, 0, true, 0, 1.0, "image_angle", 0, 360);
+			TweenMore(0, self, EaseInOutQuad, 0, true, 0, 2.0, "image_xscale", 1, 0.5);
 	*/
 	
 	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
 	
+	if (argument[0] == TWEEN_NULL)
+	{
+		return TWEEN_NULL;	
+	}
+	
 	var _args;
 
-	if (is_string(argument[1]))
+	// OFF-RAIL TWEEN
+	if (is_string(argument[1]) || is_array(argument[1]))
 	{
-		_args = array_create(argument_count-1);
-		var i = -1;
-		repeat(argument_count-1)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i+1];
+		case  2: _args = [argument[1]]; break;
+		case  3: _args = [argument[1],argument[2]]; break;
+		case  4: _args = [argument[1],argument[2],argument[3]]; break;
+		case  5: _args = [argument[1],argument[2],argument[3],argument[4]]; break;
+		case  6: _args = [argument[1],argument[2],argument[3],argument[4],argument[5]]; break;
+		case  7: _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]]; break;
+		case  8: _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]]; break;
+		case  9: _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]]; break;
+		case 10: _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]]; break;
+		default:
+			_args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]];
+			var i = 9;
+			repeat(argument_count-11)
+			{
+				i += 1;
+				_args[i] = argument[i+1];	
+			}
 		}
 	}
-	else
+	else // DEAFULT ON-RAIL TWEEN
 	{
-		_args = [undefined, argument[1], argument[2], argument[3], argument[4], argument[5], argument[6]];
-		array_resize(_args, argument_count);
-
-		var i = 6;
-		repeat(argument_count-7)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i];
+		case  7: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]]; break;
+		case  8: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]]; break;
+		case  9: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]]; break;
+		case 10: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]]; break;
+		case 11: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]]; break;
+		case 12: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]]; break;
+		case 13: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]]; break;
+		case 14: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13]]; break;
+		case 15: _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14]]; break;
+		default:
+			_args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14],argument[15]];
+			var i = 15;
+			repeat(argument_count-16)
+			{
+				i += 1;
+				_args[i] = argument[i];
+			}
 		}
 	}
 	
+	
+
 	var _tween = TGMX_FetchTween(argument[0]);
 	var _newTween = TGMX_Tween(TweenCreate, _args, 0);
+
+
 	TweenDestroyWhenDone(_newTween, _tween[TGMX_T_DESTROY]);
 	TweenAddCallback(_tween, TWEEN_EV_FINISH, SharedTweener(), TweenPlay, _newTween);
 	return _newTween;
@@ -338,27 +453,30 @@ function TweenScript(_target, _delta, _dur, _script)
 
 	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
+	static __str_delta = "^";
+	static __str_dollar = "$";
+	static __str_question = "?";
 
 	var _args = array_create(argument_count);
 	_args[1] = TWEEN_EV_FINISH;
 	_args[3] = _script; //cb script
 	
 	// Handle advanced target setting
-	if (is_undefined(_target))
+	if (_target == undefined)
 	{
-		_args[0] = TweenFire("^", _delta, "$", _dur); 
+		_args[0] = TweenFire(__str_delta, _delta, __str_dollar, _dur); 
 		_args[2] = _target; // cb target
 	}
 	else
-	if (is_array(_target))
+	if (is_array(_target)) // Set a different tween target and callback target [tween, callback]
 	{
 		var _target_array = _target;
-		_args[0] = TweenFire("?", _target_array[0], "^", _delta, "$", _dur); 
+		_args[0] = TweenFire(__str_question, _target_array[0], __str_delta, _delta, __str_dollar, _dur); 
 		_args[2] = _target_array[1]; // cb target
 	}
 	else // ASSUME INSTANCE OR STRUCT TARGET
 	{
-		_args[0] = TweenFire("?", _target, "^", _delta, "$", _dur); 
+		_args[0] = TweenFire(__str_question, _target, __str_delta, _delta, __str_dollar, _dur); 
 		_args[2] = _target; // cb target
 	}
 	
@@ -403,6 +521,14 @@ function TweenMoreScript()
 
 	// MAKE SURE TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
+	static __str_delta = "^";
+	static __str_dollar = "$";
+	static __str_question = "?";
+
+	if (argument[0] == TWEEN_NULL)
+	{
+		return TWEEN_NULL;	
+	}
 
 	var _newTween;
 	var _ogTween = TGMX_FetchTween(argument[0]); // Note: This needs to be first inorder to support [0] relevant tween ids
@@ -410,21 +536,21 @@ function TweenMoreScript()
 	_args[1] = TWEEN_EV_FINISH;
 	_args[3] = argument[4]; // Script
 	
-	if (is_undefined(argument[1])) // TARGET IS UNDEFINED
+	if (argument[1] == undefined) // TARGET IS UNDEFINED
 	{
-		_newTween = TweenCreate("^", argument[2], "$", argument[3]);
+		_newTween = TweenCreate(__str_delta, argument[2], __str_dollar, argument[3]);
 		_args[2] = argument[1]; // cb target
 	}
 	else
 	if (is_array(argument[1])) // ARRAY TARGET [tween_target, callback_target]
 	{
 		var _target_array = argument[1];
-		_newTween = TweenCreate("?", _target_array[0], "^", argument[2], "$", argument[3]);
+		_newTween = TweenCreate(__str_question, _target_array[0], __str_delta, argument[2], __str_dollar, argument[3]);
 		_args[2] = _target_array[1]; // cb target
 	}
 	else // ASSUME INSTANCE OR STRUCT TARGET
 	{
-		_newTween = TweenCreate("?", argument[1], "^", argument[2], "$", argument[3]);
+		_newTween = TweenCreate(__str_question, argument[1], __str_delta, argument[2], __str_dollar, argument[3]);
 		_args[2] = argument[1]; // cb target
 	}
 	
@@ -460,7 +586,7 @@ function TweenMoreScript()
 function TweenDefine() 
 {	
 	/*
-		tween = TweenCreate(id);
+		tween = TweenCreate(self);
 		TweenDefine(tween, "io", "once", true, 0, 1, "x", 0, 100); 
 	*/
 	
@@ -494,40 +620,62 @@ function TweenDefine()
 	
 	var _args;
 
-	if (argument_count == 1) // WHY IS THIS HERE?? DOES IT SERVE ANY PURPOSE??
+	//if (argument_count == 1) // WHY IS THIS HERE?? DOES IT SERVE ANY PURPOSE?? -- REMOVING FOR NOW... CHECK IN UNIT TESTING
+	//{
+	//	_args = [];
+	//}
+	//else 
+	
+	// OFF-RAIL CALL
+	if ( (is_string(argument[1]) && string_length(argument[1]) && global.TGMX.ShorthandTable[string_byte_at(argument[1], 1)]) || (is_array(argument[1]) && array_length(argument[1]) > 2) )
 	{
-		_args = [];
-	}
-	else // OFF-RAIL CALL
-	if ( (is_string(argument[1]) && global.TGMX.ShorthandTable[string_byte_at(argument[1], 1)]) || (is_array(argument[1]) && array_length(argument[1]) > 2) )
-	{
-		_args = array_create(argument_count-1);
-		var i = -1;
-		repeat(argument_count-1)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i+1];
+		case  2: return TGMX_Tween(TweenDefine, [argument[1]], argument[0]);
+		case  3: return TGMX_Tween(TweenDefine, [argument[1],argument[2]], argument[0]);
+		case  4: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3]], argument[0]);
+		case  5: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4]], argument[0]);
+		case  6: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4],argument[5]], argument[0]);
+		case  7: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], argument[0]);
+		case  8: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], argument[0]);
+		case  9: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], argument[0]);
+		case 10: return TGMX_Tween(TweenDefine, [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], argument[0]);
+		default:
+			var i=9, _args = [argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]];
+			repeat(argument_count-11)
+			{
+				i += 1;
+				_args[i] = argument[i+1];	
+			}
+			
+			return TGMX_Tween(TweenDefine, _args, argument[0]);
 		}
 	}
 	else // DEFAULT ON-RAIL CALL
 	{	
-		_args = [undefined, argument[1], argument[2], argument[3], argument[4], argument[5]];
-		
-		array_resize(_args, argument_count);
-
-		var i = 5;
-		repeat(argument_count-6)
+		switch(argument_count)
 		{
-			i += 1;
-			_args[i] = argument[i];
+		case  6: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5]], argument[0]);
+		case  7: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6]], argument[0]);
+		case  8: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7]], argument[0]);
+		case  9: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8]], argument[0]);
+		case 10: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9]], argument[0]);
+		case 11: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10]], argument[0]);
+		case 12: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11]], argument[0]);
+		case 13: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12]], argument[0]);
+		case 14: return TGMX_Tween(TweenDefine, [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13]], argument[0]);
+		default:
+			var i = 14; _args = [undefined,argument[1],argument[2],argument[3],argument[4],argument[5],argument[6],argument[7],argument[8],argument[9],argument[10],argument[11],argument[12],argument[13],argument[14]];
+			repeat(argument_count-15)
+			{
+				i += 1;
+				_args[i] = argument[i];
+			}
 		}
 	}
 	
 	return TGMX_Tween(TweenDefine, _args, argument[0]);
 }
-
-
-
 
 
 

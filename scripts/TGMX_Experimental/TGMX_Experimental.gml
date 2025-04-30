@@ -1,5 +1,6 @@
 // Feather ignore all
 
+// It is safe to delete this script
 
 /*	
 	TPTrack() targets the value of an instance or struct as a dynamic destination
@@ -24,7 +25,7 @@ TPFuncShared(TPTrack, function(_value, _target, _data, _t)
 	/// Feather ignore all
 	
 	// Cache data execution for better performance -- called only the first time
-	if (is_undefined(_data[4]))
+	if (_data[4] == undefined)
 	{
 		if (is_array(_data[0]))
 		{

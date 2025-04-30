@@ -35,32 +35,26 @@ var _; // USED TO HIDE SYNTAX WARNINGS FOR NON-FEATHER ENVIRONMENT
 function TweenExists(_t) 
 {		
 	static _ = SharedTweener();
-	
-	if (is_real(_t)) // TWEEN ID
-	{
-	    if (ds_map_exists(global.TGMX.TweenIndexMap, _t))
-	    {
-	        _t = global.TGMX.TweenIndexMap[? _t];
-	    }
-	    else
-	    {
-	        return false;
-	    }
-	}
-	else
-	if (is_array(_t)) // RAW TWEEN
-	{
+	_t = TGMX_FetchTween(_t);
+
+	if (is_array(_t))
+	{		
 	    if (_t[TGMX_T_STATE] == TGMX_T_STATE_DESTROYED) 
 		{ 
 			return false; 
 		}
 	}
 	else
-	if (_t == undefined) // NULL
+	if (_t == undefined)
 	{
-	    return false;
+		return false;	
 	}
-    
+	else
+	if (is_struct(_t))
+	{
+	    return TGMX_TweensExecuteBool(_t, TweenExists);
+	}
+	
 	// _t NOW MEANS TARGET... this is an optimisation trick to avoid use of local vars
 	_t = _t[TGMX_T_TARGET];
 	
@@ -94,40 +88,17 @@ function TweenExists(_t)
 function TweenIsActive()
 {		
 	static _ = SharedTweener();
-	var _t = argument_count == 0 ? true : argument[0];
+	static _t = 0; // USING static INSTEAD OF var PRODUCES LESS OVERHEAD IN FUNCTION CALL
+	_t = (argument_count == 0) ? TGMX_FetchTween(all) : TGMX_FetchTween(argument[0]);
 	
-	if (is_real(_t)) // Check if tween is active
-	{
-		_t = TGMX_FetchTween(_t);
-		return is_undefined(_t) ? false : (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 || _t[TGMX_T_STATE] == TGMX_T_STATE_DELAYED);
+	if (is_array(_t))
+	{		
+	    return (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 || _t[TGMX_T_STATE] == TGMX_T_STATE_DELAYED);
 	}
-	else
-	if (is_array(_t)) // Check if any tween in array is active
+	
+	if (is_struct(_t))
 	{
-		var _tweens = _t;
-		var _tIndex = -1;
-		repeat(array_length(_tweens))
-		{
-			_t = TGMX_FetchTween(_tweens[++_tIndex]);
-			if (!is_undefined(_t) && (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 || _t[TGMX_T_STATE] == TGMX_T_STATE_DELAYED))
-			{
-				return true;	
-			}
-		}
-	}
-	else // Check if any tween is active
-	if (is_bool(_t))
-	{
-		var _tweens = SharedTweener().tweens;
-		var _tIndex = -1; // Tween index iterator
-		repeat(ds_list_size(_tweens))
-        {
-			_t = _tweens[| ++_tIndex];
-			if (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0 || _t[TGMX_T_STATE] == TGMX_T_STATE_DELAYED)
-			{
-				return true;	
-			}
-		}
+	    return TGMX_TweensExecuteBool(_t, TweenIsActive);
 	}
 	
 	return false;
@@ -140,41 +111,17 @@ function TweenIsActive()
 function TweenIsPlaying()
 {		
 	static _ = SharedTweener();
-	var _t = argument_count == 0 ? true : argument[0];
+	static _t = 0; // USING static INSTEAD OF var PRODUCES LESS OVERHEAD IN FUNCTION CALL
+	_t = (argument_count == 0) ? TGMX_FetchTween(all) : TGMX_FetchTween(argument[0]);
 	
-	if (is_real(_t)) // Check if tween is active
-	{
-		_t = TGMX_FetchTween(_t);
-		return is_undefined(_t) ? false : (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0);
+	if (is_array(_t))
+	{		
+	    return (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0);
 	}
-	else
-	if (is_array(_t)) // Check if any tween in an array is active
+
+	if (is_struct(_t))
 	{
-		var _tweens = _t;
-		var _tIndex = -1;
-		repeat(array_length(_tweens))
-		{
-			_t = TGMX_FetchTween(_tweens[++_tIndex]);
-			if (!is_undefined(_t) && (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0))
-			{
-				return true;
-			}
-		}
-	}
-	else
-	if (is_bool(_t)) // check if any tween is active
-	{
-		var _tweens = SharedTweener().tweens;
-		var _tIndex = -1; // Tween index iterator
-		repeat(ds_list_size(_tweens))
-        {
-			var _state = _tweens[| ++_tIndex][TGMX_T_STATE];
-			
-			if (is_struct(_state) || real(_state) >= 0)
-			{
-				return true;	
-			}
-		}
+	    return TGMX_TweensExecuteBool(_t, TweenIsPlaying);
 	}
 	
 	return false;
@@ -184,29 +131,48 @@ function TweenIsPlaying()
 /// @function TweenIsPaused( tween )
 /// @description Checks if tween is paused
 /// @param {Any} tween
-function TweenIsPaused(_t)
+function TweenIsPaused()
 {		
-	_t = TGMX_FetchTween(_t);
-	return is_undefined(_t) ? false : _t[TGMX_T_STATE] == TGMX_T_STATE_PAUSED;
+	static _ = SharedTweener();
+	static _t = 0; // USING static INSTEAD OF var PRODUCES LESS OVERHEAD IN FUNCTION CALL
+	_t = (argument_count == 0) ? TGMX_FetchTween(all) : TGMX_FetchTween(argument[0]);
+
+	if (is_array(_t))
+	{		
+	    return _t[TGMX_T_STATE] == TGMX_T_STATE_PAUSED;
+	}
+
+	if (is_struct(_t))
+	{
+	    return TGMX_TweensExecuteBool(_t, TweenIsPaused);
+	}
+	
+	return false;
 }_=TweenIsPaused;
 
 
 /// @function TweenIsResting( tween )
 /// @description Checks if tween is resting
 /// @param {Any} tween
-function TweenIsResting(_t)
+function TweenIsResting()
 {	
-	_t = TGMX_FetchTween(_t);
-	if (is_array(_t)) 
-	{ 
-		if (is_array(_t[TGMX_T_REST]))
+	static _ = SharedTweener();
+	static _t = 0; // USING static INSTEAD OF var PRODUCES LESS OVERHEAD IN FUNCTION CALL
+	_t = (argument_count == 0) ? TGMX_FetchTween(all) : TGMX_FetchTween(argument[0]);
+
+	if (is_array(_t))
+	{		
+	    if (is_array(_t[TGMX_T_REST]))
 		{
 			return _t[TGMX_T_REST][_t[TGMX_T_TIME] > 0] < 0;	
 		}
-		else
-		{
-			return _t[TGMX_T_REST] < 0;
-		}
+
+		return _t[TGMX_T_REST] < 0;
+	}
+
+	if (is_struct(_t))
+	{
+	    return TGMX_TweensExecuteBool(_t, TweenIsResting);
 	}
 	
 	return false;
@@ -571,7 +537,6 @@ function TweenDestroy(_t)
 	*/
 	
 	static _ = SharedTweener();
-
 	_t = TGMX_FetchTween(_t);
 
 	if (is_array(_t))

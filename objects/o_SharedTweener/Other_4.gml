@@ -16,8 +16,12 @@ if (room_persistent)
     {
         // Cache queue of room's tweens
         var _queuedTweens = pRoomTweens[? _key];
-        // Iterate through queue, adding stored tweens back to main tween list
-        repeat(ds_queue_size(_queuedTweens)) { ds_list_add(_tweens, ds_queue_dequeue(_queuedTweens)); }
+        
+		// Iterate through queue, adding stored tweens back to main tween list
+        repeat(ds_queue_size(_queuedTweens)) 
+		{ 
+			ds_list_add(_tweens, ds_queue_dequeue(_queuedTweens)); 
+		}
     }
     
     // IF stored tween delay data exists for persistent room
@@ -25,8 +29,12 @@ if (room_persistent)
     {
         // Cache queue of room's delayed tweens
         var _queuedDelays = pRoomDelays[? _key];
-        // Iterate through queue, adding stored tween delays back to main tween delay list
-        repeat(ds_queue_size(_queuedDelays)) { ds_list_add(_delayedTweens, ds_queue_dequeue(_queuedDelays)); }
+        
+		// Iterate through queue, adding stored tween delays back to main tween delay list
+        repeat(ds_queue_size(_queuedDelays)) 
+		{ 
+			ds_list_add(_delayedTweens, ds_queue_dequeue(_queuedDelays)); 
+		}
     }
 
     // Update process counts

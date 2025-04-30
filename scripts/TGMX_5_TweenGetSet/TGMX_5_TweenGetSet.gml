@@ -38,7 +38,7 @@ function TweenGroupSetTimeScale(_group, _timescale)
 	
 	var _group_scale = global.TGMX.GroupScales[? _group];
 	
-	if (is_undefined(_group_scale))
+	if (_group_scale == undefined)
 	{
 		global.TGMX.GroupScales[? _group] = [_timescale];
 	}
@@ -107,11 +107,14 @@ function TweenGet(_t, _data_label)
 	        "delay_start"    -- The starting duration for a delay timer
 	        "start"          -- Start value of the property or properties
 	        "destination"    -- Destination value of the property or properties
+			"rawstart"		 -- The raw value supplied to start
+			"rawdest"		 -- The raw value supplied to destination
 	        "property"       -- Property or properties effected by the tween
 			"continue_count" -- Number of times play mode is to continue
+			"caller"		 -- The environment which called the tween
         
 	        e.g.
-	            tween = TweenFire(id, EaseLinear, 0, true, 0, 1, "x", 0, 100);
+	            tween = TweenFire(self, EaseLinear, 0, true, 0, 1, "x", 0, 100);
 	            duration = TweenGet(tween, "duration");
             
 	    ***	WARNING *** The following labels return multiple values as an array for multi-property tweens:
@@ -121,7 +124,7 @@ function TweenGet(_t, _data_label)
 				"property"
         
 	        e.g.
-	            tween = TweenFire(id, EaseLinear, 0, true, 0, 1, "x", 0, 100, "y", 0, 100);
+	            tween = TweenFire(self, EaseLinear, 0, true, 0, 1, "x", 0, 100, "y", 0, 100);
 	            startValues = TweenGet(tween, "start");
 	            xStart = startValues[0];
 	            yStart = startValues[1];
@@ -258,7 +261,7 @@ function TweenGet(_t, _data_label)
 				
 			if (_propCount == 1)
 			{
-				return _data[2];
+				return _data[1];
 			}
 
 			_return = array_create(_propCount);
@@ -319,7 +322,7 @@ function TweenSet(_t, _data_label)
 	        "scale"				-- How fast a tween updates : Default = 1.0
 	        "duration"			-- How long a tween takes to fully animate in steps or seconds
 	        "ease"				-- The easing algorithm used by the tween
-	        "mode"				-- The play mode used by the tween (ONCE, BOUNCE, PATROL, LOOP
+	        "mode"				-- The play mode used by the tween (ONCE, BOUNCE, PATROL, LOOP)
 	        "target"			-- Target instance associated with tween
 	        "delta"				-- Toggle timing between seconds(true) and steps(false)
 	        "delay"				-- Current timer of active delay
@@ -333,7 +336,7 @@ function TweenSet(_t, _data_label)
 			"continue_count"	-- Number of times play mode is to continue
         
 	        e.g.
-	            tween = Tween(id, EaseLinear, 0, true, 0, 1, "x", 0, 100);
+	            tween = Tween(self, EaseLinear, 0, true, 0, 1, "x", 0, 100);
 	            TweenSet(tween, "duration", 2.5);
             
 	    The following labels can update multiple properties by supplying
@@ -346,7 +349,7 @@ function TweenSet(_t, _data_label)
 			"raw_destination"
         
 	        e.g.
-	            tween = Tween(id, EaseLinear, 0, true, 0, 1, "x", 0, 100, "y", 0, 100); // multi-property tween (x/y)
+	            tween = Tween(self, EaseLinear, 0, true, 0, 1, "x", 0, 100, "y", 0, 100); // multi-property tween (x/y)
 	            TweenSet(tween, "start", [mouse_x, mouse_y]); // update to x/y mouse coordinates
            
 	    The keyword [undefined] can be used to leave a property value unchanged
@@ -355,11 +358,35 @@ function TweenSet(_t, _data_label)
 	*/
 
 	_t = TGMX_FetchTween(_t);
-	if (_t == undefined) return;
+	if (_t == undefined) return;	
 	
-	var _setValue, _data;
+	// HANDLE MULTI-TWEEN SETTING
+	if (is_struct(_t))
+	{
+		switch(argument_count)
+		{
+			case 3:	return script_execute_ext(TGMX_TweensExecute, [_t, TweenSet, _data_label, argument[2]]);
+			case 4: return script_execute_ext(TGMX_TweensExecute, [_t, TweenSet, _data_label, argument[2], argument[3]]);
+			case 5: return script_execute_ext(TGMX_TweensExecute, [_t, TweenSet, _data_label, argument[2], argument[3], argument[4]]);
+			case 6: return script_execute_ext(TGMX_TweensExecute, [_t, TweenSet, _data_label, argument[2], argument[3], argument[4], argument[5]]);
+			case 7: return script_execute_ext(TGMX_TweensExecute, [_t, TweenSet, _data_label, argument[2], argument[3], argument[4], argument[5], argument[6]]);
+			default:
+				var _args = array_create(argument_count+1);
+				_args[0] = _t; _args[1] = TweenSet; _args[2] = _data_label; _args[3] = argument[2];
+		
+				var i = 3;
+				repeat(argument_count-3)
+				{
+					++i;
+					_args[i] = argument[i-1]; 
+				}
+		
+				return script_execute_ext(TGMX_TweensExecute, _args);
+			//default end
+		}
+	}
 	
-	var _pIndex = 1;
+	var _setValue, _data, _pIndex = 1;
 	while(_pIndex < argument_count)
 	{
 		_data_label = TGMX_StringStrip(argument[_pIndex++]);
@@ -379,7 +406,7 @@ function TweenSet(_t, _data_label)
 						
 						if (_setValue == undefined)
 						{
-							show_error("TweenGMS: Invalid ease type used in TweenSet()", false);	
+							show_error("TweenGMX: Invalid ease type used in TweenSet()", false);	
 						}
 					}
 					else
@@ -389,7 +416,7 @@ function TweenSet(_t, _data_label)
 						
 						if (_setValue == undefined)
 						{
-							show_error("TweenGMS: Invalid play mode used in TweenSet()", false);	
+							show_error("TweenGMX: Invalid play mode used in TweenSet()", false);	
 						}
 					}
 					else
@@ -399,7 +426,7 @@ function TweenSet(_t, _data_label)
 				}
 				else
 				{
-					show_error("TweenGMS: Invalid label used with TweenSet()", false);
+					show_error("TweenGMX: Invalid label used with TweenSet() -> " + string(_data_label), false);
 				}
 			}
 		}
@@ -428,22 +455,19 @@ function TweenSet(_t, _data_label)
 		        break;
 			
 				case TGMX_T_EASE:
-					if (is_real(_setValue))
-					{	
-						if (_setValue < 100000) 
-						{	// Animation Curve ID
-							_setValue = animcurve_get_channel(_setValue, 0);
-						}
-						else 
-						{	// Function
-							_setValue = method(undefined, _setValue);
-						}
+					if (typeof(_setValue) == "number")
+					{									  // FUNCTION ID			     // ANIMATION CURVE
+						_setValue = _setValue >= 100000 ? method(undefined, _setValue) : animcurve_get_channel(_setValue, 0);
 					}
 					else // "ease" string
 					if (is_string(_setValue))
 		    		{
 						_setValue =  global.TGMX.ShortCodesEase[? TGMX_StringStrip(_setValue)];
 		    		}
+					else
+					{
+						// TODO: Update for asset ref for anim curve	
+					}
 		    		
 		    		// Update ease data
 		    		_t[@ TGMX_T_EASE] = _setValue;
@@ -579,7 +603,7 @@ function TweenSet(_t, _data_label)
 		            if (is_struct(_t[TGMX_T_TARGET]) || _t[TGMX_T_TARGET] != noone)
 		            {
 		            	_t[@ TGMX_T_TARGET] = (is_struct(_setValue)) ? weak_ref_create(_setValue) : _setValue.id;
-                
+				
 		                if (is_struct(_t[TGMX_T_STATE]) || real(_t[TGMX_T_STATE]) >= 0)
 		                {
 		                    _t[@ TGMX_T_STATE] = _t[TGMX_T_TARGET]; // set active state
@@ -591,7 +615,7 @@ function TweenSet(_t, _data_label)
 					_t[@ TGMX_T_GROUP] = _setValue;
 					var _group_scale = global.TGMX.GroupScales[? _setValue];
 					
-					if (is_undefined(_group_scale))
+					if (_group_scale == undefined)
 					{
 						_group_scale = [1.0];
 						global.TGMX.GroupScales[? _setValue] = _group_scale;	
@@ -620,7 +644,7 @@ function TweenSet(_t, _data_label)
 							_dataIndexLive += 4;
 							_dataIndexRaw += 3;
                     
-			                if (!is_undefined(_property))
+			                if (_property != undefined)
 			                {
 			                    if (is_array(_property)) // Extended Property
 			                    {   
@@ -715,25 +739,6 @@ function TweenSet(_t, _data_label)
 				// Default Setter Case
 		        default: _t[@ _index] = _setValue;
 		    }
-		}
-
-		// HANDLE MULTI-TWEEN SETTING
-		if (is_struct(_t))
-		{
-			var _args = array_create(argument_count+1);
-			_args[0] = _t;
-			_args[1] = TweenSet;
-			_args[2] = _index;
-			_args[3] = _setValue;
-		
-			var i = 3;
-			repeat(argument_count-3)
-			{
-				++i;
-				_args[i] = argument[i-1]; 
-			}
-		
-			script_execute_ext(TGMX_TweensExecute, _args);
 		}
 	}
 }

@@ -42,17 +42,19 @@ function TweenAddCallback(_tweenID, _event, _target, _func)
 	// TWEEN_EV_RESUME_DELAY	"resume_delay"		"resumed_delay"
 	
 	var _t = TGMX_FetchTween(_tweenID);
-	if (is_undefined(_t)) { return undefined; }
+	if (_t == undefined) { return undefined; }
 
 	var _events_map = _t[TGMX_T_EVENTS];
 	var _cb;
 	
 	// CHECK FOR "EVENT" STRING
-	static STR_AT = "@";
+	static __str_at = "@";
+	static __str_at_byte = string_byte_at(__str_at, 1);
+
 	if (is_string(_event)) 
 	{ 
 		_event = TGMX_StringStrip(_event, 0);
-		_event = string_char_at(_event, 1) == STR_AT ? global.TGMX.ArgumentLabels[? _event] : global.TGMX.ArgumentLabels[? STR_AT+_event];
+		_event = string_byte_at(_event, 1) == __str_at_byte ? global.TGMX.ArgumentLabels[? _event] : global.TGMX.ArgumentLabels[? __str_at+_event];
 	}
 
 	// CREATE AND ASSIGN EVENTS MAP IF IT DOESN'T EXIST
@@ -176,7 +178,7 @@ function TweenCallbackInvalidate(_callback)
 	/*      
 	    Example:
 	        // Create tween and add callback to finish event
-	        tween = TweenCreate(id);
+	        tween = TweenCreate(self);
 	        cb = TweenEventAddCallback(tween, TWEEN_EV_FINISH, id, ShowMessage, "Finished!");
         
 	        // Invalidate callback -- effectively removes it from tween event
@@ -246,6 +248,16 @@ function TweenEventClear(_t, _event)
 	}
 
 	_t = TGMX_FetchTween(_t);
+	
+	// CHECK FOR "EVENT" STRING
+	static __str_at = "@";
+	static __str_at_byte = string_byte_at(__str_at, 1);
+
+	if (is_string(_event)) 
+	{ 
+		_event = TGMX_StringStrip(_event, 0);
+		_event = string_byte_at(_event, 1) == __str_at_byte ? global.TGMX.ArgumentLabels[? _event] : global.TGMX.ArgumentLabels[? __str_at+_event];
+	}
 
 	if (is_array(_t))
 	{
@@ -282,6 +294,16 @@ function TweenEventClear(_t, _event)
 function TweenEventEnable(_t, _event, _enable)
 {	
 	_t = TGMX_FetchTween(_t);
+
+	// CHECK FOR "EVENT" STRING
+	static __str_at = "@";
+	static __str_at_byte = string_byte_at(__str_at, 1);
+
+	if (is_string(_event)) 
+	{ 
+		_event = TGMX_StringStrip(_event, 0);
+		_event = string_byte_at(_event, 1) == __str_at_byte ? global.TGMX.ArgumentLabels[? _event] : global.TGMX.ArgumentLabels[? __str_at+_event];
+	}
 
 	if (is_array(_t))
 	{
@@ -320,7 +342,17 @@ function TweenEventEnable(_t, _event, _enable)
 function TweenEventIsEnabled(_t, _event)
 {	
 	_t = TGMX_FetchTween(_t);
-	if (is_undefined(_t)) { return false; }
+	if (_t == undefined) { return false; }
+	
+	// CHECK FOR "EVENT" STRING
+	static __str_at = "@";
+	static __str_at_byte = string_byte_at(__str_at, 1);
+
+	if (is_string(_event)) 
+	{ 
+		_event = TGMX_StringStrip(_event, 0);
+		_event = string_byte_at(_event, 1) == __str_at_byte ? global.TGMX.ArgumentLabels[? _event] : global.TGMX.ArgumentLabels[? __str_at+_event];
+	}
 
 	// Get events map from tween
 	var _events_map = _t[TGMX_T_EVENTS];

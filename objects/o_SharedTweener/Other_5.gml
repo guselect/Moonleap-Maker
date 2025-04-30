@@ -12,7 +12,10 @@ if (room_persistent)
     var _key = room; // Set map key as room id
     
     // Create persistent queue for room if it doesn't exist
-    if (!ds_map_exists(pRoomTweens, _key)) { ds_map_replace(pRoomTweens, _key, ds_queue_create()); }
+    if (!ds_map_exists(pRoomTweens, _key)) 
+	{ 
+		ds_map_replace(pRoomTweens, _key, ds_queue_create()); 
+	}
     
     // Cache room's tween queue
     var _pRoomQueue = pRoomTweens[? _key];
@@ -65,7 +68,10 @@ if (room_persistent)
     //  Handle delays
     //----------------------
     // Create persistent delays queue for room if it doesn't exist
-    if (!ds_map_exists(pRoomDelays, _key)) { ds_map_replace(pRoomDelays, _key, ds_queue_create()); }
+    if (!ds_map_exists(pRoomDelays, _key)) 
+	{ 
+		ds_map_replace(pRoomDelays, _key, ds_queue_create()); 
+	}
     
     // Cache room's delayed tweens queue
     var _pRoomDelays = pRoomDelays[? _key];

@@ -21,31 +21,26 @@ function Ease(_value1, _value2, _amount, _ease)
 
 	// MAKE SURE SHARED TWEENER HAS BEEN CREATED AT LEAST ONCE
 	static _ = SharedTweener();
-
-	if (is_real(_ease))
-	{
-		if (_ease < 100000) // Animation Curve ID
-		{
-			return _value1+(_value2-_value1)*animcurve_channel_evaluate(animcurve_get_channel(_ease, 0), _amount);
-		}
-		else // Function ID
-		{
-			return script_execute(_ease, _amount, _value1, _value2-_value1, 1);
-		}
-	}
-
+	static __EaseTypes__ = {number: 0, method: 1, ref: 2}
+	
 	if (is_string(_ease))
 	{
 		_ease = global.TGMX.ShortCodesEase[? global.TGMX.Cache[? _ease] ?? TGMX_StringStrip(_ease)];
 	}
-
-	if (is_method(_ease)) // METHOD EASE
-	{
-		return _ease(_amount, _value1, _value2-_value1, 1);
-	}
 	
-	// Animation Curve Channel
-	return _value1+(_value2-_value1)*animcurve_channel_evaluate(_ease, _amount);
+	switch(__EaseTypes__[$ typeof(_ease)])
+	{
+	case 0: // NUMBER
+		return _ease >= 100000 ? script_execute(_ease, _amount, _value1, _value2-_value1, 1) // Function ID
+		: _value1+(_value2-_value1)*animcurve_channel_evaluate(animcurve_get_channel(_ease, 0), _amount); // Animation Curve ID
+	case 1: // METHOD
+		return _ease(_amount, _value1, _value2-_value1, 1);
+	case 2: // REF
+		return (real(_ease) >= 100000) ? script_execute(_ease, _amount, _value1, _value2-_value1, 1) // Function ID
+		: _value1+(_value2-_value1)*animcurve_channel_evaluate(animcurve_get_channel(_ease, 0), _amount); // Animation Curve ID
+	default: // Assume Animation Curve Channel
+		return _value1+(_value2-_value1)*animcurve_channel_evaluate(_ease, _amount);
+	}
 }_=Ease;
 
 
@@ -57,17 +52,21 @@ function Ease(_value1, _value2, _amount, _ease)
 function EaseToString(_name, _ease, _channel=0)
 {		
 	static _ = TGMX_Begin();
+	static __EaseTypes__ = {number: 0, struct: 1, ref: 2}
 	
-	if (is_real(_ease))
+	switch(__EaseTypes__[$ typeof(_ease)])
 	{
-		if (_ease < 100000)
-		{
+		case 0: // NUMBER
+			_ease = (_ease >= 100000) ? method(undefined, _ease) : animcurve_get_channel(animcurve_get(_ease), _channel);
+		break;
+		
+		case 1: // STRUCT
 			_ease = animcurve_get_channel(animcurve_get(_ease), _channel);
-		}
-		else
-		{
-			_ease = method(undefined, _ease);	
-		}
+		break;
+		
+		case 2: // REF
+			_ease = animcurve_get_channel(animcurve_get(_ease), _channel);
+		break;
 	}
 	
 	_name = TGMX_StringStrip(_name);
@@ -347,7 +346,7 @@ function EaseInOutCirc(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseInExpo(_time, _start, _change, _duration)
 {
-	return _change * power(2, 10 * (_time/_duration - 1)) + _start;
+	return (_time == 0) ? _start : _change * power(2, 10 * (_time/_duration - 1)) + _start;
 }
 
 /// @param {real} time 
@@ -356,7 +355,7 @@ function EaseInExpo(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseOutExpo(_time, _start, _change, _duration)
 {
-	return _change * (-power(2, -10 * _time / _duration) + 1) + _start;
+	return (_time == _duration) ? _start + _change : _change * (-power(2, -10 * _time / _duration) + 1) + _start;
 }
 
 /// @param {real} time 
@@ -365,9 +364,11 @@ function EaseOutExpo(_time, _start, _change, _duration)
 /// @param {real} duration
 function EaseInOutExpo(_time, _start, _change, _duration)
 {
+	if (_time == 0) { return _start; }
+	if (_time == _duration) { return _start + _change; }
+	
 	_time = 2 * _time / _duration;
-	return _time < 1 ? _change * 0.5 * power(2, 10 * (_time-1)) + _start
-					 : _change * 0.5 * (-power(2, -10 * (_time-1)) + 2) + _start;
+	return (_time < 1) ? _change * 0.5 * power(2, 10 * (_time-1)) + _start : _change * 0.5 * (-power(2, -10 * (_time-1)) + 2) + _start;
 }
 	
 	
@@ -403,6 +404,94 @@ function EaseInOutBack(_time, _start, _change, _duration)
 {
 	_time = _time/_duration*2;
 	_duration = 1.70158; // "s"
+
+	if (_time < 1)
+	{
+	    _duration *= 1.525;
+	    return _change * 0.5 * (((_duration + 1) * _time - _duration) * _time * _time) + _start;
+	}
+
+	_time -= 2;
+	_duration *= 1.525;
+
+	return _change * 0.5 * (((_duration + 1) * _time + _duration) * _time * _time + 2) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseInBackSoft(_time, _start, _change, _duration)
+{
+	_time /= _duration;
+	_duration = 0.7; // repurpose _duration as Robert Penner's "s" value -- You can hardcode this into wherever you see '_duration' in the next line
+	return _change * _time * _time * ((_duration + 1) * _time - _duration) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseInBackSofter(_time, _start, _change, _duration)
+{
+	_time /= _duration;
+	_duration = 0.3; // repurpose _duration as Robert Penner's "s" value -- You can hardcode this into wherever you see '_duration' in the next line
+	return _change * _time * _time * ((_duration + 1) * _time - _duration) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseOutBackSoft(_time, _start, _change, _duration)
+{
+    _time = _time/_duration - 1;
+    _duration = 0.7; // "s"
+    
+    return _change * (_time * _time * ((_duration + 1) * _time + _duration) + 1) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseOutBackSofter(_time, _start, _change, _duration)
+{
+    _time = _time/_duration - 1;
+    _duration = 0.3; // "s"
+    
+    return _change * (_time * _time * ((_duration + 1) * _time + _duration) + 1) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseInOutBackSoft(_time, _start, _change, _duration)
+{
+	_time = _time/_duration*2;
+	_duration = 0.7; // "s"
+
+	if (_time < 1)
+	{
+	    _duration *= 1.525;
+	    return _change * 0.5 * (((_duration + 1) * _time - _duration) * _time * _time) + _start;
+	}
+
+	_time -= 2;
+	_duration *= 1.525;
+
+	return _change * 0.5 * (((_duration + 1) * _time + _duration) * _time * _time + 2) + _start;
+}
+
+/// @param {real} time 
+/// @param {real} start 
+/// @param {real} change 
+/// @param {real} duration
+function EaseInOutBackSofter(_time, _start, _change, _duration)
+{
+	_time = _time/_duration*2;
+	_duration = 0.3; // "s"
 
 	if (_time < 1)
 	{
@@ -570,10 +659,10 @@ function TGMX_2_EaseFunctions()
 	// MAKE SURE SYSTEM IS INTITIALIZED
 	static _ = TGMX_Begin();
 	
-	// MAKE SURE THIS ONLY CALLED ONCE
-	static a = false;
-	if (a) { return 0; }
-	a = true;
+	// MAKE SURE THIS ONLY FIRES ONCE
+	static __initialized = false;
+	if (__initialized) { return 0; }
+	__initialized = true;
 	
 	//======================
 	// EASING "SHORT CODES"
@@ -646,6 +735,13 @@ function TGMX_2_EaseFunctions()
 	f(EaseToCurve(EaseInBack), "iback", "inback");
 	f(EaseToCurve(EaseOutBack), "oback", "outback");
 	f(EaseToCurve(EaseInOutBack), "ioback", "inoutback");
+	
+	f(EaseToCurve(EaseInBackSoft), "ibacksoft", "inbacksoft");
+	f(EaseToCurve(EaseInBackSofter), "ibacksofter", "inbacksofter");
+	f(EaseToCurve(EaseOutBackSoft), "obacksoft", "outbacksoft");
+	f(EaseToCurve(EaseOutBackSofter), "obacksofter", "outbacksofter");
+	f(EaseToCurve(EaseInOutBackSoft), "iobacksoft", "inoutbacksoft");
+	f(EaseToCurve(EaseInOutBackSofter), "iobacksofter", "inoutbacksofter");
 
 	// Bounce
 	f(EaseToCurve(EaseInBounce), "ibounce", "inbounce");
