@@ -361,49 +361,49 @@ function level_maker_get_tiles_list(_style) {
 			break;
 		case LEVEL_STYLE.FLOWERS:
 			_tileset = tMakerFlowerDay;
-			_pages = 2;
-			_tiles_amount = 33;
-			_tile_changes_starts_from = 14;
+			_pages = 3;
+			_tiles_amount = 40;
+			_tile_changes_starts_from = infinity; // infinity = no tiles that changes day/night
 			break;
 		case LEVEL_STYLE.SPACE:
 			_tileset = tMakerSpaceDay;
 			_pages = 4;
 			_tiles_amount = 53;
 			_tile_changes_starts_from = 34;
-            _animated_tiles = {
-                "_37": {
-                    sprite_day: sAnimTileSpaceCloudCenterDay,
+         _animated_tiles = {
+            "_37": {
+               sprite_day: sAnimTileSpaceCloudCenterDay,
 					sprite_night: sAnimTileSpaceCloudCenterNight,
-                },
-                "_38": {
-                    sprite_day: sAnimTileSpaceCloudEdgeDay,
+            },
+            "_38": {
+               sprite_day: sAnimTileSpaceCloudEdgeDay,
 					sprite_night: sAnimTileSpaceCloudEdgeNight,
-                },
-                "_50": {
-                    sprite_day: sAnimTileSpaceStar1Day,
+            },
+            "_50": {
+               sprite_day: sAnimTileSpaceStar1Day,
 					sprite_night: sAnimTileSpaceStar1Night,
-                },
-                "_51": {
-                    sprite_day: sAnimTileSpaceStar2Day,
+            },
+            "_51": {
+               sprite_day: sAnimTileSpaceStar2Day,
 					sprite_night: sAnimTileSpaceStar2Night,
-                },
-                "_52": {
-                    sprite_day: sAnimTileSpaceStar3Day,
+            },
+            "_52": {
+               sprite_day: sAnimTileSpaceStar3Day,
 					sprite_night: sAnimTileSpaceStar3Night,
-                },
-            }
+            },
+         }
 			break;
 		case LEVEL_STYLE.DUNGEON:
 			_tileset = tMakerDungeonDay;
 			_pages = 4;
 			_tiles_amount = 57;
 			_tile_changes_starts_from = 45;
-            _animated_tiles = {
-                "_56": {
-                    sprite_day: sAnimTileDunTochaDay,
+         _animated_tiles = {
+            "_56": {
+					sprite_day: sAnimTileDunTochaDay,
 					sprite_night: sAnimTileDunTochaNight,
-                },
-            }
+            },
+         }
 			break;
 	}
 	
