@@ -98,7 +98,7 @@ titulo: [
 nome: [
 	"Gustavo Barros",
 	"Dani Serranú",
-	"Luiz Alves",
+	"Luiz Alves, Rowan Future and Daniel Neto",
 	"James Begg",
 	"Hugo Balthazar",
 ],

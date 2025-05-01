@@ -149,7 +149,7 @@ maker_intro: "Welcome to Moonleap Maker! This editor is in beta",
 	nome: [
 		"Gustavo Barros",
 		"Dani Serranú",
-		"Luiz Alves",
+		"Luiz Alves, Rowan Future and Daniel Neto",
 		"James Begg",
 		"Hugo Balthazar",
 	],
@@ -157,7 +157,7 @@ maker_intro: "Welcome to Moonleap Maker! This editor is in beta",
 	titulo_art: "cover art by",
 	
 	nomes_art: [
-		"Aimee Cairns & João Alves \"Pyro\" (DLC)",
+		"Aimee Cairns and João Alves \"Pyro\" (DLC)",
 	],
 
 	titulo_trans: "translated into english by",

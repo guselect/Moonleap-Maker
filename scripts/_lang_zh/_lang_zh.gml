@@ -149,7 +149,7 @@ text_skip: "您可以在暂停菜单中跳过此关卡",
 nome: [
     "Gustavo Barros",
     "Dani Serranú",
-    "Luiz Alves",
+    "Luiz Alves, Rowan Future and Daniel Neto",
     "James Begg",
 	"Hugo Balthazar",
 ],
