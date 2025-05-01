@@ -18,7 +18,7 @@
 //		sday = sDunDay; snight = sDunNight;
 //		break;
 //}
-
+draw_set_font(oCamera.font);
 draw_set_color(color.nice_white);
 
 if not level_maker_is_editing() or instance_exists(oPauseMenu) {

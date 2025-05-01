@@ -50,7 +50,7 @@ selected_style = LEVEL_STYLE.GRASS;
 // UI-related
 hover_text = "";
 text_shadow_x = 0;
-text_shadow_y = 2;
+text_shadow_y = 1; 
 color = {
 	nice_black: make_color_rgb(0,0,72),
 	nice_white: make_color_rgb(170,255,255),

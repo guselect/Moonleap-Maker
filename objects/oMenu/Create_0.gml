@@ -47,7 +47,7 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 			},
 			{
 				name: "level maker",
-				text: function() { return "editor de níveis"; },
+				text: function() { return LANG.maker_name; },
 				action: function() {
 					if (!instance_exists(oTransition)) {
 						audio_play_sfx(sndStarGame,false,-6,0)

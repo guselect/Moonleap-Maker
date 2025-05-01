@@ -9,7 +9,7 @@ if room_is([RoomMenu, RoomMenu2, RoomCredits, RoomCreditsAlves, Room100, rm_blan
 	roomname=" "
 	_yy = 64;//104-ceil(_menu_ops/2)*_menu_y_gap;
 } else if is_level_maker_room() {
-	roomname="Editor de níveis"
+	roomname=LANG.maker_name
 	_yy = 73;
 } else {
 	var name=LANG[$ room_get_name(room)]

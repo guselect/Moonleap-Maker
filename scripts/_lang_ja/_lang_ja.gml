@@ -51,7 +51,7 @@ lang_add("JA", {
 	text_slower: "もっとゆっくり",   // Slower onomatopoeia
 	
 //MAKER
-
+maker_name: "ステージエディター",
 maker_play: "レベルをテスト",
 maker_load: "レベルをロード",
 maker_savemenu: "レベルを保存",
@@ -62,7 +62,7 @@ maker_help: "ヘルプ",
 maker_change_level_style: "レベルスタイルを変更",
 maker_eraser: "消しゴム",
 maker_erase_level: "レベルを消去（長押し）",
-
+maker_change_layer: "レイヤーを変更",
 maker_grassstyle: "草原",
 maker_cloudstyle: "雲",
 maker_flowerstyle: "花",
@@ -77,6 +77,11 @@ maker_noestar: "スターがないとテストできません！",
 maker_help_text: "Moonleap Makerへようこそ！\nオブジェクトをクリックして、レベル上に配置しましょう\n\nキーボード:\nZ - オブジェクトを回転\nX - オブジェクトを反転\nWASD または 矢印キー - オブジェクトリストをナビゲート\nF5 - レベルをテスト\n\nマウス:\n左クリック - オブジェクトを配置\n右クリック - オブジェクトを消去\nスクロール - オブジェクトリストのタイプを変更\n画面ループはプレイヤーのみに制限することをお勧めします\n他のオブジェクトは予期せぬ動作をするかもしれません",
 
 maker_intro: "Moonleap Makerへようこそ！このエディターはベータ版です",
+
+maker_foreground: "1: 前景（かざり）",
+maker_objects: "2: オブジェクト",
+maker_background: "3: 背景（かざり）",
+maker_far_background: "4: 遠くの背景（かざり）",
 
 
 //          .88b  d88. d88888b d8b   db db    db 

@@ -473,15 +473,15 @@ function level_maker_get_background_instances_layer_name() {
 function level_maker_get_layer_hover_text() {
 	switch(oLevelMaker.current_layer) {
 		case LEVEL_CURRENT_LAYER.FOREGROUND:
-			return "1: Frente (Decoração)";
+			return LANG.maker_foreground;	//"1: Frente (Decoração)";
 		case LEVEL_CURRENT_LAYER.OBJECTS:
-			return "2: Objetos";
+			return LANG.maker_objects;		//"2: Objetos";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_1:
-			return "3: Fundo (Decoração)";
+			return LANG.maker_background;	//"3: Fundo (Decoração)";
 		case LEVEL_CURRENT_LAYER.BACKGROUND_2:
-			return "4: Fundo Distante (Decoração)";
+			return LANG.maker_far_background;//"4: Fundo Distante (Decoração)";
 		default:
-			return "Camada desconhecida";
+			return "undefined";
 	}
 }
 

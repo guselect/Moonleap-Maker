@@ -19,7 +19,7 @@ text_poem8: "consuelo y dulzura de la paz",
 //              88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
 //              88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
 
-
+maker_name: "editor de niveles",
 maker_play: "Probar el Nivel",
 maker_load: "Cargar Nivel",
 maker_savemenu: "Guardar Nivel",
@@ -30,7 +30,7 @@ maker_help: "Ayuda",
 maker_change_level_style: "Cambiar Estilo del Nivel",
 maker_eraser: "Borrador",
 maker_erase_level: "Borrar el Nivel (Mantener)",
-
+maker_change_layer: "Cambiar capa",
 maker_grassstyle: "Césped",
 maker_cloudstyle: "Nube",
 maker_flowerstyle: "Flor",
@@ -45,6 +45,12 @@ maker_noestar: "¡No puedes probar sin una estrella!",
 maker_help_text: "¡Bienvenido a Moonleap Maker!\nHaz clic en los objetos y colócalos en el nivel\n\nTeclado: \nZ - Rotar el objeto \nX - Espejar el objeto \nWASD o Flechas - Navegar por la lista de objetos \nF5 - Probar el Nivel \n\nMouse: \nBotón Izquierdo - Colocar el Objeto \nBotón Derecho - Borrar Objetos \nScroll - Cambiar el tipo en la lista de objetos \nSugerimos limitar el bucle de la pantalla solo al jugador\nOtros objetos pueden no comportarse como se espera",
 
 maker_intro: "¡Bienvenido a Moonleap Maker! Este editor está en beta",
+
+maker_foreground: "1: Frente (Decoración)",
+maker_objects: "2: Objetos",
+maker_background: "3: Fondo (Decoración)",
+maker_far_background: "4: Fondo Distante (Decoración)",
+
 
     //          .88b  d88. d88888b d8b   db db    db 
     //          88'YbdP`88 88'     888o  88 88    88 

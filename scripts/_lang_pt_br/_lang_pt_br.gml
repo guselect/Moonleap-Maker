@@ -35,6 +35,7 @@ lang_add("PT-BR", {
 	//              88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
 	//              88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
 
+maker_name: "criador de fases",
 maker_play: "Testar o Nível",
 maker_load: "Carregar Nível",
 maker_savemenu: "Salvar Nível",
@@ -45,7 +46,7 @@ maker_help: "Ajuda",
 maker_change_level_style: "Mudar Estilo do Nível",
 maker_eraser: "Borracha",
 maker_erase_level: "Apagar o Nível (Segure)",
-
+maker_change_layer: "Mudar de camada",
 maker_grassstyle: "Grama",
 maker_cloudstyle: "Nuvem",
 maker_flowerstyle: "Flor",
@@ -60,6 +61,12 @@ maker_noestar: "Você não pode testar sem uma estrela!",
 maker_help_text: "Bem-vindo ao Moonleap Maker!\nClique nos objetos e posicione-os na fase\n\nTeclado: \nZ - Rotaciona o objeto \nX - Espelha o objeto \nWASD ou Setas - Navegam pela lista de objetos \nF5 - Testa o Nível \n\nMouse: \nBotão Esquerdo - Coloca o Objeto \nBotão Direito - Apaga Objetos \nScroll - Muda o tipo na lista de objetos\n\nRecomendamos que somente o player loope pela tela\nOutros objetos podem não funcionar corretamente",
 
 maker_intro: "Bem-vindo ao Moonleap Maker! Este editor está em beta",
+
+
+maker_foreground: "1: Frente (Decoração)",
+maker_objects: "2: Objetos",
+maker_background: "3: Fundo (Decoração)",
+maker_far_background: "4: Fundo Distante (Decoração)",
 	
 
 	//			d888888b d8b   db d888888b d8888b.  .d88b.  

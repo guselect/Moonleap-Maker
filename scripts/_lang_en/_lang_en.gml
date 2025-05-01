@@ -38,7 +38,7 @@ lang_add("EN", {
 	//              88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
 	//              88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
 
-
+maker_name: "level editor",
 maker_play: "Test the Level",
 maker_load: "Load Level",
 maker_savemenu: "Save Level",
@@ -49,7 +49,7 @@ maker_help: "Help",
 maker_change_level_style: "Change Level Style",
 maker_eraser: "Eraser",
 maker_erase_level: "Erase the Level (Hold)",
-
+maker_change_layer: "Change Layer",
 maker_grassstyle: "Grass",
 maker_cloudstyle: "Cloud",
 maker_flowerstyle: "Flower",
@@ -64,6 +64,11 @@ maker_noestar: "You can't test without a star!",
 maker_help_text: "Welcome to Moonleap Maker!\nClick on the objects and place them on the level\n\nKeyboard: \nZ - Rotate the object \nX - Mirror the object \nWASD or Arrow Keys - Navigate through the Object list \nF5 - Test the Level \n\nMouse: \nLeft Button - Place the Object \nRight Button - Erase Objects \nScroll - Change the type in the object list \nWe suggest limiting the screen loop to the player only\nOther objects may not behave as expected",
 
 maker_intro: "Welcome to Moonleap Maker! This editor is in beta",
+
+maker_foreground: "1: Foreground (Decoration)",
+maker_objects: "2: Objects",
+maker_background: "3: Background (Decoration)",
+maker_far_background: "4: Far Background (Decoration)",
 
 
 	//			d888888b d8b   db d888888b d8888b.  .d88b.  

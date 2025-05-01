@@ -57,7 +57,7 @@ text_shh: "嘘", // "shhhh"
 text_slower: "慢一点", // "slower"
 
 //MAKER
-
+maker_name: "关卡编辑器",
 maker_play: "测试关卡",
 maker_load: "加载关卡",
 maker_savemenu: "保存关卡",
@@ -68,7 +68,7 @@ maker_help: "帮助",
 maker_change_level_style: "更改关卡风格",
 maker_eraser: "橡皮擦",
 maker_erase_level: "清空关卡（按住）",
-
+maker_change_layer: "切换图层",
 maker_grassstyle: "草地",
 maker_cloudstyle: "云朵",
 maker_flowerstyle: "花卉",
@@ -83,6 +83,12 @@ maker_noestar: "没有星星，无法测试！",
 maker_help_text: "欢迎来到 Moonleap Maker！\n点击对象并将它们放置在关卡中\n\n键盘：\nZ - 旋转对象\nX - 镜像对象\nWASD 或方向键 - 在对象列表中导航\nF5 - 测试关卡\n\n鼠标：\n左键 - 放置对象\n右键 - 删除对象\n滚轮 - 更改对象列表中的类型\n建议将屏幕循环限制为仅限玩家\n其他对象可能无法按预期运行",
 
 maker_intro: "欢迎来到 Moonleap Maker！此编辑器处于测试版",
+
+maker_foreground: "1: 前景（装饰）",
+maker_objects: "2: 物体",
+maker_background: "3: 背景（装饰）",
+maker_far_background: "4: 远景背景（装饰）",
+
 
 	
 	//			.88b  d88. d88888b d8b   db db    db 

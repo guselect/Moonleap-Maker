@@ -53,7 +53,7 @@ switch (image_index) {
         break;
     case 9:  hover_text = LANG.maker_eraser; break;
     case 10: hover_text = LANG.maker_erase_level; break;
-    case 11: hover_text = $"Mudar camada\n{level_maker_get_layer_hover_text()}"; break;
+    case 11: hover_text = $"{LANG.maker_change_layer}\n{level_maker_get_layer_hover_text()}"; break;
 }
 
 var is_mouse_left_pressing = mouse_check_button_pressed(mb_left);

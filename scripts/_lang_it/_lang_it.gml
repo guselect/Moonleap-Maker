@@ -44,7 +44,7 @@ lang_add("IT", {
     text_shh: "shhhh",   //onomatopoeia for silence
     text_slower: "più lento",   //onomatopoeia for silence
 //MAKER
-
+maker_name: "editor di livelli",
 maker_play: "Testa il Livello",
 maker_load: "Carica Livello",
 maker_savemenu: "Salva Livello",
@@ -55,7 +55,7 @@ maker_help: "Aiuto",
 maker_change_level_style: "Cambia Stile del Livello",
 maker_eraser: "Gomma",
 maker_erase_level: "Cancella il Livello (Tieni Premuto)",
-
+maker_change_layer: "Cambia livello",
 maker_grassstyle: "Erba",
 maker_cloudstyle: "Nuvola",
 maker_flowerstyle: "Fiore",
@@ -70,6 +70,11 @@ maker_noestar: "Non puoi testare senza una stella!",
 maker_help_text: "Benvenuto in Moonleap Maker!\nClicca sugli oggetti e posizionali nel livello\n\nTastiera: \nZ - Ruota l'oggetto \nX - Specchia l'oggetto \nWASD o Frecce - Naviga nella lista degli oggetti \nF5 - Testa il Livello \n\nMouse: \nTasto Sinistro - Posiziona l'Oggetto \nTasto Destro - Cancella Oggetti \nScroll - Cambia il tipo nella lista degli oggetti \nConsigliamo di limitare il loop dello schermo solo al giocatore\nAltri oggetti potrebbero non comportarsi come previsto",
 
 maker_intro: "Benvenuto in Moonleap Maker! Questo editor è in beta",
+
+maker_foreground: "1: Primo piano (Decorazione)",
+maker_objects: "2: Oggetti",
+maker_background: "3: Sfondo (Decorazione)",
+maker_far_background: "4: Sfondo Lontano (Decorazione)",
 
 
     //          .88b  d88. d88888b d8b   db db    db 
