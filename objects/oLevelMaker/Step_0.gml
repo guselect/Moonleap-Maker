@@ -48,7 +48,8 @@ if just_entered_level_editor and mouse_check_button_released(mb_left) {
 //----------------------------------------
 
 // Only gets input if not paused
-scr_inputget();
+
+	scr_inputget();
 
 // ------------------------------------
 // Selecting objects
