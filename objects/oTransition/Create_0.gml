@@ -7,11 +7,9 @@
 
 pause=0
 
-enum states {
+skip_rooms = [RoomMenu, RoomMenu2, RoomProgress, RoomCredits, RoomCreditsAlves, Room100, RoomMaker0];
 
-OUT,
-IN
-}
+enum states { OUT, IN };
 
 state = states.OUT;
 

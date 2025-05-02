@@ -14,7 +14,6 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 					if (!instance_exists(oTransition)) {
 						audio_play_sfx(sndStarGame,false,-6,0)
 						var _trans = instance_create_layer(0,0,layer,oTransition);
-						audio_play_sfx(sndStarGame,false,-6.2,0)
 						if (oCamera.arcade) {
 							instance_create_layer(x,y,layer,oTimeAttack);
 							_trans.target_room = Room0;
