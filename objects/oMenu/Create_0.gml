@@ -50,6 +50,7 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 				action: function() {
 					if (!instance_exists(oTransition)) {
 						audio_play_sfx(sndStarGame,false,-6,0)
+						audio_sound_gain(bgm_intro, 0, 1000);
 						var _trans = instance_create_layer(0,0,layer,oTransition);
 						_trans.target_room = RoomMaker0;
 					}
