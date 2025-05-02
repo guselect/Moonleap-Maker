@@ -956,11 +956,14 @@ delete_all_objects_from_level = function() {
 	}
 }
 
+stop_all_music = function() {
+	instance_destroy(o_music);
+	audio_stop_all();
+}
+
 end_level_and_return_to_editor = function() {
 	//destroy the "song"
-    
-	instance_destroy(o_music);
-	audio_stop_all()
+	stop_all_music();
 	
 	delete_all_objects_from_level();
     with(oMakerEditorTileDraft) {
@@ -1033,3 +1036,4 @@ reset_level_objects_grid();
 //----------------------
 // DEFAULT LEVEL
 set_sample_level();
+stop_all_music();
