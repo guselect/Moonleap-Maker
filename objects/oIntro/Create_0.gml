@@ -8,7 +8,8 @@ sindex = sguselect;
 
 sure = -1;
 confirm_skip = INTRO_CONFIRM_SKIP.WAITING_FOR_INPUT;
-skiptime = 0;
+
+skip_timer = new FrameTimer(180);
 
 text = "";
 
@@ -17,7 +18,7 @@ nice_white = make_color_rgb(170, 255, 255);
 go = true;
 
 // *** Change maker_mode to true to skip the intro and redirect to the level maker.
-maker_mode = true;
+maker_mode = false;
 
 confirm_skip_is = function(_confirm_value) {
 	return confirm_skip == _confirm_value;

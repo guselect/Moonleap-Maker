@@ -11,30 +11,26 @@ try {
 ///////////////////debug
 loadvalue = 1;
 
-// Skip intro
-skiptime -= 1;
-if skiptime == 0 {
-	//sure = -1;
-	confirm_skip = INTRO_CONFIRM_SKIP.WAITING_FOR_INPUT;
-}
-
 if key_jump_pressed or key_start {
 	go = true;
 }
 
-
 if loadvalue != 0 and time < 20 {
+	if skip_timer.has_timed_out() {
+		confirm_skip = INTRO_CONFIRM_SKIP.WAITING_FOR_INPUT;
+	} else {
+		skip_timer.count();
+	}
+	
 	if key_jump_pressed or key_start {
-		//sure += 1;
 		confirm_skip += 1;
-		skiptime = 180;
+		skip_timer.reset();
 	}
 	
 	if confirm_skip_is(INTRO_CONFIRM_SKIP.CONFIRMED) 
 	and not instance_exists(oTransition) {
-		audio_play_sfx(sndStarGame,false,-6.2,0)
-		var trans = instance_create_layer(0, 0, layer, oTransition);
-		trans.target_room = RoomMenu;
+		audio_play_sfx(sndStarGame, false, -6.2, 0);
+		room_transit(RoomMenu);
 		instance_destroy();
 	}
 }
