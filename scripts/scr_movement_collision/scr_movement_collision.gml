@@ -20,22 +20,18 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 	   if yy < 0 then _yy_wrap = yy + room_height;
 	   if yy > room_height then _yy_wrap = yy - room_height;
 	}
-   //if xx < 0 then xx += room_width;
-   //if xx > room_width then xx -= room_width;
-   //if yy < 0 then yy += room_height;
-   //if yy > room_height then yy += room_height;
-	
-	// Included objects collision checking
-	if place_meeting(xx, yy, included_objects)
-	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, included_objects)) {
-      return true;
-   }
 	
 	// Excluded objects collision checking
 	if place_meeting(xx, yy, excluded_objects)
 	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, excluded_objects)) {
 		return false;
 	}
+	
+	// Included objects collision checking
+	if place_meeting(xx, yy, included_objects)
+	or (_will_wrap and place_meeting(_xx_wrap, _yy_wrap, included_objects)) {
+      return true;
+   }
 	
 	// Platforms collision checking
 	var platform_list = ds_list_create();
@@ -105,7 +101,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 		var p = 0;
 		repeat(platform_count) {
 			var platform = ds_list_find_value(platform_list, p);
-			if bbox_left >= platform.bbox_right {
+			if bbox_top >= platform.bbox_bottom {
 				ds_list_destroy(platform_list);
 				return true;
 			}
@@ -148,7 +144,7 @@ function has_collided(xx, yy, is_position_relative = true, included_objects = []
 			var p = 0;
 			repeat(platform_count) {
 				var platform = ds_list_find_value(platform_list, p);
-				if bbox_left >= platform.bbox_right {
+				if bbox_top >= platform.bbox_bottom {
 					ds_list_destroy(platform_list);
 					return true;
 				}

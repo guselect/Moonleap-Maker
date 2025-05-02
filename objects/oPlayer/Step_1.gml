@@ -13,7 +13,7 @@ set_skin_changing();
 
 if debug_mode {
 	if keyboard_check_pressed(ord("L")) then 
-	room_goto(Room40);
+	room_goto(Room28);
 
 	if keyboard_check_pressed(ord("O")) {
 		var skin = 1;
