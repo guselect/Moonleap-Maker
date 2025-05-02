@@ -43,7 +43,7 @@
   "option_ios_splashscreen_background_colour":4278190080,
   "option_ios_team_id":"Gustavo Colares",
   "option_ios_texture_page":"1024x1024",
-  "option_ios_version":"2.3.1",
+  "option_ios_version":"2.3.3",
   "resourceType":"GMiOSOptions",
   "resourceVersion":"2.0",
 }
