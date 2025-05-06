@@ -16,8 +16,15 @@ function FrameTimer(_initial_time) constructor {
 	
 	/// @desc Sets the decrease amount value. The higher the value, fastest is the time decreasing. 
 	/// It must be a value equal or greater than 0. Default speed: 1
+	/// @param {real} _decrease_amount The number to be subtracted from the time when the count is performed.
 	set_decrease_amount = function(_decrease_amount) {
 		__decrease_amount = max(_decrease_amount, 0);
+	}
+	
+	/// @desc Sets a new current time.
+	/// @param {real} _time The time to be set.
+	set_time = function(_time) {
+		__time = _time;
 	}
 	
 	/// @desc Gets the current time value.
