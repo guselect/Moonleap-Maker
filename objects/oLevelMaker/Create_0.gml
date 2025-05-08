@@ -1022,7 +1022,7 @@ set_sample_level = function() {
 
 //CAMERA CODE
 
-oCamera.fancyeffects = true;
+//oCamera.fancyeffects = true;
 
 camera_current_interpolation = 0;
 
@@ -1036,4 +1036,7 @@ reset_level_objects_grid();
 //----------------------
 // DEFAULT LEVEL
 set_sample_level();
-stop_all_music();
+
+instance_destroy(o_music);
+audio_stop_sound(bgm_intro);
+audio_sound_gain(bgm_intro, 1, 0);
