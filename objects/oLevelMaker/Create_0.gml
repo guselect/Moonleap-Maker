@@ -37,11 +37,8 @@ is_cursor_inside_level = false;
 item_preview_offset_x = 0;
 item_preview_offset_y = 0;
 has_object_below_cursor = false;
-test_button_cooldown_max = 20;
-test_button_cooldown = test_button_cooldown_max;
-reset_test_button_cooldown = function() {
-	test_button_cooldown = test_button_cooldown_max;
-}
+
+item_place_disable_timer = new FrameTimer(30);
 
 // Level-related
 selected_style = LEVEL_STYLE.GRASS;
@@ -164,7 +161,8 @@ cursor_get_object_from_grid = function() {
 	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
 	or not mouse_check_button_pressed(mb_left)
 	or cursor != LEVEL_CURSOR_TYPE.FINGER
-	or not is_struct(object_grid_hovering) {
+	or not is_struct(object_grid_hovering)
+	or not item_place_disable_timer.has_timed_out() {
 		return;
 	}
 	
@@ -183,7 +181,8 @@ cursor_get_object_from_grid = function() {
 cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 	if not is_cursor_inside_level
 	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
-	or is_undefined(selected_object) then
+	or is_undefined(selected_object)
+	or not item_place_disable_timer.has_timed_out() then
 		return;
 	
 	if (mouse_check_button_released(mb_left) 
@@ -191,7 +190,6 @@ cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 		) and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
 		and not has_object_below_cursor
-		and test_button_cooldown == 0
 	{
 		if selected_object.has_tag("is_unique") {
 			remove_all_specific_objects_from_grid(selected_object.index);
@@ -247,15 +245,14 @@ cursor_remove_object_from_grid = function() {
 }
 
 cursor_create_tile_in_grid = function() {
-	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
-		return;
-
-    if not mouse_check_button(mb_left)
-    or cursor != LEVEL_CURSOR_TYPE.CURSOR
-    or is_undefined(selected_tile)
-    or test_button_cooldown > 0 {
-        return;
-    }
+	if not is_cursor_inside_level
+	or current_layer == LEVEL_CURRENT_LAYER.OBJECTS
+	or cursor != LEVEL_CURSOR_TYPE.CURSOR
+	or is_undefined(selected_tile)
+	or not mouse_check_button(mb_left)
+   or not item_place_disable_timer.has_timed_out() {
+      return;
+   }
 
     var _instance_layer_name = level_maker_get_background_instances_layer_name();
     var _tileset_layer_name = level_maker_get_background_tile_layer_name();
@@ -311,7 +308,8 @@ cursor_create_tile_in_grid = function() {
 }
 
 cursor_remove_tile_from_grid = function() {
-	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+	if not is_cursor_inside_level 
+	or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
 		return;
 		
 	if (not mouse_check_button(mb_left) and mouse_check_button(mb_right)) 
