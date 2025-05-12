@@ -1,6 +1,8 @@
 item_preview_offset_y = smooth_approach(item_preview_offset_y, 0, 0.25);
 item_preview_offset_x = smooth_approach(item_preview_offset_x, 0, 0.25);
 
+item_place_disable_timer.count();
+
 var _hover_button = collision_point(global.level_maker_mouse_x, global.level_maker_mouse_y, oButtonMaker, false, true);
 
 if cursor != LEVEL_CURSOR_TYPE.ERASER {
@@ -28,10 +30,6 @@ if _hover_button != noone {
     set_hover_text(_hover_button.hover_text);
 } else {
     set_hover_text("");
-}
-
-if test_button_cooldown > 0 {
-	test_button_cooldown -= 1;
 }
 
 // If the level editor is not in use don't run any more code

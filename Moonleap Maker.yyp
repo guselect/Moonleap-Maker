@@ -585,6 +585,7 @@
     {"id":{"name":"scr_salva_dados","path":"scripts/scr_salva_dados/scr_salva_dados.yy",},},
     {"id":{"name":"scr_settings","path":"scripts/scr_settings/scr_settings.yy",},},
     {"id":{"name":"scr_switch","path":"scripts/scr_switch/scr_switch.yy",},},
+    {"id":{"name":"scr_timer_system","path":"scripts/scr_timer_system/scr_timer_system.yy",},},
     {"id":{"name":"scr_utils","path":"scripts/scr_utils/scr_utils.yy",},},
     {"id":{"name":"scrCredits","path":"scripts/scrCredits/scrCredits.yy",},},
     {"id":{"name":"scrDie","path":"scripts/scrDie/scrDie.yy",},},

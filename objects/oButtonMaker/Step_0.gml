@@ -143,10 +143,16 @@ if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) 
 }
 
 // Load level
- if image_index == 5 and is_mouse_left_pressing {
+if image_index == 5 
+and is_mouse_left_pressing {
 	play_sound_on_press();
+	
 	d_loadLevel = get_open_filename("*.moonlevel", "Meu nivel");
 	if (d_loadLevel != "") then level_maker_load(d_loadLevel);
+	
+	with (oLevelMaker) {
+		item_place_disable_timer.reset();
+	}
 }
 
 // Test level
@@ -157,7 +163,7 @@ if image_index == 6 and (is_mouse_left_pressing or keyboard_check_pressed(vk_f5)
 		if level_maker_is_editing() {
 			start_level();
 		} else {
-			oLevelMaker.reset_test_button_cooldown();
+			oLevelMaker.item_place_disable_timer.reset();
 			oLevelMaker.end_level_and_return_to_editor();
 		}
 	}
