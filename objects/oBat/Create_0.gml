@@ -61,6 +61,7 @@ check_mushroom_collision = function() {
         change = true;
       _nearmush.image_speed = 1;
       play_mushroom_sound();
+      shake_gamepad(0.4, 2);
       return;
     }
   }
@@ -87,6 +88,7 @@ check_mushroom_collision = function() {
         change = true;
       _nearmush.image_speed = 1;
       play_mushroom_sound();
+      shake_gamepad(0.4, 2);
       return;
     }
   }

@@ -37,6 +37,9 @@
     "name":"sLadyGiant",
     "path":"sprites/sLadyGiant/sLadyGiant.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"sLadyGiant",
+    "path":"sprites/sLadyGiant/sLadyGiant.yy",
+  },
   "visible":true,
 }

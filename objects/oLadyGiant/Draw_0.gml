@@ -48,8 +48,3 @@ if startindex=1
 	if global.settings.filter=true
 	{draw_sprite_ext(sColorBlind16,1,x,y,image_xscale,image_yscale,0,c_white,1)}
 }
-
-
-//draw_set_color(c_yellow);
-//draw_rectangle(bbox_left, bbox_top, bbox_right - 1, bbox_bottom - 1, true);
-//draw_set_color(-1);
