@@ -41,13 +41,5 @@ if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike], [oSnail, oSnailN
 }
 
 check_mushroom_collision();
-//if instance_exists(oMush) {
-	//if (place_meeting(x, y + 1, oMush) and dir == 1)
-	//or (place_meeting(x, y - 1, oMush) and dir == -1) {
-		//dir *= -1;
-		//scr_change();
-		//play_mushroom_sound();
-	//}
-//}
 
 image_speed = vsp == 0 ? 1 : 3;

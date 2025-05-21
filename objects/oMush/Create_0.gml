@@ -26,7 +26,6 @@ find_object_to_glue = function() {
   	}
   }
   
-  
   if instance_exists(oBatVer) {
     near_lady = instance_nearest(x, y, oBatVer);
 
@@ -40,24 +39,12 @@ find_object_to_glue = function() {
           return;
     		}
         break;
-      
-      case 0:
-      case 180:
-      case -180:
-        if distance_to_object(near_lady) < 4 {
-    			glued = true;
-          return;
-    		}
-        break;
     }
   }
   
   if instance_exists(oBat) {
     near_lady = instance_nearest(x, y, oBat);
-  	if (image_angle == -90 or image_angle == 90) and distance_to_object(near_lady) < 4 {
-      glued = true;
-      return;
-  	} else if image_angle == 0 and distance_to_object(near_lady) < 4 {
+    if image_angle == 0 and distance_to_object(near_lady) < 4 {
       glued = true;
       return;
   	} else if image_angle == 180 and distance_to_object(near_lady) < 6 {
@@ -108,7 +95,6 @@ glue_on_object_if_exists = function() {
       break;
 
     case oBat:
-    case oBatGiant:
       switch(image_angle) {
         case 90:
         case -90:

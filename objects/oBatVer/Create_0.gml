@@ -46,7 +46,8 @@ check_mushroom_collision = function() {
   
       if not instance_exists(_nearmush)
       or not _nearmush.image_angle == 0
-      or dir != 1 {
+      or dir != 1
+      or _nearmush.bbox_top < bbox_bottom {
         continue;
       }
 
@@ -71,7 +72,8 @@ check_mushroom_collision = function() {
 
       if not instance_exists(_nearmush)
       or not (_nearmush.image_angle == 180 or _nearmush.image_angle == -180)
-      or dir != -1 {
+      or dir != -1
+      or _nearmush.bbox_top > bbox_bottom {
         continue;
       }
 
