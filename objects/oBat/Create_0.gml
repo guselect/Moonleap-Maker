@@ -24,6 +24,8 @@ yy = y;
 change = false
 palette_index = 4;
 
+nearmush_list = ds_list_create();
+
 image_index = 0;
 
 set_pallete_index();
@@ -36,10 +38,54 @@ play_mushroom_sound = function() {
 	audio_play_sfx(sfxcogu, false, -16, 2);
 }
 
-//spawn_dust_particles = function() {
-//	repeat(irandom_range(3, 5)) {
-//		var dust = instance_create_layer(x - (sprite_width / 2), y + (sprite_width / 2), "Instances_2", oBigDust);
-//		dust.hsp = hsp / random_range(5, 10);
-//		dust.vsp = vsp / random_range(5, 10);
-//	}
-//}
+check_mushroom_collision = function() {
+  if not ds_list_empty(nearmush_list) then ds_list_clear(nearmush_list);
+  
+  var _nearmush_amount = instance_place_list(x + 1, y, oMush, nearmush_list, true);
+  
+  if _nearmush_amount > 0 {
+    for (var i = 0; i < _nearmush_amount; i++) {
+      var _nearmush = ds_list_find_value(nearmush_list, i);
+  
+      if not instance_exists(_nearmush)
+      or not (_nearmush.image_angle == 90 or _nearmush.image_angle == -270)
+      or dir != 1 {
+        continue;
+      }
+
+      dir *= -1;
+      if _nearmush.object_index == oMush then
+        scr_change();
+      else 
+        change = true;
+      _nearmush.image_speed = 1;
+      play_mushroom_sound();
+      return;
+    }
+  }
+
+  if not ds_list_empty(nearmush_list) then ds_list_clear(nearmush_list);
+
+  _nearmush_amount = instance_place_list(x - 1, y, oMush, nearmush_list, true);
+
+  if _nearmush_amount > 0 {
+    for (var i = 0; i < _nearmush_amount; i++) {
+      var _nearmush = ds_list_find_value(nearmush_list, i);
+
+      if not instance_exists(_nearmush)
+      or not (_nearmush.image_angle == 270 or _nearmush.image_angle == -90)
+      or dir != -1 {
+        continue;
+      }
+
+      dir *= -1;
+      if _nearmush.object_index == oMush then 
+        scr_change();
+      else
+        change = true;
+      _nearmush.image_speed = 1;
+      play_mushroom_sound();
+      return;
+    }
+  }
+}

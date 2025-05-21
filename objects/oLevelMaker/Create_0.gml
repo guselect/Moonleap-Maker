@@ -141,7 +141,7 @@ check_return_to_editor_timer = function() {
     return_to_editor_timer.reset();
     return;
   }
-
+  
   return_to_editor_timer.count();
   
   if return_to_editor_timer.has_timed_out() {
