@@ -40,6 +40,8 @@ has_object_below_cursor = false;
 
 item_place_disable_timer = new FrameTimer(30);
 
+return_to_editor_timer = new FrameTimer(60);
+
 // Level-related
 selected_style = LEVEL_STYLE.GRASS;
 //time = 0; //used to release the buttons
@@ -129,6 +131,22 @@ update_current_item = function() {
     } else {
         update_selected_tile();
     }
+}
+
+check_return_to_editor_timer = function() {
+  if level_maker_is_editing() 
+    or (not level_maker_is_editing() 
+      and instance_exists(oPlayer)
+      and not oPlayer.has_collected_all_stars()) {
+    return_to_editor_timer.reset();
+    return;
+  }
+
+  return_to_editor_timer.count();
+  
+  if return_to_editor_timer.has_timed_out() {
+    end_level_and_return_to_editor();
+  }
 }
 
 cursor_set_position = function() {
@@ -982,14 +1000,13 @@ end_level_and_return_to_editor = function() {
 	instance_destroy(oKeyFollow3, false);
 	//instance_destroy(oFog);
 	
-    // Disable layer effects
-    var _fx_dust = layer_get_id("FX_Dust");
+  // Disable layer effects
+  var _fx_dust = layer_get_id("FX_Dust");
 
-    layer_set_visible(_fx_dust, false);
-    
-
-    level_maker_change_fx();
-    audio_play_sfx(snd_bump, false, 1, 1);
+  layer_set_visible(_fx_dust, false);
+  
+  level_maker_change_fx();
+  audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
 }
 

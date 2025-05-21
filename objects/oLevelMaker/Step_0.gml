@@ -20,17 +20,19 @@ if cursor != LEVEL_CURSOR_TYPE.ERASER {
 	if current_layer == LEVEL_CURRENT_LAYER.OBJECTS
 	and object_grid_hovering != -1 {
 		_cursor = not is_undefined(selected_object) 
-					and selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
+      and selected_object.has_tag("is_holdable") ? LEVEL_CURSOR_TYPE.CANCEL : LEVEL_CURSOR_TYPE.FINGER;
 	}
 	
 	cursor = _cursor;
 }
 
 if _hover_button != noone {
-    set_hover_text(_hover_button.hover_text);
+  set_hover_text(_hover_button.hover_text);
 } else {
-    set_hover_text("");
+  set_hover_text("");
 }
+
+check_return_to_editor_timer();
 
 // If the level editor is not in use don't run any more code
 if not level_maker_is_editing() or instance_exists(oPauseMenu) then exit;
@@ -47,7 +49,7 @@ if just_entered_level_editor and mouse_check_button_released(mb_left) {
 
 // Only gets input if not paused
 
-	scr_inputget();
+scr_inputget();
 
 // ------------------------------------
 // Selecting objects
