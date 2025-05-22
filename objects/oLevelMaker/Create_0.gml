@@ -37,11 +37,10 @@ is_cursor_inside_level = false;
 item_preview_offset_x = 0;
 item_preview_offset_y = 0;
 has_object_below_cursor = false;
-test_button_cooldown_max = 20;
-test_button_cooldown = test_button_cooldown_max;
-reset_test_button_cooldown = function() {
-	test_button_cooldown = test_button_cooldown_max;
-}
+
+item_place_disable_timer = new FrameTimer(30);
+
+return_to_editor_timer = new FrameTimer(60);
 
 // Level-related
 selected_style = LEVEL_STYLE.GRASS;
@@ -134,6 +133,22 @@ update_current_item = function() {
     }
 }
 
+check_return_to_editor_timer = function() {
+  if level_maker_is_editing() 
+    or (not level_maker_is_editing() 
+      and instance_exists(oPlayer)
+      and not oPlayer.has_collected_all_stars()) {
+    return_to_editor_timer.reset();
+    return;
+  }
+  
+  return_to_editor_timer.count();
+  
+  if return_to_editor_timer.has_timed_out() {
+    end_level_and_return_to_editor();
+  }
+}
+
 cursor_set_position = function() {
 	var _in_level_editor = level_maker_is_editing();
 
@@ -164,7 +179,8 @@ cursor_get_object_from_grid = function() {
 	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
 	or not mouse_check_button_pressed(mb_left)
 	or cursor != LEVEL_CURSOR_TYPE.FINGER
-	or not is_struct(object_grid_hovering) {
+	or not is_struct(object_grid_hovering)
+	or not item_place_disable_timer.has_timed_out() {
 		return;
 	}
 	
@@ -183,7 +199,8 @@ cursor_get_object_from_grid = function() {
 cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 	if not is_cursor_inside_level
 	or current_layer != LEVEL_CURRENT_LAYER.OBJECTS
-	or is_undefined(selected_object) then
+	or is_undefined(selected_object)
+	or not item_place_disable_timer.has_timed_out() then
 		return;
 	
 	if (mouse_check_button_released(mb_left) 
@@ -191,7 +208,6 @@ cursor_create_object_in_grid = function(_tile_x, _tile_y) {
 		) and cursor == LEVEL_CURSOR_TYPE.CURSOR 
 		and not is_undefined(selected_object)
 		and not has_object_below_cursor
-		and test_button_cooldown == 0
 	{
 		if selected_object.has_tag("is_unique") {
 			remove_all_specific_objects_from_grid(selected_object.index);
@@ -247,15 +263,14 @@ cursor_remove_object_from_grid = function() {
 }
 
 cursor_create_tile_in_grid = function() {
-	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
-		return;
-
-    if not mouse_check_button(mb_left)
-    or cursor != LEVEL_CURSOR_TYPE.CURSOR
-    or is_undefined(selected_tile)
-    or test_button_cooldown > 0 {
-        return;
-    }
+	if not is_cursor_inside_level
+	or current_layer == LEVEL_CURRENT_LAYER.OBJECTS
+	or cursor != LEVEL_CURSOR_TYPE.CURSOR
+	or is_undefined(selected_tile)
+	or not mouse_check_button(mb_left)
+   or not item_place_disable_timer.has_timed_out() {
+      return;
+   }
 
     var _instance_layer_name = level_maker_get_background_instances_layer_name();
     var _tileset_layer_name = level_maker_get_background_tile_layer_name();
@@ -311,7 +326,8 @@ cursor_create_tile_in_grid = function() {
 }
 
 cursor_remove_tile_from_grid = function() {
-	if not is_cursor_inside_level or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
+	if not is_cursor_inside_level 
+	or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then
 		return;
 		
 	if (not mouse_check_button(mb_left) and mouse_check_button(mb_right)) 
@@ -984,14 +1000,13 @@ end_level_and_return_to_editor = function() {
 	instance_destroy(oKeyFollow3, false);
 	//instance_destroy(oFog);
 	
-    // Disable layer effects
-    var _fx_dust = layer_get_id("FX_Dust");
+  // Disable layer effects
+  var _fx_dust = layer_get_id("FX_Dust");
 
-    layer_set_visible(_fx_dust, false);
-    
-
-    level_maker_change_fx();
-    audio_play_sfx(snd_bump, false, 1, 1);
+  layer_set_visible(_fx_dust, false);
+  
+  level_maker_change_fx();
+  audio_play_sfx(snd_bump, false, 1, 1);
 	just_entered_level_editor = true;
 }
 
@@ -1022,7 +1037,7 @@ set_sample_level = function() {
 
 //CAMERA CODE
 
-oCamera.fancyeffects = true;
+//oCamera.fancyeffects = true;
 
 camera_current_interpolation = 0;
 
@@ -1036,4 +1051,7 @@ reset_level_objects_grid();
 //----------------------
 // DEFAULT LEVEL
 set_sample_level();
-stop_all_music();
+
+instance_destroy(o_music);
+audio_stop_sound(bgm_intro);
+audio_sound_gain(bgm_intro, 1, 0);
