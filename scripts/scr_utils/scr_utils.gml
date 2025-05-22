@@ -111,3 +111,9 @@ function draw_text_shadow(_x, _y, _text, _shadow_offset_x, _shadow_offset_y, _sh
 	draw_set_color(prev_color);
 	draw_text(_x, _y, _text);
 }
+
+function room_transit(_target) {
+	var trans = instance_create_layer(0, 0, layer, oTransition);
+	
+	trans.target_room = _target;
+}

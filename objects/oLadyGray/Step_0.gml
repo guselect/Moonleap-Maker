@@ -76,8 +76,8 @@ if instance_exists(oMush) {
 		nearmush.image_speed = 1;
 		prehsp = maxspd;
 		mynight = not mynight;
-		play_mushroom_sound();
-		scr_change();
+    if nearmush.object_index == oMush then scr_change();
+    play_mushroom_sound();
 		shake_gamepad(0.4, 2);
 		spawn_dust_particles();
 	}
@@ -87,8 +87,8 @@ if instance_exists(oMush) {
 		nearmush.image_speed=1
 		prehsp = -maxspd;
 		mynight = not mynight;
+    if nearmush.object_index == oMush then scr_change();
 		play_mushroom_sound();
-		scr_change();
 		shake_gamepad(0.4, 2);
 		spawn_dust_particles();
 	}
