@@ -167,7 +167,7 @@ function level_maker_load(_level_name) {
 		selected_style = _level_style;
     update_tilesets_by_style();
 		reset_level_objects_grid();
-    instance_destroy(oMakerEditorTileDraft);
+    reset_level_tiles_grid();
 		
     if array_length(_level_objects) > 0 {
       for(var _x = 0; _x < room_tile_width; _x++) {
