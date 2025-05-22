@@ -1,4 +1,3 @@
-
 levelnumb = 0;
 maxspd = 0.45;
 

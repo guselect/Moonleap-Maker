@@ -1,3 +1,5 @@
+event_inherited();
+
 night = false;
 
 hsp = 0;
