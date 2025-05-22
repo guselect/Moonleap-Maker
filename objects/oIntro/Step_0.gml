@@ -152,7 +152,7 @@ if debug_mode {
 	instance_destroy();
 }
 
-if maker_mode {
+if global.is_maker_mode {
 	room_goto(RoomMaker0);
 	instance_destroy();
 }

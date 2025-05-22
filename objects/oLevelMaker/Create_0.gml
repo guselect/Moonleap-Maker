@@ -2,7 +2,7 @@
 
 - This repository is based on Moonleap version 2.3.2, but with the SleepScreens removed and some levels missing, specifically Rooms 0 to 49.
 - Rooms 60 to 63 were kept only as examples of how the levels in Moonleap were originally built.
-- The maker_mode=true setting in the oIntro causes the game go straight to the RoomMaker0
+- The 'global.is_maker_mode = true' setting in the level_maker_scripts causes the game go straight to the RoomMaker0
 
 - [OKAY!] oSolidDay and oSolidNight were created for this levelmaker, in the game i use oGrassDay, oGrassNight, oCloudDay...
 - [DONE!] the UI show plenty of oUndefined, it isn't ideal, need to do a solution for that
