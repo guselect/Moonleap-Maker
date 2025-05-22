@@ -89,7 +89,6 @@ check_mushroom_collision = function() {
   }
 }
 
-
 set_wings = function() {
   if ((place_meeting(x + 1, y, oBatVer) or place_meeting(x + 1, y, oMush)))
   and (place_meeting(x - 1, y, oBatVer) or place_meeting(x - 1, y, oMush))
