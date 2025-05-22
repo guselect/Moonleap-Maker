@@ -161,112 +161,111 @@ function level_maker_load(_level_name) {
 	
 	with(oLevelMaker) {
 		var _level_style = struct_read(_level_data, "style", LEVEL_STYLE.GRASS);
-      var _level_objects = struct_read(_level_data, "objects", []);
-      var _level_tiles = struct_read(_level_data, "tiles", []);
+    var _level_objects = struct_read(_level_data, "objects", []);
+    var _level_tiles = struct_read(_level_data, "tiles", []);
 
 		selected_style = _level_style;
-      update_tilesets_by_style();
+    update_tilesets_by_style();
 		reset_level_objects_grid();
+    instance_destroy(oMakerEditorTileDraft);
 		
-        if array_length(_level_objects) > 0 {
-            for(var _x = 0; _x < room_tile_width; _x++) {
-    			for(var _y = 0; _y < room_tile_height; _y++) {
-    				var _loaded_object_grid = array_get(_level_objects[_x], _y);
-
-    				if _loaded_object_grid == -1 {
-    					objects_grid[_x, _y] = -1;
-    				} else {
-                        var _ox = _loaded_object_grid[0];
-                        var _oy = _loaded_object_grid[1];
-                        var _oname = _loaded_object_grid[2];
-                        var _owidth = _loaded_object_grid[3];
-                        var _oheight = _loaded_object_grid[4];
-                        var _oxscale = _loaded_object_grid[5];
-                        var _oyscale = _loaded_object_grid[6];
-                        var _oangle = _loaded_object_grid[7];
-
-    					var _object_index = asset_get_index(_oname);
-    					var _object_data = undefined;
-    						
-    					for(var t = 0; t < oLevelMaker.object_types_length and is_undefined(_object_data); t++) {
-    						for(var p = 0; p < oLevelMaker.list_positions_length and is_undefined(_object_data); p++) {
-    							var _object_to_find = oLevelMaker.obj[t, p];
-    								
-    							if is_undefined(_object_to_find) then continue;
-    								
-    							if _object_to_find.index == _object_index then
-    								_object_data = _object_to_find;
-    						}
-    					}
-    						
-    					if not is_undefined(_object_data) {
-    						objects_grid[_ox, _oy] = new LMObjectGrid(_ox, _oy, _object_data, _owidth, _oheight, _oxscale, _oyscale, _oangle);
-    					} else {
-    						objects_grid[_ox, _oy] = -1;
-    					}
-    				}
-    			}
-    		}
+    if array_length(_level_objects) > 0 {
+      for(var _x = 0; _x < room_tile_width; _x++) {
+        for(var _y = 0; _y < room_tile_height; _y++) {
+          var _loaded_object_grid = array_get(_level_objects[_x], _y);
+  
+          if _loaded_object_grid == -1 {
+            objects_grid[_x, _y] = -1;
+          } else {
+            var _ox = _loaded_object_grid[0];
+            var _oy = _loaded_object_grid[1];
+            var _oname = _loaded_object_grid[2];
+            var _owidth = _loaded_object_grid[3];
+            var _oheight = _loaded_object_grid[4];
+            var _oxscale = _loaded_object_grid[5];
+            var _oyscale = _loaded_object_grid[6];
+            var _oangle = _loaded_object_grid[7];
+  
+            var _object_index = asset_get_index(_oname);
+            var _object_data = undefined;
+              
+            for(var t = 0; t < oLevelMaker.object_types_length and is_undefined(_object_data); t++) {
+              for(var p = 0; p < oLevelMaker.list_positions_length and is_undefined(_object_data); p++) {
+                var _object_to_find = oLevelMaker.obj[t, p];
+                  
+                if is_undefined(_object_to_find) then continue;
+                  
+                if _object_to_find.index == _object_index then
+                  _object_data = _object_to_find;
+              }
+            }
+              
+            if not is_undefined(_object_data) {
+              objects_grid[_ox, _oy] = new LMObjectGrid(_ox, _oy, _object_data, _owidth, _oheight, _oxscale, _oyscale, _oangle);
+            } else {
+              objects_grid[_ox, _oy] = -1;
+            }
+          }
         }
+      }
+    }
 
-        if array_length(_level_tiles) > 0 { 
-            instance_destroy(oMakerEditorTileDraft);
-            
-            for(var i = 0; i < array_length(_level_tiles); i++) {
-                var _loaded_tile = array_get(_level_tiles, i);
+    if array_length(_level_tiles) > 0 { 
+      for(var i = 0; i < array_length(_level_tiles); i++) {
+        var _loaded_tile = array_get(_level_tiles, i);
 
-                var _tx = _loaded_tile[0];
-                var _ty = _loaded_tile[1];
-                var _tlayer_name = _loaded_tile[2];
-                var _tid = _loaded_tile[3];
-                var _trotated = _loaded_tile[4];
-                var _tmirrored = _loaded_tile[5];
-                var _tflipped = _loaded_tile[6];
-                var _ttilemaplayername = _loaded_tile[7];
-                var _txscale = _loaded_tile[7];
-                var _tyscale = _loaded_tile[8];
-                var _tangle = _loaded_tile[9];
+        var _tx = _loaded_tile[0];
+        var _ty = _loaded_tile[1];
+        var _tlayer_name = _loaded_tile[2];
+        var _tid = _loaded_tile[3];
+        var _trotated = _loaded_tile[4];
+        var _tmirrored = _loaded_tile[5];
+        var _tflipped = _loaded_tile[6];
+        var _ttilemaplayername = _loaded_tile[7];
+        var _txscale = _loaded_tile[7];
+        var _tyscale = _loaded_tile[8];
+        var _tangle = _loaded_tile[9];
 
-                var _tilelist = level_maker_get_tiles_list(_level_style);
-                var _tile = undefined;
+        var _tilelist = level_maker_get_tiles_list(_level_style);
+        var _tile = undefined;
 
-                for (var t = 0; t < array_length(_tilelist) and is_undefined(_tile); t++) {
-                    var _type = _tilelist[t];
-                    for (var p = 0; p < array_length(_type) and is_undefined(_tile); p++) {
-                        var _tile_from_list = array_get(_type, p);
-                        var _tile_id = _tile_from_list.original_tile_id;
+        for (var t = 0; t < array_length(_tilelist) and is_undefined(_tile); t++) {
+            var _type = _tilelist[t];
+            for (var p = 0; p < array_length(_type) and is_undefined(_tile); p++) {
+                var _tile_from_list = array_get(_type, p);
+                var _tile_id = _tile_from_list.original_tile_id;
 
-                        if _tile_id == _tid {
-                            _tile = _tile_from_list;
-                        }
-                    }
-                }
-
-                if is_undefined(_tile) then continue;
-
-                var _layer_id = layer_get_id(_tlayer_name);
-                var _tilemap_id = layer_tilemap_get_id(_ttilemaplayername);
-
-                var _draft = instance_create_layer(_tx, _ty, _layer_id, oMakerEditorTileDraft);
-                _draft.type = _tile.is_animated ? DRAFT_TYPE.ANIMATED_TILE : DRAFT_TYPE.TILE;
-                _draft.tile_id = _tid;
-                _draft.layer_id = _layer_id;
-                _draft.tilemap_id = _tilemap_id;
-                _draft.is_rotated = _trotated;
-                _draft.is_mirrored = _tmirrored;
-                _draft.is_flipped = _tflipped;
-                _draft.tileset = _tile.tileset;
-                _draft.xscale = _txscale;
-                _draft.yscale = _tyscale;
-                _draft.angle = _tangle;
-                
-                if _tile.is_animated {
-                    _draft.sprite_day = _tile.sprite_day;
-                    _draft.sprite_night = _tile.sprite_night;
+                if _tile_id == _tid {
+                    _tile = _tile_from_list;
                 }
             }
-        } 
-    }
+        }
+
+        if is_undefined(_tile) then continue;
+
+        var _layer_id = layer_get_id(_tlayer_name);
+        var _tilemap_id = layer_tilemap_get_id(_ttilemaplayername);
+
+        var _draft = instance_create_layer(_tx, _ty, _layer_id, oMakerEditorTileDraft);
+        _draft.type = _tile.is_animated ? DRAFT_TYPE.ANIMATED_TILE : DRAFT_TYPE.TILE;
+        _draft.tile_id = _tid;
+        _draft.layer_id = _layer_id;
+        _draft.tilemap_id = _tilemap_id;
+        _draft.is_rotated = _trotated;
+        _draft.is_mirrored = _tmirrored;
+        _draft.is_flipped = _tflipped;
+        _draft.tileset = _tile.tileset;
+        _draft.xscale = _txscale;
+        _draft.yscale = _tyscale;
+        _draft.angle = _tangle;
+        
+        if _tile.is_animated {
+          _draft.sprite_day = _tile.sprite_day;
+          _draft.sprite_night = _tile.sprite_night;
+        }
+      }
+    } 
+  }
 }
 
 function scr_update_style(){
