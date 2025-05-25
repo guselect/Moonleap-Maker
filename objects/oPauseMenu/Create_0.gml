@@ -9,21 +9,10 @@ _yy = 0;
 scr_inputcreate()
 
 if room_is([RoomMenu, RoomMenu2, RoomCredits, RoomCreditsAlves, Room100, rm_blank0]) {
-	//roomname = " ";
-	_yy = 64;//104-ceil(_menu_ops/2)*_menu_y_gap;
-} else if is_level_maker_room() {
-	//roomname = LANG.maker_name;
-	_yy = 73;
+	_yy = 64;
 } else {
-	//var name=LANG[$ room_get_name(room)]
-	//if not is_string(name) {
-		//name=" "
-	//}
-	//roomname = name;
-		
-	_yy = 73;//104-ceil(_menu_ops/2)*_menu_y_gap;
+	_yy = 73;
 }
-
 
 wavevar=0
 
