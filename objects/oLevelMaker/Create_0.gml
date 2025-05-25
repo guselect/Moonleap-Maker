@@ -402,7 +402,8 @@ update_tilesets_by_style = function() {
 }
 
 set_tile_manipulation = function() {
-	if is_undefined(selected_tile) or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then 
+	if is_undefined(selected_tile)
+  or current_layer == LEVEL_CURRENT_LAYER.OBJECTS then 
 		return;
 		
 	var _tile = selected_tile.tile_id;
@@ -457,7 +458,8 @@ set_tile_manipulation = function() {
 }
 
 set_object_rotation_and_scaling = function() {
-	if is_undefined(selected_object) or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then 
+	if is_undefined(selected_object) 
+  or current_layer != LEVEL_CURRENT_LAYER.OBJECTS then 
 		return;
 	
 	if selected_object.has_tag("can_flip") {

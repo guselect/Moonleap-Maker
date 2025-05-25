@@ -51,6 +51,10 @@ text_poem8: "consuelo y dulzura de la paz",
   maker_background: "3: Fondo (Decoración)",
   maker_far_background: "4: Fondo Distante (Decoración)",
 
+  maker_warning_change_style: "¡Atención! Al cambiar de estilo, los azulejos de decoración existentes en el nivel se borrarán. ¿Estás seguro de que deseas cambiar el estilo?",
+  maker_warning_confirm: "Sí",
+  maker_warning_cancel: "No",
+
   maker_object_oPlayer: "Jugador",
   maker_object_oSolid: "Bloque sólido",
   maker_object_oBrokenStone: "Piedra rota",

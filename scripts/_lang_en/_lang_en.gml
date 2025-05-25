@@ -71,6 +71,10 @@ lang_add("EN", {
   maker_background: "3: Background (Decoration)",
   maker_far_background: "4: Far Background (Decoration)",
 
+  maker_warning_change_style: "Warning! When changing the style, the existing decoration tiles in the level will be erased. Are you sure you want to change the style?",
+  maker_warning_confirm: "Yes",
+  maker_warning_cancel: "No",
+
   maker_object_oPlayer: "Player",
   maker_object_oSolid: "Solid block",
   maker_object_oBrokenStone: "Broken stone",

@@ -27,9 +27,9 @@ if image_index == 6 { //play button
 		image_xscale = lerp(image_xscale,small_size/32,.2);
 		image_yscale = image_xscale;
 	}
-
-} else {
-	if not level_maker_is_editing() or instance_exists(oPauseMenu) then exit
+} else if not level_maker_is_editing() 
+or instance_exists_any([oPauseMenu, oMakerWarning]) {
+  exit;
 }
 
 var stext = "";
@@ -180,19 +180,14 @@ if image_index == 7 and is_mouse_left_pressing {
 if image_index == 8 and is_mouse_left_pressing {
 	play_sound_on_press();
 	
-	with(oLevelMaker) {
-		selected_object_type = 0;
-		selected_object_position = 0;
-		
-		selected_style += 1;
-		if selected_style >= LEVEL_STYLE.LENGTH then 
-			selected_style = 0;
-			
-		tiles = level_maker_get_tiles_list(selected_style);
-
-		scr_update_style();
-        update_current_item();
-	}
+  if instance_number(oMakerEditorTileDraft) > 0 {
+    var _warning = instance_create_layer(0, 0, "Instances_2", oMakerWarning);
+    
+    _warning.text_warning = LANG.maker_warning_change_style;
+    _warning.action_on_confirm = change_style;
+  } else {
+    change_style();
+  }
 }
 
 // Eraser
@@ -236,6 +231,6 @@ if image_index == 11 and is_mouse_left_pressing {
 		if current_layer > 3 then
 			current_layer = LEVEL_CURRENT_LAYER.FOREGROUND;
 
-        update_current_item();
+    update_current_item();
 	}
 }

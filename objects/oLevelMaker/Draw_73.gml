@@ -1,23 +1,3 @@
-// Sprite placeholders for oSolid day and night
-//var sday = undefined, snight = undefined;
-
-//switch(selected_style) {
-//	case LEVEL_STYLE.GRASS:
-//		sday = sGrassGre; snight = sGrassOre;
-//		break;
-//	case LEVEL_STYLE.CLOUDS:	
-//		sday = sCloudDay; snight = sCloudNight;
-//		break;
-//	case LEVEL_STYLE.FLOWERS:	
-//		sday = sFlowerDay; snight = sFlowerNight;
-//		break;
-//	case LEVEL_STYLE.SPACE:	
-//		sday = sSpaceGre; snight = sSpacePurple;
-//		break;
-//	case LEVEL_STYLE.DUNGEON:
-//		sday = sDunDay; snight = sDunNight;
-//		break;
-//}
 draw_set_font(oCamera.font);
 draw_set_color(color.nice_white);
 
@@ -59,14 +39,6 @@ if mode == LEVEL_EDITOR_MODE.EDITING and hover_text != "" {
 // CURSOR
 draw_set_halign(fa_left)
 draw_sprite(sCursor, cursor, global.level_maker_mouse_x, global.level_maker_mouse_y);
-
-//draw_set_color(c_yellow);
-//draw_rectangle(bbox_left, bbox_top, bbox_right - 1, bbox_bottom - 1, true);
-//
-//var _x = floor(x / tileset_size) * tileset_size;
-//var _y = floor(y / tileset_size) * tileset_size;
-//draw_set_color(c_lime);
-//draw_rectangle(_x, _y, _x + tileset_size - 1, _y + tileset_size - 1, true);
 
 draw_set_color(-1);
 draw_set_halign(-1);

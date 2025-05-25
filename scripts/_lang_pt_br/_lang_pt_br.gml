@@ -69,6 +69,10 @@ lang_add("PT-BR", {
   maker_background: "3: Fundo (Decoração)",
   maker_far_background: "4: Fundo Distante (Decoração)",
 
+  maker_warning_change_style: "Atenção! Ao trocar de estilo, os ladrilhos de decoração existentes no nível serão apagados. Você tem certeza que deseja trocar de estilo?",
+  maker_warning_confirm: "Sim",
+  maker_warning_cancel: "Não",
+
   maker_object_oPlayer: "Jogador",
   maker_object_oSolid: "Bloco sólido",
   maker_object_oBrokenStone: "Bloco quebrado",

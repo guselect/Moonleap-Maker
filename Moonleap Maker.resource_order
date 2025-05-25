@@ -169,7 +169,7 @@
     {"name":"oMakerAnimatedTile","order":10,"path":"objects/oMakerAnimatedTile/oMakerAnimatedTile.yy",},
     {"name":"oMakerBack","order":26,"path":"objects/oMakerBack/oMakerBack.yy",},
     {"name":"oMakerEditorTileDraft","order":11,"path":"objects/oMakerEditorTileDraft/oMakerEditorTileDraft.yy",},
-    {"name":"oMakerWarn","order":4,"path":"objects/oMakerWarn/oMakerWarn.yy",},
+    {"name":"oMakerWarning","order":4,"path":"objects/oMakerWarning/oMakerWarning.yy",},
     {"name":"oMb2","order":1,"path":"objects/oMb2/oMb2.yy",},
     {"name":"oMenu","order":11,"path":"objects/oMenu/oMenu.yy",},
     {"name":"oMush","order":4,"path":"objects/oMush/oMush.yy",},

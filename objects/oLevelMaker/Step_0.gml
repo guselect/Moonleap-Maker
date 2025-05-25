@@ -35,7 +35,7 @@ if _hover_button != noone {
 check_return_to_editor_timer();
 
 // If the level editor is not in use don't run any more code
-if not level_maker_is_editing() or instance_exists(oPauseMenu) then exit;
+if not level_maker_is_editing() or instance_exists_any([oPauseMenu, oMakerWarning]) then exit;
 
 // This code is to prevent random misfiring clicks after you press the button to play the level again
 if just_entered_level_editor and mouse_check_button_released(mb_left) {
