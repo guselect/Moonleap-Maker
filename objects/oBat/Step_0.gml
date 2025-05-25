@@ -40,13 +40,6 @@ if hsp == 0 and has_collided(sign(dir), 0, true, [oPermaSpike]) {
 	dir *= -1;
 }
 
-if instance_exists(oMush) {
-	if (place_meeting(x + 1, y, oMush) and dir == 1)
-	or (place_meeting(x - 1, y, oMush) and dir == -1){
-		dir *= -1;
-		scr_change();
-		play_mushroom_sound();
-	}
-}
+check_mushroom_collision();
 
 image_speed = x == xx ? 1 : 3;
