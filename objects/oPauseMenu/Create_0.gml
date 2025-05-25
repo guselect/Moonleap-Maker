@@ -3,24 +3,16 @@ if (instance_number(oPauseMenu) > 1) {
 	exit;
 }
 
+roomname = " ";
+_yy = 0;
+
 scr_inputcreate()
 
 if room_is([RoomMenu, RoomMenu2, RoomCredits, RoomCreditsAlves, Room100, rm_blank0]) {
-	roomname=" "
-	_yy = 64;//104-ceil(_menu_ops/2)*_menu_y_gap;
-} else if is_level_maker_room() {
-	roomname=LANG.maker_name
-	_yy = 73;
+	_yy = 64;
 } else {
-	var name=LANG[$ room_get_name(room)]
-	if not is_string(name) {
-		name=" "
-	}
-	roomname=name
-		
-	_yy = 73;//104-ceil(_menu_ops/2)*_menu_y_gap;
+	_yy = 73;
 }
-
 
 wavevar=0
 
@@ -583,3 +575,24 @@ if os_type= os_ios or os_type= os_android {  //switch, adnroid, IOS... remove st
 menu = menus.main; //set current menu
 option_index = 0; //currently selected option index
 option = menu[option_index]; //currently selected option struct
+
+update_menu_title = function() {
+  if room_is([RoomMenu, RoomMenu2, RoomCredits, RoomCreditsAlves, Room100, rm_blank0]) {
+  	roomname = " ";
+    return;
+  }
+
+  if is_level_maker_room() {
+  	var name = LANG.maker_name;
+
+    if not is_string(name) then name = " ";
+
+    roomname = name;
+    return;
+  }
+
+  var name = LANG[$ room_get_name(room)];
+
+  if not is_string(name) then name = " ";
+  roomname = name;
+}

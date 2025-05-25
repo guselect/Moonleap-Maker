@@ -30,44 +30,90 @@ lang_add("PT-BR", {
 	// Traduzir um poema é um delicado equilíbrio entre preservar o original e criar algo novo e bonito no idioma de destino.
 	// - Guselect (dev) e Miguel Mendes (escritor)
 	
-	//              8b    d8    db    88  dP 888888 88""Yb 
-	//              88b  d88   dPYb   88odP  88__   88__dP 
-	//              88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
-	//              88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
+  
+  //      8b    d8    db    88  dP 888888 88""Yb 
+  //      88b  d88   dPYb   88odP  88__   88__dP 
+  //      88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
+  //      88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
 
-maker_name: "criador de fases",
-maker_play: "Testar o Nível",
-maker_load: "Carregar Nível",
-maker_savemenu: "Salvar Nível",
-maker_menu: "Menu do Criador",
-maker_change_up: "Mudar Tipo (Cima)",
-maker_change_down: "Mudar Tipo (Baixo)",
-maker_help: "Ajuda",
-maker_change_level_style: "Mudar Estilo do Nível",
-maker_eraser: "Borracha",
-maker_erase_level: "Apagar o Nível (Segure)",
-maker_change_layer: "Mudar de camada",
-maker_grassstyle: "Grama",
-maker_cloudstyle: "Nuvem",
-maker_flowerstyle: "Flor",
-maker_spacestyle: "Espaço",
-maker_dungeonstyle: "Masmorra",
+  maker_name: "criador de fases",
+  maker_play: "Testar o Nível",
+  maker_load: "Carregar Nível",
+  maker_savemenu: "Salvar Nível",
+  maker_menu: "Menu do Criador",
+  maker_change_up: "Mudar Tipo (Cima)",
+  maker_change_down: "Mudar Tipo (Baixo)",
+  maker_help: "Ajuda",
+  maker_change_level_style: "Mudar Estilo do Nível",
+  maker_eraser: "Borracha",
+  maker_erase_level: "Apagar o Nível (Segure)",
+  maker_change_layer: "Mudar de camada",
+  maker_grassstyle: "Grama",
+  maker_cloudstyle: "Nuvem",
+  maker_flowerstyle: "Flor",
+  maker_spacestyle: "Espaço",
+  maker_dungeonstyle: "Masmorra",
+  
+  maker_menumakelevel: "Criar Níveis",
+  
+  maker_noplayer: "Você não pode testar sem um jogador!",
+  maker_noestar: "Você não pode testar sem uma estrela!",
+  
+  maker_help_text: "Bem-vindo ao Moonleap Maker!\nClique nos objetos e posicione-os na fase\n\nTeclado: \nZ - Rotaciona o objeto \nX - Espelha o objeto \nWASD ou Setas - Navegam pela lista de objetos \nF5 - Testa o Nível \n\nMouse: \nBotão Esquerdo - Coloca o Objeto \nBotão Direito - Apaga Objetos \nScroll - Muda o tipo na lista de objetos\n\nRecomendamos que somente o player loope pela tela\nOutros objetos podem não funcionar corretamente",
+  
+  maker_intro: "Bem-vindo ao Moonleap Maker! Este editor está em beta",
+  
+  
+  maker_foreground: "1: Frente (Decoração)",
+  maker_objects: "2: Objetos",
+  maker_background: "3: Fundo (Decoração)",
+  maker_far_background: "4: Fundo Distante (Decoração)",
 
-maker_menumakelevel: "Criar Níveis",
-
-maker_noplayer: "Você não pode testar sem um jogador!",
-maker_noestar: "Você não pode testar sem uma estrela!",
-
-maker_help_text: "Bem-vindo ao Moonleap Maker!\nClique nos objetos e posicione-os na fase\n\nTeclado: \nZ - Rotaciona o objeto \nX - Espelha o objeto \nWASD ou Setas - Navegam pela lista de objetos \nF5 - Testa o Nível \n\nMouse: \nBotão Esquerdo - Coloca o Objeto \nBotão Direito - Apaga Objetos \nScroll - Muda o tipo na lista de objetos\n\nRecomendamos que somente o player loope pela tela\nOutros objetos podem não funcionar corretamente",
-
-maker_intro: "Bem-vindo ao Moonleap Maker! Este editor está em beta",
-
-
-maker_foreground: "1: Frente (Decoração)",
-maker_objects: "2: Objetos",
-maker_background: "3: Fundo (Decoração)",
-maker_far_background: "4: Fundo Distante (Decoração)",
-	
+  maker_object_oPlayer: "Jogador",
+  maker_object_oSolid: "Bloco sólido",
+  maker_object_oBrokenStone: "Bloco quebrado",
+  maker_object_oPlatGhost: "Plataforma",
+  maker_object_oSolidRamp: "Rampa",
+  maker_object_oPermaSpike: "Espinho",
+  maker_object_oSolidDay: "Bloco sólido diurno",
+  maker_object_oSolidNight: "Bloco sólido noturno",
+  maker_object_oLadderDay: "Trepadeira diurna",
+  maker_object_oLadderNight: "Trepadeira noturna",
+  maker_object_oStar: "Estrela",
+  maker_object_oStarRunning: "Estrela ambulante",
+  maker_object_oSnail: "Caracol diurno",
+  maker_object_oSnailNight: "Caracol noturno",
+  maker_object_oLady: "Joana",
+  maker_object_oBat: "Morcego",
+  maker_object_oPlayerDir: "Jogador de direção",
+  maker_object_oBigSolid: "Bloco sólido gigante",
+  maker_object_oBrokenStoneBig: "Bloco quebrado gigante",
+  maker_object_oLadderNeutral: "Trepadeira neutra",
+  maker_object_oStarColor: "Estrela vermelha",
+  maker_object_oStarRunningColor: "Estrela vermelha ambulante",
+  maker_object_oMush: "Cogumelo",
+  maker_object_oMushGray: "Cogumelo neutro",
+  maker_object_oSnailGray: "Caracol neutro",
+  maker_object_oLadyGray: "Joana neutra",
+  maker_object_oLadyVer: "Joana vertical",
+  maker_object_oLadyGiant: "Joana tripla",
+  maker_object_oLadyGiant4: "Joana quádrupla",
+  maker_object_oBatVer: "Morcego vertical",
+  maker_object_oBatGiant: "Morcego triplo",
+  maker_object_oBatSuperGiant: "Morcego quádruplo",
+  maker_object_oPlayerNeutral: "Jogador neutro",
+  maker_object_oBird: "Pássaro",
+  maker_object_oKey: "Chave",
+  maker_object_oKeyDoor: "Porta",
+  maker_object_oKeyTall: "Chave alta",
+  maker_object_oKeyDoorTall: "Porta alta",
+  maker_object_oKeyWide: "Chave larga",
+  maker_object_oKeyDoorWide: "Porta larga",
+  maker_object_oKeyTallWide: "Chave grande",
+  maker_object_oKeyDoorTallWide: "Porta grande",
+  maker_object_oMagicOrb: "Orbe mágico",
+  maker_object_oStarFly: "Estrela voadora",
+  maker_object_oSolidInv: "Bloco sólido invisível",
 
 	//			d888888b d8b   db d888888b d8888b.  .d88b.  
 	//			  `88'   888o  88 `~~88~~' 88  `8D .8P  Y8. 
@@ -355,8 +401,7 @@ maker_far_background: "4: Fundo Distante (Decoração)",
 	Room63: "@final@ - peguei pra mim",
 	//Room64: "#?# - boa sorte nessa aqui",				//essa é a fase mais díficil do jogo, é secreta e quase impossível, o nome só é engraçado quando você sabe disso
 
-}
-);
+});
 
 //deixar blocos quebraveis na primeira do orb
 //deixar mais pra direita a segunda estrela da segunda fase do orb
