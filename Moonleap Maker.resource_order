@@ -390,6 +390,7 @@
     {"name":"scr_salva_dados","order":30,"path":"scripts/scr_salva_dados/scr_salva_dados.yy",},
     {"name":"scr_settings","order":29,"path":"scripts/scr_settings/scr_settings.yy",},
     {"name":"scr_switch","order":26,"path":"scripts/scr_switch/scr_switch.yy",},
+    {"name":"scr_timer_system","order":39,"path":"scripts/scr_timer_system/scr_timer_system.yy",},
     {"name":"scr_utils","order":28,"path":"scripts/scr_utils/scr_utils.yy",},
     {"name":"scrCredits","order":2,"path":"scripts/scrCredits/scrCredits.yy",},
     {"name":"scrDie","order":9,"path":"scripts/scrDie/scrDie.yy",},
