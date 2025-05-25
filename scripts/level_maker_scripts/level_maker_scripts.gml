@@ -1,5 +1,10 @@
 #macro SAVE_SYSTEM_VERSION "1.3"
 
+// =======================================================================================================
+// *** Change 'global.is_maker_mode' value to true to skip the intro and redirect to the level maker. ***
+global.is_maker_mode = true;
+// =======================================================================================================
+
 function level_maker_save(_level_name) {
 	with(oLevelMaker) {
 

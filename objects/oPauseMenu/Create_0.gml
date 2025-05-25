@@ -63,16 +63,19 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 			},
 			{
 				name: "giveup",
-				text: function() { return LANG.text_giveup; },
+				text: function() { return global.is_maker_mode ? LANG.text_exit : LANG.text_giveup; },
 				action: function() {
+          if global.is_maker_mode {
+            game_end();
+            return;
+          }
+
 					if (!instance_exists(oTransition)) {
 						audio_sound_gain(bgm_hub   ,0,1000)
 						audio_sound_gain(bgm_hub_01,0,1000)
 						audio_sound_gain(bgm_hub_02,0,1000)
 						audio_sound_gain(bgm_hub_03,0,1000)
 						audio_sound_gain(bgm_hub_04,0,1000)
-					
-					
 					
 						var _trans=instance_create_layer(0,0,layer,oTransition);
 						audio_play_sfx(sndStarGame,false,-6.2,0)
