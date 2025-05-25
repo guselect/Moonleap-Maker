@@ -30,7 +30,7 @@ draw_set_halign(fa_center)
 // GET SELECTED OBJECT NAME
 if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 	var object = obj[selected_object_type,selected_object_position]
-	var object_name = is_undefined(object) ? "" : object_get_name(object.index);
+	var object_name = is_undefined(object) ? "" : LANG[$ $"maker_object_{object_get_name(object.index)}"];
 
 	var room_x_offset = 16;
 	if global.level_maker_mouse_x > -room_x_offset 

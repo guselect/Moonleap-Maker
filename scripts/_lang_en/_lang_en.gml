@@ -33,43 +33,89 @@ lang_add("EN", {
 	- Guselect and Miguel Mendes
 	*/
 
-	//              8b    d8    db    88  dP 888888 88""Yb 
-	//              88b  d88   dPYb   88odP  88__   88__dP 
-	//              88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
-	//              88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
+  
+  //      8b    d8    db    88  dP 888888 88""Yb 
+  //      88b  d88   dPYb   88odP  88__   88__dP 
+  //      88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
+  //      88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
 
-maker_name: "level editor",
-maker_play: "Test the Level",
-maker_load: "Load Level",
-maker_savemenu: "Save Level",
-maker_menu: "Maker Menu",
-maker_change_up: "Change Type (Up)",
-maker_change_down: "Change Type (Down)",
-maker_help: "Help",
-maker_change_level_style: "Change Level Style",
-maker_eraser: "Eraser",
-maker_erase_level: "Erase the Level (Hold)",
-maker_change_layer: "Change Layer",
-maker_grassstyle: "Grass",
-maker_cloudstyle: "Cloud",
-maker_flowerstyle: "Flower",
-maker_spacestyle: "Space",
-maker_dungeonstyle: "Dungeon",
+  maker_name: "level editor",
+  maker_play: "Test the Level",
+  maker_load: "Load Level",
+  maker_savemenu: "Save Level",
+  maker_menu: "Maker Menu",
+  maker_change_up: "Change Type (Up)",
+  maker_change_down: "Change Type (Down)",
+  maker_help: "Help",
+  maker_change_level_style: "Change Level Style",
+  maker_eraser: "Eraser",
+  maker_erase_level: "Erase the Level (Hold)",
+  maker_change_layer: "Change Layer",
+  maker_grassstyle: "Grass",
+  maker_cloudstyle: "Cloud",
+  maker_flowerstyle: "Flower",
+  maker_spacestyle: "Space",
+  maker_dungeonstyle: "Dungeon",
+  
+  maker_menumakelevel: "Make Levels",
+  
+  maker_noplayer: "You can't test without a player!",
+  maker_noestar: "You can't test without a star!",
+  
+  maker_help_text: "Welcome to Moonleap Maker!\nClick on the objects and place them on the level\n\nKeyboard: \nZ - Rotate the object \nX - Mirror the object \nWASD or Arrow Keys - Navigate through the Object list \nF5 - Test the Level \n\nMouse: \nLeft Button - Place the Object \nRight Button - Erase Objects \nScroll - Change the type in the object list \nWe suggest limiting the screen loop to the player only\nOther objects may not behave as expected",
+  
+  maker_intro: "Welcome to Moonleap Maker! This editor is in beta",
+  
+  maker_foreground: "1: Foreground (Decoration)",
+  maker_objects: "2: Objects",
+  maker_background: "3: Background (Decoration)",
+  maker_far_background: "4: Far Background (Decoration)",
 
-maker_menumakelevel: "Make Levels",
-
-maker_noplayer: "You can't test without a player!",
-maker_noestar: "You can't test without a star!",
-
-maker_help_text: "Welcome to Moonleap Maker!\nClick on the objects and place them on the level\n\nKeyboard: \nZ - Rotate the object \nX - Mirror the object \nWASD or Arrow Keys - Navigate through the Object list \nF5 - Test the Level \n\nMouse: \nLeft Button - Place the Object \nRight Button - Erase Objects \nScroll - Change the type in the object list \nWe suggest limiting the screen loop to the player only\nOther objects may not behave as expected",
-
-maker_intro: "Welcome to Moonleap Maker! This editor is in beta",
-
-maker_foreground: "1: Foreground (Decoration)",
-maker_objects: "2: Objects",
-maker_background: "3: Background (Decoration)",
-maker_far_background: "4: Far Background (Decoration)",
-
+  maker_object_oPlayer: "Player",
+  maker_object_oSolid: "Solid block",
+  maker_object_oBrokenStone: "Broken stone",
+  maker_object_oPlatGhost: "Platform",
+  maker_object_oSolidRamp: "Ramp",
+  maker_object_oPermaSpike: "Spike",
+  maker_object_oSolidDay: "Day solid block",
+  maker_object_oSolidNight: "Night solid block",
+  maker_object_oLadderDay: "Day creeper",
+  maker_object_oLadderNight: "Night creeper",
+  maker_object_oStar: "Star",
+  maker_object_oStarRunning: "Running star",
+  maker_object_oSnail: "Day snail",
+  maker_object_oSnailNight: "Night snail",
+  maker_object_oLady: "Ladybug",
+  maker_object_oBat: "Bat",
+  maker_object_oPlayerDir: "Directional player",
+  maker_object_oBigSolid: "Big solid block",
+  maker_object_oBrokenStoneBig: "Big broken stone",
+  maker_object_oLadderNeutral: "Neutral creeper",
+  maker_object_oStarColor: "Red star",
+  maker_object_oStarRunningColor: "Running red star",
+  maker_object_oMush: "Mushroom",
+  maker_object_oMushGray: "Neutral mushroom",
+  maker_object_oSnailGray: "Neutral snail",
+  maker_object_oLadyGray: "Neutral ladybug",
+  maker_object_oLadyVer: "Vertical ladybug",
+  maker_object_oLadyGiant: "Triple ladybug",
+  maker_object_oLadyGiant4: "Quadruple ladybug",
+  maker_object_oBatVer: "Vertical bat",
+  maker_object_oBatGiant: "Triple bat",
+  maker_object_oBatSuperGiant: "Quadruple bat",
+  maker_object_oPlayerNeutral: "Neutral player",
+  maker_object_oBird: "Bird",
+  maker_object_oKey: "Key",
+  maker_object_oKeyDoor: "Door",
+  maker_object_oKeyTall: "Tall key",
+  maker_object_oKeyDoorTall: "Tall door",
+  maker_object_oKeyWide: "Wide key",
+  maker_object_oKeyDoorWide: "Wide door",
+  maker_object_oKeyTallWide: "Big key",
+  maker_object_oKeyDoorTallWide: "Big door",
+  maker_object_oMagicOrb: "Magic orb",
+  maker_object_oStarFly: "Flying star",
+  maker_object_oSolidInv: "Invisible solid block",
 
 	//			d888888b d8b   db d888888b d8888b.  .d88b.  
 	//			  `88'   888o  88 `~~88~~' 88  `8D .8P  Y8. 

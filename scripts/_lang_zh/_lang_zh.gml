@@ -53,41 +53,90 @@ lang_add("ZH", {
 	text_poem7:"烦忧终将过",
 	text_poem8:"安慰甜蜜安",
 	
-text_shh: "嘘", // "shhhh"
-text_slower: "慢一点", // "slower"
+  text_shh: "嘘", // "shhhh"
+  text_slower: "慢一点", // "slower"
+  
+  //      8b    d8    db    88  dP 888888 88""Yb 
+  //      88b  d88   dPYb   88odP  88__   88__dP 
+  //      88YbdP88  dP__Yb  88"Yb  88""   88"Yb  
+  //      88 YY 88 dP""""Yb 88  Yb 888888 88  Yb 
+  maker_name: "关卡编辑器",
+  maker_play: "测试关卡",
+  maker_load: "加载关卡",
+  maker_savemenu: "保存关卡",
+  maker_menu: "编辑器菜单",
+  maker_change_up: "更改类型（上）",
+  maker_change_down: "更改类型（下）",
+  maker_help: "帮助",
+  maker_change_level_style: "更改关卡风格",
+  maker_eraser: "橡皮擦",
+  maker_erase_level: "清空关卡（按住）",
+  maker_change_layer: "切换图层",
+  maker_grassstyle: "草地",
+  maker_cloudstyle: "云朵",
+  maker_flowerstyle: "花卉",
+  maker_spacestyle: "太空",
+  maker_dungeonstyle: "地牢",
+  
+  maker_menumakelevel: "制作关卡",
+  
+  maker_noplayer: "没有玩家，无法测试！",
+  maker_noestar: "没有星星，无法测试！",
+  
+  maker_help_text: "欢迎来到 Moonleap Maker！\n点击对象并将它们放置在关卡中\n\n键盘：\nZ - 旋转对象\nX - 镜像对象\nWASD 或方向键 - 在对象列表中导航\nF5 - 测试关卡\n\n鼠标：\n左键 - 放置对象\n右键 - 删除对象\n滚轮 - 更改对象列表中的类型\n建议将屏幕循环限制为仅限玩家\n其他对象可能无法按预期运行",
+  
+  maker_intro: "欢迎来到 Moonleap Maker！此编辑器处于测试版",
+  
+  maker_foreground: "1: 前景（装饰）",
+  maker_objects: "2: 物体",
+  maker_background: "3: 背景（装饰）",
+  maker_far_background: "4: 远景背景（装饰）",
 
-//MAKER
-maker_name: "关卡编辑器",
-maker_play: "测试关卡",
-maker_load: "加载关卡",
-maker_savemenu: "保存关卡",
-maker_menu: "编辑器菜单",
-maker_change_up: "更改类型（上）",
-maker_change_down: "更改类型（下）",
-maker_help: "帮助",
-maker_change_level_style: "更改关卡风格",
-maker_eraser: "橡皮擦",
-maker_erase_level: "清空关卡（按住）",
-maker_change_layer: "切换图层",
-maker_grassstyle: "草地",
-maker_cloudstyle: "云朵",
-maker_flowerstyle: "花卉",
-maker_spacestyle: "太空",
-maker_dungeonstyle: "地牢",
-
-maker_menumakelevel: "制作关卡",
-
-maker_noplayer: "没有玩家，无法测试！",
-maker_noestar: "没有星星，无法测试！",
-
-maker_help_text: "欢迎来到 Moonleap Maker！\n点击对象并将它们放置在关卡中\n\n键盘：\nZ - 旋转对象\nX - 镜像对象\nWASD 或方向键 - 在对象列表中导航\nF5 - 测试关卡\n\n鼠标：\n左键 - 放置对象\n右键 - 删除对象\n滚轮 - 更改对象列表中的类型\n建议将屏幕循环限制为仅限玩家\n其他对象可能无法按预期运行",
-
-maker_intro: "欢迎来到 Moonleap Maker！此编辑器处于测试版",
-
-maker_foreground: "1: 前景（装饰）",
-maker_objects: "2: 物体",
-maker_background: "3: 背景（装饰）",
-maker_far_background: "4: 远景背景（装饰）",
+  maker_object_oPlayer: "球员",
+  maker_object_oSolid: "实心块",
+  maker_object_oBrokenStone: "破碎的石头",
+  maker_object_oPlatGhost: "平台",
+  maker_object_oSolidRamp: "坡道",
+  maker_object_oPermaSpike: "长钉",
+  maker_object_oSolidDay: "日固体块",
+  maker_object_oSolidNight: "夜坚实的块",
+  maker_object_oLadderDay: "一日爬行者",
+  maker_object_oLadderNight: "夜间爬行者",
+  maker_object_oStar: "星星",
+  maker_object_oStarRunning: "跑步之星",
+  maker_object_oSnail: "蜗牛",
+  maker_object_oSnailNight: "夜蜗牛",
+  maker_object_oLady: "瓢虫",
+  maker_object_oBat: "蝙蝠",
+  maker_object_oPlayerDir: "方向播放器",
+  maker_object_oBigSolid: "大固体",
+  maker_object_oBrokenStoneBig: "大碎石",
+  maker_object_oLadderNeutral: "中性爬行者",
+  maker_object_oStarColor: "红星",
+  maker_object_oStarRunningColor: "奔跑红星",
+  maker_object_oMush: "蘑菇",
+  maker_object_oMushGray: "中性蘑菇",
+  maker_object_oSnailGray: "中性蜗牛",
+  maker_object_oLadyGray: "中立的瓢虫",
+  maker_object_oLadyVer: "垂直瓢虫",
+  maker_object_oLadyGiant: "三重瓢虫",
+  maker_object_oLadyGiant4: "四瓢虫",
+  maker_object_oBatVer: "垂直蝙蝠",
+  maker_object_oBatGiant: "三蝙蝠",
+  maker_object_oBatSuperGiant: "四杆蝙蝠",
+  maker_object_oPlayerNeutral: "中立球员",
+  maker_object_oBird: "鸟",
+  maker_object_oKey: "钥匙",
+  maker_object_oKeyDoor: "门",
+  maker_object_oKeyTall: "高钥匙",
+  maker_object_oKeyDoorTall: "高高的门",
+  maker_object_oKeyWide: "宽钥匙",
+  maker_object_oKeyDoorWide: "宽门",
+  maker_object_oKeyTallWide: "大钥匙",
+  maker_object_oKeyDoorTallWide: "大门",
+  maker_object_oMagicOrb: "魔术球",
+  maker_object_oStarFly: "飞星",
+  maker_object_oSolidInv: "隐形实心块",
 
 
 	
