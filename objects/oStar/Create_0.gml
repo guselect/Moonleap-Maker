@@ -16,7 +16,7 @@ if instance_exists(oLevelMaker) {
 			sprite_index = sStarFlower;
 			break;
 	}
-} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+} else if instance_exists_any([oFlowerDay, oSpaceDay, oDunDay]) {
 	sprite_index = sStarFlower;
 }
 
