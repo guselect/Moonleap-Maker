@@ -339,7 +339,7 @@
     {"id":{"name":"oMakerAnimatedTile","path":"objects/oMakerAnimatedTile/oMakerAnimatedTile.yy",},},
     {"id":{"name":"oMakerBack","path":"objects/oMakerBack/oMakerBack.yy",},},
     {"id":{"name":"oMakerEditorTileDraft","path":"objects/oMakerEditorTileDraft/oMakerEditorTileDraft.yy",},},
-    {"id":{"name":"oMakerWarn","path":"objects/oMakerWarn/oMakerWarn.yy",},},
+    {"id":{"name":"oMakerWarning","path":"objects/oMakerWarning/oMakerWarning.yy",},},
     {"id":{"name":"oMb2","path":"objects/oMb2/oMb2.yy",},},
     {"id":{"name":"oMenu","path":"objects/oMenu/oMenu.yy",},},
     {"id":{"name":"oMush","path":"objects/oMush/oMush.yy",},},

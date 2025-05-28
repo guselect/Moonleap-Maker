@@ -92,6 +92,10 @@ lang_add("ZH", {
   maker_background: "3: 背景（装饰）",
   maker_far_background: "4: 远景背景（装饰）",
 
+  maker_warning_change_style: "注意！更换样式时，关卡中已有的装饰瓷砖将会被删除。你确定要更换样式吗？",
+  maker_warning_confirm: "是",
+  maker_warning_cancel: "否",
+
   maker_object_oPlayer: "球员",
   maker_object_oSolid: "实心块",
   maker_object_oBrokenStone: "破碎的石头",

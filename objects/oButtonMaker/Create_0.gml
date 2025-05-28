@@ -26,3 +26,20 @@ hover_text = "";
 play_sound_on_press = function() {
 	audio_play_sfx(sndUiChange, false, -18.3, 1);
 }
+
+change_style = function() {
+  with(oLevelMaker) {
+		selected_object_type = 0;
+		selected_object_position = 0;
+		
+		selected_style += 1;
+		if selected_style >= LEVEL_STYLE.LENGTH then 
+			selected_style = 0;
+			
+		tiles = level_maker_get_tiles_list(selected_style);
+
+		scr_update_style();
+    update_current_item();
+    reset_level_tiles_grid();
+	}
+}

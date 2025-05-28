@@ -107,6 +107,5 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 		draw_set_alpha(0.6);
 		selected_tile.draw_sprite_cursor(_x, _y);
 		draw_set_alpha(1);
-		//draw_text(_x, _y, string(_x) + "," + string(_y))
 	}
 }

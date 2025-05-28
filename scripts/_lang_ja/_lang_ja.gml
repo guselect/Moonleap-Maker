@@ -87,6 +87,10 @@ lang_add("JA", {
   maker_background: "3: 背景（かざり）",
   maker_far_background: "4: 遠くの背景（かざり）",
 
+  maker_warning_change_style: "注意！スタイルを変更すると、レベル内にある装飾タイルは削除されます。本当にスタイルを変更してもよろしいですか？",
+  maker_warning_confirm: "はい",
+  maker_warning_cancel: "いいえ",
+
   maker_object_oPlayer: "プレーヤー",
   maker_object_oSolid: "ソリッドブロック",
   maker_object_oBrokenStone: "砕石",

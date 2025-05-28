@@ -81,6 +81,10 @@ lang_add("IT", {
   maker_background: "3: Sfondo (Decorazione)",
   maker_far_background: "4: Sfondo Lontano (Decorazione)",
 
+  maker_warning_change_style: "Attenzione! Cambiando stile, le piastrelle decorative esistenti nel livello verranno eliminate. Sei sicuro di voler cambiare stile?",
+  maker_warning_confirm: "Sì",
+  maker_warning_cancel: "No",
+
   maker_object_oPlayer: "Giocatore",
   maker_object_oSolid: "Blocco solido",
   maker_object_oBrokenStone: "Pietra rotta",
