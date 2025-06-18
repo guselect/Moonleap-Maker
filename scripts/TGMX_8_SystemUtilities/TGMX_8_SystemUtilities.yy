@@ -6,7 +6,7 @@
   "name":"TGMX_8_SystemUtilities",
   "parent":{
     "name":"User",
-    "path":"folders/TweenGMX/User.yy",
+    "path":"folders/Libraries/TweenGMX/User.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

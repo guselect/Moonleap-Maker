@@ -4,7 +4,7 @@
   "name":"TGMX_Terms_of_Use",
   "parent":{
     "name":"Docs",
-    "path":"folders/TweenGMX/Docs.yy",
+    "path":"folders/Libraries/TweenGMX/Docs.yy",
   },
   "resourceType":"GMNotes",
   "resourceVersion":"2.0",
