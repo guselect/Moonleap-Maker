@@ -373,10 +373,10 @@ function level_maker_get_tiles_list(_style) {
 
 		case LEVEL_STYLE.SPACE:
 			_tileset = tMakerSpaceDay;
-			_pages = 4;
+			_pages = 3;
 			_tiles_amount = 53;
 			_tile_changes_starts_from = 34;
-      _excluded_tile_indexes = [43];
+      _excluded_tile_indexes = [35, 39, 40, 41, 42, 43];
       _animated_tiles = {
         "_37": {
           sprite_day: sAnimTileSpaceCloudCenterDay,

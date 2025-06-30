@@ -138,7 +138,7 @@ if image_index == 3 and is_mouse_left_pressing {
 // Save level
 if image_index == 4 and (is_mouse_left_pressing or (keyboard_check(vk_lcontrol) and keyboard_check_pressed(ord("S")))) {
 	play_sound_on_press();
-	d_levelName = get_save_filename("*.moonlevel", "Nome do nivel - Nome do autor do nivel");
+	d_levelName = get_save_filename("*.moonlevel", "mylevelname");
 	if (d_levelName != "") then level_maker_save(d_levelName);
 }
 
@@ -147,7 +147,7 @@ if image_index == 5
 and is_mouse_left_pressing {
 	play_sound_on_press();
 	
-	d_loadLevel = get_open_filename("*.moonlevel", "Meu nivel");
+	d_loadLevel = get_open_filename("*.moonlevel", "mylevelname");
 	if (d_loadLevel != "") then level_maker_load(d_loadLevel);
 	
 	with (oLevelMaker) {
