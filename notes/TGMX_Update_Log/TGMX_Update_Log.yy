@@ -4,7 +4,7 @@
   "name":"TGMX_Update_Log",
   "parent":{
     "name":"Docs",
-    "path":"folders/TweenGMX/Docs.yy",
+    "path":"folders/Libraries/TweenGMX/Docs.yy",
   },
   "resourceType":"GMNotes",
   "resourceVersion":"2.0",
