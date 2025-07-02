@@ -189,7 +189,9 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 				action: function() {
 					menu = menus.main;
 					option_index = 0;
-					oSaveManager.save = true;
+          if not global.is_maker_mode {
+            oSaveManager.save = true;  
+          }
 				}
 			},
 		],
@@ -383,7 +385,9 @@ if os_type= os_switch {  //switch, adnroid, IOS... remove stuff like windows sca
 				action: function() {
 					menu = menus.main;
 					option_index = 0;
-					oSaveManager.save = true;
+          if not global.is_maker_mode {
+            oSaveManager.save = true;  
+          }
 				}
 			},
 		],
@@ -538,7 +542,9 @@ if os_type= os_ios or os_type= os_android {  //switch, adnroid, IOS... remove st
 				action: function() {
 					menu = menus.main;
 					option_index = 0;
-					oSaveManager.save = true;
+					if not global.is_maker_mode {
+            oSaveManager.save = true;  
+          }
 				}
 			},
 		],
