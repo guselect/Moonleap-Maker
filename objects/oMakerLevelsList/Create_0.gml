@@ -20,6 +20,8 @@ levels_orderby = LEVELS_ORDERBY.NAME_ASC;
 input_delay_frames = 0;
 input_delay_frames_max = 5;
 
+_mouse = object_mouse_create("Instances");
+
 // If there are no levels available, set 'order by' option selected.
 if array_length(levels) == 0 {
   current_level_index = -1;

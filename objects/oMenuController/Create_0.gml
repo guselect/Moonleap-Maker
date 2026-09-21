@@ -25,7 +25,7 @@ _toggling_option_index = undefined;
 _current_option_index = 0;
 _background_fill_color = COLOR_NICE_BLACK;
 
-_mouse = instance_create_layer(0, 0, "Instances", oMenuMouse);
+_mouse = object_mouse_create("Instances");
 _mouse.use_on_gui = not instance_exists(oIntro);
 
 _mouse_previous_option_index = 0;
