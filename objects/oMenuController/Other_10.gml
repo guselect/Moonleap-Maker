@@ -5,12 +5,12 @@ if is_disabled {
 }
 
 if fill_background {
-  draw_clear(background_fill_color);
+  draw_clear(_background_fill_color);
 }
 
 var _menu = menus[$ current_menu_name],
     _options_length = array_length(_menu),
-    _current_option = _menu[current_option_index],
+    _current_option = _menu[_current_option_index],
 
     _text_halign = fa_center,
     _text_valign = fa_top,
@@ -26,11 +26,8 @@ var _menu = menus[$ current_menu_name],
 
     _text_shake_char = "$",
 
-    _option_base_x = GUI_W / 2,
-    _option_base_y = 78,
     _option_base_alt_title_y1 = 64,
     _option_base_alt_title_y2 = 73,
-    _option_y_gap = 14,
     _option_color_default = use_alt_colors ? COLOR_NICE_BLUE : COLOR_NICE_MAGENTA,
     _option_color_selected = use_alt_colors ? COLOR_NICE_WHITE : COLOR_NICE_YELLOW,
     _option_letters_distance = 0,
@@ -56,7 +53,7 @@ var _menu = menus[$ current_menu_name],
 
     _title_base_x = GUI_W / 2,
     _title_base_y = _option_base_y - (_option_y_gap * 2),
-    _title_text = get_title(),
+    _title_text = __get_title(),
     _title_text_level_name = "",
     _title_text_author_name = "",
     _title_letters_distance = 0,
@@ -149,7 +146,7 @@ if show_game_version {
 
 for (var _i = 0; _i < _options_length; _i++) {
   var _menu_option = _menu[_i],
-      _is_option_selected = current_option_index == _i,
+      _is_option_selected = _current_option_index == _i,
       _is_option_dangerous = _menu_option.is_dangerous,
 
       _option_x = _option_base_x,

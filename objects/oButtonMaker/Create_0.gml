@@ -247,7 +247,7 @@ __action_menu = function() {
       _show_title = true,
       _use_alt_colors = true;
   
-	menu_call_layer(
+	var _menu = menu_call_layer(
     _menu_list,
     _first_menu_name,
     _layer_name,
@@ -256,6 +256,12 @@ __action_menu = function() {
     _show_title,
     _use_alt_colors
   );
+  
+  _menu.on_clean_up = function() {
+    with (oLevelMaker) {
+      item_place_disable_timer.reset();  
+    }
+  }
 };
 
 __action_save_level = function() {

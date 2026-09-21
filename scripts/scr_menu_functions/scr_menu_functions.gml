@@ -14,6 +14,8 @@ function menu_call_layer(_menu_list_struct, _first_menu_name, _layer, _fill_back
   _menu_controller.show_game_version = _show_game_version;
   _menu_controller.show_title = _show_title;
   _menu_controller.use_alt_colors = _use_alt_colors;
+  
+  return _menu_controller;
 }
 
 function menus_get_main() {

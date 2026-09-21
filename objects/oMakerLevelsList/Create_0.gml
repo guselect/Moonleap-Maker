@@ -160,7 +160,6 @@ levels_get_orderedby = function() {
   return _new_levels_arr;
 };
 
-
 level_get_rank_letter = function(_player_score, _perfect_score) {
   var _letter = "D";
   

@@ -12,8 +12,13 @@ or array_length(_menus_length) == 0 {
 }
 
 scr_inputget();
-check_debugging_mode();
 
-__handle_options_selection();
-__handle_option_activation();
+__check_debugging_mode();
+
+__handle_option_selection_on_input_nav_down();
+__handle_option_selection_on_mouse_hover();
+
+__handle_option_activation_on_input_select_press();
+__handle_option_activation_on_mouse_click();
+
 __handle_option_value_toggling();

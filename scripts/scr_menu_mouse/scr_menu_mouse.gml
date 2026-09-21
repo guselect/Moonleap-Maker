@@ -1,0 +1,1 @@
+enum MENU_CURSOR_TYPE { POINTER = 1, FINGER = 2 }
