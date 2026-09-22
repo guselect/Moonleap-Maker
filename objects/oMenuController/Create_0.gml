@@ -217,6 +217,10 @@ __handle_option_selection_on_mouse_hover = function() {
 };
 
 __handle_option_activation_on_mouse_click = function() {
+  if not instance_exists(_mouse) {
+    return;
+  }
+  
   if _mouse.is_hidden() {
     return;
   }

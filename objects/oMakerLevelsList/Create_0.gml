@@ -21,6 +21,60 @@ input_delay_frames = 0;
 input_delay_frames_max = 5;
 
 _mouse = object_mouse_create("Instances");
+_mouse.use_on_gui = true;
+
+_option_index_minimum = -2;
+
+_option_index_goback = -2;
+_option_index_orderby = -1;
+
+// =================================
+// UI variables
+// =================================
+__get_option_label_goback_text = function() {
+  return LANG.text_back;
+};
+
+__get_option_label_orderby_text = function() {
+  return $"{LANG.maker_orderby}{__orderby_option_get_text()}";
+};
+
+_text_margin_top = 8;
+_text_margin_left = 16;
+_text_margin_right = 16;
+_text_padding_left = 6;
+_text_padding_top = 2;
+_text_padding_right = 6;
+
+_option_label_goback_x = GUI_W - _text_margin_right;
+_option_label_goback_y = _text_margin_top;
+
+_option_label_orderby_x = GUI_W - _text_margin_right;
+_option_label_orderby_y = _text_margin_top;
+
+_menu_start_x = 8;
+_menu_start_y = 48;
+
+_box_sprite = sLevelBox;
+_box_margin_left = 8;
+_box_margin_right = 16;
+_box_margin_bottom = 4;
+_box_width = GUI_W - _menu_start_x - _box_margin_left - _box_margin_right;
+_box_height = 40;
+
+_scroll_arrow_up_sprite = sLevelScrollArrowUp;
+_scroll_arrow_up_sprite_width = sprite_get_width(_scroll_arrow_up_sprite);
+_scroll_arrow_up_sprite_height = sprite_get_height(_scroll_arrow_up_sprite);
+_scroll_arrow_up_margin_right = 3;
+_scroll_arrow_up_x = GUI_W - _scroll_arrow_up_sprite_width - _scroll_arrow_up_margin_right;
+_scroll_arrow_up_y = _menu_start_y;
+
+_scroll_arrow_down_sprite = sLevelScrollArrowDown;
+_scroll_arrow_down_sprite_width = sprite_get_width(_scroll_arrow_down_sprite);
+_scroll_arrow_down_sprite_height = sprite_get_height(_scroll_arrow_down_sprite);
+_scroll_arrow_down_margin_right = 3;
+_scroll_arrow_down_x = GUI_W - _scroll_arrow_down_sprite_width - _scroll_arrow_down_margin_right;
+_scroll_arrow_down_y = _menu_start_y + (_box_height * levels_to_display);
 
 // If there are no levels available, set 'order by' option selected.
 if array_length(levels) == 0 {
@@ -33,7 +87,7 @@ if layer_exists("MakerLogo") {
 
 scr_inputcreate();
 
-play_sound_on_navigate = function() {
+__play_sound_on_navigate = function() {
   var _sound = sndUiChange,
       _can_loop = false,
       _gain = -18.3,
@@ -42,7 +96,7 @@ play_sound_on_navigate = function() {
   audio_play_sfx(_sound, _can_loop, _gain, _pitch);
 };
 
-play_sound_on_select_option = function() {
+__play_sound_on_select_option = function() {
   var _ui_select_sound = sndUiChange,
       _priority = 1,
       _loop = false,
@@ -53,23 +107,13 @@ play_sound_on_select_option = function() {
   audio_play_sound(_ui_select_sound, _priority, _loop, _gain, _offset, _pitch);
 };
 
-play_transition_sound = function() {
-  menu_play_redirect_option_sound();
-};
-
-/// @desc Updates the level display range (start and end). Use this command when you change `levels_to_display` value.
-update_level_display_range = function() {
-  level_display_range_start = 0;
-  level_display_range_end = levels_to_display - 1;
-};
-
-level_name_get_length_width = function() {
+__level_name_get_length_width = function() {
   var _txt = ""
   repeat(32) _txt += "A";
   return string_width(_txt);
 };
 
-orderby_option_get_text = function() {
+__orderby_option_get_text = function() {
   switch(levels_orderby) {
     case LEVELS_ORDERBY.NAME_ASC: return LANG.maker_orderby_name_asc;
     case LEVELS_ORDERBY.NAME_DESC: return LANG.maker_orderby_name_desc;
@@ -80,7 +124,7 @@ orderby_option_get_text = function() {
   }
 };
 
-levels_get_orderedby = function() {
+__levels_get_orderedby = function() {
   var _new_levels_arr = [];
 
   array_copy(_new_levels_arr, 0, levels, 0, array_length(levels));
@@ -133,8 +177,8 @@ levels_get_orderedby = function() {
             _left_perfect_score = left.perfect_score,
             _right_player_score = right.player_score,
             _right_perfect_score = right.perfect_score,
-            _left_rank = level_get_rank_letter(_left_player_score, _left_perfect_score),
-            _right_rank = level_get_rank_letter(_right_player_score, _right_perfect_score),
+            _left_rank = __level_get_rank_letter(_left_player_score, _left_perfect_score),
+            _right_rank = __level_get_rank_letter(_right_player_score, _right_perfect_score),
             _left_index = array_find_index_of_value(_rank_order, _left_rank),
             _right_index = array_find_index_of_value(_rank_order, _right_rank);
 
@@ -149,8 +193,8 @@ levels_get_orderedby = function() {
             _left_perfect_score = left.perfect_score,
             _right_player_score = right.player_score,
             _right_perfect_score = right.perfect_score,
-            _left_rank = level_get_rank_letter(_left_player_score, _left_perfect_score),
-            _right_rank = level_get_rank_letter(_right_player_score, _right_perfect_score),
+            _left_rank = __level_get_rank_letter(_left_player_score, _left_perfect_score),
+            _right_rank = __level_get_rank_letter(_right_player_score, _right_perfect_score),
             _left_index = array_find_index_of_value(_rank_order, _left_rank),
             _right_index = array_find_index_of_value(_rank_order, _right_rank);
 
@@ -162,7 +206,7 @@ levels_get_orderedby = function() {
   return _new_levels_arr;
 };
 
-level_get_rank_letter = function(_player_score, _perfect_score) {
+__level_get_rank_letter = function(_player_score, _perfect_score) {
   var _letter = "D";
   
   if _player_score <= _perfect_score + 9 {
@@ -184,7 +228,278 @@ level_get_rank_letter = function(_player_score, _perfect_score) {
   return _letter;
 };
 
-import_levels_from_levels_folder = function() {
+__handle_option_selection_on_input_nav_down = function() {
+  var _levels = __levels_get_orderedby(),
+      _levels_length = array_length(_levels),
+      _level = _levels_length == 0 ? undefined : _levels[max(0, current_level_index)],
+      _input_nav_up = key_up or (key_up_axis_pressed and not key_axis_pressed),
+      _input_nav_down = key_down or (key_down_axis_pressed and not key_axis_pressed);
+
+  if _input_nav_up and current_level_index > _option_index_minimum {
+    __play_sound_on_navigate();
+    
+    current_level_index -= 1;
+    if current_level_index < level_display_range_start {
+      level_display_range_start = max(0, current_level_index);
+      level_display_range_end = level_display_range_start + (levels_to_display - 1);
+    }
+    return;
+  }
+  
+  if _input_nav_down and current_level_index < _levels_length - 1 {
+    __play_sound_on_navigate();
+    
+    current_level_index += 1;
+    if current_level_index > level_display_range_end {
+      level_display_range_end = current_level_index;
+      level_display_range_start = level_display_range_end - (levels_to_display - 1);
+    }
+  }
+};
+
+__handle_option_activation_on_input_press = function() {
+  var _input_nav_select = key_start or key_jump_pressed;
+  
+  if not _input_nav_select {
+    return;
+  }
+  
+  __trigger_selected_option();
+};
+
+__handle_scroll_arrow_activation_on_mouse_click = function() {
+  var _levels_length = array_length(__levels_get_orderedby()),
+  
+      _input_nav_down = mouse_wheel_down(),
+      _input_nav_up = mouse_wheel_up();
+  
+  if _levels_length <= levels_to_display {
+    return;
+  }
+  
+  if not mouse_check_button_pressed(mb_left) {
+    return;
+  }
+  
+  if _mouse.is_into_rect_area(
+    _scroll_arrow_up_x,
+    _scroll_arrow_up_y,
+    _scroll_arrow_up_x + _scroll_arrow_up_sprite_width,
+    _scroll_arrow_up_y + _scroll_arrow_up_sprite_height
+  ) {
+    
+    current_level_index -= 1;
+    if current_level_index < 0 {
+      current_level_index = 0;
+    } else {
+      __play_sound_on_navigate();  
+    }
+    if current_level_index < level_display_range_start {
+      level_display_range_start = max(0, current_level_index);
+      level_display_range_end = level_display_range_start + (levels_to_display - 1);
+    }
+    return;
+  }
+  
+  if _mouse.is_into_rect_area(
+    _scroll_arrow_down_x,
+    _scroll_arrow_down_y,
+    _scroll_arrow_down_x + _scroll_arrow_down_sprite_width,
+    _scroll_arrow_down_y + _scroll_arrow_down_sprite_height
+  ) {
+    current_level_index = clamp(current_level_index, 0, _levels_length - 1);
+    current_level_index += 1;
+    if current_level_index >= _levels_length {
+      current_level_index = _levels_length - 1;
+    } else {
+      __play_sound_on_navigate();
+    }
+      
+    if current_level_index > level_display_range_end {
+      level_display_range_end = current_level_index;
+      level_display_range_start = level_display_range_end - (levels_to_display - 1);
+    }
+    return;
+  }
+}
+
+__get_menu_option_mouse_hovered = function() {
+  var _option_goback_left = _option_label_goback_x - string_width(__get_option_label_goback_text()),
+      _option_goback_right = _option_label_goback_x,
+      _option_goback_top = _option_label_goback_y,
+      _option_goback_bottom = _option_label_goback_y + string_height(__get_option_label_goback_text());
+  
+  if _mouse.is_into_rect_area(
+    _option_goback_left,
+    _option_goback_top,
+    _option_goback_right,
+    _option_goback_bottom
+  ) {
+    return _option_index_goback;
+  }
+  
+  var _option_orderby_yy = _option_label_orderby_y + string_height(__get_option_label_goback_text()),
+      _option_orderby_left = _option_label_orderby_x - string_width(__get_option_label_orderby_text()),
+      _option_orderby_right = _option_label_orderby_x,
+      _option_orderby_top = _option_orderby_yy,
+      _option_orderby_bottom = _option_orderby_yy + string_height(__get_option_label_orderby_text());
+  
+  if _mouse.is_into_rect_area(
+    _option_orderby_left,
+    _option_orderby_top,
+    _option_orderby_right,
+    _option_orderby_bottom
+  ) {
+    return _option_index_orderby;
+  }
+  
+  _levels = __levels_get_orderedby();
+  
+  if array_length(_levels) == 0 {
+    return undefined;
+  }
+  
+  for (
+    var i = level_display_range_start;
+    i <= level_display_range_end and i - level_display_range_start < array_length(_levels);
+    i++
+  ) {
+    var _levels_x = _menu_start_x + _box_margin_left,
+        _levels_y = _menu_start_y + (_box_height + _box_margin_bottom) * (i - level_display_range_start),
+        
+        _option_box_left = _levels_x,
+        _option_box_top = _levels_y,
+        _option_box_right = _levels_x + _box_width,
+        _option_box_bottom = _levels_y + _box_height;
+    
+    if _mouse.is_into_rect_area(
+      _option_box_left,
+      _option_box_top, 
+      _option_box_right, 
+      _option_box_bottom
+    ) {
+      return i;
+    }
+  }
+  
+  return undefined;
+};
+
+__trigger_selected_option = function() {
+var _levels = __levels_get_orderedby(),
+    _levels_length = array_length(_levels),
+    _level = _levels_length == 0 ? undefined : _levels[max(0, current_level_index)];
+  
+  __play_sound_on_select_option();
+  
+  var _shake_intensity = 0.4,
+      _shake_duration = 2;
+
+  shake_gamepad(_shake_intensity, _shake_duration);
+
+  switch(current_level_index) {
+    // Go back
+    case _option_index_goback:
+      menu_call_layer(menus_get_maker(), "main", "Instances");
+      instance_destroy();
+    exit;
+
+    // Order by
+    case _option_index_orderby:
+      levels_orderby += 1;
+      if levels_orderby >= LEVELS_ORDERBY.LENGTH {
+        levels_orderby = 0;
+      }
+    break;
+
+    // Levels
+    default:
+      var _level_description = instance_create_layer(-16, -16, "Instances", oLevelDescription);
+      
+      _level_description.level = _level;
+    break;
+  }
+};
+
+__handle_option_selection_on_mouse_hover = function() {
+  if _mouse.is_hidden() {
+    return;
+  }
+  
+  var _option_index_hovered = __get_menu_option_mouse_hovered();
+  
+  if is_undefined(_option_index_hovered) {
+    return;
+  }
+  
+  if current_level_index != _option_index_hovered {
+    current_level_index = _option_index_hovered;
+    __play_sound_on_navigate();
+  }
+};
+
+__update_mouse_cursor_type = function() {
+  var _option_index_hovered = __get_menu_option_mouse_hovered();
+  
+  _mouse.cursor_type = MENU_CURSOR_TYPE.POINTER;
+  
+  // Options and levels
+  if not is_undefined(_option_index_hovered) {
+    _mouse.cursor_type = MENU_CURSOR_TYPE.FINGER;  
+    return;
+  }
+  
+  // Scroll arrows up/down
+  var _levels_length = array_length(__levels_get_orderedby());
+  
+  if _levels_length <= levels_to_display {
+    return;
+  }
+  
+  if _mouse.is_into_rect_area(
+    _scroll_arrow_down_x,
+    _scroll_arrow_down_y,
+    _scroll_arrow_down_x + _scroll_arrow_down_sprite_width,
+    _scroll_arrow_down_y + _scroll_arrow_down_sprite_height
+  ) {
+    _mouse.cursor_type = MENU_CURSOR_TYPE.FINGER;
+    return;
+  }
+  
+  if _mouse.is_into_rect_area(
+    _scroll_arrow_up_x,
+    _scroll_arrow_up_y,
+    _scroll_arrow_up_x + _scroll_arrow_up_sprite_width,
+    _scroll_arrow_up_y + _scroll_arrow_up_sprite_height
+  ) {
+    _mouse.cursor_type = MENU_CURSOR_TYPE.FINGER;
+    return;
+  }
+}
+
+__handle_option_activation_on_mouse_click = function() {
+  if not instance_exists(_mouse) {
+    return;
+  }
+  
+  if _mouse.is_hidden() {
+    return;
+  }
+  
+  if not mouse_check_button_pressed(mb_left) {
+    return;
+  }
+  
+  var _option_index_hovered = __get_menu_option_mouse_hovered();
+  
+  if is_undefined(_option_index_hovered) {
+    return;
+  }
+  
+  __trigger_selected_option();
+};
+
+__import_levels_from_levels_folder = function() {
   levels = [];
   
   var _level_files = [],
@@ -215,4 +530,4 @@ import_levels_from_levels_folder = function() {
   file_find_close();
 };
 
-import_levels_from_levels_folder();
+__import_levels_from_levels_folder();
