@@ -87,6 +87,38 @@ if layer_exists("MakerLogo") {
 
 scr_inputcreate();
 
+/// @desc This function loads all levels importing them from their files into levels folder.
+import_levels_from_levels_folder = function() {
+  levels = [];
+  
+  var _level_files = [],
+      _file_pattern = $"{LEVEL_MAKER_LEVELS_FOLDER_PATH}/*.{LEVEL_MAKER_LEVEL_FILE_EXTENSION}",
+      _level_filename = file_find_first(_file_pattern, fa_none);
+  
+  while _level_filename != "" {
+    try {
+    	var _level_file_path = $"{LEVEL_MAKER_LEVELS_FOLDER_NAME}/{_level_filename}",
+          _level_json = level_maker_level_file_open(_level_file_path);
+      
+      array_push(levels, new MakerLevel(
+        $"{LEVEL_MAKER_LEVELS_FOLDER_PATH}/{_level_filename}",
+        _level_json.name,
+        _level_json.author,
+        _level_json.player_score,
+        _level_json.perfect_score,
+        _level_json.style,
+        struct_exists(_level_json, "record_time") ? _level_json.record_time : -1
+      ));
+    } catch (_error) {
+    	show_debug_message($"[!!!] Couldn't load level file {_level_filename}.\n {_error}");
+    } finally {
+      _level_filename = file_find_next();
+    }
+  }
+  
+  file_find_close();
+};
+
 __play_sound_on_navigate = function() {
   var _sound = sndUiChange,
       _can_loop = false,
@@ -499,35 +531,4 @@ __handle_option_activation_on_mouse_click = function() {
   __trigger_selected_option();
 };
 
-__import_levels_from_levels_folder = function() {
-  levels = [];
-  
-  var _level_files = [],
-      _file_pattern = $"{LEVEL_MAKER_LEVELS_FOLDER_PATH}/*.{LEVEL_MAKER_LEVEL_FILE_EXTENSION}",
-      _level_filename = file_find_first(_file_pattern, fa_none);
-  
-  while _level_filename != "" {
-    try {
-    	var _level_file_path = $"{LEVEL_MAKER_LEVELS_FOLDER_NAME}/{_level_filename}",
-          _level_json = level_maker_level_file_open(_level_file_path);
-      
-      array_push(levels, new MakerLevel(
-        $"{LEVEL_MAKER_LEVELS_FOLDER_PATH}/{_level_filename}",
-        _level_json.name,
-        _level_json.author,
-        _level_json.player_score,
-        _level_json.perfect_score,
-        _level_json.style,
-        struct_exists(_level_json, "record_time") ? _level_json.record_time : -1
-      ));
-    } catch (_error) {
-    	show_debug_message($"[!!!] Couldn't load level file {_level_filename}.\n {_error}");
-    } finally {
-      _level_filename = file_find_next();
-    }
-  }
-  
-  file_find_close();
-};
-
-__import_levels_from_levels_folder();
+import_levels_from_levels_folder();

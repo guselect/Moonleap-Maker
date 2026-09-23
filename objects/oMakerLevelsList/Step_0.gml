@@ -1,12 +1,17 @@
 input_delay_frames = max(-1, input_delay_frames - 1);
 
+if instance_exists(oLevelDescription) {
+  input_delay_frames = input_delay_frames_max;
+  _mouse.visible = false;
+  exit;
+}
+
 if input_delay_frames == -1 {
   scr_inputget();
 }
 
-if instance_exists(oLevelDescription) {
-  input_delay_frames = input_delay_frames_max;
-  exit;
+if not _mouse.visible {
+  _mouse.visible = true;
 }
 
 __update_mouse_cursor_type();
