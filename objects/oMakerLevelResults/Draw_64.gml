@@ -64,7 +64,7 @@ nox_set_alternative_color(COLOR_NICE_BLUE, "#");
 
 var _rank_result_halign = fa_center,
     _rank_result_valign = fa_middle,
-    _rank_result_letter = rank_get_result_letter() == "S" ? $"#{rank_get_result_letter()}#" : rank_get_result_letter(),
+    _rank_result_letter = __rank_get_result_letter() == "S" ? $"#{__rank_get_result_letter()}#" : __rank_get_result_letter(),
     _rank_result_text = $"{LANG.maker_level_result}{_rank_result_letter}",
     _rank_result_height = string_height(_rank_result_text),
     _rank_result_x = GUI_W / 2,
@@ -159,60 +159,40 @@ nox_set_wave(
   _text_wave_char
 );
 
-var _option1_halign = fa_center,
-    _option1_valign = fa_middle,
-    _option1_text = current_option == 0 ? $"~{LANG.maker_level_try_again}~" : $"{LANG.maker_level_try_again}",
-    _option1_height = string_height(_option1_text),
-    _option1_x = GUI_W / 2,
-    _option1_y = GUI_H / 1.5 + _option1_height,
-    _option1_color = current_option == 0 ? COLOR_NICE_WHITE : COLOR_NICE_BLUE,
-    _option1_letters_distance = 0,
-    _option1_line_distance = 12,
-    _option1_line_width = GUI_W,
-    _option1_break_on_space = false,
-    _option1_alpha = 1;
+var _option_halign = fa_center,
+    _option_valign = fa_middle,
+    _option_letters_distance = 0,
+    _option_line_distance = 12,
+    _option_line_width = GUI_W,
+    _option_break_on_space = false,
+    _option_alpha = 1;
 
-draw_set_halign(_option1_halign);
-draw_set_valign(_option1_valign);
-draw_set_color(_option1_color);
+draw_set_halign(_option_halign);
+draw_set_valign(_option_valign);
 
-draw_text_nox(
-  _option1_x,
-  _option1_y,
-  _option1_text,
-  _option1_letters_distance,
-  _option1_line_distance,
-  _option1_line_width,
-  _option1_break_on_space,
-  _option1_alpha
-);
-
-var _option2_halign = fa_center,
-    _option2_valign = fa_middle,
-    _option2_text = current_option == 1 ? $"~{LANG.text_exit}~" : $"{LANG.text_exit}",
-    _option2_height = string_height(_option2_text),
-    _option2_x = GUI_W / 2,
-    _option2_y = GUI_H / 1.5 + _option2_height * 2,
-    _option2_color = current_option == 1 ? COLOR_NICE_WHITE : COLOR_NICE_BLUE,
-    _option2_letters_distance = 0,
-    _option2_line_distance = 12,
-    _option2_line_width = GUI_W,
-    _option2_break_on_space = false,
-    _option2_alpha = 1;
-
-draw_set_halign(_option2_halign);
-draw_set_valign(_option2_valign);
-draw_set_color(_option2_color);
-
-draw_text_nox(
-  _option2_x,
-  _option2_y,
-  _option2_text,
-  _option2_letters_distance,
-  _option2_line_distance,
-  _option2_line_width,
-  _option2_break_on_space,
-  _option2_alpha
-);
+for (var i = 0; i < LEVEL_MAKER_RESULT_OPTION.LENGTH; i++) {
+  var _option_label = __get_option_label(i),
+      _draw_option_x = _option_base_x,
+      _draw_option_y = _option_base_y + string_height(_option_label) * i;
+      _option_color = current_option == i ? COLOR_NICE_WHITE : COLOR_NICE_BLUE;
+  
+  if current_option == i {
+    _option_color = COLOR_NICE_WHITE;
+    _option_label = $"~{_option_label}~";
+  }
+  
+  draw_set_color(_option_color);
+  
+  draw_text_nox(
+    _draw_option_x,
+    _draw_option_y,
+    _option_label,
+    _option_letters_distance,
+    _option_line_distance,
+    _option_line_width,
+    _option_break_on_space,
+    _option_alpha
+  );
+}
 
 draw_reset();
