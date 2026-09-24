@@ -23,9 +23,7 @@ var _text_letters_distance = 0,
     _pagination_text = $"< {message_index + 1} / {_messages_length} >",
     _pagination_color = COLOR_NICE_BLUE,
 
-    _close_option_x = GUI_W / 2,
-    _close_option_y = GUI_H - 20,
-    _close_option_text = $"~{LANG.text_back}~",
+    _close_option_text = $"~{__get_close_option_label()}~",
     _close_option_color = COLOR_NICE_WHITE;
 
 nox_set_wave(
