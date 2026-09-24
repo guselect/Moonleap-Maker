@@ -34,7 +34,7 @@ if loadvalue != 0 and time < 20 {
 		skip_timer.count();
 	}
 	
-	if key_jump_pressed or key_start {
+	if key_jump_pressed or key_start or mouse_check_button_pressed(mb_left) {
 		confirm_skip += 1;
 		skip_timer.reset();
 	}

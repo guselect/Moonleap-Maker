@@ -3,7 +3,7 @@
 
 scr_inputget() //is what gives meaning to key_left key_right...
 
-if (key_jump_pressed=true or key_start=true) { 
+if (key_jump_pressed=true or key_start=true or mouse_check_button_pressed(mb_left)) { 
 	if(!go){go=true; alarm[1] = game_get_speed(gamespeed_fps) *6;}
 	else{
 		alarm[0]=1;

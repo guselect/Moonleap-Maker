@@ -3,7 +3,7 @@
 scr_inputget()
 
 
-if(key_jump){
+if(key_jump or mouse_check_button(mb_left)){
 	multiplicador_timer = .1;
 }else{
 	multiplicador_timer = 1;
@@ -59,7 +59,7 @@ if(!fim_fade){
 	y_move -= y_move_speed / multiplicador_timer;
 }
 
-if terminou=true and (key_start or key_jump_pressed)
+if terminou=true and (key_start or key_jump_pressed or mouse_check_button_pressed(mb_left))
 {
 	if !instance_exists(oTransition)
 	{
