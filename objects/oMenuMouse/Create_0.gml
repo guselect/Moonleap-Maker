@@ -1,6 +1,6 @@
 cursor_type = MENU_CURSOR_TYPE.POINTER;
 
-use_on_gui = false;
+use_on_gui = true;
 
 xx = 0;
 yy = 0;

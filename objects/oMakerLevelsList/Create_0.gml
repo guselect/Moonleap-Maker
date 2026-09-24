@@ -21,7 +21,6 @@ input_delay_frames = 0;
 input_delay_frames_max = 5;
 
 _mouse = object_mouse_create("Instances");
-_mouse.use_on_gui = true;
 
 _option_index_minimum = -2;
 

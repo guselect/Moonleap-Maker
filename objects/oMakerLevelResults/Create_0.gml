@@ -10,7 +10,6 @@ record_time = -1;
 current_option = 0;
 
 _mouse = object_mouse_create("Instances");
-_mouse.use_on_gui = true;
 
 _option_base_x = GUI_W / 2;
 _option_base_y = GUI_H / 1.35;

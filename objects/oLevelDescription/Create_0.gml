@@ -9,7 +9,6 @@ confirm_erase_count = 0;
 confirm_erase_count_max = 3;
 
 _mouse = object_mouse_create("Instances");
-_mouse.use_on_gui = true;
 
 // =================================
 // UI variables

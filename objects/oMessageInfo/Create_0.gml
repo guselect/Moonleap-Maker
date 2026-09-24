@@ -6,7 +6,6 @@ message_color = COLOR_NICE_WHITE;
 bg_color = COLOR_NICE_BLACK;
 
 _mouse = object_mouse_create("Instances");
-_mouse.use_on_gui = true;
 
 _close_option_x = GUI_W / 2;
 _close_option_y = GUI_H - 20;

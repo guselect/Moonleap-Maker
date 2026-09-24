@@ -273,7 +273,14 @@ __action_save_level = function() {
   }
   __shake_gamepad_on_press();
   __play_sound_on_press();
-  menu_call_layer(menus_get_save_level(), "main", "Instances", true, false, false, true);
+  
+  var _menu = menu_call_layer(menus_get_save_level(), "main", "Instances", true, false, false, true);
+  
+  _menu.on_clean_up = function() {
+    with (oLevelMaker) {
+      item_place_disable_timer.reset();
+    }
+  };
 };
 
 __action_load_level = function() {
