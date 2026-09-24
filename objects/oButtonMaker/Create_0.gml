@@ -320,7 +320,6 @@ __action_help = function() {
     LANG.maker_help_welcome,
     LANG.maker_help_creating_and_testing,
     LANG.maker_help_custom_config,
-    LANG.maker_help_recommendations,
     LANG.maker_help_layers,
     LANG.maker_help_change_style1,
     LANG.maker_help_change_style2,
