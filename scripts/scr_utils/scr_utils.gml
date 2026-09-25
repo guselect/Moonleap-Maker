@@ -162,8 +162,12 @@ function string_filename_create(_str) {
 
 /// @desc This function draws a rectangle border around the collision bounding box.
 /// @param {Constant.Color} _color The rectangle border color.
-function draw_bbox_rect(_color = c_orange) {
+/// @param {bool} _outline Whether the outline will be drawn instead of fill. Default: `true`.
+/// @param {real} _alpha The rectangle alpha. Default: `1`.
+function draw_bbox_rect(_color = c_orange, _outline = true, _alpha = 1) {
+  draw_set_alpha(_alpha);
   draw_set_color(_color);
-  draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, true);
-  draw_set_color(-1);
+  draw_rectangle(bbox_left, bbox_top, bbox_right, bbox_bottom, _outline);
+  
+  draw_reset();
 }
