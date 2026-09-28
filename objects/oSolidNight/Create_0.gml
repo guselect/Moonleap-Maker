@@ -1,7 +1,6 @@
-/// @description Insert description here
-// You can write your code in this editor
-night=oCamera.night
-ani=0
+event_inherited();
+
+night = oCamera.night;
 
 switch(oLevelMaker.selected_style) {
 	case LEVEL_MAKER_STYLE.GRASS:		sprite_index = sGrassOre;		break;
