@@ -171,3 +171,9 @@ function draw_bbox_rect(_color = c_orange, _outline = true, _alpha = 1) {
   
   draw_reset();
 }
+
+/// @desc This function normalizes the given angle keeping it into the interval of 0 and 359 if its value is outside of it.
+/// @param {real} angle The angle to be normalized.
+function angle_normalize(angle) {
+  return ((angle mod 360) + 360) mod 360;
+}

@@ -31,25 +31,61 @@ function SpriteSlices(_obj) constructor {
     top: false,
     bottom: false
   };
-  _neighbors_once = false;
+  _is_neighbors_once_done = false;
   
-  /// @desc This function finds and registers the occurance of other instances of the same object being next to the object at the four sides (left, right, top and bottom).
+  /// @desc This function finds and registers the occurance of other instances of the same object neighbours to the current object at the four sides (left, right, top and bottom).
   update_neighbors = function() {
-    if _neighbors_once {
+    if _is_neighbors_once_done {
       return;
     }
     
     var _dist = neighbor_check_distance;
+    var _angle = angle_normalize(obj.image_angle);
     
-    with(obj) {
-      other._neighbors.left = place_meeting(x - _dist, y, object_index);
-      other._neighbors.right = place_meeting(x + _dist, y, object_index);
-      other._neighbors.top = place_meeting(x, y - _dist, object_index);
-      other._neighbors.bottom = place_meeting(x, y + _dist, object_index);
+    switch (_angle) {
+      // Facing up
+      case 0:
+        with(obj) {
+          other._neighbors.left = place_meeting(x - _dist, y, object_index);
+          other._neighbors.right = place_meeting(x + _dist, y, object_index);
+          other._neighbors.top = place_meeting(x, y - _dist, object_index);
+          other._neighbors.bottom = place_meeting(x, y + _dist, object_index);
+        }
+      break;
+      
+      // Facing left
+      case 90:
+        with(obj) {
+          other._neighbors.left = place_meeting(x, y + _dist, object_index);
+          other._neighbors.right = place_meeting(x, y - _dist, object_index);
+          other._neighbors.top = place_meeting(x - _dist, y, object_index);
+          other._neighbors.bottom = place_meeting(x + _dist, y, object_index);
+        }
+      break;
+      
+      // Facing down
+      case 180:
+        with(obj) {
+          other._neighbors.left = place_meeting(x + _dist, y, object_index);
+          other._neighbors.right = place_meeting(x - _dist, y, object_index);
+          other._neighbors.top = place_meeting(x, y + _dist, object_index);
+          other._neighbors.bottom = place_meeting(x, y - _dist, object_index);
+        }
+      break;
+      
+      // Facing right
+      case 270:
+        with(obj) {
+          other._neighbors.left = place_meeting(x, y - _dist, object_index);
+          other._neighbors.right = place_meeting(x, y + _dist, object_index);
+          other._neighbors.top = place_meeting(x + _dist, y, object_index);
+          other._neighbors.bottom = place_meeting(x - _dist, y, object_index);
+        }
+      break;
     }
     
     if update_neighbors_once {
-      _neighbors_once = true;
+      _is_neighbors_once_done = true;
     }
   };
   
@@ -62,7 +98,7 @@ function SpriteSlices(_obj) constructor {
   /// @param {real} yscale The vertical scale of the sprite to be drawn.
   /// @param {real} blend The color blend of the sprite to be drawn.
   /// @param {real} alpha The alpha of the sprite to be drawn.
-  draw_sprite_slices = function(sprite, frame, xx, yy, xscale, yscale, blend, alpha) {
+  draw_sprite_slices = function(sprite, frame, xx, yy, xscale, yscale, angle, blend, alpha) {
     var _nineslice = sprite_get_nineslice(sprite),
         _was_nineslice_enabled = false;
     
@@ -72,6 +108,7 @@ function SpriteSlices(_obj) constructor {
     }
     
     struct_foreach(slice_boxes, method({
+      _obj: obj,
       _boxes: slice_boxes,
       __neighbors: _neighbors,
       _sprite: sprite,
@@ -80,6 +117,7 @@ function SpriteSlices(_obj) constructor {
       _yy: yy,
       _xscale: xscale,
       _yscale: yscale,
+      _angle: angle,
       _blend: blend,
       _alpha: alpha
     }, function(_side_name, _value) {
@@ -88,13 +126,12 @@ function SpriteSlices(_obj) constructor {
       
       if _is_center_part
       or (struct_exists(__neighbors, _side_name) and not __neighbors[$ _side_name]) {
-        var _xoffset = _side.left - sprite_get_xoffset(_sprite) * _xscale,
-            _yoffset = _side.top - sprite_get_yoffset(_sprite) * _yscale;
+        var _xoffset = _side.left - sprite_get_xoffset(_sprite),
+            _yoffset = _side.top - sprite_get_yoffset(_sprite),
+            _old_matrix = matrix_get(matrix_world),
+            _sprite_matrix = matrix_build(_xx, _yy, 0, 0, 0, _angle, _xscale, _yscale, 1);
         
-        if _is_center_part {
-          _xoffset = 0;
-          _yoffset = 0;
-        }
+        matrix_set(matrix_world, _sprite_matrix);
         
         draw_sprite_part_ext(
           _sprite,
@@ -103,13 +140,15 @@ function SpriteSlices(_obj) constructor {
           _side.top,
           _side.width,
           _side.height,
-          _xx + _xoffset,
-          _yy + _yoffset,
-          _xscale,
-          _yscale,
+          _xoffset,
+          _yoffset,
+          1,
+          1,
           _blend,
           _alpha
         );
+        
+        matrix_set(matrix_world, _old_matrix);
       }
     }));
     

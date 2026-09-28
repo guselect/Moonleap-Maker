@@ -2,6 +2,7 @@ night = false;
 ani = 0;
 
 _slices = new SpriteSlices(self);
+_slices.update_neighbors_once = true;
 _slices.slice_boxes.center = new SpriteSliceBox(8, 8, 16, 16);
 _slices.slice_boxes.left = new SpriteSliceBox(3, 3, 5, 26);
 _slices.slice_boxes.right = new SpriteSliceBox(24, 3, 5, 26);
