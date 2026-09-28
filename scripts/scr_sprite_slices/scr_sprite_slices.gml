@@ -31,11 +31,11 @@ function SpriteSlices(_obj) constructor {
     top: false,
     bottom: false
   };
-  _is_neighbors_once_done = false;
+  _is_neighbors_check_once_done = false;
   
   /// @desc This function finds and registers the occurance of other instances of the same object neighbours to the current object at the four sides (left, right, top and bottom).
   update_neighbors = function() {
-    if _is_neighbors_once_done {
+    if _is_neighbors_check_once_done {
       return;
     }
     
@@ -85,7 +85,7 @@ function SpriteSlices(_obj) constructor {
     }
     
     if update_neighbors_once {
-      _is_neighbors_once_done = true;
+      _is_neighbors_check_once_done = true;
     }
   };
   
