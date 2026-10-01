@@ -1,8 +1,6 @@
-scr_moving_plat()
+if instance_exists(oPauseUI) then exit;
 
-if instance_exists(oPauseMenu) {
-	exit;
-}
+apply_movement_collision(false, true);
 
 if change and hsp == 0 {
 	xx += 16 * dir;

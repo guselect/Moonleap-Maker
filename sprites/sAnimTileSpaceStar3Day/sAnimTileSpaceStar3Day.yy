@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sAnimTileSpaceStar3Day",
   "bboxMode":0,
   "bbox_bottom":13,
@@ -12,10 +12,10 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"1dd9be00-4989-4b1b-85c6-ee2522155301","name":"1dd9be00-4989-4b1b-85c6-ee2522155301","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1dd9be00-4989-4b1b-85c6-ee2522155301","name":"1dd9be00-4989-4b1b-85c6-ee2522155301","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -73,18 +73,10 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dd9be00-4989-4b1b-85c6-ee2522155301","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"d5ecdc9a-1bf3-4fbf-a0ce-b9082f1b7aa1","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"dbf4fe55-fecf-430c-a04f-3ac2b50bf054","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"419f9f07-532f-49f6-9ca0-566efd53f18b","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"16841a2f-b309-4e91-878d-71b273d7d4de","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dd9be00-4989-4b1b-85c6-ee2522155301","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"d5ecdc9a-1bf3-4fbf-a0ce-b9082f1b7aa1","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"4d7aee49-90a1-4fcf-a4d4-0a3fa65bbba8","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"dbf4fe55-fecf-430c-a04f-3ac2b50bf054","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"9d3f8c55-9bb5-4ecf-9367-52d10d74a599","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"419f9f07-532f-49f6-9ca0-566efd53f18b","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"1685c9c3-31cf-4f7c-a9de-7959dca0988b","path":"sprites/sAnimTileSpaceStar3Day/sAnimTileSpaceStar3Day.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"16841a2f-b309-4e91-878d-71b273d7d4de","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

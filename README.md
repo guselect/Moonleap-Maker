@@ -32,10 +32,10 @@ This repository contains the Moonleap source code. The game was originally creat
 🛠️ **For Developers**
 
 ### Requirements
-To edit and run the project, you must have the latest version of GameMaker LTS installed. Some dependencies are also required, but they are provided by GameMaker itself.
+To edit and run the project, you must have the version 2024.14 or higher of GameMaker installed. Some dependencies are also required, but they are provided by GameMaker itself.
 
 ### Setup Instructions
-Clone the repository and open it in GameMaker LTS:
+Clone the repository and open it in GameMaker:
 ```bash
 git clone https://github.com/your-user/moonleap-maker.git
 cd moonleap-maker

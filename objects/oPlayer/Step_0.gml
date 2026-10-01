@@ -9,7 +9,7 @@ if key_left {
 }
 
 if state.event_exists("step") {
-    state.step();
+  state.step();
 }
 
 if state.transition_exists("t_tr", state.get_current_state()) {

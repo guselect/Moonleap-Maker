@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_brokestone",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":1,
   "compression":1,
+  "compressionQuality":4,
   "conversionMode":0,
   "duration":0.745193,
+  "exportDir":"",
   "name":"snd_brokestone",
   "parent":{
     "name":"Sfx",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_brokestone.wav",
-  "type":1,
   "volume":0.2,
 }

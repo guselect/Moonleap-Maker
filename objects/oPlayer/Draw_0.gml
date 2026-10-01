@@ -21,36 +21,16 @@ if white != 0 {
 
 if flash > 0 or godmode then pal_swap_set(sPlayerPal,4,0);
 
-//if cape=true
-//{
-////with(oCape) {draw_sprite(sTinySmoke160,8,x,y)}//capeoutline
-////with(oCape) {draw_self()}
-//}
-
-draw_sprite_ext(sprite_index,image_index,xx,yy,image_xscale,image_yscale,image_angle,image_blend,image_alpha);
-draw_sprite_ext(sprite_index,image_index,xx-roomw,yy,image_xscale,image_yscale,0,c_white,1);
-draw_sprite_ext(sprite_index,image_index,xx+roomw,yy,image_xscale,image_yscale,0,c_white,1);
-
-draw_sprite_ext(sprite_index,image_index,xx,yy-roomh,image_xscale,image_yscale,0,c_white,1);
-draw_sprite_ext(sprite_index,image_index,xx,yy+roomh,image_xscale,image_yscale,0,c_white,1);
-
+draw_sprite_wrap_ext_room(sprite_index, image_index, xx, yy, image_xscale, image_yscale, image_angle, image_blend, image_alpha);
 
 if sprite_index == PlayerClimb and cape {
 	//capeoutline
-    with(oCape) {
-        draw_sprite(sTinySmoke160, 8, x, y + 1);
-    }
-	with(oCape) {
-        draw_sprite(sprite_index, image_index, x, y + 1);
-    } 
+  with(oCape) {
+    draw_sprite(sTinySmoke160, 8, x, y + 1);
+  }
+  with(oCape) {
+    draw_sprite(sprite_index, image_index, x, y + 1);
+  } 
 }
 
 pal_swap_reset()
-
-//draw_set_halign(fa_left);
-//if x >= room_width / 2 {
-//	draw_set_halign(fa_right);
-//}
-//draw_set_color(-1);
-//draw_text(bbox_right, bbox_bottom, $"x:{x}\ny:{y}\nhsp:{hsp}\nvsp:{vsp}");
-//draw_set_halign(-1);

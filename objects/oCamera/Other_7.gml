@@ -11,7 +11,7 @@ if instance_exists(oPlayer) and room=Room100
 }
 
 
-if on_desktop() and room=RoomIntro0
+if is_on_desktop() and room=RoomIntro0
 {
 window_command_set_active(window_command_close, false);	
 }

@@ -1,3 +1,15 @@
+if global.is_maker_mode {
+	room_goto(RoomMakerMenu);
+	instance_destroy();
+  exit;
+}
+
+if false and debug_mode {
+	room_goto(Room100);
+	instance_destroy();
+  exit;
+}
+
 scr_inputget();
 
 // Checks the save data and skip intro only if the level 1 is completed
@@ -22,7 +34,7 @@ if loadvalue != 0 and time < 20 {
 		skip_timer.count();
 	}
 	
-	if key_jump_pressed or key_start {
+	if key_jump_pressed or key_start or mouse_check_button_pressed(mb_left) {
 		confirm_skip += 1;
 		skip_timer.reset();
 	}
@@ -144,15 +156,5 @@ or sprite_index == sguselect {
 }
 
 if y > ystart + 175 {
-	instance_destroy();
-}
-
-if debug_mode {
-	room_goto(Room100);
-	instance_destroy();
-}
-
-if global.is_maker_mode {
-	room_goto(RoomMaker0);
 	instance_destroy();
 }

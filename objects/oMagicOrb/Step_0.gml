@@ -48,10 +48,6 @@ if instance_exists(oPlayer) {
 }
 
 object_set_room_wrapping();
-//if y > room_height then y -= room_height;
-//if x > room_width then x -= room_width;
-//if y < 0 then y += room_height;
-//if x < 0 then x += room_width;
 
 if not on_ground_var {
     vsp += grav;
@@ -259,6 +255,6 @@ if nearmush != noone {
 cooldown = approach(cooldown, 0, 1);
 
 if place_meeting(x, y, oSpike) {
-    instance_destroy();
+  instance_destroy();
 }
 

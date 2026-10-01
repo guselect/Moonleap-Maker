@@ -6,4 +6,4 @@ wlen=1
 time=0
 palette_index = 0;
 
-set_pallete_index();
+set_palette_index_by_level_style();

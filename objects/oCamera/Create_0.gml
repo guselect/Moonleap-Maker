@@ -1,4 +1,5 @@
 //instance_create_layer(x,y,layer,obj_projector)
+pause_delay = 0;
 nice_black=make_color_rgb(0,0,72)
 fancyeffects=true
 

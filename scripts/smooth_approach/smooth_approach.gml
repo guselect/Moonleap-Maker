@@ -1,7 +1,7 @@
 /// @description smooth_approach(current, target, speed[0-1])
-/// @param current
-/// @param  target
-/// @param  speed[0-1]
+/// @param {real} current
+/// @param {real} target
+/// @param {real} speed
 function smooth_approach(argument0, argument1, argument2) {
 	/*
 	 * Example use (smooth camera movement):

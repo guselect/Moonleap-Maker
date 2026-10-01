@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sLeafDayFlower",
   "bboxMode":0,
   "bbox_bottom":10,
@@ -12,17 +12,17 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"89abf21e-6983-4022-93e6-f2f34f97f995","name":"89abf21e-6983-4022-93e6-f2f34f97f995","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"82ae7845-0911-40c6-a589-70c64a2926e6","name":"82ae7845-0911-40c6-a589-70c64a2926e6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"65796f94-c66c-4511-879a-d736e0de3e89","name":"65796f94-c66c-4511-879a-d736e0de3e89","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"62725011-8874-4117-8d57-b24901039975","name":"62725011-8874-4117-8d57-b24901039975","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"127c5973-fda4-4222-b24b-f059504d623d","name":"127c5973-fda4-4222-b24b-f059504d623d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"c826763d-75b6-4062-b526-172212f3d21b","name":"c826763d-75b6-4062-b526-172212f3d21b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"28ef34cd-762c-4887-b567-232fc88d96fb","name":"28ef34cd-762c-4887-b567-232fc88d96fb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"89abf21e-6983-4022-93e6-f2f34f97f995","name":"89abf21e-6983-4022-93e6-f2f34f97f995","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"82ae7845-0911-40c6-a589-70c64a2926e6","name":"82ae7845-0911-40c6-a589-70c64a2926e6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"65796f94-c66c-4511-879a-d736e0de3e89","name":"65796f94-c66c-4511-879a-d736e0de3e89","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"62725011-8874-4117-8d57-b24901039975","name":"62725011-8874-4117-8d57-b24901039975","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"127c5973-fda4-4222-b24b-f059504d623d","name":"127c5973-fda4-4222-b24b-f059504d623d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c826763d-75b6-4062-b526-172212f3d21b","name":"c826763d-75b6-4062-b526-172212f3d21b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"28ef34cd-762c-4887-b567-232fc88d96fb","name":"28ef34cd-762c-4887-b567-232fc88d96fb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -78,39 +78,17 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"89abf21e-6983-4022-93e6-f2f34f97f995","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"4ed69ce8-29de-442f-8a59-222f00283894","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"7059935c-8c72-4923-b275-20dfdb20f6f8","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"82ae7845-0911-40c6-a589-70c64a2926e6","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b7f9bdfb-22c8-4b82-8526-911443ff2b89","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"ff3aac0e-3ce7-40b6-a7d4-e528afde3401","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"65796f94-c66c-4511-879a-d736e0de3e89","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"6b3974db-1843-49ea-996e-eb7f01d35558","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"62725011-8874-4117-8d57-b24901039975","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"e1c0c734-12a9-43a2-a39e-36e71f4d6537","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"81538b8c-7b92-403e-8a41-5ee31b90c44c","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"127c5973-fda4-4222-b24b-f059504d623d","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3f7789a3-cb3b-467b-a2d0-a21e7565a525","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"df2fce26-76e1-402a-a9fd-96c22a97d69f","IsCreationKey":false,"Key":8.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c826763d-75b6-4062-b526-172212f3d21b","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"9ef56d4d-d3cc-4aeb-b013-00c1362f3fe2","IsCreationKey":false,"Key":9.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"28ef34cd-762c-4887-b567-232fc88d96fb","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"7073cb9a-6119-44b5-8e01-e8300405b80a","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"89abf21e-6983-4022-93e6-f2f34f97f995","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"4ed69ce8-29de-442f-8a59-222f00283894","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dfa51e2-a3f1-49d5-8645-d332e312ceb9","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"7059935c-8c72-4923-b275-20dfdb20f6f8","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"82ae7845-0911-40c6-a589-70c64a2926e6","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"b7f9bdfb-22c8-4b82-8526-911443ff2b89","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"e9bf6fcd-782d-45a3-b9db-9ce8cf8d4045","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"ff3aac0e-3ce7-40b6-a7d4-e528afde3401","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"65796f94-c66c-4511-879a-d736e0de3e89","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"6b3974db-1843-49ea-996e-eb7f01d35558","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"62725011-8874-4117-8d57-b24901039975","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"e1c0c734-12a9-43a2-a39e-36e71f4d6537","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"a37946ed-553d-4dc8-a4c7-69fada80a0af","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"81538b8c-7b92-403e-8a41-5ee31b90c44c","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"127c5973-fda4-4222-b24b-f059504d623d","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"3f7789a3-cb3b-467b-a2d0-a21e7565a525","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"bb40596b-ce54-45c2-8e82-04de5635fe9d","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"df2fce26-76e1-402a-a9fd-96c22a97d69f","IsCreationKey":false,"Key":8.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"c826763d-75b6-4062-b526-172212f3d21b","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"9ef56d4d-d3cc-4aeb-b013-00c1362f3fe2","IsCreationKey":false,"Key":9.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"28ef34cd-762c-4887-b567-232fc88d96fb","path":"sprites/sLeafDayFlower/sLeafDayFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"7073cb9a-6119-44b5-8e01-e8300405b80a","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

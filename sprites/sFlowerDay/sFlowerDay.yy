@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sFlowerDay",
   "bboxMode":2,
   "bbox_bottom":23,
@@ -12,9 +12,9 @@
   "edgeFiltering":true,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"ac285b51-7a63-4ae3-9a40-2b882229806d","name":"ac285b51-7a63-4ae3-9a40-2b882229806d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"ac285b51-7a63-4ae3-9a40-2b882229806d","name":"ac285b51-7a63-4ae3-9a40-2b882229806d","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":8,
   "gridY":8,
@@ -35,13 +35,7 @@
     "resourceType":"GMNineSliceData",
     "resourceVersion":"2.0",
     "right":8,
-    "tileMode":[
-      1,
-      1,
-      1,
-      1,
-      1,
-    ],
+    "tileMode":[1,1,1,1,1,],
     "top":8,
   },
   "origin":9,
@@ -91,15 +85,9 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ac285b51-7a63-4ae3-9a40-2b882229806d","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"ee2e9003-83ed-43b5-a576-307a06a03d67","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"0f64d5e9-5690-4f0b-b54a-71163bd49bb2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3c0b7e6f-cded-4c42-b0a3-0180a61a977e","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"ac285b51-7a63-4ae3-9a40-2b882229806d","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"ee2e9003-83ed-43b5-a576-307a06a03d67","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"4ed2a4b8-e924-4a2b-8e97-4e8fdb25157b","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"0f64d5e9-5690-4f0b-b54a-71163bd49bb2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"a49d223b-f326-4ad9-90c5-5f38155ca1b1","path":"sprites/sFlowerDay/sFlowerDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"3c0b7e6f-cded-4c42-b0a3-0180a61a977e","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

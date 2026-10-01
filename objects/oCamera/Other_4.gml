@@ -1,6 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
-if on_desktop()
+if is_on_desktop()
 {
 window_command_set_active(window_command_close, false);	
 }
@@ -15,9 +15,9 @@ camera_set_view_size(view_camera[0],view_width,view_height)
 
 if instance_exists(oLevelMaker) {
 	switch(oLevelMaker.selected_style) {
-		case LEVEL_STYLE.FLOWERS:
-		case LEVEL_STYLE.SPACE:
-		case LEVEL_STYLE.DUNGEON:
+		case LEVEL_MAKER_STYLE.FLOWERS:
+		case LEVEL_MAKER_STYLE.SPACE:
+		case LEVEL_MAKER_STYLE.DUNGEON:
 			nice_black = c_black;
 			break;
 	}
@@ -25,12 +25,9 @@ if instance_exists(oLevelMaker) {
 	nice_black = c_black;
 }
 
-if (instance_exists(oLevelMaker) and oLevelMaker.selected_style)
-or instance_exists(oDunDay) {
+if instance_exists(oDunDay) {
 	instance_create_layer(0, 0, "Instances_2", oFog);
 }
-//if room_height>180
-//{y=view_height}else {y=0}
 
 y=0
 x=0
@@ -41,13 +38,10 @@ if actualroom!=room {deathcount=0 actualroom=room}
 night=false
 
 
-if room!=RoomMenu and room!=RoomMenu2 and room!=RoomFinal and room!=RoomCredits and room!=RoomCreditsAlves and room!=RoomProgress
-{
-levelnumb=real(string_digits(room_get_name(room)))
-}
-else
-{
-levelnumb=noone //noone
+if not room_is([RoomMenu, RoomMenu2, RoomFinal, RoomCredits, RoomCreditsAlves, RoomProgress, RoomMakerMenu, RoomMaker0]) {
+  levelnumb = real(string_digits(room_get_name(room)));
+} else {
+  levelnumb = noone;
 }
 
 if room=Room100

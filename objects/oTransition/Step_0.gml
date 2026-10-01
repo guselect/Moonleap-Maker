@@ -1,54 +1,47 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-//if(room=RoomCreditsAlves){target_room=room}
-switch(state) {
-
-	 case states.OUT:
-		if sub_image_index < imax + xmax {
-			//increment index
-			sub_image_index +=sub_image_index_inc;
+switch(state) { 
+  case states.OUT:
+		if transition_sprite_current_frame < transition_sprite_frames + transition_sprites_x {
+			transition_sprite_current_frame += transition_sprite_frame_speed;
 		} else {
-		state = states.IN;
-		
-		//goto room
-		if room_exists(target_room) room_goto(target_room);
-	}
+		  state = states.IN;
+		  if room_exists(target_room) {
+        room_goto(target_room);
+      }
+    }
 	break;
+
 	case states.IN:
-	if sub_image_index> 0 {	
-		if wait=0 {sub_image_index -= sub_image_index_inc}
-	} else instance_destroy();
-
+   	if transition_sprite_current_frame > 0 {	
+      if title_display_interval == 0 {
+        transition_sprite_current_frame -= transition_sprite_frame_speed;
+      }
+   	} else {
+      instance_destroy();
+    }
 	break;
 }
 
-if wait=0 {drawname-=1 drawskip-=1}
-
-if drawname>0
-{
-	if drawname=5 {if wait=0 {wait=150} }
+if title_display_interval == 0 {
+  level_name_display_interval -= 1;
+  skip_message_display_interval -= 1;
 }
 
-
-if drawskip>0
-{
-	if drawskip=5 {if wait=0 {wait=175} }
+if level_name_display_interval > 0 and level_name_display_interval == 5 and title_display_interval == 0 {
+	title_display_interval = title_display_wait;
 }
 
-	wait=approach(wait,0,1)
-//if room=rmAudioEditor0 {instance_destroy()}
+if skip_message_display_interval > 0 and skip_message_display_interval == 5 and title_display_interval == 0 {
+	title_display_interval = title_display_with_skip_wait;
+}
 
-if room=Room100
-{
-	
-	if instance_exists(oPlayer)
-	{
-		if oPlayer.y<room_height/2 { nice_black=c_black} else {nice_black=make_color_rgb(0,0,72)}
+title_display_interval = approach(title_display_interval, 0, 1);
+
+if room_is(Room100) {
+	if instance_exists(oPlayer) {
+    nice_black = (oPlayer.y < room_height / 2) ? c_black : COLOR_NICE_BLACK;
 	}
-}
-else
-{
-bgm_set_volume(global.settings.bgm_volume); //update volume (during transitions)
+} else {
+  // Update volume during fade in.
+  bgm_set_volume(global.settings.bgm_volume); 
 }
 

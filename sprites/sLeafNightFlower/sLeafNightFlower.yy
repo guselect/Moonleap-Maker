@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sLeafNightFlower",
   "bboxMode":0,
   "bbox_bottom":10,
@@ -12,17 +12,17 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"604c88bd-99ab-4e3f-9c50-483182f07410","name":"604c88bd-99ab-4e3f-9c50-483182f07410","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"11470f21-4b45-43a2-b29e-1a775dcd9010","name":"11470f21-4b45-43a2-b29e-1a775dcd9010","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"aa814eca-39cc-4709-b27f-cb666df82113","name":"aa814eca-39cc-4709-b27f-cb666df82113","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"604c88bd-99ab-4e3f-9c50-483182f07410","name":"604c88bd-99ab-4e3f-9c50-483182f07410","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"11470f21-4b45-43a2-b29e-1a775dcd9010","name":"11470f21-4b45-43a2-b29e-1a775dcd9010","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"aa814eca-39cc-4709-b27f-cb666df82113","name":"aa814eca-39cc-4709-b27f-cb666df82113","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -78,39 +78,17 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"604c88bd-99ab-4e3f-9c50-483182f07410","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"e4bdf91d-7285-4419-a489-b05103dcdabd","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"4aba5def-912d-429b-a0da-15dbef720785","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3f8c1c90-bddc-46aa-86c3-a02897308a4f","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"11470f21-4b45-43a2-b29e-1a775dcd9010","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"e1d1262d-0eb9-4cd6-9783-1476c958826c","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b124b01d-9ebd-45d0-9d85-0f504d8e002b","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"17bfa158-10cd-484e-97a5-ee92d6ee83f0","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"53cb5226-a5d8-4688-9101-2eb508f0ef5d","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"aa814eca-39cc-4709-b27f-cb666df82113","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"35cf27b5-d68c-4ee7-990b-c01fa168cbfa","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b30b6a15-9f5e-40c3-8fb8-d7b872686476","IsCreationKey":false,"Key":8.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"aa73a9b7-6f05-44dd-9e75-d822da77f1b4","IsCreationKey":false,"Key":9.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"4e9b00bf-b8b9-4314-a5f5-bb8f3572c9d0","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"604c88bd-99ab-4e3f-9c50-483182f07410","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"e4bdf91d-7285-4419-a489-b05103dcdabd","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"16bd2670-e98d-4680-8866-ee4f8aa3ee83","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"4aba5def-912d-429b-a0da-15dbef720785","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"fc1baefe-d70f-40b4-8d29-01b705bc9d87","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"3f8c1c90-bddc-46aa-86c3-a02897308a4f","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"11470f21-4b45-43a2-b29e-1a775dcd9010","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"e1d1262d-0eb9-4cd6-9783-1476c958826c","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"2ada8ee7-456a-44bc-aba5-f81bcb54c050","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"b124b01d-9ebd-45d0-9d85-0f504d8e002b","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"f2a3febe-09ff-4f44-bf19-5db5bea487bb","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"17bfa158-10cd-484e-97a5-ee92d6ee83f0","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"e713cb0f-0d64-4b70-8843-c6fe6629faf5","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"53cb5226-a5d8-4688-9101-2eb508f0ef5d","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"aa814eca-39cc-4709-b27f-cb666df82113","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"35cf27b5-d68c-4ee7-990b-c01fa168cbfa","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"ee2ae58a-20d0-4c71-a0c4-409a1d2f03b2","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"b30b6a15-9f5e-40c3-8fb8-d7b872686476","IsCreationKey":false,"Key":8.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"d9f18421-00b0-4943-b650-8a78da6bc8ed","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"aa73a9b7-6f05-44dd-9e75-d822da77f1b4","IsCreationKey":false,"Key":9.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"4a501721-e60e-4e45-a6dd-0a170bea5ead","path":"sprites/sLeafNightFlower/sLeafNightFlower.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"4e9b00bf-b8b9-4314-a5f5-bb8f3572c9d0","IsCreationKey":false,"Key":10.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

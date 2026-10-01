@@ -20,7 +20,7 @@ if (save==true)
 	buffer_write( buffer_data, buffer_string, string_data);
 	buffer_save( buffer_data, "save.moon");
 	
-	if instance_exists(oPauseMenu) or instance_exists(oMenu) //save sometimes
+	if instance_exists(oPauseUI) //save sometimes
 	{
 	buffer_save( buffer_data, "savebackup.moon");
 	}

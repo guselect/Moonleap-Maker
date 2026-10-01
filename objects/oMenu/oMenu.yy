@@ -15,7 +15,10 @@
     "name":"UI&HUB",
     "path":"folders/Objects/UI&HUB.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"oPauseUI",
+    "path":"objects/oPauseUI/oPauseUI.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

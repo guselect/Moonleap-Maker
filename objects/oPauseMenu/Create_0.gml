@@ -36,7 +36,7 @@ if (room==Room100){
 if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 	var _main_options = [];
 	
-	if is_level_maker_room() {
+	if room_is(RoomMaker0) {
 		_main_options = [
 			{
 				name: "resume",
@@ -57,11 +57,6 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 				name: "giveup",
 				text: function() { return global.is_maker_mode ? LANG.text_exit : LANG.text_giveup; },
 				action: function() {
-          if global.is_maker_mode {
-            game_end();
-            return;
-          }
-
 					if (!instance_exists(oTransition)) {
 						audio_sound_gain(bgm_hub   ,0,1000)
 						audio_sound_gain(bgm_hub_01,0,1000)
@@ -71,7 +66,7 @@ if os_type= os_windows or os_type= os_linux or os_type= os_macosx  { //desktop
 					
 						var _trans=instance_create_layer(0,0,layer,oTransition);
 						audio_play_sfx(sndStarGame,false,-6.2,0)
-						_trans.target_room=RoomMenu;
+						_trans.target_room=RoomMakerMenu;
 					}
 				}
 			},
@@ -588,7 +583,7 @@ update_menu_title = function() {
     return;
   }
 
-  if is_level_maker_room() {
+  if room_is(RoomMaker0) {
   	var name = LANG.maker_name;
 
     if not is_string(name) then name = " ";

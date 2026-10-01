@@ -1,8 +1,11 @@
-/// @description Insert description here
-// You can write your code in this editor
-if !instance_exists(oMenu) and !instance_exists(oPauseMenu)
+/// @description Player sanding still achievement
+
+if not instance_exists(oPauseUI)
 {
-	if room!=RoomMenu and room!=RoomMenu2 and room!=RoomFinal and room!=RoomCredits and room!=RoomCreditsAlves and room!=RoomProgress
-	if(!steam_get_achievement("MN_STOPPED")){steam_set_achievement("MN_STOPPED")}
+	if not room_is([RoomMenu, RoomMenu2, RoomFinal, RoomCredits, RoomCreditsAlves, RoomProgress]) {
+    if (not steam_get_achievement("MN_STOPPED")) {
+      steam_set_achievement("MN_STOPPED")
+    }
+  }
 	GooglePlayServices_Achievements_Unlock("CgkIo9m7npseEAIQEg");
 }

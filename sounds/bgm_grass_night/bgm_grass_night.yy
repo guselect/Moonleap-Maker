@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"bgm_grass_night",
   "audioGroupId":{
     "name":"agroup_bgm",
     "path":"audiogroups/agroup_bgm",
   },
   "bitDepth":0,
-  "bitRate":128,
+  "channelFormat":1,
   "compression":1,
+  "compressionQuality":4,
   "conversionMode":0,
-  "duration":96.048,
+  "duration":96.048004,
+  "exportDir":"",
   "name":"bgm_grass_night",
   "parent":{
     "name":"Bgm",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"bgm_grass_night.mp3",
-  "type":1,
   "volume":1.0,
 }

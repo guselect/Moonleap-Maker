@@ -31,8 +31,14 @@ if night {
 		image_xscale *= -1;
 	}
 	
-	hsp -= image_xscale * 0.075;
-	hsp = clamp(hsp, -0.55, 0.55);
+  if abs(vsp) > 0 {
+    hsp = 0;
+  } else {
+    hsp -= image_xscale * 0.075;
+    hsp = clamp(hsp, -v_move, v_move);  
+  }
+} else {
+  hsp = 0;
 }
 
 var nearmush = instance_place(x, y, oMush);

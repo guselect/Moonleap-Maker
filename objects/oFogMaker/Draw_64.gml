@@ -1,5 +1,4 @@
-if instance_exists(oMakerWarning)
-or instance_exists(oPauseMenu)
+if instance_exists(oPauseUI)
 or instance_exists(oPortal)
 or instance_exists(oLevelMaker) and oLevelMaker.camera_current_interpolation != 1 {
   exit;

@@ -24,7 +24,7 @@ Este repositório contém o código-fonte do Moonleap. O jogo foi originalmente 
 2️⃣ Extraia os arquivos zip baixados.  
 3️⃣ Execute Moonleap Maker.exe.  
 4️⃣ Se quiser criar fases, comece a usar o editor imediatamente!  
-5️⃣ Para jogar fases criadas pela comunidade, entre no nosso Discord e confira o canal #moonleap_maker para baixar arquivos .level compartilhados. 
+5️⃣ Para jogar fases criadas pela comunidade, entre no nosso Discord e confira o canal #moonleap_maker para baixar arquivos .moonlevel compartilhados. 
 
 [![Download Moonleap Maker](https://img.shields.io/badge/Download-Moonleap%20Maker%20Beta-green?style=for-the-badge&logo=github)](https://github.com/guselect/Moonleap-Maker/releases/latest)
 
@@ -33,10 +33,10 @@ Este repositório contém o código-fonte do Moonleap. O jogo foi originalmente 
 🛠️ **Para Desenvolvedores**
 
 ### Requisitos
-Para editar e executar o projeto, você deve ter a versão mais recente do GameMaker LTS instalada. Algumas dependências também são necessárias, mas são fornecidas pelo próprio GameMaker.
+Para editar e executar o projeto, você deve ter a versão 2024.14 ou mais recente do GameMaker instalada. Algumas dependências também são necessárias, mas são fornecidas pelo próprio GameMaker.
 
 ### Instruções de Configuração
-Clone o repositório e abra-o no GameMaker LTS:
+Clone o repositório e abra-o no GameMaker:
 ```bash
 git clone https://github.com/your-user/moonleap-maker.git
 cd moonleap-maker

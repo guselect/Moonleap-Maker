@@ -1,4 +1,4 @@
-if instance_exists(oPauseMenu) or instance_exists(oPortal) {exit;}
+if instance_exists(oPauseUI) or instance_exists(oPortal) {exit;}
 
 draw_sprite_tiled(sprite_index,image_index,round(x),y-8)
 

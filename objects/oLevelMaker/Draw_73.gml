@@ -1,14 +1,14 @@
 draw_set_font(oCamera.font);
 draw_set_color(color.nice_white);
 
-if not level_maker_is_editing() or instance_exists(oPauseMenu) {
+if not level_maker_is_editing() or instance_exists(oPauseUI) {
 	draw_sprite_ext(sPauseMaker,0,0,0,1,1,0,c_white,0.5)
 }
 
 draw_set_halign(fa_center)
 
 // GET SELECTED OBJECT NAME
-if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
+if current_layer == LEVEL_MAKER_LAYERS.OBJECTS {
 	var object = obj[selected_object_type,selected_object_position]
 	var object_name = is_undefined(object) ? "" : LANG[$ $"maker_object_{object_get_name(object.index)}"];
 
@@ -23,7 +23,7 @@ if current_layer == LEVEL_CURRENT_LAYER.OBJECTS {
 }
 
 // HOVER TEXT
-if mode == LEVEL_EDITOR_MODE.EDITING and hover_text != "" {
+if mode == LEVEL_MAKER_EDITOR_MODE.EDITING and hover_text != "" {
     var _mouse_x = global.level_maker_mouse_x;
     var _mouse_y = global.level_maker_mouse_y;
 
@@ -37,8 +37,20 @@ if mode == LEVEL_EDITOR_MODE.EDITING and hover_text != "" {
 }
 
 // CURSOR
-draw_set_halign(fa_left)
-draw_sprite(sCursor, cursor, global.level_maker_mouse_x, global.level_maker_mouse_y);
+draw_set_halign(fa_left);
 
-draw_set_color(-1);
-draw_set_halign(-1);
+if mode != LEVEL_MAKER_EDITOR_MODE.PLAYING {
+  var _sprite = sCursor,
+      _frame = cursor,
+      _x = global.level_maker_mouse_x,
+      _y = global.level_maker_mouse_y,
+      _xscale = 1,
+      _yscale = 1,
+      _angle = 0,
+      _color = c_white,
+      _alpha = mode == LEVEL_MAKER_EDITOR_MODE.TESTING ? 0.25 : 1;
+
+  draw_sprite_ext(_sprite, _frame, _x, _y, _xscale, _yscale, _angle, _color, _alpha);
+}
+
+draw_reset();

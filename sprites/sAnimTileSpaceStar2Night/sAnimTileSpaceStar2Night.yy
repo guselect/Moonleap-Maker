@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sAnimTileSpaceStar2Night",
   "bboxMode":0,
   "bbox_bottom":13,
@@ -12,10 +12,10 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"1dd9be00-4989-4b1b-85c6-ee2522155301","name":"1dd9be00-4989-4b1b-85c6-ee2522155301","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"2552e3e6-e80e-4330-abdc-789e442f529a","name":"2552e3e6-e80e-4330-abdc-789e442f529a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1dd9be00-4989-4b1b-85c6-ee2522155301","name":"1dd9be00-4989-4b1b-85c6-ee2522155301","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"2552e3e6-e80e-4330-abdc-789e442f529a","name":"2552e3e6-e80e-4330-abdc-789e442f529a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -73,18 +73,10 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dd9be00-4989-4b1b-85c6-ee2522155301","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"d5ecdc9a-1bf3-4fbf-a0ce-b9082f1b7aa1","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"b628d4aa-768e-4155-b3a1-0c6dbbda57e2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"f3cbb839-f051-4928-afb5-805ebff1fa8d","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"2552e3e6-e80e-4330-abdc-789e442f529a","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"eb378bac-363b-46f4-aeea-ab53cfa1195f","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"1dd9be00-4989-4b1b-85c6-ee2522155301","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"d5ecdc9a-1bf3-4fbf-a0ce-b9082f1b7aa1","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"0a00c6d9-51d0-46ac-bb23-ea8e4b28f27e","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"b628d4aa-768e-4155-b3a1-0c6dbbda57e2","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"f1a02c6b-26ec-4221-b595-18c04f7b86bd","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"f3cbb839-f051-4928-afb5-805ebff1fa8d","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"2552e3e6-e80e-4330-abdc-789e442f529a","path":"sprites/sAnimTileSpaceStar2Night/sAnimTileSpaceStar2Night.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"eb378bac-363b-46f4-aeea-ab53cfa1195f","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

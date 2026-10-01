@@ -25,7 +25,7 @@ sprite_night = -1;
 animated_tile_instance = noone;
 
 is_in_editor = function() {
-    return instance_exists(oLevelMaker) and oLevelMaker.mode == LEVEL_EDITOR_MODE.EDITING;
+    return instance_exists(oLevelMaker) and oLevelMaker.mode == LEVEL_MAKER_EDITOR_MODE.EDITING;
 }
 
 draw_question_mark = function() {

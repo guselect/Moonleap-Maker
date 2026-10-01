@@ -1,1 +1,5 @@
-scr_moving_plat()
+if instance_exists(oPauseUI) {
+  exit;
+}
+
+apply_movement_collision(false);

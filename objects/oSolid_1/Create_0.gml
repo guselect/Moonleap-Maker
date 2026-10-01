@@ -7,9 +7,9 @@ night = false;
 image_index = 0;
 if instance_exists(oLevelMaker) {
 	switch(oLevelMaker.selected_style) {
-		case LEVEL_STYLE.FLOWERS:
-		case LEVEL_STYLE.SPACE:
-		case LEVEL_STYLE.DUNGEON:
+		case LEVEL_MAKER_STYLE.FLOWERS:
+		case LEVEL_MAKER_STYLE.SPACE:
+		case LEVEL_MAKER_STYLE.DUNGEON:
 			image_index = 5; break;
 	}
 } else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay)  or instance_exists(oDunDay) {

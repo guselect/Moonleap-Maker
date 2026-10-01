@@ -1,21 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
-if ani>0
-{draw_sprite_ext(sprite_index,1,x,y,image_xscale,image_yscale,0,c_white,1)}
-else
-{draw_self()}
+var _frame = ani > 0 ? 1 : image_index,
+    _blend = c_white,
+    _alpha = 1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+_slices.draw_sprite_slices(sprite_index, _frame, x, y, image_xscale, image_yscale, image_angle, _blend, _alpha);

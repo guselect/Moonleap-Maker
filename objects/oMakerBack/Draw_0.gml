@@ -3,7 +3,7 @@ if not instance_exists(oLevelMaker) then exit;
 var background;
 
 switch(oLevelMaker.mode) {
-    case LEVEL_EDITOR_MODE.EDITING:
+    case LEVEL_MAKER_EDITOR_MODE.EDITING:
         background = oCamera.night ? sBackNight : sBackDay;
         break;
     

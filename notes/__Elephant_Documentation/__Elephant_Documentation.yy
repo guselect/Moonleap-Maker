@@ -1,5 +1,5 @@
 {
-  "$GMNotes":"",
+  "$GMNotes":"v1",
   "%Name":"__Elephant_Documentation",
   "name":"__Elephant_Documentation",
   "parent":{

@@ -10,17 +10,17 @@ if sprite_index == sturn_day or sprite_index == sturn_dayB {
 	}
 	
 	if drawhsp < 0 {
-		draw_sprite_ext(sprite_index,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
 	}
 
 	if drawhsp > 0 {
-		draw_sprite_ext(sprite_index,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
-		draw_sprite_ext(sprite_index,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x+8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x-8,y,image_xscale,image_yscale,0,c_white,1)
+		draw_sprite_wrap_ext_room(sprite_index,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
 	}	
 } else {
 	if palette_index == 2 {
@@ -30,22 +30,22 @@ if sprite_index == sturn_day or sprite_index == sturn_dayB {
   }
  
 	if drawhsp < 0 {
-  	draw_sprite_ext(sprite_index,image_index,x-24,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+1,x-8,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+2,x+8,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+3,x+24,y,image_xscale,image_yscale,0,c_white,1)
+  	draw_sprite_wrap_ext_room(sprite_index, image_index, x - 24, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 1, x - 8, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 2, x + 8, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 3, x + 24, y, image_xscale, image_yscale, 0, c_white, 1);
 	}
 
 	if drawhsp > 0 {
-  	draw_sprite_ext(sprite_index,image_index,x+24,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+1,x+8,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+2,x-8,y,image_xscale,image_yscale,0,c_white,1)
-  	draw_sprite_ext(sprite_index,image_index+3,x-24,y,image_xscale,image_yscale,0,c_white,1)
+  	draw_sprite_wrap_ext_room(sprite_index, image_index, x + 24, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 1, x + 8, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 2, x - 8, y, image_xscale, image_yscale, 0, c_white, 1);
+  	draw_sprite_wrap_ext_room(sprite_index, image_index + 3, x - 24, y, image_xscale, image_yscale, 0, c_white, 1);
 	}
 }
 
 if global.settings.filter {
-  draw_sprite_ext(sColorBlind16,startindex,x,y,image_xscale,image_yscale,0,c_white,1)
+  draw_sprite_wrap_ext_room(sColorBlind16, startindex, x, y, image_xscale, image_yscale, 0, c_white, 1);
 }
 
 if palette_index != 2 then pal_swap_reset()

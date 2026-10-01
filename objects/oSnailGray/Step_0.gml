@@ -32,9 +32,13 @@ if is_stuck() {
 		image_xscale = sign(image_xscale);
 	}
 } else {
-	hsp -= image_xscale * 0.075;	
+	if abs(vsp) > 0 {
+    hsp = 0;
+  } else {
+    hsp -= image_xscale * 0.075;
+  }
 }
-hsp = clamp(hsp, -0.55, 0.55);
+hsp = clamp(hsp, -v_move, v_move); 
 
 var nearmush = instance_place(x, y, oMush);
 if nearmush != noone {

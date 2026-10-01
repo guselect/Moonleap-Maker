@@ -1,17 +1,15 @@
-hsp = 0;
-vsp = 0;
+init_movement_variables();
+v_fly = 1;
+hsp = image_index == 1 ? 0.5 : -0.5;
 
 dir = image_xscale;
 drawhsp = image_xscale;
 image_xscale = 1;
 
-hsp = image_index == 1 ? 0.5 : -0.5;
+
 startindex = image_index;
 night = false;
 early_night = false;
-
-cx = 0;
-cy = 0;
 
 layer = layer_get_id("Instances_2");
 drawy = y;
@@ -28,7 +26,7 @@ nearmush_list = ds_list_create();
 
 image_index = 0;
 
-set_pallete_index();
+set_palette_index_by_level_style();
 
 play_mushroom_sound = function() {
 	if audio_is_playing_any([snd_cogumelo_01,snd_cogumelo_02,snd_cogumelo_03,snd_cogumelo_04]) then return;

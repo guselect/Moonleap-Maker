@@ -1,3 +1,7 @@
+if instance_exists(oPauseUI) {
+  exit;
+}
+
 if startindex == 0 {
 	prehsp += (oCamera.night ? 0.05 : -0.05);
 } else {

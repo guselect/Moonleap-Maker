@@ -1,84 +1,53 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-//show_debug_message(string(instance_number(object_index)))
-//if(instance_number(object_index)>1){instance_destroy();}
- layer=layer_get_id("Instances_2")
-
-pause=0
-
-skip_rooms = [RoomMenu, RoomMenu2, RoomProgress, RoomCredits, RoomCreditsAlves, Room100, RoomMaker0];
-
 enum states { OUT, IN };
 
 state = states.OUT;
 
-spr = sTrans;
-sprw = sprite_get_width (spr); 
-sprh = sprite_get_height (spr);
+rooms_to_skip = [RoomMenu, RoomMenu2, RoomMakerMenu, RoomMaker0, RoomProgress, RoomCredits, RoomCreditsAlves, Room100];
 
-//get number of sprites required
-//set max sprites for x
-xmax = 320 div sprw;
-//set max sprites for y
-ymax=190 div sprh;
-imax=sprite_get_number(spr);
+title_display_wait = 150;
+title_display_with_skip_wait = 175;
 
-//set image_speed
-sub_image_index_inc_ini = sprite_get_speed(spr) 
-sub_image_index_inc = sprite_get_speed(spr) 
-sub_image_index = 0;
+title_display_interval = 0;
+level_name_display_interval = 0;
+skip_message_display_interval = 0;
 
-//transition colour
-col = make_color_rgb(0,0,72)
-
-//target room
 target_room = noone;
-drawname=0
-drawskip=0
 
-prevroom=room
+previous_room = room;
+oCamera.previous_room = room_get_name(previous_room);
 
-if instance_exists(oLevelMaker) {
-	switch(oLevelMaker.selected_style) {
-		case LEVEL_STYLE.FLOWERS:
-		case LEVEL_STYLE.SPACE:
-		case LEVEL_STYLE.DUNGEON:
-			col = c_black;
-			nice_black = c_black;
-			break;
-	}
-} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
-	col = c_black;
-	nice_black=c_black
-}
-
-oCamera.previous_room=room_get_name(room)
-
-nice_black=make_color_rgb(0,0,72)
-
-
-if room=Room100
-{
-	if instance_exists(oPlayer)
-	{
-	if oPlayer.y<room_height/2 { nice_black=c_black}
-	}
-	
-		if instance_exists(oDead)
-	{
-	if oDead.y<room_height/2 { nice_black=c_black}
-	}
-}
-
-//if solid=true
-//{
-//audio_sound_gain(bgm_hub   ,0,1000)
-//audio_sound_gain(bgm_hub_01,0,1000)
-//audio_sound_gain(bgm_hub_02,0,1000)
-//audio_sound_gain(bgm_hub_03,0,1000)
-//audio_sound_gain(bgm_hub_04,0,1000)
-//
+//if instance_exists(oLevelMaker) {
+	//switch(oLevelMaker.selected_style) {
+		//case LEVEL_MAKER_STYLE.FLOWERS:
+		//case LEVEL_MAKER_STYLE.SPACE:
+		//case LEVEL_MAKER_STYLE.DUNGEON:
+			//nice_black = c_black;
+			//break;
+	//}
+//} else if instance_exists(oFlowerDay) or instance_exists(oSpaceDay) or instance_exists(oDunDay) {
+	//nice_black = c_black;
 //}
 
-wait=0
+nice_black = COLOR_NICE_BLACK;
+
+if room_is(Room100) and (
+  (instance_exists(oPlayer) and oPlayer.y < room_height / 2)
+  or (instance_exists(oDead) and oDead.y < room_height / 2)
+) {
+  nice_black = c_black;
+}
+
+transition_sprite = sTrans;
+transition_sprite_width = sprite_get_width(transition_sprite); 
+transition_sprite_height = sprite_get_height(transition_sprite);
+
+transition_sprites_x = 320 div transition_sprite_width;
+transition_sprites_y = 190 div transition_sprite_height;
+
+transition_sprite_frames = sprite_get_number(transition_sprite);
+transition_sprite_frame_speed = sprite_get_speed(transition_sprite);
+transition_sprite_current_frame = 0;
+
+if layer_exists("Instances_2") {
+  layer = layer_get_id("Instances_2");
+}

@@ -52,35 +52,3 @@ function FrameTimer(_initial_time) constructor {
 		return __time == 0;
 	}
 }
-
-/// @desc A timer system struct that gives the functionality to decrease time by delta time.
-function DeltaTimer(_initial_time): FrameTimer(_initial_time) constructor {
-	__decrease_amount = undefined;
-	__speed = 1;
-	
-	/// @desc Decreases the timer by delta time in real seconds.
-	count = function() {
-		__time = max(__time - ((delta_time / 1000000) * __speed), 0);
-	}
-	
-	/// @ignore
-	set_decrease_amount = function(_decrease_amount) {
-		throw "set_decrease_amount only works on Frame Timers.";
-	}
-	
-	/// @desc Sets the timer speed. The higher the value, fastest is the time decreasing.
-	/// It must be a value equal or greater than 0. Default speed: 1
-	set_speed = function(_speed) {
-		__speed = max(_speed, 0);
-	}
-	
-	/// @ignore
-	get_decrease_amount = function() {
-		throw "get_decrease_amount only works on Frame Timers.";
-	}
-	
-	/// @desc Gets the current speed value
-	get_speed = function() {
-		return __speed;
-	}
-}

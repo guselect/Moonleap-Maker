@@ -7,19 +7,19 @@ startpal = 0;
 palette_index = 0;
 
 if instance_exists(oGrassDay)
-or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.GRASS) {
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_MAKER_STYLE.GRASS) {
 	palette_index = 0;
 } else if instance_exists(oCloudDay)
-or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.CLOUDS) {
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_MAKER_STYLE.CLOUDS) {
 	palette_index = 1;
 } else if instance_exists(oFlowerDay)
-or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.FLOWERS) {
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_MAKER_STYLE.FLOWERS) {
 	palette_index = 2;
 } else if instance_exists(oSpaceDay)
-or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.SPACE) {
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_MAKER_STYLE.SPACE) {
 	palette_index = 3
 } else if instance_exists(oDunDay)
-or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_STYLE.DUNGEON) {
+or (instance_exists(oLevelMaker) and oLevelMaker.selected_style == LEVEL_MAKER_STYLE.DUNGEON) {
 	palette_index = 4;
 }
 

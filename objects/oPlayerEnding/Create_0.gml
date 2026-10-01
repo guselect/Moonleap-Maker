@@ -134,10 +134,6 @@ roomh=room_height
 
 scr_inputcreate();
 
-if !instance_exists(oStar)
-{instance_create_layer(roomw,roomh,layer,oStar)}
-inistar=instance_number(oStar)
-
 idletime=0
 
 timee=0

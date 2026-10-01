@@ -28,5 +28,4 @@ function input_switch_get(){
 	key_start = gamepad_button_check_pressed(_cid,gp_start);
 	key_reset = gamepad_button_check_pressed(_cid,gp_select);
 	key_down_notpressed= gamepad_button_check(_cid,gp_padd) or (gamepad_axis_value(_cid,gp_axislv)>0.6);
-	
 }

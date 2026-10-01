@@ -1,6 +1,6 @@
 drawinfo = point_in_rectangle(oCamera.x + 160, oCamera.y + 90, x, y, x + sprite_width, y + sprite_height);
 
-if instance_exists(oPauseMenu) {
+if instance_exists(oPauseUI) {
 	drawinfo = false;
 }
 

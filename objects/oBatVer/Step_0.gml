@@ -34,7 +34,7 @@ if dir == -1 {
 	sprite_index = sBatUp;
 }
 
-vsp = clamp(vsp, -1, 1);
+vsp = clamp(vsp, -v_fly, v_fly);
 
 if vsp == 0 and has_collided(0, sign(dir), true, [oPermaSpike], [oSnail, oSnailNight, oSnailGray]) {
 	dir *= -1;

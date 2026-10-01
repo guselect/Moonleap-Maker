@@ -1,5 +1,5 @@
 {
-  "$GMWindowsOptions":"",
+  "$GMWindowsOptions":"v2",
   "%Name":"Windows",
   "name":"Windows",
   "option_windows_allow_fullscreen_switching":true,
@@ -7,6 +7,7 @@
   "option_windows_company_info":"Guselect",
   "option_windows_copyright_info":"guselect",
   "option_windows_copy_exe_to_dest":false,
+  "option_windows_d3dswapeffectdiscard":false,
   "option_windows_description_info":"",
   "option_windows_disable_sandbox":true,
   "option_windows_display_cursor":false,
@@ -28,6 +29,7 @@
   "option_windows_start_fullscreen":false,
   "option_windows_steam_use_alternative_launcher":false,
   "option_windows_texture_page":"2048x2048",
+  "option_windows_use_raw_mouse":false,
   "option_windows_use_splash":false,
   "option_windows_version":"2.3.3.0",
   "option_windows_vsync":true,

@@ -8,9 +8,9 @@ mask_index=sBlockRampEditorMask
 sindex = sBlockRampEditor;
 if instance_exists(oLevelMaker) {
 	switch(oLevelMaker.selected_style) {
-		case LEVEL_STYLE.FLOWERS:
-		case LEVEL_STYLE.SPACE:
-		case LEVEL_STYLE.DUNGEON:
+		case LEVEL_MAKER_STYLE.FLOWERS:
+		case LEVEL_MAKER_STYLE.SPACE:
+		case LEVEL_MAKER_STYLE.DUNGEON:
 			sindex = sBlockRampMaskDark;
 			break;
 	}

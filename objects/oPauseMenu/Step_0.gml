@@ -18,7 +18,7 @@ option = menu[option_index];
 
 if (key_start or key_jump_pressed) {
 	if global.settings.enable_sfx {
-	  audio_play_sound(sndUiChange,1,false,0.20,0,1.4);
+	  audio_play_sfx(sndUiChange, false, 0.20, 1.4);
 	}
 	shake_gamepad(0.4, 2);
 	var _action = method(id, option.action);

@@ -1,47 +1,7 @@
-cx += hsp 
-cy += vsp
-var hsp_new = floor(cx);
-var vsp_new = floor(cy);
-cx -= hsp_new;
-cy -= vsp_new;
-
-// Vertical collision
-repeat(abs(vsp_new)) {
-	if has_collided(0, sign(vsp)) {
-		vsp = 0;
-        break;
-	}
-	
-	y += sign(vsp);
-}
-
-// Horizontal collision
-repeat(abs(hsp_new)) {
-	// Going up slopes
-	if place_meeting(x + sign(hsp), y, oSolid)
-	and not place_meeting(x + sign(hsp), y - 1, oSolid) {
-		y -= 1;  
-	}
-	
-	// Going down slopes
-	if vsp >= 0
-	and not place_meeting(x + sign(hsp), y, oSolid)
-	and not place_meeting(x + sign(hsp), y + 1, oSolid)
-	and place_meeting(x + sign(hsp), y + 2, oSolid) {
-		y += 1;
-	}
-	
-	if has_collided(sign(hsp), 0) {
-		hsp = 0;
-		break;
-	}
-	
-	x += sign(hsp);
-}
-
+apply_movement_collision();
 
 if is_at_hub() {
-    trueblack = not (y > 360 and y < 720);
+  trueblack = not (y > 360 and y < 720);
 }
 
 if oCamera.current_skin == 5 {
@@ -71,7 +31,7 @@ if gowhite {
 	var nearp = instance_nearest(x, y, oPortal);
 
 	white += gowhite / 4;
-	grav = 0;
+	v_grav = 0;
 	vsp = 0;
 	hsp = 0;
 	x = smooth_approach(x,nearp.x,0.1)

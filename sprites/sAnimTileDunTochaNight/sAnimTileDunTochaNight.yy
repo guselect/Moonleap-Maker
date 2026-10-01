@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sAnimTileDunTochaNight",
   "bboxMode":0,
   "bbox_bottom":15,
@@ -12,14 +12,14 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"73024e03-f281-44c6-b4ae-790eacab3e66","name":"73024e03-f281-44c6-b4ae-790eacab3e66","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"10b872bf-8138-4830-b030-89de0405b190","name":"10b872bf-8138-4830-b030-89de0405b190","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"59a35517-2872-4439-b6ed-94e4315f5617","name":"59a35517-2872-4439-b6ed-94e4315f5617","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"73024e03-f281-44c6-b4ae-790eacab3e66","name":"73024e03-f281-44c6-b4ae-790eacab3e66","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"10b872bf-8138-4830-b030-89de0405b190","name":"10b872bf-8138-4830-b030-89de0405b190","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"59a35517-2872-4439-b6ed-94e4315f5617","name":"59a35517-2872-4439-b6ed-94e4315f5617","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -77,30 +77,14 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"6c2c480d-a1f2-4c93-a914-f4e09b6ddc43","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"73024e03-f281-44c6-b4ae-790eacab3e66","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"49836bdf-7cfb-4921-823d-a16e51937a15","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"4a91f338-33ff-42c8-b90d-bf97c80f7c01","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"ef60b875-0155-402a-8816-14a8d54dd798","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"0ef287be-658c-4bf6-a96d-468a958b2a0f","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"10b872bf-8138-4830-b030-89de0405b190","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c16b3220-ce1d-4fa1-b007-6547cc2c650a","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"59a35517-2872-4439-b6ed-94e4315f5617","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"ba97db91-fb81-4c0a-8725-f5b84ed19db5","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"d86f8b40-404a-486b-b11b-aba539336304","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"b43e4b0d-fcb3-4178-987f-adf5d75e3f4c","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"6c2c480d-a1f2-4c93-a914-f4e09b6ddc43","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"73024e03-f281-44c6-b4ae-790eacab3e66","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"49836bdf-7cfb-4921-823d-a16e51937a15","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"402c3811-fbdd-4c7f-b41a-2b34cef70808","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"4a91f338-33ff-42c8-b90d-bf97c80f7c01","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"3c1e3f5a-11d9-4bcf-9f28-b62dfaa4ba87","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"ef60b875-0155-402a-8816-14a8d54dd798","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"7b2bb2bd-d837-4ddd-bf46-66f54d22a2df","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"0ef287be-658c-4bf6-a96d-468a958b2a0f","IsCreationKey":false,"Key":4.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"10b872bf-8138-4830-b030-89de0405b190","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"c16b3220-ce1d-4fa1-b007-6547cc2c650a","IsCreationKey":false,"Key":5.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"59a35517-2872-4439-b6ed-94e4315f5617","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"ba97db91-fb81-4c0a-8725-f5b84ed19db5","IsCreationKey":false,"Key":6.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"5ed959f7-19eb-4925-b01d-b0354c9a05bb","path":"sprites/sAnimTileDunTochaNight/sAnimTileDunTochaNight.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"d86f8b40-404a-486b-b11b-aba539336304","IsCreationKey":false,"Key":7.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

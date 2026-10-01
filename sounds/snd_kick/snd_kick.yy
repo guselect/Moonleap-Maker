@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"snd_kick",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":128,
+  "channelFormat":1,
   "compression":1,
+  "compressionQuality":4,
   "conversionMode":0,
-  "duration":1.100952,
+  "duration":1.1009524,
+  "exportDir":"",
   "name":"snd_kick",
   "parent":{
     "name":"Lipinho (gamefile)",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"snd_kick.wav",
-  "type":1,
   "volume":0.6,
 }

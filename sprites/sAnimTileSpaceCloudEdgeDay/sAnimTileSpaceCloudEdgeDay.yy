@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sAnimTileSpaceCloudEdgeDay",
   "bboxMode":0,
   "bbox_bottom":15,
@@ -12,10 +12,10 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
@@ -73,18 +73,10 @@
     "timeUnits":1,
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"7b90e217-8fc1-4378-b1cd-8b91f33fe22a","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"679e86f5-0f00-4332-a617-cab6d794712d","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"3630e722-5cd0-43bf-84dd-d737f4daa111","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
-            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"96919d01-08d6-45f3-95f3-1d29cc0a06a8","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"cf1e4bb5-e179-4cba-ac1d-28fd00f105b7","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"7b90e217-8fc1-4378-b1cd-8b91f33fe22a","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"6bc55f32-5762-4e5e-80f6-a9a47c14fb24","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"679e86f5-0f00-4332-a617-cab6d794712d","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"fba73bdf-79db-4163-85ff-4a4bb54d3637","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"3630e722-5cd0-43bf-84dd-d737f4daa111","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+            {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{"0":{"$SpriteFrameKeyframe":"","Id":{"name":"e88b5a29-adca-4753-a1ef-c72a32e908c7","path":"sprites/sAnimTileSpaceCloudEdgeDay/sAnimTileSpaceCloudEdgeDay.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},},"Disabled":false,"id":"96919d01-08d6-45f3-95f3-1d29cc0a06a8","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

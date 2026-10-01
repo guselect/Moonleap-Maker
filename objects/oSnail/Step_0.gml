@@ -24,14 +24,21 @@ if ani > 0 {
 if not night {
 	if vsp == 0 
 	and abs(image_xscale) == 1
-	and (not has_collided(-(sprite_width / 2), 2, true, [oPermaSpike]) 
+	and (
+    not has_collided(-(sprite_width / 2), 2, true, [oPermaSpike]) 
 		or has_collided(-(image_xscale * 4), 0, true, [oPermaSpike])
 	) {
 		image_xscale *= -1;
 	}
 
-	hsp -= image_xscale * 0.075;
-	hsp = clamp(hsp, -0.55, 0.55);
+	if abs(vsp) > 0 {
+    hsp = 0;
+  } else {
+    hsp -= image_xscale * 0.075;
+    hsp = clamp(hsp, -v_move, v_move);  
+  }
+} else {
+  hsp = 0;
 }
 
 var nearmush = instance_place(x, y, oMush);
@@ -100,7 +107,7 @@ if not night and vsp == 0 {
 			xindex = 1;
 		}
 	
-		if hsp >= -0.5 and hsp <= -0.125	{
+		if hsp >= -0.5 and hsp <= -0.125 {
 			sindex = sSnailTurn;
 			iindex = 2;
 			xindex = 1;

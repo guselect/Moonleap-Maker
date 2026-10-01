@@ -1,13 +1,9 @@
+init_movement_variables();
+
 levelnumb = 0;
 maxspd = 0.45;
 
 mynight=true
-
-hsp = 0;
-vsp = 0;
-
-cx = 0;
-cy = 0;
 
 xx = 0;
 yy = 0;
@@ -51,7 +47,7 @@ drawy=y
 
 prehsp=hsp
 
-set_pallete_index();
+set_palette_index_by_level_style();
 
 is_stuck = function() {
 	return has_collided(2, 0) and has_collided(-2, 0);

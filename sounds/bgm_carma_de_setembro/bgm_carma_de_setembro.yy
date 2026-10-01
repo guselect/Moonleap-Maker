@@ -1,15 +1,17 @@
 {
-  "$GMSound":"",
+  "$GMSound":"v2",
   "%Name":"bgm_carma_de_setembro",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
-  "bitRate":96,
+  "channelFormat":0,
   "compression":1,
+  "compressionQuality":2,
   "conversionMode":0,
   "duration":192.3309,
+  "exportDir":"",
   "name":"bgm_carma_de_setembro",
   "parent":{
     "name":"Libraries",
@@ -20,6 +22,5 @@
   "resourceVersion":"2.0",
   "sampleRate":11025,
   "soundFile":"bgm_carma_de_setembro.mp3",
-  "type":0,
   "volume":1.0,
 }

@@ -1,26 +1,17 @@
-/// @description Insert description here
-// You can write your code in this editor
-image_index=random_range(0,1)
-hsp=0
-vsp=0
-neww=false
-drawscale=1
-night=false
+event_inherited();
 
-// new movement code
+v_flee = 1;
+v_chase = 1.125;
+v_max_fall = 4;
+v_grav = 0.125;
 
-jumped = false;
-landed = false;
+distance_x_to_flee = 40;
+distance_y_to_flee = 10;
 
-platform_target = 0;
-wall_target     = 0;
+distance_x_to_chase = 128;
+distance_y_to_chase = 32;
 
-on_ground_var = has_collided(0, 1);
+distance_x_to_touch_player = 4;
 
-// Used for sub-pixel movement
-cx = 0;
-cy = 0;
-
-c_left    = place_meeting(x - 1, y, oSolid);
-c_right   = place_meeting(x + 1, y, oSolid);
-sticking = false
+drawscale = image_xscale;
+image_index = random_range(0, 1);

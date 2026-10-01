@@ -6,23 +6,23 @@ switch(wing) {
 	case -1:
 		_xx = x - 17;
 		_yy = y - 12;
-		draw_sprite_part_ext(sprite_index, image_index + 2, 9, 0, sprite_width, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
+		draw_sprite_wrap_part_ext_room(sprite_index, image_index + 2, 9, 0, sprite_width, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
 		break;
 		
 	case 0:
 		_xx = x - 17;
 		_yy = y - 12;
-		draw_sprite_part_ext(sprite_index, image_index + 1, 9, 0, sprite_width - 18, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
+		draw_sprite_wrap_part_ext_room(sprite_index, image_index + 1, 9, 0, sprite_width - 18, sprite_height, _xx + 9, _yy, image_xscale, image_yscale, c_white, 1);
 		break;
 		
 	case 1:
 		_xx = x - 17;
 		_yy = y - 12;
-		draw_sprite_part_ext(sprite_index, image_index, 0, 0, sprite_width - 9, sprite_height, _xx, _yy, image_xscale, image_yscale, c_white, 1);
+		draw_sprite_wrap_part_ext_room(sprite_index, image_index, 0, 0, sprite_width - 9, sprite_height, _xx, _yy, image_xscale, image_yscale, c_white, 1);
 		break;
 		
 	default:
-		draw_self_perfect();
+		draw_self_wrap_perfect_room();
 		break;
 }
 

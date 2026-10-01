@@ -1,4 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
-if !instance_exists(oPlayer) {exit;}
-scr_moving_plat()
+if not instance_exists(oPlayer) {exit;}
+
+apply_movement_collision();
