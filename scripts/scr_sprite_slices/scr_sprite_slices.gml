@@ -1,4 +1,5 @@
 #macro SPRITE_SLICES_OTHER_SOLIDS [object_index, oSolid]
+#macro SPRITE_SLICES_EXCEPTION_SOLIDS [oLady, oLadyGray, oLadyVer, oSnail, oSnailNight, oSnailGray, oBat, oBatVer, oGrayOrb, oSolidInv]
 
 /// @desc This constructor defines a struct of the parts of a sprite to be drawn by a `SpriteSlices` system struct.
 /// @param {real} _left The left position of the area of the sprite to be drawn.
@@ -48,40 +49,40 @@ function SpriteSlices(_obj) constructor {
       // Facing up
       case 0:
         with(obj) {
-          other._neighbors.left = place_meeting(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.right = place_meeting(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.top = place_meeting(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.bottom = place_meeting(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS);
+          other._neighbors.left = other.__check_collision_and_ignore(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.right = other.__check_collision_and_ignore(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.top = other.__check_collision_and_ignore(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.bottom = other.__check_collision_and_ignore(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
         }
       break;
       
       // Facing left
       case 90:
         with(obj) {
-          other._neighbors.left = place_meeting(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.right = place_meeting(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.top = place_meeting(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.bottom = place_meeting(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
+          other._neighbors.left = other.__check_collision_and_ignore(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.right = other.__check_collision_and_ignore(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.top = other.__check_collision_and_ignore(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.bottom = other.__check_collision_and_ignore(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
         }
       break;
       
       // Facing down
       case 180:
         with(obj) {
-          other._neighbors.left = place_meeting(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.right = place_meeting(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.top = place_meeting(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.bottom = place_meeting(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS);
+          other._neighbors.left = other.__check_collision_and_ignore(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.right = other.__check_collision_and_ignore(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.top = other.__check_collision_and_ignore(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.bottom = other.__check_collision_and_ignore(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
         }
       break;
       
       // Facing right
       case 270:
         with(obj) {
-          other._neighbors.left = place_meeting(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.right = place_meeting(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.top = place_meeting(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
-          other._neighbors.bottom = place_meeting(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS);
+          other._neighbors.left = other.__check_collision_and_ignore(x, y - _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.right = other.__check_collision_and_ignore(x, y + _dist, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.top = other.__check_collision_and_ignore(x + _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
+          other._neighbors.bottom = other.__check_collision_and_ignore(x - _dist, y, SPRITE_SLICES_OTHER_SOLIDS, SPRITE_SLICES_EXCEPTION_SOLIDS);
         }
       break;
     }
@@ -159,4 +160,37 @@ function SpriteSlices(_obj) constructor {
       sprite_set_nineslice(sprite, _nineslice);
     }
   };
+  
+  __check_collision_and_ignore = function(_x, _y, _obj, _obj_ignore = []) {
+    with (obj) {
+      var _collisions = ds_list_create(),
+          _collisions_count = instance_place_list(_x, _y, _obj, _collisions, false),
+          _result = false;
+    
+      for (var i = 0; i < _collisions_count; i++) {
+        var _obj_inst = ds_list_find_value(_collisions, i),
+            _ignored = false;
+        
+        for (var j = 0; j < array_length(_obj_ignore); j++) {
+          var _ignore_object = _obj_ignore[j];
+          
+          if _obj_inst.object_index == _ignore_object
+          or object_is_ancestor(_obj_inst.object_index, _ignore_object)
+          {
+            _ignored = true;
+            break;
+          }
+        }
+        
+        if not _ignored {
+          _result = true;
+          break;
+        }
+      }
+       
+      ds_list_destroy(_collisions);
+       
+      return _result;
+    }
+  }
 }
