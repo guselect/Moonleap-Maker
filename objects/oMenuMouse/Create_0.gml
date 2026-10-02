@@ -50,7 +50,7 @@ __update_mouse_previous_position = function() {
 };
 
 __count_mouse_screen_time = function() {
-  if __has_moved() {
+  if __has_moved() or mouse_check_button(mb_any) or mouse_wheel_down() or mouse_wheel_up() {
     _mouse_screen_time_frames = _mouse_screen_time_frames_max;
     return;
   }
